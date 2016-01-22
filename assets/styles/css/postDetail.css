@@ -2,11 +2,11 @@
   font-weight: 900;
 }
 
-.card-header {
+.card-header.post-img {
     margin-top: -20px;
 }
 
-.card-header > img {
+.card-header.post-img > img {
   vertical-align: middle;
   height: 200px;
   width: 350px;
@@ -42,6 +42,27 @@ span.post-price.bold{
   margin-left: 8px;
 }
 
-.item-media {
-    margin-left: -25px;
+.item-media.title-items{
+  margin-left: -25px;
+}
+
+.item-media.email-user{
+  margin-left: -25px;
+}
+
+/* postDetail page faviraite-button */
+
+.favbox {
+  /*position: absolute;*/
+  top: 30px;
+  z-index: 9999;
+  padding: 7.6px;
+  /*background-color: #36b6ff;*/
+  color: white;
+}
+.favbox > a > i:hover {
+  color: red;
+}
+.favbox > a > i {
+  color: white;
 }

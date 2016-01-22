@@ -24,21 +24,29 @@
           .list-block.cards-list
             ul
              li.card
-               .card-header 
+               .card-header.post-img
                   img(src=post.gallery, data-hash='1', alt='')    
                .card-content
                 .card-content-inner
                   span.post-title.bold #{post.title}  
                   span.post-price.bold $#{post.price}
+                  span
+                   .detailFavbox
+                     .favbox
+                       a.favboxa(data-id="#{post.id}")
+                         |                            
+                         -if(isFav==true)
+                           i.fa.fa-lg.fa-heart(style="color:red")
+                         -else
+                           i.fa.fa-lg.fa-heart()
                   //- p.post-content.bold #{post.content||'no description now.'} 
-                  //- p.post-price.bold $#{post.price}
                   p.post-itemname.bold #{post.itemname}
                 .list-block
                   ul
                     li
                       a.item-link.item-content(href='#')
                         img(src='/img/phone.png', alt='phone', style="height: auto;")
-                        .item-media
+                        .item-media.title-items
                           i.icon.icon-f7
                         .item-inner
                           .item-title.bold #{post.content||'no description now.'}
@@ -46,7 +54,7 @@
                       li
                         a.item-link.item-content(href='#')
                           img(src='/img/mail.png', alt='mail', style="height: auto;")
-                          .item-media
+                          .item-media.email-user
                             i.icon.icon-f7
                           .item-inner
                             .item-title.bold #{post.email}
