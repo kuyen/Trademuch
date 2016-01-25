@@ -23,7 +23,7 @@ block body
               .toolbar-inner
                 a.mapView.tab-link.active(href='#mapView')
                   img(src='/img/map.png', alt='map')
-                  .activeShow
+                  //- .activeShow
                 a.searchView.tab-link(href='#searchView')
                   img(src='/img/search.png', alt='search')
                 a.storyView.link(href='/story')
@@ -153,10 +153,11 @@ block body
                     //-     .card-footer
                     //-       a.link.like(href='#!', data-id='#{post.id}') Like
                     //-       a.link(href='/postDetailf7/#{post.id}', data-id='#{post.id}') Detail
-                      .card
-                        .card-footer
-                          a.link.backTop(href='#!')
-                          a.link.backTop(href='#!') back to top
+                      //- .card
+                      //-   .card-footer
+                      //-     a.link.backTop(href='#!')
+                      //-     a.link.backTop(href='#!') back to top
+                  |  
                   -if(loginState)
                     #profileView.tab
                       .page-content
@@ -202,12 +203,12 @@ block body
                                                img(src=post.dataValues.images, width='80')
                                              .item-inner
                                                .item-title-row
-                                                 .item-title #{post.dataValues.title}
+                                                 .item-title 
+                                                   a.link(href='/postDetailf7/#{post.dataValues.id}') #{post.dataValues.title}
                                                .item-subtitle NT$#{post.dataValues.price}
                                          .swipeout-actions-right
                                            a.action2.bg-blue.Delete(href='#', data-id='#{post.dataValues.id}')
                                              img(src='/img/deletelike.png', alt='deletelike', style="height: 35px;")
-                                   
                          
 
   //- p#back-top

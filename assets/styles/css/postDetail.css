@@ -2,10 +2,11 @@
   font-weight: 900;
 }
 
-.card-header {
+.card-header.post-img {
     margin-top: -20px;
 }
-/*
+
+  /*
 .card-header > img {
   vertical-align: middle;
   height: 60vw;
@@ -25,10 +26,10 @@
   margin-left: -35px;
 }
 
-p.post-itemname.bold{
+span.post-itemname.bold{
   color: #ADADAD;
   margin-top: 3px;
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 span.post-title.bold{
@@ -41,6 +42,11 @@ span.post-price.bold{
   margin-left: 8px;
 }
 
-#postDetailF7.item-media {
-    margin-left: -25px;
+
+.item-media.title-items{
+  margin-left: -25px;
+}
+
+.item-media.email-user{
+  margin-left: -25px;
 }

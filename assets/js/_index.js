@@ -67,6 +67,25 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
     }
   }); // end click
 
+  /*hobby page back to top */
+
+  // fade in #back-top
+  $(".page-content").scroll(function() {
+    if ($(this).scrollTop() > 100) {
+      $('#back-top').fadeIn();
+    } else {
+      $('#back-top').fadeOut();
+    }
+  });
+
+  // scroll body to 0px on click
+  $('#back-top').click(function() {
+    $(".page-content").animate({
+      scrollTop: 0
+    }, 400);
+    return false;
+  });
+
 }); // end hobbyPage
 
 //
@@ -248,8 +267,10 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     $("#favoriteView").load("/favorites");
   });
 
-  $$("a.searchView.tab-link").click(function() {
-    $$("#searchView > .page-content").addClass("active");
+  $$("a.searchView.tab-link").click(function(){
+    $$( "#searchView > .page-content" ).addClass("active");
+    $$( "#favoriteView  > .page-content" ).removeClass("active");
+    $$( "#profileView > .page-content" ).removeClass("active");
   });
 
   $$("a.favoriteView.tab-link").click(function() {
@@ -306,7 +327,9 @@ $$(document).on('ajaxComplete', function() {
 /*hobby page back to top */
 
 // fade in #back-top
-$(".page-content.active").scroll(function() {
+// $(".page-content.active").scroll(function() {
+$(document).delegate(".page-content.active","scroll", function() {
+  console.log("sadasd");
   if ($(this).scrollTop() > 100) {
     $('#back-top').fadeIn();
   } else {
@@ -315,7 +338,8 @@ $(".page-content.active").scroll(function() {
 });
 
 // scroll body to 0px on click
-$('#back-top').click(function() {
+// $('#back-top').click(function() {
+$(document).delegate("#back-top","scroll", function() {
   $(".page-content.active").animate({
     scrollTop: 0
   }, 400);

@@ -26,16 +26,16 @@ block body
                           | #{categorys[index].title}
                         input(type='checkbox', name='hobby', value=categorys[index].id, style="display: none;")
                         img.category(src=categorys[index].pic)
-                        img.checked(src='img/checked.png' style="display: none;")
+                        img.checked(src='img/checked.png', style="display: block;")
                       -if(index+1 < categorys.length)
                         .col-100.tablet-50.hobbyItem 
                           span
                             | #{categorys[index+1].title}
                           input(type='checkbox', name='hobby', value=categorys[index+1].id, style="display: none;")
                           img.category(src=categorys[index+1].pic)
-                          img.checked(src='img/checked.png' style="display: none;")
+                          img.checked(src='img/checked.png' style="display: none;")     
                   -index++
-               p#back-top(style="display:none")
+               p#back-top
                  a(href='#top')
                   span
                   | Top     
