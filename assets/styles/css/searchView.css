@@ -1,0 +1,52 @@
+/* ----------- profile page --------------------- */
+
+#searchView > .page-content::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
+#searchView > .page-content {
+  margin: 0px auto;
+  margin-bottom: 60px;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+/* ----------- result list ---------------------- */
+
+ul#search-result {
+  margin-top: 120px;
+  margin-bottom: -90px;
+}
+#formSearch.searchbar {
+  position: fixed;
+  z-index: 999;
+  margin-top: -5px;
+}
+.item-title > a {
+  color: #000;
+  font-weight: bold;
+}
+
+/* ----------- suggestion search keyword -------- */
+
+#searchView > .categories {
+  margin: 0;
+  position: fixed;
+  z-index: 999;
+  top: 140px;
+  padding: 6px;
+  width: 100%;
+  background-color: #fff;
+  font-weight: lighter;
+}
+.suggestClicked {
+  background-color: #007aff;
+  color: white;
+}
+#searchView > .categories > .button:hover {
+  background-color: #007aff;
+  color: white;
+}
+#searchView a:hover, a:focus {
+  color: white;
+  font-weight: 900;
+}

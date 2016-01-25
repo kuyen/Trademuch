@@ -1,0 +1,15 @@
+.bold {
+  font-weight: 900;
+}
+.black {
+  color: #000;
+}
+.top {
+  top: 0;
+}
+.center {
+  text-align: center;
+}
+.right {
+  right: 0px;
+}
