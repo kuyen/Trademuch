@@ -251,7 +251,7 @@ div.favbox {
 }
 }
 div.favbox > a > i:hover {
-  color: red;
+  color: #ff5757;
 }
 div.favbox > a > i {
   /*border-color:#ff5757; border-style:solid;*/

@@ -43,7 +43,7 @@ module.exports = {
       let result = await new Promise((done) => {
         search.execute(function(err, response) {
             if (err) throw err
-            var pic = response.images[0].display_sizes[0].uri || ' '
+            var pic = response.images[0].display_sizes[0].uri || ' ';
             console.log(pic);
             done(pic);
         })

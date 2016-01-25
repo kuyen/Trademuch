@@ -37,11 +37,10 @@
                         a.favboxa(data-id="#{post.id}")
                           |                            
                           -if(isFav==true)
-                            i.fa.fa-lg.fa-heart(style="color:red")
+                            i.fa.fa-lg.fa-heart(style="color:#ff5757")
                           -else
-                            i.fa.fa-lg.fa-heart()
-                  //- p.post-content.bold #{post.content||'no description now.'} 
-                  p.post-itemname.bold #{post.itemname}
+                            i.fa.fa-lg.fa-heart() 
+                  span.post-itemname.bold #{post.itemname}
                 .list-block
                   ul
                     li
@@ -50,7 +49,7 @@
                         .item-media.title-items
                           i.icon.icon-f7
                         .item-inner
-                          .item-title.bold #{post.content||'no description now.'}
+                          .post-content.bold #{post.content||'no description now.'}
                     -if(post.email)
                       li
                         a.item-link.item-content(href='#')

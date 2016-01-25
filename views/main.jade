@@ -198,7 +198,8 @@ block body
                                             img(src='http://lorempixel.com/80/60/technics/#{allPosts[random].id % 9}', width='80')
                                           .item-inner
                                             .item-title-row
-                                              .item-title #{allPosts[random].title}
+                                              .item-title 
+                                                a.link(href='/postDetailf7/#{allPosts[random].id}') #{allPosts[random].title}
                                             .item-subtitle #{allPosts[random].itemname}
                                       .swipeout-actions-right
                                         a.action2.bg-red.Delete(href='#', data-id='#{allPosts[random].id}')
