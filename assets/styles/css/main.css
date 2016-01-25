@@ -25,7 +25,7 @@ div.no-buttom-spaces {
 
 /* toolbar and tab */
 
-.toolbar {
+.mainToolbar {
   height: 64px;
   background-color: #212121 !important;
 }
@@ -209,7 +209,7 @@ p.card-desc > img {
 
 /* favorite no login & no favorite*/
 
-div#favoriteView {
+/*div#favoriteView {
   margin-bottom: 72px;
 }
 p.fav-no-item {
@@ -227,23 +227,37 @@ p.fav-no-log-in {
 }
 p.fav-no-item > img {
   width: 25%;
+}*/
+
+/* favorite no login & no favorite*/
+.item-title-row.text-alert{
+  margin-top: 16px;
 }
+
+
 
 /* faviraite-button */
 
 div.favbox {
-  /*position: absolute;*/
+  position: absolute;
   top: 30px;
   z-index: 9999;
   padding: 7.6px;
-  background-color: #36b6ff;
   color: white;
+  margin-left: 230px;
+  margin-top: -6px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #ff5757;
+}
 }
 div.favbox > a > i:hover {
   color: red;
 }
 div.favbox > a > i {
+  /*border-color:#ff5757; border-style:solid;*/
   color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #ff5757;
 }
 
 /* 調整 for listView的favbox */

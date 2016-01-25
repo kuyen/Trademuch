@@ -18,9 +18,9 @@
                     .item-subtitle #{favorite.Item.itemname}
               .swipeout-actions-right
                 //- a.action1.bg-pink.like(href='#', data-id='#{favorite.id}') Like
-                a.action1.bg-pink.detail(href='/postDetailf7/#{favorite.id}', data-id='#{favorite.id}')
+                a.action1.bg-blue.detail(href='/postDetailf7/#{favorite.id}', data-id='#{favorite.id}')
                   img(src='/img/detail.png', alt='addlike', style="height: 30px;")
-                a.action2.bg-blue.Delete(href='/postDetailf7/#{favorite.id}', data-id='#{favorite.id}')
+                a.action2.bg-pink.Delete(href='/postDetailf7/#{favorite.id}', data-id='#{favorite.id}')
                   img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
   .card
     .card-header You may like...
@@ -35,11 +35,11 @@
                   .item-content
                     .item-media
                       //- img(src=post.gallery[0], width='80')
-                      img(src='http://lorempixel.com/80/60/technics/#{allPosts[random].id % 9}', width='80')
+                      img(src=allPosts[random].gallery[0], width='80')
                     .item-inner
                       .item-title-row
                         .item-title #{allPosts[random].title}
-                      .item-subtitle #{allPosts[random].itemname}
+                      .item-subtitle NT$#{allPosts[random].price}
                 .swipeout-actions-right
                   a.action1.bg-blue.like(href='#', data-id='#{allPosts[random].id}')
                     img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
@@ -77,7 +77,7 @@
              .item-media
                img(src='/img/blockHeart.png', width='80')
              .item-inner
-               .item-title-row
+               .item-title-row.text-alert
                  .item-title Opps..
                .item-subtitle You have no favorite item yet
     .card
@@ -93,11 +93,11 @@
                     .item-content
                       .item-media
                         //- img(src=post.gallery[0], width='80')
-                        img(src='http://lorempixel.com/80/60/technics/#{allPosts[random].id % 9}', width='80')
+                        img(src=allPosts[random].gallery[0], width='80')
                       .item-inner
                         .item-title-row
-                          .item-title #{allPosts[random].title}
-                        .item-subtitle #{allPosts[random].itemname}
+                          .item-title  #{allPosts[random].title}
+                        .item-subtitle NT$#{allPosts[random].price}
                   .swipeout-actions-right
                     a.action1.bg-blue.like(href='#', data-id='#{allPosts[random].id}')
                       img(src='/img/addlike.png', alt='addlike', style="height: 30px;")

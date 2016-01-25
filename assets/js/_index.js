@@ -207,6 +207,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   $$("a.searchView.tab-link").click(function(){
     $$( "#searchView > .page-content" ).addClass("active");
+    $$( "#favoriteView  > .page-content" ).removeClass("active");
+    $$( "#profileView > .page-content" ).removeClass("active");
   });
 
   $$("a.favoriteView.tab-link").click(function(){
