@@ -27,7 +27,11 @@ let self = module.exports = {
       {title: '預售代購', pic: '/img/hobby/sale.png'}
     ];
     await Like.bulkCreate(like);
-    await self.testData();
+    if (sails.config.environment === 'development' || sails.config.environment === 'test') {
+      let user = await User.create({username: 'testuser', email: 'test@gmail.com'});
+      let passport = await Passport.create({provider: 'local', password: 'testuser'});
+      await self.testData();
+    }
   },
 
   testData: async () => {
