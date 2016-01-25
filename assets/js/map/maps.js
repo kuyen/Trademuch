@@ -922,6 +922,11 @@ function animateOSMMarkers(map, loadedMarkers, json) {
 // Redraw map after item list is closed --------------------------------------------------------------------------------
 
 function redrawMap(mapProvider, map) {
+  // todo // kent
+  // hotfix for turn-off toggle-navigation and result listView
+  $('.map-canvas').toggleClass('results-collapsed');
+  $('.toggle-navigation').hide();
+
   $('.map .toggle-navigation').click(function() {
     $('.map-canvas').toggleClass('results-collapsed');
     $('.map-canvas .map').one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function() {
