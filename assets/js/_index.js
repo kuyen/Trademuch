@@ -48,6 +48,23 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
     $$('#nextSetp').attr("disabled", true);
   }
 
+  // 1. random 3 valuse
+  //    (1~4)x1, (4-18)x2
+  // 2. foreach these 3 valuse
+  // 3. $$('.hobbyItem').click()
+
+  $$( '.hobbyItem').each(function() {
+    var sum= "";
+    var one= Math.floor(Math.random()* 4)+1);
+    var two= Math.floor(Math.random()* (18-4)+1);
+    console.log(==>one==,one);
+  $$( '.hobbyItem').click(function(){
+    if($$(this).find('.checked').show();
+    $$(this).find('input').prop("checked", true);
+    });
+  });
+  //
+
   $$('.hobbyItem').click(function() {
     if ($$(this).find('input').prop("checked")) {
       $$(this).find('.checked').hide();
@@ -267,10 +284,10 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     $("#favoriteView").load("/favorites");
   });
 
-  $$("a.searchView.tab-link").click(function(){
-    $$( "#searchView > .page-content" ).addClass("active");
-    $$( "#favoriteView  > .page-content" ).removeClass("active");
-    $$( "#profileView > .page-content" ).removeClass("active");
+  $$("a.searchView.tab-link").click(function() {
+    $$("#searchView > .page-content").addClass("active");
+    $$("#favoriteView  > .page-content").removeClass("active");
+    $$("#profileView > .page-content").removeClass("active");
   });
 
   $$("a.favoriteView.tab-link").click(function() {
@@ -327,19 +344,23 @@ $$(document).on('ajaxComplete', function() {
 /*hobby page back to top */
 
 // fade in #back-top
-// $(".page-content.active").scroll(function() {
-$(document).delegate(".page-content.active","scroll", function() {
-  console.log("sadasd");
-  if ($(this).scrollTop() > 100) {
-    $('#back-top').fadeIn();
-  } else {
-    $('#back-top').fadeOut();
-  }
+$(".page-content.active").scroll(function() {
+  // $("body").delegate(".page-content.active","scroll", function() {
+  console.log("$(this).scrollTop()>",$(this).scrollTop());
+    if ($(this).scrollTop() > 100) {
+      $('#back-top').fadeIn();
+      console.log("fadeIn");
+    } else {
+      $('#back-top').fadeOut();
+      console.log("fadeOut");
+    }
+
 });
 
 // scroll body to 0px on click
-// $('#back-top').click(function() {
-$(document).delegate("#back-top","scroll", function() {
+$('#back-top').click(function() {
+
+  // $(document).delegate("#back-top","scroll", function() {
   $(".page-content.active").animate({
     scrollTop: 0
   }, 400);
