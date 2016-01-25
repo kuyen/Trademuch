@@ -43,11 +43,11 @@ block body
                   a.profileView.tab-link(href='#profileView')
                     img(src='/img/login.png', alt='profile')
             |         
-            .no-buttom-spaces.page-content
+            .page-content(style="padding-bottom:72px")
               .content-block(style="height: 100%; padding: 0px; margin: 72px 0 -72px 0;")
-                #mainTab.tabs(style="height: calc(100% - 70px*1);")
+                #mainTab.tabs(style="height: calc(100% - 72px*1);")
                   #mapView.tab.active(style="height: 100%;")
-                    iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0;")
+                    iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0; overflow:hidden; ", scrolling="no")
                   |               
                   #favoriteView.tab
                   #searchView.tab
