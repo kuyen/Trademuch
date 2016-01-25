@@ -1,10 +1,7 @@
-.bold{
-  font-weight: 900;
+.card-header.post-img {
+  margin-top: -20px;
 }
 
-.card-header {
-    margin-top: -20px;
-}
 /*
 .card-header > img {
   vertical-align: middle;
@@ -14,33 +11,31 @@
   margin-bottom: 18px;
 }*/
 
-.card-content-inner > p{
+.card-content-inner > p {
   margin-left: 10px;
   font-size: 16px;
 }
-
-#postDetailF7 a.item-link.item-content > img{
+#postDetailF7 a.item-link.item-content > img {
   height: 19px;
   width: 19px;
   margin-left: -35px;
 }
-
-p.post-itemname.bold{
+span.post-itemname.bold {
   color: #ADADAD;
   margin-top: 3px;
-  margin-left: 15px;
+  margin-left: 16px;
 }
-
-span.post-title.bold{
+span.post-title.bold {
   font-size: 25px;
   margin-left: 9px;
 }
-
-span.post-price.bold{
+span.post-price.bold {
   font-size: 20px;
   margin-left: 8px;
 }
-
-#postDetailF7.item-media {
-    margin-left: -25px;
+.item-media.title-items {
+  margin-left: -25px;
+}
+.item-media.email-user {
+  margin-left: -25px;
 }

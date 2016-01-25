@@ -1,54 +1,60 @@
-/*profile page*/
+/* ------------ profile page ------------*/
 
-.bold {
-  font-weight: 900;
+#profileView .content-block {
+  overflow: hidden;
 }
-.black{
-  color: #000;
+#profileView > .page-content {
+  margin-top: -60px;
+  margin-bottom: 60px;
 }
+
+/* ------------ picture ---------------- */
+
 .profile-picture {
-  margin-top: -50px;
-  margin-left: 10%;
-  display: inline-block;
-  position: absolute;
+  padding-right: 5%;
+  float: right;
+}
+.profile-picture > .light-box {
   width: 100px;
   height: 100px;
   overflow: hidden;
   border-radius: 60%;
 }
-.profile-picture > img {
+.profile-picture > .light-box > img {
   width: auto;
   height: 100%;
-  margin-left: -18px;
+  margin-left: -15%;
 }
+
+/* ------------ detail ----------------- */
+
 .profile-detail {
-  margin-bottom: 50px;
-  margin-left: -40px;
-  margin-top: -37px;
-  margin-right: 35px;
   text-align: center;
+  padding-top: 15px;
+  width: 80%;
+  float: left;
 }
 .profile-detail > span.name {
   font-size: 26px;
   color: #01579b;
 }
-.profile-detail > div span {
-  font-size: 17px;
+.profile-detail > .datails {
+  /*font-size: 17px;*/
 }
-
-/*#profileView .content-block{
-  overflow:hidden;
-}*/
-
-.row {
+.profile-detail > .datails > .row {
   font-size: 18px;
   margin: 0;
 }
+.profile-detail > .datails > div span {
+  font-size: 17px;
+}
+
+/* ------------ description ------------ */
 
 .profile-description {
   font-size: 14px;
-  padding-left: 16px;
   height: 40px;
+  padding-left: 8%;
   padding-top: 11px;
-  margin-top: -12px;
+  margin-top: 20px;
 }
