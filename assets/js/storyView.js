@@ -265,7 +265,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
       var formData = new FormData($('form')[1]);
       console.log("formData", formData);
       $$.ajax({
-        url: "/api/uploadImage",
+        url: "/api/uploadImageBase64",
         type: "POST",
         data: formData,
         cache: false,
@@ -296,7 +296,7 @@ $(function() {
   // using delegate to support multi-fileinput
   $("body").delegate("input[name='image']", "change", function() {
 
-    var input = $(this);
+    var input = $("input[name='image'");
     console.log(input);
 
     // shows count
@@ -323,11 +323,9 @@ $(function() {
           var jpegBase64 = canvas.toDataURL("image/jpeg");
 
           console.log('=== jpegBase64 ===', jpegBase64);
-
+          $("input[name='picBase64']").val(jpegBase64);
       }
       img.src = event.target.result;
-
-
 
 
       // console.log("e.target.result=>", e.target.result);
