@@ -4,6 +4,13 @@
 $$(".categories .button").click(function() {
   var keyword = $$(this).attr('data-keyword');
   $(".searchbar-input > input").val(keyword);
+  // reset click state
+  var length = $$(".categories > .button").length;
+  for(var i=0;i<=length;i++){
+    $($(".categories > .button")[i]).removeClass('suggestClicked');
+  }
+  // give the one be clicked new state.
+  $(this).addClass('suggestClicked');
   goSearch(keyword);
 });
 
