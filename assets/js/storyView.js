@@ -296,7 +296,7 @@ $(function() {
   // using delegate to support multi-fileinput
   $("body").delegate("input[name='image']", "change", function() {
 
-    var input = $("input[name='image'");
+    var input = $("input[name='image']");
     console.log(input);
 
     // shows count
