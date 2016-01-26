@@ -38,10 +38,11 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   console.log("hobbyPage!!!!!!!!");
+
   var storedData = myApp.formToJSON('#hobbySelect');
   myApp.formStoreData('hobbySelect', storedData);
   $$("#nextSetp").attr("data-context", JSON.stringify(storedData));
-  console.log($$("#nextSetp").attr("data-context"));
+  //console.log($$("#nextSetp").attr("data-context"));
   if (storedData.hobby.length > 0) {
     $$('#nextSetp').removeAttr("disabled");
   } else {
@@ -66,6 +67,16 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
       $$('#nextSetp').attr("disabled", true);
     }
   }); // end click
+
+  // random selection
+  var nums = [];
+  for (var i = 0; i <= 8; i++) {
+    nums[i] = Math.floor(Math.random() * (18 - 4) + 1);
+    if (i == 8) nums[i + 1] = Math.floor(Math.random() * 4) + 1;
+  }
+  $$.each(nums, function(index, num) {
+    $('.hobbyItem')[num].click();
+  });
 
   /*hobby page back to top */
 
