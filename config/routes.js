@@ -82,7 +82,6 @@
    // image
    'get /testUpload': 'ImageController.index',
    'post /api/uploadImage': 'ImageController.upload',
-   'post /api/uploadImageBase64': 'ImageController.uploadBase64',
 
    // search
    'get /search': {

@@ -23,16 +23,14 @@ window.mainView = mainView;
 
 
 $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
-  // var id = $$("input#itemId").val();
-  // $$("iframe#item").src = "/postDetail/" + id;
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+
+  var id = $$("input#itemId").val();
+  $("#postDetailF7 > .page-content").load("/postDetail/" + id);
+  $$(".back.link").on("click", function() {
+    var a = document.getElementById("facebook-jssdk");
+    a.parentNode.removeChild(a);
+  });
+
 });
 
 

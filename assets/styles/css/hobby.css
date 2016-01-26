@@ -119,7 +119,8 @@ img.category {
   font-size: 25px;
 }
 #storyModeChoose {
-  height: 100% text-align: center;
+  height: 100%;
+  text-align: center;
 }
 #storyModeChoose .row {
   height: 50%;
@@ -128,11 +129,20 @@ img.category {
   height: 100%;
 }
 #storyModeChoose img {
-  height: 100%;
   /*display:inline-block;*/
+  height: 100%;
   width: 100%;
-  padding-top: 4px;
+  padding-top:1px;
 }
+
+.col-100.selectMode.give{
+  border-width: 0px;
+}
+
+.col-100.selectMode.get{
+  padding-bottom: 2px;
+}
+
 ::-webkit-input-placeholder {
   text-align: center;
 }
