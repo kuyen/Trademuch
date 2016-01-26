@@ -55,7 +55,7 @@ module.exports = {
         }],
         order: 'createdAt DESC'
       });
-      sails.log.info("getPost[0]=>", getPost[0]);
+      // sails.log.info("getPost[0]=>", getPost[0]);
 
       let postArray = getPost.map((post) => {
         let pic = post.images || post.Item.pic;

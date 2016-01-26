@@ -143,4 +143,36 @@ describe('about User Service operation.', function() {
 
   });
 
+  describe('test facebook login User', () => {
+    let testUser;
+    let facebookId = "123345567";
+    before(async (done) => {
+      try {
+        testUser = await User.create({
+          "username": "testuser",
+        });
+        let passport = await Passport.create({
+          "protocol": "oauth2",
+          "provider": "facebook",
+          "identifier": facebookId,
+          "UserId": testUser.id
+        })
+        done()
+      } catch (e) {
+        console.log(e);
+        done(e);
+      }
+    });
+
+    it('get facebook id', async (done) => {
+      try {
+        let result = await UserService.getFBId(testUser.id)
+        result.should.be.an.equal(facebookId);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+  });
 });
