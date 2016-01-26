@@ -143,7 +143,7 @@ describe('about User Service operation.', function() {
 
   });
 
-  describe.only('test facebook login User', () => {
+  describe('test facebook login User', () => {
     let testUser;
     let facebookId = "123345567";
     before(async (done) => {
