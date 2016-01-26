@@ -17,7 +17,7 @@ window.$$ = Framework7.$;
 // Add main view
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
-  dynamicNavbar: true,
+  dynamicNavbar: true
 });
 window.mainView = mainView;
 
@@ -327,10 +327,11 @@ $$(document).on('ajaxComplete', function() {
 /*hobby page back to top */
 
 // fade in #back-top
-// $(".page-content.active").scroll(function() {
-$(document).delegate(".page-content.active","scroll", function() {
-  console.log("sadasd");
-  if ($(this).scrollTop() > 100) {
+// $$(".tab .active").scroll(function() {
+$$(document).on('scroll', '.tab .active', function(e) {
+// $(document).delegate(".page-content.active","scroll", function() {
+  console.log($$(this).scrollTop());
+  if ($(this).scrollTop() >= 20) {
     $('#back-top').fadeIn();
   } else {
     $('#back-top').fadeOut();
@@ -338,9 +339,9 @@ $(document).delegate(".page-content.active","scroll", function() {
 });
 
 // scroll body to 0px on click
-// $('#back-top').click(function() {
-$(document).delegate("#back-top","scroll", function() {
-  $(".page-content.active").animate({
+$$('#back-top').click(function() {
+// $(document).delegate("#back-top","scroll", function() {
+  $(".tab .active").animate({
     scrollTop: 0
   }, 400);
   return false;

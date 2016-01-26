@@ -13,8 +13,9 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
 
   checkRegion();
 
-  window.mainView.hideNavbar();
-  window.mainView.hideToolbar();
+  // window.mainView.hideNavbar();
+  // window.myApp.hideToolbar(".mainToolbar");
+  // window.mainView.hideToolbar();
 
   $$(document).click("#submit", function(e) {
     e.preventDefault();
@@ -26,7 +27,8 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       }
     }
     var region = $$("#regionSelect").val();
-    if ($("#regionSelect option:selected").index()!=0) {
+    var selected = $("#regionSelect option:selected");
+    if ( selected.index()!=0 ) {
       addressToLatLng(region);
     } else {
       //   getGeoIpLocation();
@@ -36,30 +38,41 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
   }); // end click
 
   function checkRegion() {
-    var list;
+    var list = [];
+
+    var tw = ["基隆市", "台北市", "新北市", "宜蘭縣", "新竹市", "新竹縣", "桃園市",
+      "苗栗縣", "台中市", "彰化縣", "南投縣", "嘉義市", "嘉義縣", "雲林縣",
+      "台南市", "高雄市", "屏東縣", "台東縣", "花蓮縣", "金門縣", "連江縣", "澎湖縣"
+    ];
+
+    var uk = ["Bath", "Birmingham", "Bradford", "Brighton & Hove", "Bristol", "Cambridge",
+      "Canterbury", "Carlisle", "Chester", "Chichester", "Coventry", "Derby",
+      "Durham", "Ely", "Exeter", "Gloucester", "Hereford", "Kingston upon Hull",
+      "Lancaster", "Leeds", "Leicester", "Lichfield", "Lincoln", "Liverpool",
+      "City of London", "Manchester", "Newcastle upon Tyne", "Norwich", "Nottingham", "Oxford",
+      "Peterborough", "Plymouth", "Portsmouth", "Preston", "Ripon", "Salford",
+      "Salisbury", "Sheffield", "Southampton", "St Albans", "Stoke-on-Trent", "Sunderland",
+      "Truro", "Wakefield", "Wells", "Westminster", "Winchester", "Wolverhampton",
+      "Worcester", "York", "Armagh", "Belfast", "Londonderry", "Lisburn",
+      "Newry", "Aberdeen", "Dundee", "Edinburgh", "Glasgow", "Inverness",
+      "Stirling", "Perth", "Bangor", "Cardiff", "Newport", "St. David's",
+      "Swansea"
+    ];
 
     if (getRegion() == "zh-TW") {
-      list = [
-        "請選擇地區", "基隆市", "台北市", "新北市", "宜蘭縣", "新竹市", "新竹縣", "桃園市",
-        "苗栗縣", "台中市", "彰化縣", "南投縣", "嘉義市", "嘉義縣", "雲林縣",
-        "台南市", "高雄市", "屏東縣", "台東縣", "花蓮縣", "金門縣", "連江縣", "澎湖縣"
-      ];
-    } else if (getRegion() == "en-us") {
-      list = [
-        "Where are you?", "Bath", "Birmingham", "Bradford", "Brighton & Hove", "Bristol", "Cambridge",
-        "Canterbury", "Carlisle", "Chester", "Chichester", "Coventry", "Derby",
-        "Durham", "Ely", "Exeter", "Gloucester", "Hereford", "Kingston upon Hull",
-        "Lancaster", "Leeds", "Leicester", "Lichfield", "Lincoln", "Liverpool",
-        "City of London", "Manchester", "Newcastle upon Tyne", "Norwich", "Nottingham", "Oxford",
-        "Peterborough", "Plymouth", "Portsmouth", "Preston", "Ripon", "Salford",
-        "Salisbury", "Sheffield", "Southampton", "St Albans", "Stoke-on-Trent", "Sunderland",
-        "Truro", "Wakefield", "Wells", "Westminster", "Winchester", "Wolverhampton",
-        "Worcester", "York", "Armagh", "Belfast", "Londonderry", "Lisburn",
-        "Newry", "Aberdeen", "Dundee", "Edinburgh", "Glasgow", "Inverness",
-        "Stirling", "Perth", "Bangor", "Cardiff", "Newport", "St. David's",
-        "Swansea",
-      ];
+      list = ["請選擇地區"];
+      $.merge(list, tw);
+
+    } else if (getRegion() == "en" || getRegion() == "en-gb") {
+      list = ["Where are you?"];
+      $.merge(list, uk)
+
+    } else {
+      list = ["Where are you?"];
+      $.merge(list, uk);
+      $.merge(list, tw)
     }
+
     setOption(list);
   }
 
