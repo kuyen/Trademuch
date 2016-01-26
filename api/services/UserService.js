@@ -22,6 +22,21 @@ module.exports = {
     }
   },
 
+  getFBId: async(userId) => {
+    try {
+      let UserFaceBook = await Passport.findOne({
+        where:{
+          UserId: userId,
+          provider: 'facebook'
+        },
+        attributes: { exclude: ['createdAt','updatedAt', 'protocol', 'password', 'accessToken', 'tokens'] }
+      });
+      return UserFaceBook.identifier;
+    } catch (e) {
+      throw e
+    }
+  },
+
   updateUserLike: async({userId,likeArray}) => {
     try {
       let user = await User.findById(userId);
