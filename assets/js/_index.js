@@ -341,7 +341,7 @@ $$(document).on('ajaxComplete', function() {
 $(".page-content.active").scroll(function() {
   // $("body").delegate(".page-content.active","scroll", function() {
   console.log("$(this).scrollTop()>", $(this).scrollTop());
-  if ($(this).scrollTop() > 100) {
+  if ($(this).scrollTop() > 0.1) {
     $('#back-top').fadeIn();
     console.log("fadeIn");
   } else {
