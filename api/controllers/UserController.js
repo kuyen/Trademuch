@@ -19,8 +19,10 @@ module.exports = {
       console.log("==== user login status ===>", userLogin);
 
       let isFav = false;
+      let userFBId;
       if(userLogin){
         loginedUser = await UserService.getLoginUser(req);
+        userFBId = await UserService.getFBId(loginedUser.id);
         // console.log("==== logined User is ===>", loginedUser);
         favorites = await UserService.getUserFavorites({userId:loginedUser.id});
         // console.log("==== user favorites are ===>", favorites);
@@ -52,9 +54,10 @@ module.exports = {
       res.view('main', {
         favorites: favorites,
         loginState: userLogin,
-        loginedUser: loginedUser,
+        // loginedUser: loginedUser,
         allPosts: allPosts.data,
-        profile
+        profile,
+        userFBId
       });
     } catch (e) {
       res.serverError(e);
