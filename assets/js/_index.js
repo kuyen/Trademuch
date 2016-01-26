@@ -38,10 +38,11 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   console.log("hobbyPage!!!!!!!!");
+
   var storedData = myApp.formToJSON('#hobbySelect');
   myApp.formStoreData('hobbySelect', storedData);
   $$("#nextSetp").attr("data-context", JSON.stringify(storedData));
-  console.log($$("#nextSetp").attr("data-context"));
+  //console.log($$("#nextSetp").attr("data-context"));
   if (storedData.hobby.length > 0) {
     $$('#nextSetp').removeAttr("disabled");
   } else {
@@ -66,6 +67,16 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
       $$('#nextSetp').attr("disabled", true);
     }
   }); // end click
+
+  // random selection
+  var nums = [];
+  for (var i = 0; i <= 8; i++) {
+    nums[i] = Math.floor(Math.random() * (18 - 4) + 1);
+    if (i == 8) nums[i + 1] = Math.floor(Math.random() * 4) + 1;
+  }
+  $$.each(nums, function(index, num) {
+    $('.hobbyItem')[num].click();
+  });
 
   /*hobby page back to top */
 
@@ -267,10 +278,10 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     $("#favoriteView").load("/favorites");
   });
 
-  $$("a.searchView.tab-link").click(function(){
-    $$( "#searchView > .page-content" ).addClass("active");
-    $$( "#favoriteView  > .page-content" ).removeClass("active");
-    $$( "#profileView > .page-content" ).removeClass("active");
+  $$("a.searchView.tab-link").click(function() {
+    $$("#searchView > .page-content").addClass("active");
+    $$("#favoriteView  > .page-content").removeClass("active");
+    $$("#profileView > .page-content").removeClass("active");
   });
 
   $$("a.favoriteView.tab-link").click(function() {
@@ -327,19 +338,23 @@ $$(document).on('ajaxComplete', function() {
 /*hobby page back to top */
 
 // fade in #back-top
-// $(".page-content.active").scroll(function() {
-$(document).delegate(".page-content.active","scroll", function() {
-  console.log("sadasd");
-  if ($(this).scrollTop() > 100) {
+$(".page-content.active").scroll(function() {
+  // $("body").delegate(".page-content.active","scroll", function() {
+  console.log("$(this).scrollTop()>", $(this).scrollTop());
+  if ($(this).scrollTop() > 0.1) {
     $('#back-top').fadeIn();
+    console.log("fadeIn");
   } else {
     $('#back-top').fadeOut();
+    console.log("fadeOut");
   }
+
 });
 
 // scroll body to 0px on click
-// $('#back-top').click(function() {
-$(document).delegate("#back-top","scroll", function() {
+$('#back-top').click(function() {
+
+  // $(document).delegate("#back-top","scroll", function() {
   $(".page-content.active").animate({
     scrollTop: 0
   }, 400);
