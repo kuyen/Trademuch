@@ -166,7 +166,10 @@ block body
                           .col-40.tablet-40
                             .profile-picture
                               .light-box
-                                img(src='/img/human.png', alt='human')
+                                -if(userFBId)
+                                  img(src='//graph.facebook.com/' + userFBId + '/picture?type=large', alt='avatar')
+                                -else
+                                  img(src='/img/human.png', alt='avatar')
                           .col-60.tablet-60
                             .profile-detail
                               span.name.bold #{profile.name}
