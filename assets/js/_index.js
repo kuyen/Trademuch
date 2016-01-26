@@ -263,14 +263,28 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   // this can overrides f7's setting.
   // $$(".page-content").css("padding-bottom", "72px");
 
+  // hide Scroll bar when scroll down.
+  var lock = false;
+  $(window).bind('mousewheel', function(event) {
+    if (event.originalEvent.wheelDelta >= 0) {
+      // console.log('Scroll up');
+      if (!lock) window.myApp.showToolbar(".mainToolbar");
+      else lock = true;
+    } else {
+      // console.log('Scroll down');
+      if (!lock) window.myApp.hideToolbar(".mainToolbar");
+      else lock = true;
+    }
+  });
+
   $$(".favoriteView").click(function() {
     $("#favoriteView").load("/favorites");
   });
 
-  $$("a.searchView.tab-link").click(function(){
-    $$( "#searchView > .page-content" ).addClass("active");
-    $$( "#favoriteView  > .page-content" ).removeClass("active");
-    $$( "#profileView > .page-content" ).removeClass("active");
+  $$("a.searchView.tab-link").click(function() {
+    $$("#searchView > .page-content").addClass("active");
+    $$("#favoriteView  > .page-content").removeClass("active");
+    $$("#profileView > .page-content").removeClass("active");
   });
 
   $$("a.favoriteView.tab-link").click(function() {
@@ -329,7 +343,7 @@ $$(document).on('ajaxComplete', function() {
 // fade in #back-top
 // $$(".tab .active").scroll(function() {
 $$(document).on('scroll', '.tab .active', function(e) {
-// $(document).delegate(".page-content.active","scroll", function() {
+  // $(document).delegate(".page-content.active","scroll", function() {
   console.log($$(this).scrollTop());
   if ($(this).scrollTop() >= 20) {
     $('#back-top').fadeIn();
@@ -340,13 +354,12 @@ $$(document).on('scroll', '.tab .active', function(e) {
 
 // scroll body to 0px on click
 $$('#back-top').click(function() {
-// $(document).delegate("#back-top","scroll", function() {
+  // $(document).delegate("#back-top","scroll", function() {
   $(".tab .active").animate({
     scrollTop: 0
   }, 400);
   return false;
 });
-
 
 /* ===== Change statusbar bg when panel opened/closed ===== */
 $$('.panel-left').on('open', function() {
