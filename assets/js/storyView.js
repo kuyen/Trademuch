@@ -300,15 +300,18 @@ $(function() {
     console.log(input);
 
     // shows count
-    $("div.fileUpload-btn > span").text("Upload photos(" + input.get(0).files.length + ")");
+    $("div.fileUpload-btn > span").text("upload a photo(" + input.get(0).files.length + ")");
     var img = document.createElement("img");
+
+    // show wrapper
+    $(".canvasWrapper").show();
+
     // preview selected pic.
     var reader = new FileReader();
     var canvas = document.getElementById('viewport');
     var ctx = canvas.getContext('2d');
 
     reader.onload = function(e) {
-
 
       var img = new Image();
       img.onload = function(){
@@ -326,7 +329,6 @@ $(function() {
           $("input[name='picBase64']").val(jpegBase64);
       }
       img.src = event.target.result;
-
 
       // console.log("e.target.result=>", e.target.result);
       // $('img.preview').show('fast', function() {

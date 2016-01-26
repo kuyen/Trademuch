@@ -13,3 +13,6 @@
 .right {
   right: 0px;
 }
+.gone{
+  display: none;
+}

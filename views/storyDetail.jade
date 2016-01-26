@@ -19,7 +19,7 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
                   .btn.btn-primary.fileUpload-btn
                     span Upload photos
                     input.uploadBtn#imageLoader(type='file', accept="image/*", name='image', capture)
-                  div
+                  div.canvasWrapper(style="display:none")
                     canvas#viewport
           form#storyImageUpload
               input(form='storyImageUpload', type='hidden', name='picBase64')
@@ -28,55 +28,22 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
               .item-content
                 .item-inner
                   .item-input
-                    input(type='text', name='title', placeholder='Enter title here!')
+                    input(type='text', name='title', placeholder='give a title')
               .item-content
                 .item-inner
                   .item-input
-                    input(type='number', pattern="\d*", name='price', placeholder='Give a price')
+                    input(type='number', pattern="\d*", name='price', placeholder='give a price')
               .item-content
                 .item-inner
                   .item-input
-                    input(type='text', name='postPeriod', placeholder='Posting period', id='calendar-postPeriod', readonly)
+                    input(type='text', name='postPeriod', placeholder='posting period', id='calendar-postPeriod', readonly)
    
               -console.log(categoryItems.length);
-              //-  item
-              //- -var index = 0
-              //- each item in categoryItems
-              //-   -if(index % 2 == 0)
-              //-     .row
-              //-       .col-50.tablet-50.radioItem.hobbyItem
-              //-         span
-              //-           | #{categoryItems[index].itemname}
-              //-         input(type='radio', name='radioItem', value=categoryItems[index].id, style="display: none;")
-              //-         -var pic =  categoryItems[index].pic ? categoryItems[index].pic : '/img/items/1.jpg'
-              //-         img.category(src= pic)
-              //-         img.checked(src='img/checked.png' style="display: none;")
-              //-       -if(index+1 < categoryItems.length)
-              //-         .col-50.tablet-50.radioItem.hobbyItem
-              //-           -console.log(categoryItems[index+1].pic);
-              //-           span
-              //-             | #{categoryItems[index+1].itemname}
-              //-           input(type='radio', name='radioItem', value=categoryItems[index+1].id, style="display: none;")
-              //-           -var pic =  categoryItems[index+1].pic ? categoryItems[index+1].pic : '/img/items/1.jpg'
-              //-           img.category(src= pic)
-              //-           img.checked(src='img/checked.png' style="display: none;")
-              //-   -index++;
-              //- .row
-              //-   .col-50.tablet-50.radioItem iphone
-              //-     input(type='radio', name='radioItem', value='1')
-              //-   .col-50.tablet-50.radioItem 電腦
-              //-     input(type='radio', name='radioItem', value='2')
-              //- .row
-              //-   .col-50.tablet-50.radioItem 筆電
-              //-     input(type='radio', name='radioItem', value='1')
-              //-   .col-50.tablet-50.radioItem 筆電
-              //-     input(type='radio', name='radioItem', value='1')
+              .item-content(style="display:none")
+                .item-inner
+                  .item-input
+                    input(type='hidden', name='item', placeholder="item type")
               .item-content
                 .item-inner
                   .item-input
-                    input(type='text', name='item', placeholder='What your item?')
-              .item-content
-                .item-inner
-                  .item-input
-                    input(type='text', name='content', placeholder='Enter items instruction !')            
-    
+                    textarea(placeholder='description', type='text', name='content')
