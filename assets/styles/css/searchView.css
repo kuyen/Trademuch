@@ -26,6 +26,15 @@ ul#search-result {
   font-weight: bold;
 }
 
+.pc-man > img{
+  width: 35%;
+  margin: 10px;
+}
+
+.pc-man {
+  text-align: center;
+}
+
 /* ----------- suggestion search keyword -------- */
 
 #searchView > .categories {

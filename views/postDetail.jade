@@ -1,159 +1,49 @@
-doctype html(lang='en-US')
-head
-  meta(charset='UTF-8')
-  meta(name='viewport', content='width=device-width, initial-scale=1.0')
-  link(href='/fonts/font-awesome.css', rel='stylesheet', type='text/css')
-  link(href='http://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
-  link(rel='stylesheet', href='../styles/bootstrap/css/bootstrap.min.css', type='text/css')
-  link(rel='stylesheet', href='../styles/mapCss/bootstrap-select.min.css', type='text/css')
-  link(rel='stylesheet', href='../styles/mapCss/owl.carousel.css', type='text/css')
-  link(rel='stylesheet', href='../styles/mapCss/style.css', type='text/css')
-  link(rel='stylesheet', href='../styles/mapCss/user.style.css', type='text/css')
-  link(rel='stylesheet', href='../styles/mapCss/colors/blue.css', type='text/css')
-  link(rel='stylesheet', href='../styles/mapCss/index.css', type='text/css')
-  title Spotter - Universal Directory Listing HTML Template
-  body#page-top.page-subpage.page-item-detail.navigation-off-canvas(onunload='').navbar
-    .navbar-inner
-      .left
-      //-  p
-      //-   a.back.link(href='#', onClick="window.history.back();")
-      //-     i.icon.icon-back-blue
-      //-     span Back
-    // Outer Wrapper
-    #fb-root
-    #outer-wrapper
-      // Inner Wrapper
-      #inner-wrapper
-        // Page Canvas
-        #page-canvas
-          // Off Canvas Navigation
-          nav.off-canvas-navigation
-            header Navigation
-            .main-navigation.navigation-off-canvas
-          // end Off Canvas Navigation
-          // Page Content
-          #page-content
-            .content-block
-                section.container
-                  .row
-                    // Item Detail Content
-                    .col-md-8.col-sm-8
-                      section
-                        article.item-gallery
-                          .owl-carousel.item-slider
-                            .slide
-                              img(src=post.gallery, data-hash='1', alt='')
-                div
-                  section#main-content.block
-                    header.page-title
-                      .detailFavbox
-                        .favbox
-                          a.favboxa(data-id="#{post.id}")
-                            |                            
-                            -if(isFav==true)
-                              i.fa.fa-lg.fa-heart(style="color:red")
-                            -else
-                              i.fa.fa-lg.fa-heart()
-                      .title
-                        div.price
-                        -if (post.title)
-                          h1 #{post.title}
-                        -else
-                          span (free)
-                        span $#{post.price}
-                        figure #{post.itemname}
-                        Description
-                         section
-                           article.item-gallery
-                             header 
-                             p  #{post.content||'no description now.'}
-                             
-                        Contact
-                         section
-                           header
-                             h3 Contact
-                           address
-                                //- div #{post.username} fav="#{isFav}"
-                                //- div 63 Birch Street
-                                //- div Granada Hills, CA 91344
-                             figure
-                                  //- .info
-                                  //-   i.fa.fa-mobile
-                                  //-   span 818-832-5258
-                                  //- .info
-                                  //-   i.fa.fa-phone
-                                  //-   span +1 123 456 789
-                                .info
-                                  i.fa.fa-globe
-                                  a(href='#') #{post.email || ''}      
-                          #map-detail(data-json = post)                                               
-                    .row
-                      // Detail Sidebar
-                      aside#detail-sidebar.col-md-4.col-sm-4
-                        //- Description
-                        //-  section
-                        //-    article.item-gallery
-                        //-      header
-                        //-        h2 Description
-                        //-      p  #{post.content||'no description now.'} 
-                        //-  Contact
-                        //- section
-                        //-   header
-                        //-     h3 Contact
-                        //-   address
-                        //-     //- div #{post.username} fav="#{isFav}"
-                        //-     //- div 63 Birch Street
-                        //-     //- div Granada Hills, CA 91344
-                        //-     figure
-                        //-       //- .info
-                        //-       //-   i.fa.fa-mobile
-                        //-       //-   span 818-832-5258
-                        //-       //- .info
-                        //-       //-   i.fa.fa-phone
-                        //-       //-   span +1 123 456 789
-                        //-       .info
-                        //-         i.fa.fa-globe
-                        //-         a(href='#') #{post.email || ''}      
-                        //-  #map-detail(data-json = post)                              
-                        .fb-comments(data-href="http://localhost:1337/postDetail/#{post.id}" data-width="400" data-numposts="5") 
-                      // end Inner Wrapper
-                    // end Outer Wrapper
-                    script(type='text/javascript', src='/js/map/jquery-2.1.0.min.js')
-                    script(type='text/javascript', src='/js/map/before.load.js')
-                    script(type='text/javascript', src='http://maps.google.com/maps/api/js?libraries=places')
-                    script(type='text/javascript', src='/js/map/jquery-migrate-1.2.1.min.js')
-                    script(type='text/javascript', src='/js/map/bootstrap-select.min.js')
-                    script(type='text/javascript', src='/js/map/richmarker-compiled.js')
-                    script(type='text/javascript', src='/js/map/smoothscroll.js')
-                    script(type='text/javascript', src='/js/map/bootstrap-select.min.js')
-                    script(type='text/javascript', src='/js/map/jquery.hotkeys.js')
-                    script(type='text/javascript', src='/js/map/custom.js')
-                    script(type='text/javascript', src='/js/map/maps.js')
-                    script(type='text/javascript', src='/js/favbox.js')
-                    script.
-                      //- var itemID = 1;
-                      //- console.log(JSON.parse($('#map-detail').attr('data-json')));
-                      itemDetailMap(JSON.parse($('#map-detail').attr('data-json')));
-                      //- $.getJSON('/json/items.json.txt')
-                      //- .done(function(json) {
-                      //-   $.each(json.data, function(a) {
-                      //-     if( json.data[a].id == itemID ) {
-                      //-       itemDetailMap(json.data[a]);
-                      //-       }
-                      //-   });
-                      //- })
-                      //- .fail(function( jqxhr, textStatus, error ) {
-                      //-   console.log(error);
-                      //- });
-                      (function(d, s, id) {
-                      var js, fjs = d.getElementsByTagName(s)[0];
-                      if (d.getElementById(id)) return;
-                      js = d.createElement(s); js.id = id;
-                      js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
-                      fjs.parentNode.insertBefore(js, fjs);
-                      }(document, 'script', 'facebook-jssdk'));
-                      
-                      $(window).load(function(){
-                        var rtl = false; // Use RTL
-                        initializeOwl(rtl);
-                      });
+
+.list-block.cards-list
+  ul
+   li.card
+     .card-header.post-img
+      div
+        img(src=post.gallery, data-hash='1', alt='' width='100%')    
+     .card-content
+      .card-content-inner
+        span.post-title.bold #{post.title}  
+        span.post-price.bold $#{post.price}
+        span
+          .detailFavbox
+            .favbox
+              a.favboxa(data-id="#{post.id}")
+                |                            
+                -if(isFav==true)
+                  i.fa.fa-lg.fa-heart(style="color:#ff5757")
+                -else
+                  i.fa.fa-lg.fa-heart() 
+        span.post-itemname.bold #{post.itemname}
+      .list-block
+        ul
+          li
+            a.item-link.item-content(href='#')
+              img(src='/img/phone.png', alt='phone', style="height: auto;")
+              .item-media.title-items
+                i.icon.icon-f7
+              .item-inner
+                .item-title.bold #{post.content ||'no description now.'}
+          -if(post.email)
+            li
+              a.item-link.item-content(href='#')
+                img(src='/img/mail.png', alt='mail', style="height: auto;")
+                .item-media.email-user
+                  i.icon.icon-f7
+                .item-inner
+                  .item-title.bold #{post.email}
+     .card-footer Card footer
+  #fb-root
+  .fb-comments(data-href="http://localhost:1337/postDetail/#{post.id}" data-width="400" data-numposts="5")       
+  script.
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
