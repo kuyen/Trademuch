@@ -220,6 +220,12 @@ $$(document).on('click', '.item-link', function(e) {
 });
 
 
+$$(document).on('click', '.tab-link', function(e) {
+  console.log("tab-link clicked");
+  $('#back-top').fadeOut()
+});
+
+
 // Show/hide preloader for remote ajax loaded pages
 // Probably should be removed on a production/local app
 $$(document).on('ajaxStart', function(e) {
