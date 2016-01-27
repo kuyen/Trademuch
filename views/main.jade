@@ -90,29 +90,35 @@ block body
                                           img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
                               //f7 search-result callback
                               script(type='text/template7', id="searchResult").
-                                {{#each this.items}}
-                                  <li class="swipeout">
-                                    <div class="swipeout-content">
-                                      <div class="item-content">
-                                        <div class="item-media">
-                                          <img src={{gallery[0]}} width="80"/>
-                                        </div>
-                                        <div class="item-inner">
-                                          <div class="item-title-row">
-                                            <div class="item-title">
-                                              <a class="link" href='/postDetailf7/{{id}}'>{{title}}</a>
-                                            </div>
+                                {{#if this.items.length}}
+                                  {{#each this.items}}
+                                    <li class="swipeout">
+                                      <div class="swipeout-content">
+                                        <div class="item-content">
+                                          <div class="item-media">
+                                            <img src={{gallery[0]}} width="80"/>
                                           </div>
-                                          <div class="item-subtitle">NT${{price}}</div>
+                                          <div class="item-inner">
+                                            <div class="item-title-row">
+                                              <div class="item-title">
+                                                <a class="link" href='/postDetailf7/{{id}}'>{{title}}</a>
+                                              </div>
+                                            </div>
+                                            <div class="item-subtitle">NT${{price}}</div>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="swipeout-actions-right">
-                                      <a href="#" data-id="{{id}}" class="action1 bg-blue like"></a>
-                                        <img src="/img/addlike.png" alt="addlike" style="height: 30px;">
-                                    </div>
-                                  </li>
-                                {{/each}}
+                                      <div class="swipeout-actions-right">
+                                        <a href="#" data-id="{{id}}" class="action1 bg-blue like"></a>
+                                          <img src="/img/addlike.png" alt="addlike" style="height: 30px;">
+                                      </div>
+                                    </li>
+                                  {{/each}}
+                                {{else}} 
+                                  <div class="pc-man">
+                                    <img src="/img/pc-man.png" alt="pc-man">
+                                  </div>
+                                {{/if}}
                               // Result List
                   |               
                   //- #listView.tab
@@ -170,7 +176,7 @@ block body
                                 -if(userFBId)
                                   img(src='//graph.facebook.com/' + userFBId + '/picture?type=large', alt='avatar')
                                 -else
-                                  img(src='/img/human.png', alt='avatar')
+                                  img(src='/img/human.png', alt='avatar')                            
                           .col-60.tablet-60
                             .profile-detail
                               span.name.bold #{profile.name}
@@ -197,10 +203,9 @@ block body
                          .row    
                          .card
                            .card-content 
-                             .list-block.media-list
-                               ul
-                                 //- each post in allPosts
-                                 -if(profile.postCount != 0)
+                             -if(profile.postCount != 0)
+                               .list-block.media-list
+                                 ul
                                    each post in profile.allUserPost
                                      li.swipeout
                                          .swipeout-content
@@ -216,8 +221,11 @@ block body
                                          .swipeout-actions-right
                                            a.action2.bg-pink.Delete(href='#', data-id='#{post.dataValues.id}')
                                              img(src='/img/deletelike.png', alt='deletelike', style="height: 35px;")
-                         
-
+                             -else
+                               .noPostItem     
+                                 img(src='/img/pc-man.png', alt='pc-man')        
+                                   
+                              
   //- p#back-top
   //-   a(href='#top')
   //-     span
