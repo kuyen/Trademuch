@@ -92,6 +92,9 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   $$("input[name='title']").on('input', function() {
     var storedData = myApp.formToJSON('#storyDetailChoose');
     myApp.formStoreData('storyDetailChoose', storedData);
+
+    // save title input to itemname at this version.
+    $$("input[name='item']").val( $$(this).val() );
   });
 
   $$("textarea[name='content']").on('input', function() {

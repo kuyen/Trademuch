@@ -90,7 +90,7 @@ module.exports = {
         result.data.forEach(function(post,index){
           favorites.forEach(function(fav){
             if(post.id===fav.id) post.isFav = true;
-            console.log("index",index);
+            // console.log("index",index);
           }); // end forEach
         });// end forEach
       } // end if
