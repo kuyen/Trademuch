@@ -115,6 +115,7 @@ module.exports = {
         id: getPost.id,
         price: getPost.price,
         title: getPost.title,
+        content: getPost.content,
         mode: getPost.mode,
         // todo : location=?=itemname
         location: getPost.Item.itemname,
