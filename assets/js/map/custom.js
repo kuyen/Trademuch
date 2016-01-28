@@ -22,7 +22,9 @@ $(document).ready(function($) {
     $('body').delegate('.item-link', 'click', function(event) {
 
       console.log("click map item!");
-      top.window.mainView.router.loadPage('/postDetailF7/1');
+      var url = $(this).attr('data-id');
+      console.log("url key=>",url);
+      top.window.mainView.router.loadPage('/postDetailF7/'+url);
 
     });
 

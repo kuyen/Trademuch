@@ -34,7 +34,7 @@ function drawInfobox(category, infoboxContent, json, i){
                 // todo
                 // should remove below someday
                 // '<a href="'+url+'"data-url="' + url +  '" class="item-link description">' +
-                '<a data-url="' + url +  '" class="item-link description">' +
+                '<a data-id="'+id+'" data-url="' + url +  '" class="item-link description">' +
                     '<div class="meta">' +
                          price +
                         '<h2>' + title +  '</h2>' +
