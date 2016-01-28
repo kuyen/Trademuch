@@ -145,31 +145,36 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   // hide Scroll bar when scroll down.
   var timer, lock = false;
-  $('.page-content').delegate('.active', 'mousewheel', function(event) {
+  // $('.page-content').delegate('.active', 'scroll', function(event) {
+  $('.page-content').scroll(function(event){
     // disable on mapView
     if ($(this).attr('id') == "mapView") return;
 
+    console.log("event.originalEvent.wheelDelta=>",event.originalEvent.target.scrollTop);
+    var scrollTop = event.originalEvent.target.scrollTop;
+
     if ($$(".page-content.active").offset().top <= 35) {
-      if (event.originalEvent.wheelDelta > 0) {
+      if (scrollTop <= 94) {
         // console.log('Scroll up');
         scrollUp();
-      } else if (event.originalEvent.wheelDelta < 0) {
+      } else if (scrollTop >=95 ) {
         // console.log('Scroll down');
         scrollDown();
       } else {
         timer = setTimeout(function() {
           scrollUp(false);
-        }, 5000);
+        }, 3000);
       }
     } else scrollUp();
 
-    function scrollUp(showBackToTopBtn) {
+    function scrollUp() {
       if (lock) {
         lock = false;
         timer = null;
         window.myApp.showToolbar(".mainToolbar");
       }
-      if (showBackToTopBtn || showBackToTopBtn == undefinded)
+      var backTopBtn = $("#back-top");
+      if (backTopBtn || backTopBtn == undefinded)
         if ($$(".page-content.active").offset().top >= 0) $('#back-top').fadeOut();
     } // end scrollUp
 
@@ -214,10 +219,10 @@ $$(document).on('click', '.link.like', function() {
 });
 
 
-$$(document).on('click', '.item-link', function(e) {
-  console.log("item clicked");
-  $$("iframe#mapView").src = $$(this).attr("data-url");
-});
+// $$(document).on('click', '.item-link', function(e) {
+//   console.log("item clicked");
+//   $$("iframe#mapView").src = $$(this).attr("data-id");
+// });
 
 
 $$(document).on('click', '.tab-link', function(e) {
