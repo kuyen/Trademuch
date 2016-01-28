@@ -6,7 +6,7 @@ div.fileUpload-input {
 }
 div.fileUpload-input > img {
   max-width: 100%;
-  max-height: 150px;
+  max-height: 2000px;
   border-color: rgba(69, 69, 69, 0.89);
   border-width: 1px;
   border-style: outset;
@@ -61,5 +61,5 @@ img.preview {
 }
 canvas#viewport {
   margin: auto;
-  display: block !important;
+  display: none !important;
 }

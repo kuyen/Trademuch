@@ -10,9 +10,27 @@
 
 /* ------------ picture ---------------- */
 
+.profile-card{
+  margin-bottom: 60px;
+  padding-left: 0px !important;
+}
 .profile-picture {
-  padding-right: 5%;
-  float: right;
+  overflow: hidden;
+  border-radius: 60%;
+  width: 80px;
+  height: 80px;
+  margin-left: 10px
+}
+.profile-picture > img  {
+  /*padding-right: 5%;*/
+  /*float: right;*/
+  width: 80px;
+  height: 80px;
+}
+.profile-name {
+  font-size: 26px;
+  color: #01579b;
+  margin: 3px auto;
 }
 .profile-picture > .light-box {
   width: 100px;
