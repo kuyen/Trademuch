@@ -35,7 +35,7 @@ function drawInfobox(category, infoboxContent, json, i){
                     '<div class="meta">' +
                          price +
                         '<h2>' + title +  '</h2>' +
-                        '<figure>' + location +  '</figure>' +
+                        // '<figure>' + location +  '</figure>' +
                         '<i class="fa fa-angle-right"></i>' +
                     '</div>' +
                 '</a>' +

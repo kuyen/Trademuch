@@ -329,6 +329,7 @@ $(function() {
           var jpegBase64 = canvas.toDataURL("image/jpeg");
 
           console.log('=== jpegBase64 ===', jpegBase64);
+          $('img.preview').attr('src', e.target.result);
           $("input[name='picBase64']").val(jpegBase64);
       }
       img.src = event.target.result;
