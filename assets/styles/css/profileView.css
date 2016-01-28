@@ -22,8 +22,7 @@
 }
 .profile-picture > .light-box > img {
   width: auto;
-  height: 130%;
-  margin-left: -15%;
+  height: 100%;
 }
 
 .noPostItem > img {
@@ -33,6 +32,11 @@
 
 .noPostItem {
   text-align: center;
+}
+
+.noPostItem > p{
+ font-size: 16px;
+ font-weight: 900;
 }
 
 /* ------------ detail ----------------- */

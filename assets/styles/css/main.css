@@ -181,7 +181,7 @@ div.favbox {
   z-index: 9999;
   padding: 7.6px;
   color: white;
-  margin-left: 290px;
+  margin-left: 250px;
   margin-top: -6px;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: #ff5757;
@@ -190,6 +190,8 @@ div.favbox {
 }
 div.favbox > a > i:hover {
   color: #ff5757;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #ff5757;
 }
 div.favbox > a > i {
   color: white;
