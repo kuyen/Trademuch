@@ -17,6 +17,16 @@ $(document).ready(function($) {
 
     adaptBackgroundHeight();
 
+    // todo:kent
+    // hotfix for map's item clcik link
+    $('body').delegate('.item-link', 'click', function(event) {
+
+      console.log("click map item!");
+      top.window.mainView.router.loadPage('/postDetailF7/1');
+
+    });
+
+
     // $('.quick-view, .results .item').live('click',  function(){
     //     var id = $(this).attr('id');
     //     quickView(id);
