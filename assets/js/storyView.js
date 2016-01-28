@@ -147,19 +147,19 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }
 
     // post price
-    if (!data.detail.price || data.detail.price == "") {
-      myApp.hideIndicator();
-      myApp.alert("Please give your item/service a nice price :)", "Oops!")
-      return false;
-    }
+    // if (!data.detail.price || data.detail.price == "") {
+    //   myApp.hideIndicator();
+    //   myApp.alert("Please give your item/service a nice price :)", "Oops!")
+    //   return false;
+    // }
 
     // post category
-    var customCategory = $$("input[name='item']").val();
-    if ( !data.detail.radioItem && customCategory == "" ) {
-      myApp.hideIndicator();
-      myApp.alert("Please select a category or enter a new one. :)", "Oops!");
-      return false;
-    }
+    // var customCategory = $$("input[name='item']").val();
+    // if ( !data.detail.radioItem && customCategory == "" ) {
+    //   myApp.hideIndicator();
+    //   myApp.alert("Please select a category or enter a new one. :)", "Oops!");
+    //   return false;
+    // }
 
     // post date period
     // By default give today to startDate if use hasn't selsect period.
