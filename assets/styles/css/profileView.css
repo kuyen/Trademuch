@@ -40,17 +40,23 @@
 }
 .profile-picture > .light-box > img {
   width: auto;
-  height: 130%;
-  margin-left: -15%;
+  height: 100%;
 }
 
 .noPostItem > img {
   width: 35%;
-  margin: 10px;
+  padding: 6px;
 }
 
 .noPostItem {
   text-align: center;
+}
+
+.noPostItem > p{
+ text-align: center;
+ font-size: 16px;
+ font-weight: 900;
+ padding-bottom: 14px;
 }
 
 /* ------------ detail ----------------- */

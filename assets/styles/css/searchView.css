@@ -28,11 +28,18 @@ ul#search-result {
 
 .pc-man > img{
   width: 35%;
-  margin: 10px;
+  padding: 6px;
 }
 
 .pc-man {
   text-align: center;
+}
+
+.pc-man > p{
+  text-align: center;
+  font-size: 16px;
+  font-weight: 900;
+  padding-bottom: 14px;
 }
 
 /* ----------- suggestion search keyword -------- */

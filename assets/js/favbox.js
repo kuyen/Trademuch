@@ -8,7 +8,7 @@ $("body").delegate(".favboxa", "click", function() {
     type: "POST",
     success: function(result) {
       console.log(result);
-      fav.children().css("color","red");
+      fav.children().css("color","#ff5757");
     },
     error: function(xhr, ajaxOptions, thrownError) {
       console.log("xhr.status,thrownError=>",xhr.status,thrownError);

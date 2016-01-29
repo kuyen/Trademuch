@@ -111,6 +111,16 @@ img.category {
 #storyDetailChoose input {
   text-align: center;
 }
+
+.item-input.StoryPrice{
+  padding-right: 60px;
+}
+
+#storyDetailChoose span.money{
+  padding-right: 20px;
+  padding-left: 50px;
+}
+
 #regionSelect {
   font-size: 16px;
   text-indent: calc(50% - 25px);
