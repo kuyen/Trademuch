@@ -18,7 +18,9 @@
                       .item-title 
                         a.link(href='/postDetailf7/#{favorite.id}') #{favorite.title}
                     .item-subtitle #{favorite.Item.itemname}
-              //- .swipeout-actions-right
+              .swipeout-actions-right
+                a.bg-pink.deletelike(href='#')
+                  img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
                 //- a.action1.bg-pink.like(href='#', data-id='#{favorite.id}') Like
   .card
     .card-header You may like...
@@ -40,7 +42,7 @@
                           a.link(href='/postDetailf7/#{allPosts[random].id}') #{allPosts[random].title}
                       .item-subtitle NT$#{allPosts[random].price}
                 .swipeout-actions-right
-                  a.action1.bg-blue.like(href='#', data-id='#{allPosts[random].id}')
+                  a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
                     img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
     //- .card.demo-card-header-pic
     //-   .card-header.color-white.no-border(style='background-image:url(#{favorite.images[0]})', valign='middle')
@@ -99,6 +101,6 @@
                             a.link(href='/postDetailf7/#{allPosts[random].id}') #{allPosts[random].title}
                         .item-subtitle NT$#{allPosts[random].price}
                   .swipeout-actions-right
-                    a.action1.bg-blue.like(href='#', data-id='#{allPosts[random].id}')
+                    a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
                       img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
         

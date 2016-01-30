@@ -49,6 +49,18 @@
      view: 'storyDetail'
    },
 
+   '/TermService' : {
+     view: 'TermService'
+   },
+
+   '/PrivacyPolicy' : {
+     view: 'PrivacyPolicy'
+   },
+
+   '/Specification' : {
+     view: 'Specification'
+   },
+
    'get /login': 'AuthController.login',
    'get /logout': 'AuthController.logout',
    'get /register': 'AuthController.register',

@@ -21,13 +21,16 @@ head
         .container
           .navbar-header
             button.navbar-toggle(type='button', data-toggle='collapse', data-target='#brn-navbar-collapse-1')
-              span.batch.icon32 &#xF0AA;
+              //- span.batch.icon32 &#xF0AA;
+              // Logo image
+            a.navbar-brand(href='/public')
+              img(src='img/tramuLogo.png', alt='Barnaul-logo', style="height: 45px;")
           #brn-navbar-collapse-1.collapse.navbar-collapse
               <ul class="nav navbar-nav">
               </ul>
             ul.nav.navbar-nav.navbar-right
               li
-                a(href='#header') Home
+                a(href='/public') Home
               li
                 a(href='/main') Start
     section#brn-promo.iphone-cover-new(data-stellar-background-ratio='0.5', data-stellar-vertical-offset='-76')
@@ -42,6 +45,168 @@ head
                 iframe.phoneIframe(src='/main')
             .iphone-new
               img.img-responsive(src='img/iPhone_bg2.png', alt='iphone gallery background')
+      
+    section#brn-features-app
+      .container
+        // Section header
+        header
+          .row
+            .col-xs-12
+              // Don't forget to use span tag for center lines
+              h2.stripe
+               span Product Feature
+            // /col-xs-12
+          // /row
+        // Section header end
+        .row
+          .col-sm-12
+            // Feature item
+            .col-sm-2.text-center.feature-item
+              span.batch.icon48 
+               img(src='img/fbLogin.png', alt='fbLogin')
+              h5 Without registration
+              p Facebook login not cumbersome.
+            // Feature item end
+            // Feature item
+            .col-sm-2.text-center.feature-item
+              span.batch.icon48 
+               img(src='img/fastDispatch.png', alt='fastDispatch')
+              h5 Fast dispatch
+              p 3 steps to quickly dispatch.
+            // Feature item end
+            // Feature item
+            .col-sm-2.text-center.feature-item
+              span.batch.icon48 
+               img(src='img/localization.png', alt='localization')
+              h5 In conjunction localization
+              p From your vicinity and you do link needs.
+            // Feature item end
+            // Feature item
+            .col-sm-2.text-center.feature-item
+              span.batch.icon48 
+               img(src='img/fav.png', alt='fav')
+              h5 Favorite
+              p Add to Favorites do combine information with interest.
+            // Feature item end
+            // Feature item  
+            .col-sm-2.text-center.feature-item
+              span.batch.icon48 
+               img(src='img/keyword.png', alt='RWD')
+              h5 Top Categories
+              p Popular demand quickly know.
+            // Feature item end
+            // Feature item  
+            .col-sm-2.text-center.feature-item
+              span.batch.icon48 
+               img(src='img/RWD.png', alt='RWD')
+              h5 Web Application
+              p It applies to cross-platform Application version.  
+            // Feature item end
+          // /col-sm-12
+        // /row
+      // /container  
+      
+    section#brn-whowe
+    .container
+      // Section header
+      header
+        .row
+          .col-xs-12
+            // Don't forget to use span tag for center lines
+            h2.stripe
+              span 	Handling Instruction
+          // /col-xs-12
+        // /row
+      // Section header end
+      .row
+        .col-sm-4.col-sm-offset-1
+          // Left Side Image
+          img.img-responsive(src='img/use1.png', alt='use1')
+          img.img-find(src='img/use.png', alt='use')
+        // /col-sm-4.col-sm-offset-1
+        .col-sm-6.col-sm-offset-1
+         #text-content
+          // Right Side Info
+          h3.color-primary Run your business from your phone
+          p.lead Access everything from your smartphone
+          p
+            | Your business doesn't stop when you're away. Instantly access your store 
+            | analytics, update your store, fulfill orders, or contact a customer all from 
+            | your smartphone.
+          p   
+            | Login or Sign up 
+            | to view your contributions.
+          a.btn.btn-default(href='#') Learn more
+        // /col-sm-6.col-sm-offset-1
+      // /row
+    // /container
+
+    section#brn-pricing
+      .container
+        // Section header
+        header
+          .row
+            .col-xs-12
+              // Don't forget to use span tag for center lines
+              h2.stripe
+                span Usage Situatin
+            // /col-xs-12
+          // /row
+        // Section header end
+        .row
+          .col-md-10.col-md-offset-1.col-sm-12
+            .row
+              // Pricing table item
+              .col-md-6
+                .pricing-table.text-center
+                  .pricing-header
+                    img(src='img/placeit3.jpg', alt='placeit3', style='width:85%')
+                  ul.pricing-items
+                    li 
+                     h2 Expoler by Map
+                     p Map locating location nearby Items
+              // Pricing table item end
+              // Pricing table item
+              //- .col-md-4
+              //-   .pricing-table.pricing-top.text-center
+              //-     .pricing-header(data-stellar-background-ratio='0.5', data-stellar-vertical-offset='-76', style='background-position: 50% -131.6171875px;')
+              //-       h4
+              //-         | Professional
+              //-         br
+              //-         | $900
+              //-     ul.pricing-items
+              //-       li Nunc pellentesque ut neque
+              // Pricing table item end
+              // Pricing table item
+              .col-md-6
+                .pricing-table.text-center
+                  .pricing-header
+                    img(src='img/placeit4.jpg', alt='placeit4', style='width:85%')
+                  ul.pricing-items
+                    li 
+                     h2 Start to Expoler 
+                     p I Want to Buy & I Want to sell & I Want to Share
+              // Pricing table item end
+            // /row
+          // /col-md-10.col-md-offset-1.col-sm-12
+        // /row
+      // /container
+      
+    footer                    
+      .container
+       .row
+         // Social Media icons
+         .col-sm-6.text-center
+           #rightsDescription
+              a.socialMediaLink(href='/TermService') TERMS OF SERVICE
+                a  | 
+              a.socialMediaLink(href='/PrivacyPolicy') PRIVACY POLICY
+                a  | 
+              a.socialMediaLink(href='/Specification') TRADEMUCH SPECIFICATION
+         // Copyright             
+         .col-sm-6.Information
+           p © TradeMuch 2015
+              
     script(src='styles/landing/css/jquery/dist/jquery.min.js', type='text/javascript')
     script(src='styles/landing/css/bootstrap/dist/js/bootstrap.min.js')
     script(src='styles/landing/css/fotorama/fotorama.js')
@@ -51,8 +216,3 @@ head
     script(src='styles/landing/css/fitvids/jquery.fitvids.js', type='text/javascript')
     script(src='styles/landing/css/jquery-validation/dist/jquery.validate.min.js', type='text/javascript')
     script(src='styles/landing/css/jquery-loadTemplate/jquery.loadTemplate-1.5.0.min.js', type='text/javascript')
-    footer
-      .container
-        .row
-          #rightsDescription.col-sm-6.text-center
-          .col-sm-6.text-center
