@@ -22,8 +22,30 @@ $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
   });
 });
 
-
 $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', function(e) {
+
+  // init f7-calendar
+  var now = new Date();
+  // set a range time picker
+  var calendarPostPeriod = myApp.calendar({
+    input: '#calendar-postPeriod',
+    rangePicker: true,
+    closeOnSelect: true,
+    disabled: function(date) {
+      // enable today
+      if (date.getFullYear() == now.getFullYear() &&
+        date.getMonth() == now.getMonth() &&
+        date.getDate() == now.getDate()) {
+        return false;
+      }
+      // only enable future time
+      if (date.getTime() < now.getTime()) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  });
 
   // if no hobby...
   var category = myApp.formGetData('storyCategoryChoose');
@@ -40,28 +62,6 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     return false;
   }
   console.log("postMode=>", postMode);
-
-  // init f7-calendar
-  var now = new Date();
-  // set a range time picker
-  var calendarStartDate = myApp.calendar({
-    input: '#calendar-postPeriod',
-    rangePicker: true,
-    disabled: function(date) {
-      // enable today
-      if (date.getFullYear() == now.getFullYear() &&
-        date.getMonth() == now.getMonth() &&
-        date.getDate() == now.getDate()) {
-        return false;
-      }
-      // only enable future time
-      if (date.getTime() < now.getTime()) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  });
 
   // category selects
   $$('.radioItem').click(function() {
@@ -94,18 +94,12 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     myApp.formStoreData('storyDetailChoose', storedData);
 
     // save title input to itemname at this version.
-    $$("input[name='item']").val( $$(this).val() );
+    $$("input[name='item']").val($$(this).val());
   });
 
   $$("textarea[name='content']").on('input', function() {
     var storedData = myApp.formToJSON('#storyDetailChoose');
     myApp.formStoreData('storyDetailChoose', storedData);
-  });
-
-  $$("input[name='postPeriod']").on('change', function() {
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
-    console.log("period=>", $(this).val());
   });
 
   $$("input[name='image']").on('change', function() {
@@ -118,7 +112,73 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     myApp.formStoreData('storyDetailChoose', storedData);
   });
 
-  $$(document).on('click','#finishStep', function() {
+  $$("input[name='postPeriod']").on('click', function() {
+    $$(this).val("");
+    cleanQuickDatePickerState();
+  });
+
+  $$("input[name='postPeriod']").on('change', function() {
+    var storedData = myApp.formToJSON('#storyDetailChoose');
+    myApp.formStoreData('storyDetailChoose', storedData);
+    console.log("period=>", $(this).val());
+  });
+
+  // posting period qucick picker
+  $$(".quickDatePickArea > .col-auto > .button-round").on('click', function(e) {
+    var value = $$(this).attr('data-value');
+    if (value == "pick") {
+      // show f7 date picker
+      $$("#calendar-postPeriod").click();
+      return;
+    } else {
+      var now = new Date();
+      var yy = parseInt(now.getFullYear());
+      var mm = parseInt(now.getMonth() + 1);
+      var dd = parseInt(now.getDate());
+      var detail = value.split("-");
+      var count = parseInt(detail[0]);
+      var unit = detail[1];
+      var startDate = yy + "-" + mm + "-" + dd;
+
+      if (unit == "m") {
+        mm += count;
+        if (mm > 12) {
+          yy += Math.floor(mm / 12);
+          mm = mm % 12;
+        } else if (mm < 10) mm = "0" + mm;
+      }
+      if (unit == "w" || unit == "d") {
+        if (unit == "w") dd += count * 7;
+        if (unit == "d") dd += count;
+        var lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+        if (dd > lastDay) {
+          console.log("dd=>", dd);
+          console.log("lastDay=>", lastDay);
+          if (dd >= lastDay) {
+            mm += Math.floor(dd / lastDay);
+            dd = dd % lastDay;
+          }
+        }
+      }
+      var endDate = yy + "-" + mm + "-" + dd;
+      $$("#calendar-postPeriod").val(startDate + " - " + endDate);
+    }
+    // clean state first.
+    cleanQuickDatePickerState();
+    // give the one be clicked new state.
+    $$(this).addClass('suggestClicked');
+
+    function cleanQuickDatePickerState() {
+      // reset click state
+      var length = $$(".quickDatePickArea > .col-auto > .button-round").length;
+      for (var i = 0; i <= length; i++) {
+        $$($$(".quickDatePickArea > .col-auto > .button-round")[i]).removeClass('suggestClicked');
+      }
+    } // end cleanQuickDatePickerState
+  }); // end click
+
+
+  $$(document).on('click', '#finishStep', function() {
     // {"mode":"give","hobby":"1","detail":{"title":"123","radioItem":"2","item":""},
     // "location":{"latitude":24.148657699999998,"longitude":120.67413979999999,"accuracy":30}}
     myApp.showIndicator();
@@ -140,7 +200,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }
 
     // post title
-    if ( !data.detail || (!data.detail.title || data.detail.title == "") ) {
+    if (!data.detail || (!data.detail.title || data.detail.title == "")) {
       myApp.hideIndicator();
       myApp.alert("Don't forget to enter a nice title :)", "Oops!");
       return false;
@@ -317,20 +377,20 @@ $(function() {
     reader.onload = function(e) {
 
       var img = new Image();
-      img.onload = function(){
-          // canvas.width = img.width;
-          // canvas.height = img.height;
-          // ctx.drawImage(img,0,0);
+      img.onload = function() {
+        // canvas.width = img.width;
+        // canvas.height = img.height;
+        // ctx.drawImage(img,0,0);
 
-          canvas.width = img.width * 0.25;
-          canvas.height = img.height * 0.25;
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.width = img.width * 0.25;
+        canvas.height = img.height * 0.25;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-          var jpegBase64 = canvas.toDataURL("image/jpeg");
+        var jpegBase64 = canvas.toDataURL("image/jpeg");
 
-          console.log('=== jpegBase64 ===', jpegBase64);
-          $('img.preview').attr('src', e.target.result);
-          $("input[name='picBase64']").val(jpegBase64);
+        console.log('=== jpegBase64 ===', jpegBase64);
+        $('img.preview').attr('src', e.target.result);
+        $("input[name='picBase64']").val(jpegBase64);
       }
       img.src = event.target.result;
 

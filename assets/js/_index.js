@@ -9,16 +9,16 @@ var myApp = new Framework7({
   imagesLazyLoadSequential: true,
   imagesLazyLoadThreshold: 50
 });
-window.myApp = myApp;
-
-// Expose Internal DOM library
-window.$$ = Framework7.$;
 
 // Add main view
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
   dynamicNavbar: true
 });
+
+// Expose Internal DOM library
+window.$$ = Framework7.$;
+window.myApp = myApp;
 window.mainView = mainView;
 
 

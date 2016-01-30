@@ -12,44 +12,59 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
       .page.navbar-fixed(data-page='storyDetail')
         .page-content
           -console.log(categoryItems);
-          .list-block
-            .item-content
+          .list-block.row
+            
+            .item-content.col-100
               .item-inner
                 .item-input.fileUpload-input
                   .btn.btn-primary.fileUpload-btn
                     span Upload photos
                     input.uploadBtn#imageLoader(type='file', accept="image/*", name='image', capture)
-                  img.preview
-                  div.canvasWrapper(style="display:none")
-                    canvas#viewport
-          form#storyImageUpload
-              input(form='storyImageUpload', type='hidden', name='picBase64')
-          form#storyDetailChoose
-            .list-block
-              .item-content
-                .item-inner
-                  .item-input
-                    input(type='text', name='title', placeholder='give a title')
-                           
-              .item-content
-                .item-inner
-                  .item-title.label
-                  span.money
-                  |$
-                  .item-input.StoryPrice
-                    input(type='number', pattern="\d*", name='price', placeholder='give a price', value='0')
-                      
-              .item-content
-                .item-inner
-                  .item-input
-                    input(type='text', name='postPeriod', placeholder='posting period', id='calendar-postPeriod', readonly)
-   
-              -console.log(categoryItems.length);
-              .item-content(style="display:none")
-                .item-inner
-                  .item-input
-                    input(type='hidden', name='item', placeholder="item type")
-              .item-content
-                .item-inner
-                  .item-input
-                    textarea(placeholder='description', type='text', name='content')
+                  .lightbox
+                    img.preview
+                    div.canvasWrapper(style="display:none")
+                      canvas#viewport
+            |        
+            .item-content.col-100(style="display:none")
+              form#storyImageUpload
+                  input(form='storyImageUpload', type='hidden', name='picBase64')      
+            |        
+            .item-content.col-100
+              form#storyDetailChoose
+                .list-block.row
+                  .item-content.col-100
+                    .item-inner
+                      .item-input
+                        input(type='text', name='title', placeholder='title')
+                  
+                  .item-content.col-100
+                    .item-inner
+                      .item-title.label
+                      span.money
+                      |$
+                      .item-input.StoryPrice
+                        input(type='number', pattern="\d*", name='price', placeholder='give a price', value='0')
+              
+                  .item-content.col-100
+                    .item-inner
+                      .item-input
+                        .row.quickDatePickArea
+                         .col-auto
+                          a.button.button-round(href='', data-value='3-d') 3days
+                         .col-auto
+                          a.button.button-round(href='', data-value='1-w') 1week
+                         .col-auto
+                          a.button.button-round(href='', data-value='1-m') 1month
+                         .col-auto
+                          a.button.button-round(href='', data-value='pick') more
+                        input(type='text', name='postPeriod', placeholder='posting period', id='calendar-postPeriod', readonly)
+           
+                  -console.log(categoryItems.length);
+                  .item-content.col-100(style="display:none")
+                    .item-inner
+                      .item-input
+                        input(type='hidden', name='item', placeholder="item type")
+                  .item-content.col-100
+                    .item-inner
+                      .item-input
+                        textarea(placeholder='description', type='text', name='content')
