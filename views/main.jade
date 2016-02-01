@@ -84,7 +84,7 @@ block body
                                                 a.link(href='/postDetailf7/#{post.id}') #{post.title}
                                             .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
-                                        a.action1.bg-blue.like(href='#', data-id='#{post.id}') 
+                                        a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
                                           img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
                               //f7 search-result callback
                               script(type='text/template7', id="searchResult").
@@ -107,8 +107,8 @@ block body
                                         </div>
                                       </div>
                                       <div class="swipeout-actions-right">
-                                        <a href="#" data-id="{{id}}" class="action1 bg-blue like"></a>
-                                          <img src="/img/addlike.png" alt="addlike" style="height: 30px;">
+                                        <a href="#" data-img="{{gallery[0]}}" data-id="{{id}}" class="bg-blue like notif-message"></a>
+                                          <img src="/img/addlike.png"  alt="addlike" style="height: 30px;">
                                       </div>
                                     </li>
                                   {{/each}}
@@ -208,8 +208,8 @@ block body
                                                  a.link(href='/postDetailf7/#{post.dataValues.id}') #{post.dataValues.title}
                                              .item-subtitle NT$#{post.dataValues.price}
                                        .swipeout-actions-right
-                                         a.action2.bg-pink.Delete(href='#', data-id='#{post.dataValues.id}')
-                                           img(src='/img/deletelike.png', alt='deletelike', style="height: 35px;")
+                                         a.bg-pink.Delete(href='#', data-id='#{post.dataValues.id}')
+                                           img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
                            -else
                              .noPostItem     
                                img(src='/img/pc-man.png', alt='pc-man')        

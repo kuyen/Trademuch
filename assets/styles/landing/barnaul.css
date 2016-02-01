@@ -1086,7 +1086,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #cc1433;
+  color: #fff;
   text-decoration: none;
 }
 a:hover,
@@ -1304,6 +1304,10 @@ mark,
 }
 .text-right {
   text-align: right;
+}
+.TradeMuchText {
+  text-align: center;
+  color: #fff;
 }
 .text-center {
   text-align: center;
@@ -1766,6 +1770,9 @@ pre code {
 @media (min-width: 768px) {
   .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
     float: left;
+  }
+  #text-content{
+    padding-top: 50px;
   }
   .col-sm-12 {
     width: 100%;
@@ -4013,7 +4020,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav > li > a {
   position: relative;
-  display: block;
   padding: 10px 15px;
 }
 .nav > li > a:hover,
@@ -9352,6 +9358,12 @@ section#header {
   margin-left: -24px;
   margin-top: -24px;
 }
+
+img.img-find {
+    margin-top: -450;
+    padding-left: 52px;
+}
+
 /* ========== TEAM ========== */
 .team {
   padding: 0;
@@ -9383,7 +9395,7 @@ section#header {
   /* Top price */
 }
 .pricing-table .pricing-header {
-  background-color: #e5e5e5;
+  background-color: #fff;
   padding: 12px 0;
 }
 .pricing-table .pricing-items {
@@ -9470,13 +9482,26 @@ form.feedback {
 }
 /* ========== FOOTER ========== */
 footer {
-  background-color: #f0f0f0;
-  margin-top: 96px;
+  background-color: #006996;
+  /*margin-top: 96px;*/
+  padding-top: 50px;
+  text-align: center;
 }
 footer p {
   padding-top: 12px;
   margin-bottom: 0;
 }
+
+#rightsDescription{
+  font-size: 22px;
+}
+
+.Information {
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
 .sm-icon {
   padding: 32px 12px;
   color: #333333;
@@ -9627,4 +9652,9 @@ body:after {
   transform: scale(1.1);
   transition: box-shadow 0.3s, transform 0.3s;
   text-decoration: none;
+}
+
+/*===========================   termservice  =======================================*/
+.col-100.term-h2{
+  text-align: center;
 }
