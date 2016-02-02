@@ -205,7 +205,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     myApp.addNotification({
       title: 'You like :D',
       message: 'You have Add to Favorite',
-      media: `<img width="44" height="44" style="border-radius:100%" src="${img}">`
+      media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
     });
     setTimeout(function(){
       myApp.closeNotification('.notification-item');
