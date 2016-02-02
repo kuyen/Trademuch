@@ -198,8 +198,33 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     return false;
   });
 
-});
+  $$(document).on('click', '.like.notif-message', function() {
+    var fav = $$(this);
+    var id = fav.attr("data-id");
+    var img = fav.attr("data-img");
+    myApp.addNotification({
+      title: 'You like :D',
+      message: 'You have Add to Favorite',
+      media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
+    });
+    setTimeout(function(){
+      myApp.closeNotification('.notification-item');
+    }, 2000);
+    $$.ajax({
+      url: "/addUserFavorite/" + id,
+      type: "POST",
+      success: function(result) {
+        console.log(result);
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.log("xhr.status,thrownError=>", xhr.status, thrownError);
+        alert("if you like this item, login please :)");
+        window.location.assign("/auth/facebook");
+      }
+    }); // end ajax
+  });
 
+});
 
 $$(document).on('click', '.link.like', function() {
   var fav = $$(this);
