@@ -338,7 +338,6 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
               message: $(markInfo).attr("data-price"),
               media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
               onClick: function(){
-                console.log("!!!!!!!!!!!!!!!!!");
                 top.window.myApp.closeNotification('.notification-item');
                 top.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
               }
