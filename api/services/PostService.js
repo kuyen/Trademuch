@@ -72,7 +72,8 @@ module.exports = {
           url: `/postDetailf7/${post.id}`,
           type: post.Item.Like.title,
           // type_icon: post.Item.Like.icon,
-          type_icon: "../icons/gift.png",
+          // type_icon: "../icons/give.png",
+          type_icon: "../icons/get.png",
           gallery: [pic],
           content: post.content,
           itemname: post.Item.itemname,
@@ -124,13 +125,13 @@ module.exports = {
         url: `/getPostDetail/${getPost.id}`,
         type: getPost.Item.Like.title,
         // type_icon: getPost.Item.Like.icon,
-        type_icon: "../icons/gift.png",
+        // type_icon: "../icons/give.png",
+        type_icon: "../icons/get.png",
         gallery: [pic],
         username: getPost.User.username,
         email: getPost.User.email,
         itemname: getPost.Item.itemname,
       };
-
       return data;
     } catch (e) {
       throw e;
@@ -188,7 +189,8 @@ module.exports = {
             url: `/getPostDetail/${post.id}`,
             type: post.Item.Like.title,
             // type_icon: getPost.Item.Like.icon,
-            type_icon: "../icons/gift.png",
+            // type_icon: "../icons/give.png",
+            type_icon: "../icons/get.png",
             gallery: [pic],
             username: post.User.username,
             email: post.User.email,
