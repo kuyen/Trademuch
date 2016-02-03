@@ -19,19 +19,19 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
                 .item-input.fileUpload-input
                   .btn.btn-primary.fileUpload-btn
                     span Upload photos
-                    input.uploadBtn#imageLoader(type='file', accept="image/*", name='image', capture)
+                    input.uploadBtn(type='file',accept="image/*",name='image',capture)
                   .lightbox
                     img.preview
-                    div.canvasWrapper(style="display:none")
-                      canvas#viewport
-            |        
-            .item-content.col-100(style="display:none")
-              form#storyImageUpload
-                  input(form='storyImageUpload', type='hidden', name='picBase64')      
-            |        
+                  .canvasWrapper(style="display:none")
+                    canvas#viewport
+                    
             .item-content.col-100
+              form#storyImageUpload
+                input(form='storyImageUpload',type='hidden',name='picBase64') 
+                   
               form#storyDetailChoose
                 .list-block.row
+                
                   .item-content.col-100
                     .item-inner
                       .item-input

@@ -2,8 +2,22 @@
 // story page - storyView
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+myApp.onPageAfterAnimation('storyMode', function(page) {
+  console.log('Services page initialized');
+  console.log(page);
+  $$('.back.link').click(function(e) {
+    // e.preventDefault();
+    mainView.router.loadPage('/main', {
+      "pushState": true
+    })
+  }); // end click
+});
+
+
+
 // give/take mode select
 $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
+
   $$('.selectMode').click(function() {
     if ($$(this).find('input').prop("checked")) {
       $$(this).find('input').prop("checked", false);
@@ -13,13 +27,15 @@ $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
     var storedData = myApp.formToJSON('#storyModeChoose');
     myApp.formStoreData('storyModeChoose', storedData);
 
-    mainView.router.loadPage('/storyCategory')
+    mainView.router.loadPage('/storyCategory');
       // if(storedData.mode != ""  && storedData.hasOwnProperty('mode')) {
       //   $$('#nextSetp').removeAttr("disabled");
       // }else{
       //   $$('#nextSetp').attr("disabled",true);
       // }
-  });
+  }); // end click
+
+
 });
 
 $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', function(e) {
@@ -167,20 +183,22 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     cleanQuickDatePickerState();
     // give the one be clicked new state.
     $$(this).addClass('suggestClicked');
-
-    function cleanQuickDatePickerState() {
-      // reset click state
-      var length = $$(".quickDatePickArea > .col-auto > .button-round").length;
-      for (var i = 0; i <= length; i++) {
-        $$($$(".quickDatePickArea > .col-auto > .button-round")[i]).removeClass('suggestClicked');
-      }
-    } // end cleanQuickDatePickerState
   }); // end click
 
+  function cleanQuickDatePickerState() {
+    // reset click state
+    var length = $$(".quickDatePickArea > .col-auto > .button-round").length;
+    for (var i = 0; i <= length; i++) {
+      $$($$(".quickDatePickArea > .col-auto > .button-round")[i]).removeClass('suggestClicked');
+    }
+  } // end cleanQuickDatePickerState
 
-  $$(document).on('click', '#finishStep', function() {
+
+  $$(document).on('click', '#finishStep', function(e) {
     // {"mode":"give","hobby":"1","detail":{"title":"123","radioItem":"2","item":""},
     // "location":{"latitude":24.148657699999998,"longitude":120.67413979999999,"accuracy":30}}
+    e.preventDefault();
+
     myApp.showIndicator();
 
     var postMode = myApp.formGetData('storyModeChoose');
@@ -291,16 +309,18 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
 
     // submit depends on image upload.
     function submit() {
-      console.log("data before submit=>", (data));
       var imageCount = $("input.uploadBtn").get(0).files.length;
       if ((imageCount != null) && (imageCount > 0)) {
+        console.log("saveImagesAndPost");
         saveImagesAndPost(data);
       } else {
+        console.log("saveOnlyPost");
         savePost(data);
       }
     }; // end submit
 
     function savePost(data) {
+      console.log("data before submit=>", (data));
       // save post
       $$.ajax({
         url: "/postStory",
@@ -311,7 +331,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyModeChoose');
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
-          window.location.href = '/main';
+          // window.location.href = '/main';
           myApp.hideIndicator();
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -324,43 +344,48 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }; // end savePost
 
     function saveImagesAndPost(data) {
+      console.log("data before submit=>", (data));
       // submit to upload post image.
-      var formData = new FormData($('form')[1]);
-      console.log("formData", formData);
+      var formData = new FormData($('form[id="storyImageUpload"]')[0]);
       $$.ajax({
         url: "/api/uploadImageBase64",
         type: "POST",
+        dataType: "JSON",
         data: formData,
         cache: false,
-        dataType: "json",
         contentType: false,
         processData: false,
         success: function(result) {
-          data.images = result[0].src;
+          var saveResult = JSON.parse(result);
+          console.log("save image finish.->", saveResult);
+          console.log("result[0].src->", saveResult[0].src);
+          data.images = saveResult[0].src;
           savePost(data);
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();
-          myApp.alert('due to internet issues, upload image failed. please try it again.', 'Error');
+          var msg = 'upload image failed. please try it again.(' + xhr.status + ')';
+          myApp.alert(msg, 'Error');
           console.log(xhr.status);
-          console.log(thrownError);
         }
       }); // end ajax
     }; // end saveImages
   }); // end finishStep-click
 
+  // default clcik this date period
+  setTimeout(function() {
+    $$("a[data-value='1-m']").click();
+  }, 200);
 
 }); // end pageInit-storyDetail
 
 
-// post's image-fileinput
+// post's image-fileinput(use jquery only)
 $(function() {
 
   // using delegate to support multi-fileinput
-  $("body").delegate("input[name='image']", "change", function() {
-
-    var input = $("input[name='image']");
-    console.log(input);
+  $(document).delegate("input[name='image']", "change", function() {
+    var input = $(this);
 
     // shows count
     $("div.fileUpload-btn > span").text("upload a photo(" + input.get(0).files.length + ")");
@@ -370,7 +395,7 @@ $(function() {
     $(".canvasWrapper").show();
 
     // preview selected pic.
-    var reader = new FileReader();
+    var reader = new FileReader(input);
     var canvas = document.getElementById('viewport');
     var ctx = canvas.getContext('2d');
 
@@ -378,10 +403,6 @@ $(function() {
 
       var img = new Image();
       img.onload = function() {
-        // canvas.width = img.width;
-        // canvas.height = img.height;
-        // ctx.drawImage(img,0,0);
-
         canvas.width = img.width * 0.25;
         canvas.height = img.height * 0.25;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -392,42 +413,10 @@ $(function() {
         $('img.preview').attr('src', e.target.result);
         $("input[name='picBase64']").val(jpegBase64);
       }
-      img.src = event.target.result;
+      if (event.target.result) img.src = event.target.result;
 
-      // console.log("e.target.result=>", e.target.result);
-      // $('img.preview').show('fast', function() {
-      // $('img.preview').attr('src', e.target.result);
-      // img.src = e.target.result;
-      // var canvas = document.createElement("canvas");
-      // var ctx = canvas.getContext("2d");
-      // ctx.drawImage(img, 0, 0);
-      //
-      // var MAX_WIDTH = 400;
-      // var MAX_HEIGHT = 300;
-      // var width = img.width;
-      // var height = img.height;
-      //
-      // if (width > height) {
-      //   if (width > MAX_WIDTH) {
-      //     height *= MAX_WIDTH / width;
-      //     width = MAX_WIDTH;
-      //   }
-      // } else {
-      //   if (height > MAX_HEIGHT) {
-      //     width *= MAX_HEIGHT / height;
-      //     height = MAX_HEIGHT;
-      //   }
-      // }
-      // canvas.width = width;
-      // canvas.height = height;
-      // var ctx = canvas.getContext("2d");
-      // ctx.drawImage(img, 0, 0, width, height);
-      //
-      // var dataurl = canvas.toDataURL("image/png");
-      // $('img.preview').attr('src', dataurl);
-      // });
     }
-    reader.readAsDataURL(input.get(0).files[0]);
+    if (input.get(0).files[0] != null) reader.readAsDataURL(input.get(0).files[0]);
 
   }); // end fileUpload
 

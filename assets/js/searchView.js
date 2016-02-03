@@ -72,6 +72,6 @@ function showSearchResult(data) {
   console.log("f7 showSearchResult=>", data);
   var searchResultTemplate = $$('script#searchResult').html();
   var compiledSearchResultTemplate = Template7.compile(searchResultTemplate);
-  window.myApp.template7Data.searchResult = data;
+  // window.myApp.template7Data.searchResult = data;
   $$('#search-result').html(compiledSearchResultTemplate(data));
 }; // end search-result
