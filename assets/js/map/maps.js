@@ -235,10 +235,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           '</div>';
       } else {
         markerContent.innerHTML =
-          '<div data-price='+ json.data[i].price +
-            ' data-title='+ json.data[i].title +
-            ' data-id='+ json.data[i].id +
-            ' data-img='+ json.data[i].gallery[0] +
+          '<div data-price="'+ json.data[i].price + '" ' +
+            ' data-title="'+ json.data[i].title + '" '+
+            ' data-id="'+ json.data[i].id + '" '+
+            ' data-img="'+ json.data[i].gallery[0] + '" '+
             ' class="map-marker ' + json.data[i].color + '">' +
           '<div class="icon ' + json.data[i].mode + '">' +
           '<img src="' + json.data[i].type_icon + '">' +
