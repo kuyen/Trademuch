@@ -332,14 +332,14 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           activeMarker.content.className = 'marker-active marker-loaded';
           var clickMark = $('.marker-active')[0];
           var markInfo = $(clickMark).find('.map-marker')[0];
-          top.window.myApp.closeNotification('.notification-item');
-          top.window.myApp.addNotification({
+          parent.window.myApp.closeNotification('.notification-item');
+          parent.window.myApp.addNotification({
               title: $(markInfo).attr("data-title"),
               message: $(markInfo).attr("data-price"),
               media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
               onClick: function(){
-                top.window.myApp.closeNotification('.notification-item');
-                top.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
+                parent.window.myApp.closeNotification('.notification-item');
+                parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
               }
           });
         } else {
@@ -381,7 +381,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
     // Dynamic loading markers and data from JSON ----------------------------------------------------------------------
 
     google.maps.event.addListener(map, 'idle', function() {
-      top.window.myApp.closeNotification('.notification-item');
+      parent.window.myApp.closeNotification('.notification-item');
       var visibleArray = [];
       for (var i = 0; i < json.data.length; i++) {
         if (map.getBounds().contains(newMarkers[i].getPosition())) {
