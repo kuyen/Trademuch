@@ -33,7 +33,7 @@
                 .item-title.bold #{'no phone number now.'}
           -if(post.email)
             li
-              a.item-link.item-content(href='mailto:#{post.email}')
+              a.item-link.item-content.external(href='mailto:#{post.email}')
                 //- img(src='/img/mail.png', alt='mail', style="height: auto;")
                 .item-media.email-user
                   i.icon.icon-form-email
