@@ -127,7 +127,6 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
   });
 });
 
-
 $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   setTimeout(function() {
@@ -172,7 +171,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     // disable on postDetail
     if ($('.view-main').attr("data-page")=="postDetailF7") return;
 
-    console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
+    // console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
     var scrollTop = event.originalEvent.target.scrollTop;
 
     if ($$(".page-content.active").offset().top <= 35) {
@@ -245,6 +244,28 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       }
     }); // end ajax
   });
+
+
+  $$("#search-result .swipeout").on("click", function(){
+     var f7open = $$(this).hasClass('swipeout-opened');
+     var closeOpen = $$(this).hasClass('close-open');
+     if( ! f7open){
+       if(closeOpen){
+         $$(this).removeClass('close-open');
+         console.log("不動");
+       }else{
+         console.log("跳轉");
+         mainView.router.loadPage('/postDetailf7/'+$$(this).attr("data-id"));
+       }
+    }
+  }).on("touchend",function(){
+    var f7open = $$(this).hasClass('swipeout-opened');
+    if(!f7open){
+      $$(this).removeClass('close-open');
+    }
+  }).on("close",function(){
+    $$(this).addClass('close-open');
+  })
 
 });
 

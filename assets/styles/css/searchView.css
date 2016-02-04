@@ -70,7 +70,7 @@ ul#search-result {
   background-color: #007aff;
   color: white;
 }
-#searchView a:hover, a:focus {
+#searchView  > .categories > a:hover, a:focus {
   color: white;
   font-weight: 900;
 }
