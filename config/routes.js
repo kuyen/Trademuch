@@ -61,6 +61,10 @@
      view: 'Specification'
    },
 
+   '/learnMore' : {
+     view: 'learnMore'
+   },
+
    'get /login': 'AuthController.login',
    'get /logout': 'AuthController.logout',
    'get /register': 'AuthController.register',
