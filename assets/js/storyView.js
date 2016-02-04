@@ -77,17 +77,16 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   // if no hobby...
   var category = myApp.formGetData('storyCategoryChoose');
   if (!category) {
-    window.mainView.router.loadPage('/storyCategory');
-    return;
+    setTimeout(function(){
+      myApp.alert("oops! please seslect category agagin.", 'Error');
+      mainView.router.loadPage('/storyCategory');
+    },3000);
   }
   console.log("category=>", category);
 
   // if no mode
   var postMode = myApp.formGetData('storyModeChoose');
   if (!postMode) {
-  //   // mainView.router.loadPage('/story');
-  //   window.location.href("/storyCategory")
-  //   return false;
     var storyMode = {}
     storyMode.mode = "give";
     myApp.formStoreData('storyModeChoose', storyMode);
@@ -122,11 +121,14 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   });
 
   $$("input[name='title']").on('input', function() {
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
+    console.log("title length",$$(this).val().trim().length);
+    if($$(this).val().trim().length>0){
+      var storedData = myApp.formToJSON('#storyDetailChoose');
+      myApp.formStoreData('storyDetailChoose', storedData);
 
-    // save title input to itemname at this version.
-    $$("input[name='item']").val($$(this).val());
+      // save title input to itemname at this version.
+      $$("input[name='item']").val($$(this).val());
+    }
   });
 
   $$("textarea[name='content']").on('input', function() {
@@ -250,7 +252,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }
 
     // post title
-    if (!data.detail || (!data.detail.title || data.detail.title == "")) {
+    if ( (!data.detail || !data.detail.title) || ( !data.detail.title.length>0 )) {
       myApp.hideIndicator();
       myApp.alert("Don't forget to enter a nice title :)", "Oops!");
       return false;
@@ -410,7 +412,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   // default clcik this date period
   setTimeout(function() {
     $$("a[data-value='1-m']").click();
-  }, 200);
+  }, 500);
 
 }); // end pageInit-storyDetail
 
