@@ -349,6 +349,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
         // now user must post things with a photo!
         // console.log("saveOnlyPost");
         // savePost(data);
+        myApp.hideIndicator();
         myApp.alert('You need to pick a photo for this post. :(', 'Error');
       }
     }; // end submit
