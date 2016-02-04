@@ -151,7 +151,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
         $$("#submit").css("background-color", "gray");
         $$("#submit").css("border-color", "white");
         $$("#submit").css("color", "darkgrey");
-        window.location.href = '/main';
+        window.location.href = '/';
         // mainView.router.loadPage('/main');
         // }
       },
