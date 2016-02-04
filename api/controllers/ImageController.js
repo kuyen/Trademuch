@@ -69,7 +69,8 @@ var self = module.exports = {
             done(userUploadedImagePath);
         });
       });
-      let path = result.split('./.tmp/public')[1];
+      console.log("upload pic result->",result);
+      let path = result.split('/public/')[1];
       let uploadImages = [];
       uploadImages.push({
         name: uniqueSHA1String,

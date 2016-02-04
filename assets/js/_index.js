@@ -1,24 +1,29 @@
 //
 var myApp = new Framework7({
-  modalTitle: 'Framework7',
+  init: false,
+  modalTitle: 'TradeMuch',
   animateNavBackIcon: true,
   template7Pages: true,
+  precompileTemplates: true,
+  imagesLazyLoadSequential: true,
+  imagesLazyLoadThreshold: 500,
   pushState: true,
   swipeBackPage: false,
-  init: false,
-  imagesLazyLoadSequential: true,
-  imagesLazyLoadThreshold: 50
+  uniqueHistory: true,
+  animateNavBackIcon: true,
+  hideToolbarOnPageScroll: true
 });
-window.myApp = myApp;
-
-// Expose Internal DOM library
-window.$$ = Framework7.$;
 
 // Add main view
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
-  dynamicNavbar: true
+  dynamicNavbar: true,
+  domCache: true
 });
+
+// Expose Internal DOM library
+window.$$ = Framework7.$;
+window.myApp = myApp;
 window.mainView = mainView;
 
 
@@ -47,7 +52,7 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
     $$('#nextSetp').attr("disabled", true);
   }
 
-  $$('.hobbyItem').click(function() {
+  $$('.hobbyItem').on('click', function() {
     if ($$(this).find('input').prop("checked")) {
       $$(this).find('.checked').hide();
       $$(this).find('input').prop("checked", false);
@@ -69,12 +74,16 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   // random selection
   var nums = [];
   for (var i = 0; i <= 8; i++) {
-    nums[i] = Math.floor(Math.random() * (18 - 4) + 1);
-    if (i == 8) nums[i + 1] = Math.floor(Math.random() * 4) + 1;
+    nums[i] = Math.round(Math.random() * 15 + 4);
+    if (i == 8) nums[i + 1] = Math.round(Math.random() * 2 + 1);
   }
   $$.each(nums, function(index, num) {
-    $('.hobbyItem')[num].click();
+    if (num < $$('.hobbyItem').length) {
+      $$('.hobbyItem')[num].click();
+    }
   });
+  // force click 1st item.
+  $$('.hobbyItem')[0].click();
 
   /*hobby page back to top */
 
@@ -111,16 +120,23 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     var id = $$(this).find('input').val();
     mainView.router.loadPage('/storyDetail/' + id)
     console.log(storedData);
-    // if(storedData.hobby != "" && storedData.hasOwnProperty('hobby') ) {
-    //   $$('#nextSetp2').removeAttr("disabled");
-    // }else{
-    //   $$('#nextSetp2').attr("disabled",true);
-    // }
+
+    // hack <a> hover to solved #371
+    $("a.back.link :hover").css("color","white");
+
   });
 });
 
 
 $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
+
+  setTimeout(function() {
+    $$('#splash').addClass('animated fadeOut');
+    setTimeout(function() {
+      $$('#splash').hide();
+    }, 650);
+  }, 250);
+
   $$(".favoriteView").click(function() {
     $("#favoriteView > .page-content").load("/favorites");
   });
@@ -146,18 +162,20 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   // hide Scroll bar when scroll down.
   var timer, lock = false;
   // $('.page-content').delegate('.active', 'scroll', function(event) {
-  $('.page-content').scroll(function(event){
+  $('.page-content').scroll(function(event) {
     // disable on mapView
-    if ($(this).attr('id') == "mapView") return;
+    if ($('.tab-link.active').hasClass("mapView")) return;
+    // disable on postDetail
+    if ($('.view-main').attr("data-page")=="postDetailF7") return;
 
-    console.log("event.originalEvent.wheelDelta=>",event.originalEvent.target.scrollTop);
+    console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
     var scrollTop = event.originalEvent.target.scrollTop;
 
     if ($$(".page-content.active").offset().top <= 35) {
       if (scrollTop <= 94) {
         // console.log('Scroll up');
         scrollUp();
-      } else if (scrollTop >=95 ) {
+      } else if (scrollTop >= 95) {
         // console.log('Scroll down');
         scrollDown();
       } else {
@@ -171,7 +189,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       if (lock) {
         lock = false;
         timer = null;
-        window.myApp.showToolbar(".mainToolbar");
+        // window.myApp.showToolbar(".mainToolbar");
       }
       var backTopBtn = $("#back-top");
       if (backTopBtn || backTopBtn == undefinded)
@@ -182,7 +200,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       if (!lock) {
         lock = true;
         timer = null;
-        window.myApp.hideToolbar(".mainToolbar");
+        // window.myApp.hideToolbar(".mainToolbar");
       }
       if ($$(".page-content.active").offset().top <= 0) $('#back-top').fadeIn();
     } // end scrollDown
@@ -207,7 +225,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       message: 'You have Add to Favorite',
       media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
     });
-    setTimeout(function(){
+    setTimeout(function() {
       myApp.closeNotification('.notification-item');
     }, 2000);
     $$.ajax({
