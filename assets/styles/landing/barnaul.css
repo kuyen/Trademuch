@@ -1089,6 +1089,11 @@ a {
   color: #fff;
   text-decoration: none;
 }
+
+a.hr{
+  color: #01579E;
+}
+
 a:hover,
 a:focus {
   color: #ef5771;
@@ -9715,5 +9720,5 @@ body:after {
 
 .commodity{
   line-height: 200%;
-  padding-bottom: 10%; 
+  padding-bottom: 10%;
 }
