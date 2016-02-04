@@ -29,6 +29,7 @@ module.exports.policies = {
     'updateHobbyAndMail': [],
     'hobbyView': ['sessionAuth'],
     'addUserFavorite': [],
+    'delUserFavorite': ['sessionAuth'],
     'getUserFavorites':['sessionAuth']
   },
   'PostController': {
