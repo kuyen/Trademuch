@@ -138,22 +138,26 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   }, 250);
 
   $$(".favoriteView").click(function() {
+    myApp.closeNotification('.notification-item');
     $("#favoriteView > .page-content").load("/favorites");
   });
 
   $$("a.searchView.tab-link").click(function() {
+    myApp.closeNotification('.notification-item');
     $$("#searchView > .page-content").addClass("active");
     $$("#favoriteView  > .page-content").removeClass("active");
     $$("#profileView > .page-content").removeClass("active");
   });
 
   $$("a.favoriteView.tab-link").click(function() {
+    myApp.closeNotification('.notification-item');
     $$("#favoriteView > .page-content").addClass("active");
     $$("#searchView > .page-content").removeClass("active");
     $$("#profileView > .page-content").removeClass("active");
   });
 
   $$("a.profileView.tab-link").click(function() {
+    myApp.closeNotification('.notification-item');
     $$("#profileView > .page-content").addClass("active");
     $$("#searchView > .page-content").removeClass("active");
     $$("#favoritetView > .page-content").removeClass("active");

@@ -302,6 +302,18 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
             // });
 
             newMarkers[i].content.className = 'marker-active marker-loaded';
+            var clickMark = $(newMarkers[i].content)[0];
+            var markInfo = $(clickMark).find('.map-marker')[0];
+            parent.window.myApp.closeNotification('.notification-item');
+            parent.window.myApp.addNotification({
+                title: $(markInfo).attr("data-title"),
+                message: $(markInfo).attr("data-price"),
+                media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
+                onClick: function(){
+                  parent.window.myApp.closeNotification('.notification-item');
+                  parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
+                }
+            });
             markerClicked = 1;
           }
         }
@@ -330,7 +342,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           //   boxClass: 'fade-in-marker'
           // });
           activeMarker.content.className = 'marker-active marker-loaded';
-          var clickMark = $('.marker-active')[0];
+          var clickMark = $(activeMarker.content)[0];
           var markInfo = $(clickMark).find('.map-marker')[0];
           parent.window.myApp.closeNotification('.notification-item');
           parent.window.myApp.addNotification({
@@ -344,6 +356,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           });
         } else {
           markerClicked = 0;
+          parent.window.myApp.closeNotification('.notification-item');
           activeMarker.infobox.setOptions({
             boxClass: 'fade-out-marker'
           });
