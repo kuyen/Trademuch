@@ -46,9 +46,14 @@ a.tab-link {}
 .content-block {
   height: 100%;
   padding: 0px;
+  margin: 70px 0px -70px 0px;
+}
+
+.nologin {
   margin: 20px 0px -20px 0px;
   position: fixed;
 }
+
 #mapView {
   height: 100%;
 }
