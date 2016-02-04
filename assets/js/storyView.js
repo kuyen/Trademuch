@@ -366,7 +366,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          // window.location.href = '/main';
+          window.location.href = '/main';
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();
