@@ -91,6 +91,7 @@
    'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
 
    'post /addUserFavorite/:id': 'UserController.addUserFavorite',
+   'post /delUserFavorite/:id': 'UserController.delUserFavorite',
    'get /getUserFavorites': 'UserController.getUserFavorites',
    'get /favorites': 'UserController.getFavoriteView',
 

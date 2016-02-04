@@ -16,7 +16,7 @@ describe('about User Controller operation.', function() { //skip
   });
   describe('UserController Favorite', () => {
 
-    let testUser, post, item, createPost;
+    let testUser, post, item, createPost, createPost2;
     before(async (done) => {
       try {
         testUser = await User.create({
@@ -63,6 +63,28 @@ describe('about User Controller operation.', function() { //skip
 
         createPost = await Post.create(post);
 
+        post = {
+          title: "testTitlsdfe",
+          content: 'content',
+          startDate: "2015-12-25",
+          endDate: "2015-12-31",
+          price: "200",
+          mode: "give",
+          createdAt: "2015-12-15 10:09:07",
+          updatedAt: "2015-12-15 10:09:07",
+          ItemId: item.id,
+          UserId: 1,
+          latitude: 23.148657699999998,
+          longitude: 120.67413979999999,
+          geometry: {
+            type: 'Point',
+            coordinates: [23.148657699999998,120.67413979999999]
+          }
+        }
+
+        createPost2 = await Post.create(post);
+        await testUser.addPost(createPost2.id)
+
         done();
       } catch (e) {
         done(e)
@@ -85,7 +107,7 @@ describe('about User Controller operation.', function() { //skip
 
         let before = await testUser.getPosts();
         let result = await request(sails.hooks.http.app)
-        .post('/addUserFavorite/' + testUser.id);
+        .post('/addUserFavorite/' + createPost.id);
         // sails.log.info(result);
         result.status.should.be.equal(200);
         let after = await testUser.getPosts();
@@ -93,6 +115,28 @@ describe('about User Controller operation.', function() { //skip
         after.length.should.be.above(before.length)
         done();
 
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it('del favorite should success.', async (done) => {
+      try {
+
+        let send = {
+          userId: testUser.id,
+          postId: createPost2.id
+        }
+        console.log(send);
+        let before = await testUser.getPosts();
+        let result = await request(sails.hooks.http.app)
+        .post('/delUserFavorite/' + createPost2.id);
+        result.status.should.be.equal(200);
+        let after = await testUser.getPosts();
+        result.should.be.an.Array;
+        after.length.should.be.below(before.length)
+        done();
       } catch (e) {
         sails.log.error(e);
         done(e);
