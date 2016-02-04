@@ -1,19 +1,17 @@
 //
 var myApp = new Framework7({
+  init: false,
   modalTitle: 'TradeMuch',
   animateNavBackIcon: true,
   template7Pages: true,
-  pushState: true,
-  swipeBackPage: false,
-  init: false,
+  precompileTemplates: true,
   imagesLazyLoadSequential: true,
   imagesLazyLoadThreshold: 500,
-  precompileTemplates: true,
   pushState: true,
-  pushStateSeparator: "",
-  pushStateRoot: "/main",
-  hideToolbarOnPageScroll: true,
-  // hideNavbarOnPageScroll:true
+  swipeBackPage: false,
+  uniqueHistory: true,
+  animateNavBackIcon: true,
+  hideToolbarOnPageScroll: true
 });
 
 // Add main view

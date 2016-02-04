@@ -56,7 +56,7 @@ function goSearch(keyword) {
     type: "GET",
     success: function(result) {
       var data = JSON.parse(result);
-      console.log(data[0]);
+      console.log("goSearch(keyword:%s)=>%o",keyword,data);
       showSearchResult(data);
     },
     error: function(xhr, ajaxOptions, thrownError) {

@@ -181,7 +181,7 @@ module.exports = {
           }],
           order: 'createdAt DESC'
         });
-        // // sails.log.info(getPost);
+        sails.log.info(getPosts[0]);
         var data = [];
         getPosts.forEach(function(post) {
           let pic = post.images || post.Item.pic;

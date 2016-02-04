@@ -31,7 +31,7 @@ block body
                   //- .activeShow
                 a.searchView.tab-link(href='#searchView')
                   img(src='/img/search.png', alt='search')
-                a.storyView.link(href='/story')
+                a.storyView.link(href='/storyCategory')
                   img(src='/img/add.png', alt='add')
                 -if(!loginState)
                   a.link(href='/favorites')
@@ -48,9 +48,9 @@ block body
                   a.profileView.tab-link(href='#profileView')
                     img(src='/img/login.png', alt='profile')
             |         
-            .page-content(style="padding-bottom:72px")
-              .content-block(style="height: 100%; padding: 0px; margin: 75px 0 -72px 0;")
-                #mainTab.tabs(style="height: calc(100% - 75px);")
+            .page-content(style="padding-bottom:70px")
+              .content-block(style="height: 100%; padding: 0px; margin: 70px 0 -70px 0;")
+                #mainTab.tabs(style="height: calc(100% - 64px);")
                   #mapView.tab.active(style="height: 100%;")
                     iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0; overflow:hidden; ", scrolling="no")
                   |               

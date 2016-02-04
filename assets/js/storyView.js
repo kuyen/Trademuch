@@ -5,12 +5,12 @@
 myApp.onPageAfterAnimation('storyMode', function(page) {
   console.log('Services page initialized');
   console.log(page);
-  $$('.back.link').click(function(e) {
-    // e.preventDefault();
-    mainView.router.loadPage('/main', {
-      "pushState": true
-    })
-  }); // end click
+  // $$('.back.link').click(function(e) {
+  //   // e.preventDefault();
+  //   mainView.router.loadPage('/main', {
+  //     "pushState": true
+  //   })
+  // }); // end click
 });
 
 
@@ -77,16 +77,21 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   // if no hobby...
   var category = myApp.formGetData('storyCategoryChoose');
   if (!category) {
-    mainView.router.loadPage('/storyCategory');
-    return false;
+    window.mainView.router.loadPage('/storyCategory');
+    return;
   }
   console.log("category=>", category);
 
   // if no mode
   var postMode = myApp.formGetData('storyModeChoose');
   if (!postMode) {
-    mainView.router.loadPage('/story');
-    return false;
+  //   // mainView.router.loadPage('/story');
+  //   window.location.href("/storyCategory")
+  //   return false;
+    var storyMode = {}
+    storyMode.mode = "give";
+    myApp.formStoreData('storyModeChoose', storyMode);
+    postMode = myApp.formGetData('storyModeChoose');
   }
   console.log("postMode=>", postMode);
 
@@ -137,6 +142,19 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   $$("input[name='price']").on('input', function() {
     var storedData = myApp.formToJSON('#storyDetailChoose');
     myApp.formStoreData('storyDetailChoose', storedData);
+  });
+
+  // storyMode
+  $("input[name='seeking']").on('change', function() {
+    var mode, storyMode = {};
+    if($$(this).prop('checked')) mode = "get";
+    else mode = "give";
+
+    storyMode.mode = mode;
+    myApp.formStoreData('storyModeChoose', storyMode);
+
+    var postMode = myApp.formGetData('storyModeChoose');
+    console.log("postMode=>", postMode);
   });
 
   // html5 start date picker
@@ -328,8 +346,10 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
         console.log("saveImagesAndPost");
         saveImagesAndPost(data);
       } else {
-        console.log("saveOnlyPost");
-        savePost(data);
+        // now user must post things with a photo!
+        // console.log("saveOnlyPost");
+        // savePost(data);
+        myApp.alert('You need to pick a photo for this post. :(', 'Error');
       }
     }; // end submit
 
@@ -345,8 +365,8 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyModeChoose');
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
-          // window.location.href = '/main';
           myApp.hideIndicator();
+          // window.location.href = '/main';
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();
