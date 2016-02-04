@@ -72,12 +72,15 @@ module.exports = {
           url: `/postDetailf7/${post.id}`,
           type: post.Item.Like.title,
           // type_icon: post.Item.Like.icon,
-          type_icon: "../icons/gift.png",
+          type_icon: "../icons/give.png",
+          // type_icon: "../icons/get.png",
           gallery: [pic],
           content: post.content,
           itemname: post.Item.itemname,
           username: post.User.username
         };
+        if(post.mode == "give") post.mode = '../icons/give.png';
+        if(Post.mode == "get")  Post.mode = '../icons/get.png';
         return data;
       });
 
@@ -124,13 +127,15 @@ module.exports = {
         url: `/getPostDetail/${getPost.id}`,
         type: getPost.Item.Like.title,
         // type_icon: getPost.Item.Like.icon,
-        type_icon: "../icons/gift.png",
+        type_icon: "../icons/give.png",
+        // type_icon: "../icons/get.png",
         gallery: [pic],
         username: getPost.User.username,
         email: getPost.User.email,
         itemname: getPost.Item.itemname,
       };
-
+      if(getPost.mode == "give") getPost.mode = '../icons/give.png';
+      if(getPost.mode == "get")  getPost.mode = '../icons/get.png';
       return data;
     } catch (e) {
       throw e;
@@ -188,7 +193,8 @@ module.exports = {
             url: `/getPostDetail/${post.id}`,
             type: post.Item.Like.title,
             // type_icon: getPost.Item.Like.icon,
-            type_icon: "../icons/gift.png",
+            type_icon: "../icons/give.png",
+            // type_icon: "../icons/get.png",
             gallery: [pic],
             username: post.User.username,
             email: post.User.email,
@@ -196,6 +202,8 @@ module.exports = {
           });
         }); // end forEach
         console.log("data length=>", data.length);
+        if(post.mode == "give") post.mode = '../icons/give.png';
+        if(Post.mode == "get")  Post.mode = '../icons/get.png';
         return data;
       } catch (e) {
         throw e;

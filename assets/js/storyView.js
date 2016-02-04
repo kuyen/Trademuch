@@ -42,26 +42,37 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
 
   // init f7-calendar
   var now = new Date();
+  var today = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
   // set a range time picker
-  var calendarPostPeriod = myApp.calendar({
-    input: '#calendar-postPeriod',
-    rangePicker: true,
-    closeOnSelect: true,
-    disabled: function(date) {
-      // enable today
-      if (date.getFullYear() == now.getFullYear() &&
-        date.getMonth() == now.getMonth() &&
-        date.getDate() == now.getDate()) {
-        return false;
-      }
-      // only enable future time
-      if (date.getTime() < now.getTime()) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  });
+  // var calendarPostPeriod = myApp.calendar({
+  //   input: '#calendar-postPeriod',
+  //   rangePicker: true,
+  //   closeOnSelect: true,
+  //   disabled: function(date) {
+  //     // enable today
+  //     if (date.getFullYear() == now.getFullYear() &&
+  //       date.getMonth() == now.getMonth() &&
+  //       date.getDate() == now.getDate()) {
+  //       return false;
+  //     }
+  //     // only enable future time
+  //     if (date.getTime() < now.getTime()) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   },
+  // });
+  // disable f7's date picker
+  // $$("input[name='postPeriod']").on('click', function() {
+  //   $$(this).val("");
+  //   cleanQuickDatePickerState();
+  // });
+  // $$("input[name='postPeriod']").on('change', function() {
+  //   var storedData = myApp.formToJSON('#storyDetailChoose');
+  //   myApp.formStoreData('storyDetailChoose', storedData);
+  //   console.log("period=>", $(this).val());
+  // });
 
   // if no hobby...
   var category = myApp.formGetData('storyCategoryChoose');
@@ -128,15 +139,18 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     myApp.formStoreData('storyDetailChoose', storedData);
   });
 
-  $$("input[name='postPeriod']").on('click', function() {
+  // html5 start date picker
+  $$("input[name='postPeriodStart']").attr("min",today);
+  $$("input[name='postPeriodStart']").on('click', function() {
     $$(this).val("");
     cleanQuickDatePickerState();
   });
 
-  $$("input[name='postPeriod']").on('change', function() {
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
-    console.log("period=>", $(this).val());
+  // html5 end date picker
+  $$("input[name='postPeriodEnd']").attr("min",today);
+  $$("input[name='postPeriodEnd']").on('click', function() {
+    $$(this).val("");
+    cleanQuickDatePickerState();
   });
 
   // posting period qucick picker
@@ -387,8 +401,8 @@ $(function() {
   $(document).delegate("input[name='image']", "change", function() {
     var input = $(this);
 
-    // shows count
-    $("div.fileUpload-btn > span").text("upload a photo(" + input.get(0).files.length + ")");
+    // shows count. disable count becasue now only can upload one photo.
+    // $("div.fileUpload-btn > span").text("upload a photo(" + input.get(0).files.length + ")");
     var img = document.createElement("img");
 
     // show wrapper

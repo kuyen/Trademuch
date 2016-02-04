@@ -8,6 +8,7 @@ var myApp = new Framework7({
   init: false,
   imagesLazyLoadSequential: true,
   imagesLazyLoadThreshold: 500,
+  precompileTemplates: true,
   pushState: true,
   pushStateSeparator: "",
   pushStateRoot: "/main",
@@ -121,11 +122,10 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     var id = $$(this).find('input').val();
     mainView.router.loadPage('/storyDetail/' + id)
     console.log(storedData);
-    // if(storedData.hobby != "" && storedData.hasOwnProperty('hobby') ) {
-    //   $$('#nextSetp2').removeAttr("disabled");
-    // }else{
-    //   $$('#nextSetp2').attr("disabled",true);
-    // }
+
+    // hack <a> hover to solved #371
+    $("a.back.link :hover").css("color","white");
+
   });
 });
 
