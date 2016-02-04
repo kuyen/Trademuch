@@ -9697,3 +9697,23 @@ body:after {
 .col-100.term-h2{
   text-align: center;
 }
+
+/*===========================   Specification  =======================================*/
+.pageTitle {
+  font-size: 28px;
+}
+
+.published{
+  line-height: 200%;
+  padding-bottom: 10%;
+}
+
+.auction{
+  line-height: 180%;
+  padding-bottom: 10%;
+}
+
+.commodity{
+  line-height: 200%;
+  padding-bottom: 10%; 
+}

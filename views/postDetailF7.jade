@@ -11,9 +11,20 @@
   .view.view-main.layout-white
     .navbar
       .navbar-inner
-        a.back.link(href='#')
-          i.icon.icon-back-white.icon-back
-          span Back
+       .wrapper
+         a.left.back.link(href='#')
+           i.icon.icon-back-white.icon-back
+           span Back
+       .wrapper  
+         .detailFavbox
+          .favbox
+            -console.log("postDetailF7.jade",post);
+            a.right.favboxa(data-id="#{post.id}")
+              |                  
+              -if(isFav==true)
+                i.fa.fa-lg.fa-heart(style="color:#ff5757")
+              -else
+                i.fa.fa-lg.fa-heart()
     .pages
       #postDetailF7.page.navbar-fixed(data-page='postDetailF7')
         input#itemId(type="hidden",value='#{post.id}')

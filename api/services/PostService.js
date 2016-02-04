@@ -79,8 +79,8 @@ module.exports = {
           itemname: post.Item.itemname,
           username: post.User.username
         };
-        if(post.mode == "give") post.mode = '../icons/give.png';
-        if(Post.mode == "get")  Post.mode = '../icons/get.png';
+        // if(post.mode == "give") post.mode = '../icons/give.png';
+        // if(Post.mode == "get")  Post.mode = '../icons/get.png';
         return data;
       });
 
@@ -134,8 +134,8 @@ module.exports = {
         email: getPost.User.email,
         itemname: getPost.Item.itemname,
       };
-      if(getPost.mode == "give") getPost.mode = '../icons/give.png';
-      if(getPost.mode == "get")  getPost.mode = '../icons/get.png';
+      // if(getPost.mode == "give") getPost.mode = '../icons/give.png';
+      // if(getPost.mode == "get")  getPost.mode = '../icons/get.png';
       return data;
     } catch (e) {
       throw e;
@@ -202,8 +202,8 @@ module.exports = {
           });
         }); // end forEach
         console.log("data length=>", data.length);
-        if(post.mode == "give") post.mode = '../icons/give.png';
-        if(Post.mode == "get")  Post.mode = '../icons/get.png';
+        // if(post.mode == "give") post.mode = '../icons/give.png';
+        // if(Post.mode == "get")  Post.mode = '../icons/get.png';
         return data;
       } catch (e) {
         throw e;
