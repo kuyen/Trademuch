@@ -4,21 +4,23 @@
    li.card
      .card-header.post-img
       div
-        img(src=post.gallery, data-hash='1', alt='' width='100%')    
+        img(src=post.gallery, data-hash='1', alt='' width='100%') 
+        .detailFavbox
+         .favbox
+            a.favboxa(data-id="#{post.id}")
+              |                            
+              -if(isFav==true)
+                i.fa.fa-lg.fa-heart(style="color:#ff5757")
+              -else
+                i.fa.fa-lg.fa-heart()    
      .card-content
       .card-content-inner
         span.post-title.bold #{post.title}  
         span.post-price.bold $#{post.price}
         span
-          .detailFavbox
-           .favbox
-              a.favboxa(data-id="#{post.id}")
-                |                            
-                -if(isFav==true)
-                  i.fa.fa-lg.fa-heart(style="color:#ff5757")
-                -else
-                  i.fa.fa-lg.fa-heart() 
-        span.post-itemname.bold #{post.itemname}
+         .post-itemname.bold #{post.itemname}
+        span
+         .post-content.bold #{post.content ||'no description now.'}
       .list-block
         ul
           li
@@ -27,7 +29,7 @@
               .item-media.title-items
                 i.icon.icon-f7
               .item-inner
-                .item-title.bold #{post.content ||'no description now.'}
+                .item-title.bold #{'no phone number now.'}
           -if(post.email)
             li
               a.item-link.item-content(href='#')
