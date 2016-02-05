@@ -33,6 +33,8 @@ module.exports = {
           }); // end forEach
         });// end forEach
       } // end if
+      // console.log("==== user favorites status ===>", favorites);
+      // console.log("==== user favorites status ===>", favorites.length);
 
       // profileViewData
       let profile = {};
@@ -47,6 +49,7 @@ module.exports = {
           name: loginedUser.username,
           allUserPost: profilePost,
           postCount: profilePost.length,
+          favCount: favorites.length,
           likeCount: likeCount,
           rate: profilePost.length * 1.5 + likeCount
         }
