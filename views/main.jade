@@ -77,7 +77,7 @@ block body
                             .list-group
                               ul#search-result
                                 each post in allPosts
-                                  li.swipeout
+                                  li.swipeout(data-id=post.id)
                                       .swipeout-content
                                         .item-content
                                           .item-media
@@ -147,7 +147,7 @@ block scripts
   script(type='text/template7', id="searchResult").
     {{#if this.items.length>0}}
       {{#each this.items}}
-        <li class="swipeout">
+        <li class="swipeout" data-id={{id}}>
           <div class="swipeout-content">
             <div class="item-content">
               <div class="item-media">

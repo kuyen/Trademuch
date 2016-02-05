@@ -7,7 +7,7 @@
     .list-block.media-list
       ul
         each favorite in favorites
-          li.swipeout
+          li.swipeout(data-id=favorite.id)
               .swipeout-content
                 .item-content
                   .item-media
@@ -30,7 +30,7 @@
           //- each post in allPosts
           each val in [1, 2, 3]
             - var random = Math.floor(Math.random() * 10)
-            li.swipeout
+            li.swipeout(data-id=allPosts[random].id)
                 .swipeout-content
                   .item-content
                     .item-media
@@ -103,4 +103,3 @@
                   .swipeout-actions-right
                     a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
                       img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
-        
