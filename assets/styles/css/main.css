@@ -183,14 +183,12 @@ p.card-desc > img {
 
 div.favbox {
   position: absolute;
-  top: 180px;
   z-index: 9999;
-  /*padding: 7.6px;*/
-  /*color: white;*/
-  padding-left: 240px;
-  padding-top: -6px;
+  float: right;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: #ff5757;
+  /*padding: 7.6px;*/
+  /*color: white;*/
 }
 
 }
