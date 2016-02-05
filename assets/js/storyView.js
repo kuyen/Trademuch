@@ -13,7 +13,11 @@ myApp.onPageAfterAnimation('storyMode', function(page) {
   // }); // end click
 });
 
-
+function getCookie(name) {
+  var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+  if (arr != null) return unescape(arr[2]);
+  return null;
+}
 
 // give/take mode select
 $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
@@ -334,7 +338,16 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           submit();
         },
         error: function(err) {
-          // todo
+          console.log("get html5 LocError!");
+
+          var lon = getCookie("lon");
+          var lat = getCookie("lat");
+          location = {
+            latitude: lat,
+            longitude: lon
+          }
+          data.location = location;
+          submit();
           // if get geoip's data failed then give a default loaciotn from user setting.
         }
       }); // end ajax
