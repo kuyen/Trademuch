@@ -149,6 +149,9 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     var storedData = myApp.formToJSON('#storyDetailChoose');
     myApp.formStoreData('storyDetailChoose', storedData);
   });
+  $$("input[name='price']").on('click', function() {
+    $$(this).val("");
+  });
 
   // storyMode
   $("input[name='seeking']").on('change', function() {
@@ -263,11 +266,11 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }
 
     // post price
-    // if (!data.detail.price || data.detail.price == "") {
-    //   myApp.hideIndicator();
-    //   myApp.alert("Please give your item/service a nice price :)", "Oops!")
-    //   return false;
-    // }
+    if (!data.detail.price || data.detail.price == "") {
+      myApp.hideIndicator();
+      myApp.alert("Please give your item/service a nice price, or even free :)", "Oops!")
+      return false;
+    }
 
     // post category
     // var customCategory = $$("input[name='item']").val();
