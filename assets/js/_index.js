@@ -141,6 +141,11 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     $("#favoriteView > .page-content").load("/favorites");
   });
 
+  $$(".profileView").click(function() {
+    myApp.closeNotification('.notification-item');
+    $("#profileView > .page-content").load("/profile");
+  });
+
   $$("a.searchView.tab-link").click(function() {
     myApp.closeNotification('.notification-item');
     $$("#searchView > .page-content").addClass("active");
@@ -166,47 +171,58 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   var timer, lock = false;
   // $('.page-content').delegate('.active', 'scroll', function(event) {
   $('.page-content').scroll(function(event) {
-    // disable on mapView
-    if ($('.tab-link.active').hasClass("mapView")) return;
-    // disable on postDetail
-    if ($('.view-main').attr("data-page")=="postDetailF7") return;
+
+    var mapView = $('.tab-link.active').hasClass("mapView");
+    var profileView = $('.tab-link.active').hasClass("profileView");
+    var postDetailF7 = $('.view-main').attr("data-page")=='postDetailF7'?true:false;
+
+    if( (!profileView && !mapView) && !postDetailF7 ){
+      var toolbarState = $('.toolbar').hasClass('toolbar-hidden');
+      console.log(toolbarState);
+      if(toolbarState){
+        $('#back-top').fadeOut();
+      }else{
+        $('#back-top').fadeIn();
+      }
+    }
 
     // console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
     var scrollTop = event.originalEvent.target.scrollTop;
 
-    if ($$(".page-content.active").offset().top <= 35) {
-      if (scrollTop <= 94) {
-        // console.log('Scroll up');
-        scrollUp();
-      } else if (scrollTop >= 95) {
-        // console.log('Scroll down');
-        scrollDown();
-      } else {
-        timer = setTimeout(function() {
-          scrollUp(false);
-        }, 3000);
-      }
-    } else scrollUp();
+    // if ($$(".page-content.active").offset().top <= 35) {
+    //   if (scrollTop <= 94) {
+    //     // console.log('Scroll up');
+    //     scrollUp();
+    //   } else if (scrollTop >= 95) {
+    //     // console.log('Scroll down');
+    //     scrollDown();
+    //   } else {
+    //     timer = setTimeout(function() {
+    //       scrollUp(false);
+    //     }, 3000);
+    //   }
+    // } else scrollUp();
+    //
+    // function scrollUp() {
+    //   if (lock) {
+    //     lock = false;
+    //     timer = null;
+    //     // window.myApp.showToolbar(".mainToolbar");
+    //   }
+    //   var backTopBtn = $("#back-top");
+    //   if (backTopBtn || backTopBtn == undefinded)
+    //     if ($$(".page-content.active").offset().top >= 0) $('#back-top').fadeOut();
+    // } // end scrollUp
+    //
+    // function scrollDown() {
+    //   if (!lock) {
+    //     lock = true;
+    //     timer = null;
+    //     // window.myApp.hideToolbar(".mainToolbar");
+    //   }
+    //   if ($$(".page-content.active").offset().top <= 0) $('#back-top').fadeIn();
+    // } // end scrollDown
 
-    function scrollUp() {
-      if (lock) {
-        lock = false;
-        timer = null;
-        // window.myApp.showToolbar(".mainToolbar");
-      }
-      var backTopBtn = $("#back-top");
-      if (backTopBtn || backTopBtn == undefinded)
-        if ($$(".page-content.active").offset().top >= 0) $('#back-top').fadeOut();
-    } // end scrollUp
-
-    function scrollDown() {
-      if (!lock) {
-        lock = true;
-        timer = null;
-        // window.myApp.hideToolbar(".mainToolbar");
-      }
-      if ($$(".page-content.active").offset().top <= 0) $('#back-top').fadeIn();
-    } // end scrollDown
 
   }); // end delegate
 
@@ -255,6 +271,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
          console.log("不動");
        }else{
          console.log("跳轉");
+         $('#back-top').fadeOut();
          mainView.router.loadPage('/postDetailf7/'+$$(this).attr("data-id"));
        }
     }
@@ -295,7 +312,8 @@ $$(document).on('click', '.link.like', function() {
 
 $$(document).on('click', '.tab-link', function(e) {
   console.log("tab-link clicked");
-  $('#back-top').fadeOut()
+
+  $$('#back-top').hide();
 });
 
 

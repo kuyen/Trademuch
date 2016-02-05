@@ -1,12 +1,12 @@
 module.exports = {
   pcOrMobile: async(req, res) => {
     try {
-      if (/mobile/i.test(req.headers['user-agent'])){
+      if (/mobile/i.test(req.headers['user-agent'])) {
         res.view('index')
-      }else{
+      } else {
         res.view('landing')
       }
-    }catch (e) {
+    } catch (e) {
       console.log(e);
       res.serverError(e);
     }
@@ -20,38 +20,38 @@ module.exports = {
 
       let isFav = false;
       let userFBId;
-      if(userLogin){
+      if (userLogin) {
         loginedUser = await UserService.getLoginUser(req);
         userFBId = await UserService.getFBId(loginedUser.id);
         // console.log("==== logined User is ===>", loginedUser);
-        favorites = await UserService.getUserFavorites({userId:loginedUser.id});
+        favorites = await UserService.getUserFavorites({
+          userId: loginedUser.id
+        });
         // console.log("==== user favorites are ===>", favorites);
-        allPosts.data.forEach(function(post,index){
-          favorites.forEach(function(fav){
-            if(post.id===fav.id) post.isFav = true;
+        allPosts.data.forEach(function(post, index) {
+          favorites.forEach(function(fav) {
+            if (post.id === fav.id) post.isFav = true;
             // console.log("index",index);
           }); // end forEach
-        });// end forEach
+        }); // end forEach
       } // end if
       // console.log("==== user favorites status ===>", favorites);
       // console.log("==== user favorites status ===>", favorites.length);
 
       // profileViewData
       let profile = {};
-      if(userLogin){
+      if (userLogin) {
         let profilePost = await Post.findAll({
-          where:{
+          where: {
             UserId: loginedUser.id
           }
         });
-        let likeCount = 0;
         profile = {
           name: loginedUser.username,
           allUserPost: profilePost,
           postCount: profilePost.length,
           favCount: favorites.length,
-          likeCount: likeCount,
-          rate: profilePost.length * 1.5 + likeCount
+          rate: profilePost.length * 1.5 + favorites.length
         }
       }
       res.view('main', {
@@ -132,7 +132,7 @@ module.exports = {
       };
       let result = await UserService.addUserFavorite(data);
       res.ok(result);
-    }catch (e) {
+    } catch (e) {
       sails.log.error(e);
       res.serverError(e);
     }
@@ -148,7 +148,7 @@ module.exports = {
       };
       let result = await UserService.delUserFavorite(data);
       res.ok('ok');
-    }catch (e) {
+    } catch (e) {
       sails.log.error(e);
       res.serverError(e);
     }
@@ -158,7 +158,9 @@ module.exports = {
     try {
       console.log("==== getUserFavorites ===");
       let user = await UserService.getLoginUser(req);
-      let userFavorites = await UserService.getUserFavorites({userId: user.id});
+      let userFavorites = await UserService.getUserFavorites({
+        userId: user.id
+      });
       res.ok(userFavorites);
     } catch (e) {
       sails.log.error(e);
@@ -172,7 +174,9 @@ module.exports = {
       let allPosts = await PostService.getAllPost();
       let loginState = await UserService.getLoginState(req);
       let loginedUser = await UserService.getLoginUser(req);
-      let userFavorites = await UserService.getUserFavorites({userId: loginedUser.id});
+      let userFavorites = await UserService.getUserFavorites({
+        userId: loginedUser.id
+      });
       res.view('favorite', {
         favorites: userFavorites,
         loginState: loginState,
@@ -183,5 +187,39 @@ module.exports = {
       sails.log.error(e);
       res.serverError(e);
     }
-  }
+  },
+
+  getProfileView: async(req, res) => {
+      try {
+        console.log("==== getProfileView ===");
+        let loginedUser = await UserService.getLoginUser(req);
+        let userFBId = await UserService.getFBId(loginedUser.id);
+
+        let favorites = await UserService.getUserFavorites({
+          userId: loginedUser.id
+        });
+
+        let profilePost = await Post.findAll({
+          where: {
+            UserId: loginedUser.id
+          }
+        });
+
+        let profile = {
+          name: loginedUser.username,
+          allUserPost: profilePost,
+          postCount: profilePost.length,
+          favCount: favorites.length,
+          rate: profilePost.length * 1.5 + favorites.length
+        }
+
+        res.view('profile', {
+          profile,
+          userFBId
+        });
+      } catch (e) {
+        sails.log.error(e);
+        res.serverError(e);
+      }
+    } // end getProfileView
 }
