@@ -78,7 +78,24 @@ module.exports = {
     try {
       sails.log.info(userId,postId);
       let user = await User.findById(userId);
-      let favorites =  await user.addPost(postId);
+      let checkRepeat = await user.hasPosts(postId);
+      let favorites;
+      if( ! checkRepeat)
+        favorites =  await user.addPost(postId);
+      return favorites;
+    } catch (e) {
+      throw e;
+    }
+  },
+
+  delUserFavorite: async({userId,postId}) => {
+    try {
+      sails.log.info(userId,postId);
+      let user = await User.findById(userId);
+      let checkHave = await user.hasPosts(postId);
+      let favorites;
+      if(checkHave)
+        favorites =  await user.removePost(postId);
       return favorites;
     } catch (e) {
       throw e;

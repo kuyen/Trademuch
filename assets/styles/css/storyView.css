@@ -4,19 +4,27 @@ div.fileUpload-input {
   padding-top: 10px;
   padding-bottom: 1px;
 }
-div.fileUpload-input > img {
-  max-width: 100%;
-  max-height: 2000px;
-  border-color: rgba(69, 69, 69, 0.89);
-  border-width: 1px;
-  border-style: outset;
-  display: none;
+div.fileUpload-input > .lightbox {
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  overflow: hidden;
+}
+div.fileUpload-input > .lightbox > .preview {
+  width: auto;
+  max-height: 250px;
+  /*border-color: rgba(69, 69, 69, 0.89);*/
+  /*border-width: 1px;*/
+  /*border-style: outset;*/
+  margin: auto;
+  padding-bottom: 10px;
+  display: block !important;
 }
 div.fileUpload-btn {
   top: -20px;
   position: relative;
   overflow: hidden;
-  margin: 10px;
+  margin-top: 10px;
 }
 div.fileUpload-btn > span {
   padding-top: 30px;
@@ -46,6 +54,26 @@ input#uploadFile {
   margin-top: 35px;
 }*/
 
+.quickDatePickArea{
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.quickDatePickArea .button-round:link {
+  text-decoration: none;
+}
+.quickDatePickArea .button-round:hover {
+  background-color: #007aff;
+  text-decoration: none;
+  color: white;
+}
+.quickDatePickArea .button-round:visited {
+  /*background-color: #007aff;*/
+  text-decoration: none;
+  /*color: white;*/
+}
+#calendar-postPeriod{
+  margin-bottom: 10px;
+}
 
 #storyImageUpload>.list-block {
   margin-bottom: 0px;
@@ -55,10 +83,6 @@ input#uploadFile {
   margin-top: 0px;
 }
 
-img.preview {
-  margin: auto;
-  display: block !important;
-}
 canvas#viewport {
   margin: auto;
   display: none !important;

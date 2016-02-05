@@ -135,6 +135,22 @@ module.exports = {
     }
   },
 
+  delUserFavorite: async(req, res) => {
+    try {
+      sails.log.info("=== delUserFavorite ===", req.param('id'));
+      let user = await UserService.getLoginUser(req);
+      let data = {
+        userId: user.id,
+        postId: req.param('id')
+      };
+      let result = await UserService.delUserFavorite(data);
+      res.ok('ok');
+    }catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
+  },
+
   getUserFavorites: async(req, res) => {
     try {
       console.log("==== getUserFavorites ===");
