@@ -84,6 +84,7 @@ module.exports = {
         }else{
           data.type_icon = '../icons/get.png';
         }
+
         return data;
       });
 
@@ -142,6 +143,7 @@ module.exports = {
       }else{
         data.type_icon = '../icons/get.png';
       }
+
       return data;
     } catch (e) {
       throw e;

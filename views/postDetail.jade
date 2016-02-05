@@ -3,16 +3,9 @@
   ul
    li.card
      .card-header.post-img
-      div
-        img(src=post.gallery, data-hash='1', alt='' width='100%') 
-        .detailFavbox
-         .favbox
-            a.favboxa(data-id="#{post.id}")
-              |                            
-              -if(isFav==true)
-                i.fa.fa-lg.fa-heart(style="color:#ff5757")
-              -else
-                i.fa.fa-lg.fa-heart()    
+       div
+         img(src=post.gallery, data-hash='1', alt='' width='100%')
+             
      .card-content
       .card-content-inner
         span.post-title.bold #{post.title}  
