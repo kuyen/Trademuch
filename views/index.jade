@@ -24,7 +24,7 @@ head
   
 body#page-top.map-fullscreen.page-homepage.navigation-off-canvas()
   #splash
-    img(src='/img/splashLogo.png', alt='splashLogo')
+    //- img(src='/img/splashLogo.png', alt='splashLogo')
     
 script(type='text/javascript', src='/js/map/jquery-2.1.0.min.js')
 script.  
@@ -33,6 +33,6 @@ script.
     window.setTimeout(function() {
       window.location.replace("/main");
         //- $('#splash').hide();
-    },1500);
-  }, 3000);
+    },100);
+  }, 100);
         

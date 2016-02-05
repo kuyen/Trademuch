@@ -72,12 +72,19 @@ module.exports = {
           url: `/postDetailf7/${post.id}`,
           type: post.Item.Like.title,
           // type_icon: post.Item.Like.icon,
-          type_icon: "../icons/gift.png",
+          type_icon: "../icons/give.png",
+          // type_icon: "../icons/get.png",
           gallery: [pic],
           content: post.content,
           itemname: post.Item.itemname,
           username: post.User.username
         };
+        if(post.mode == "give"){
+          data.type_icon = '../icons/give.png';
+        }else{
+          data.type_icon = '../icons/get.png';
+        }
+
         return data;
       });
 
@@ -124,12 +131,18 @@ module.exports = {
         url: `/getPostDetail/${getPost.id}`,
         type: getPost.Item.Like.title,
         // type_icon: getPost.Item.Like.icon,
-        type_icon: "../icons/gift.png",
+        type_icon: "../icons/give.png",
+        // type_icon: "../icons/get.png",
         gallery: [pic],
         username: getPost.User.username,
         email: getPost.User.email,
         itemname: getPost.Item.itemname,
       };
+      if(getPost.mode == "give") {
+        data.type_icon = '../icons/give.png';
+      }else{
+        data.type_icon = '../icons/get.png';
+      }
 
       return data;
     } catch (e) {
@@ -170,7 +183,7 @@ module.exports = {
           }],
           order: 'createdAt DESC'
         });
-        // // sails.log.info(getPost);
+        sails.log.info(getPosts[0]);
         var data = [];
         getPosts.forEach(function(post) {
           let pic = post.images || post.Item.pic;
@@ -188,12 +201,19 @@ module.exports = {
             url: `/getPostDetail/${post.id}`,
             type: post.Item.Like.title,
             // type_icon: getPost.Item.Like.icon,
-            type_icon: "../icons/gift.png",
+            type_icon: "../icons/give.png",
+            // type_icon: "../icons/get.png",
             gallery: [pic],
             username: post.User.username,
             email: post.User.email,
             itemname: post.Item.itemname
           });
+          console.log(post);
+          if(post.mode == "give") {
+            data.type_icon = '../icons/give.png';
+          }else {
+            data.type_icon = '../icons/get.png';
+          }
         }); // end forEach
         console.log("data length=>", data.length);
         return data;

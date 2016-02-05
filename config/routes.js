@@ -61,6 +61,10 @@
      view: 'Specification'
    },
 
+   '/learnMore' : {
+     view: 'learnMore'
+   },
+
    'get /login': 'AuthController.login',
    'get /logout': 'AuthController.logout',
    'get /register': 'AuthController.register',
@@ -87,6 +91,7 @@
    'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
 
    'post /addUserFavorite/:id': 'UserController.addUserFavorite',
+   'post /delUserFavorite/:id': 'UserController.delUserFavorite',
    'get /getUserFavorites': 'UserController.getUserFavorites',
    'get /favorites': 'UserController.getFavoriteView',
 

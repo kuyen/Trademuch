@@ -117,6 +117,15 @@ var mapStyles = [{
   }]
 }];
 
+// custom functions
+
+function setCookie(name, value) {
+  //var Days = 1; //default one day
+  //var exp  = new Date();
+  //exp.setTime(exp.getTime() + Days*24*60*60*1000);
+  document.cookie = name + "=" + escape(value) + "; path=/";
+}
+
 // Set map height to 100% ----------------------------------------------------------------------------------------------
 
 var $body = $('body');
@@ -158,6 +167,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
     var mapCenter = new google.maps.LatLng(_latitude, _longitude);
     var mapOptions = {
       zoom: 14,
+      minZoom: 8,
       center: mapCenter,
       disableDefaultUI: true,
       scrollwheel: false,
@@ -196,6 +206,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
             lng: position.coords.longitude
           };
           map.setCenter(pos);
+
+          // save location for future usages.
+          setCookie("lat",position.coords.latitude);
+          setCookie("lon",position.coords.longitude);
         },
         // error
         function() {
@@ -207,6 +221,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
               lng: data.lon
             };
             map.setCenter(pos);
+
+            // save location for future usages.
+            setCookie("lat",data.lat);
+            setCookie("lon",data.lon);
           });
         },
         // option
@@ -302,6 +320,18 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
             // });
 
             newMarkers[i].content.className = 'marker-active marker-loaded';
+            var clickMark = $(newMarkers[i].content)[0];
+            var markInfo = $(clickMark).find('.map-marker')[0];
+            parent.window.myApp.closeNotification('.notification-item');
+            parent.window.myApp.addNotification({
+                title: $(markInfo).attr("data-title"),
+                message: $(markInfo).attr("data-price"),
+                media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
+                onClick: function(){
+                  parent.window.myApp.closeNotification('.notification-item');
+                  parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
+                }
+            });
             markerClicked = 1;
           }
         }
@@ -330,7 +360,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           //   boxClass: 'fade-in-marker'
           // });
           activeMarker.content.className = 'marker-active marker-loaded';
-          var clickMark = $('.marker-active')[0];
+          var clickMark = $(activeMarker.content)[0];
           var markInfo = $(clickMark).find('.map-marker')[0];
           parent.window.myApp.closeNotification('.notification-item');
           parent.window.myApp.addNotification({
@@ -344,6 +374,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           });
         } else {
           markerClicked = 0;
+          parent.window.myApp.closeNotification('.notification-item');
           activeMarker.infobox.setOptions({
             boxClass: 'fade-out-marker'
           });
@@ -477,7 +508,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
     function error(err) {
       console.log("get location err=>", err);
-      alert("we can't get you accurate location now. using internet location for instead.", err);
+      // alert("we can't get you accurate location now. using internet location for instead.", err);
       // use geoip for instead.
       jQuery.ajax({
         url: 'http://ip-api.com/json/',

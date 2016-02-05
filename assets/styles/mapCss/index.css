@@ -65,7 +65,7 @@ span.find-my-loc {
 /* map-marker */
 
 .map-marker .get {
-  border: 3px solid #28a7e1;
+  border: 3px solid #f29827;
 }
 .map-marker .give {
   border: 3px solid #ff715e;
@@ -75,6 +75,7 @@ span.find-my-loc {
 
 .infobox .inner .image img {
   min-height: 140px;
+  width: 100%
   max-height: 393px;
 }
 

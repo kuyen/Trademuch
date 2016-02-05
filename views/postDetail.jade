@@ -3,40 +3,36 @@
   ul
    li.card
      .card-header.post-img
-      div
-        img(src=post.gallery, data-hash='1', alt='' width='100%')    
+       div
+         img(src=post.gallery, data-hash='1', alt='' width='100%')
+             
      .card-content
       .card-content-inner
         span.post-title.bold #{post.title}  
         span.post-price.bold $#{post.price}
         span
-          .detailFavbox
-           .favbox
-              a.favboxa(data-id="#{post.id}")
-                |                            
-                -if(isFav==true)
-                  i.fa.fa-lg.fa-heart(style="color:#ff5757")
-                -else
-                  i.fa.fa-lg.fa-heart() 
-        span.post-itemname.bold #{post.itemname}
+         .post-itemname.bold #{post.itemname}
+        span
+         .post-content.bold #{post.content ||'no description now.'}
       .list-block
         ul
           li
+          -if(post.phone)
             a.item-link.item-content(href='#')
-              img(src='/img/phone.png', alt='phone', style="height: auto;")
+              //- img(src='/img/phone.png', alt='phone', style="height: auto;")
               .item-media.title-items
-                i.icon.icon-f7
+                i.icon.icon-form-tel
               .item-inner
-                .item-title.bold #{post.content ||'no description now.'}
+                .item-title.bold #{'no phone number now.'}
           -if(post.email)
             li
-              a.item-link.item-content(href='#')
-                img(src='/img/mail.png', alt='mail', style="height: auto;")
+              a.item-link.item-content.external(href='mailto:#{post.email}')
+                //- img(src='/img/mail.png', alt='mail', style="height: auto;")
                 .item-media.email-user
-                  i.icon.icon-f7
+                  i.icon.icon-form-email
                 .item-inner
                   .item-title.bold #{post.email}
-     .card-footer Card footer
+     .card-footer(style="display:none")
   #fb-root
   .fb-comments(data-href="http://localhost:1337/postDetail/#{post.id}" data-width="400" data-numposts="5")       
   script.

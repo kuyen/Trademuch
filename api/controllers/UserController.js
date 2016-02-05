@@ -33,6 +33,8 @@ module.exports = {
           }); // end forEach
         });// end forEach
       } // end if
+      // console.log("==== user favorites status ===>", favorites);
+      // console.log("==== user favorites status ===>", favorites.length);
 
       // profileViewData
       let profile = {};
@@ -47,6 +49,7 @@ module.exports = {
           name: loginedUser.username,
           allUserPost: profilePost,
           postCount: profilePost.length,
+          favCount: favorites.length,
           likeCount: likeCount,
           rate: profilePost.length * 1.5 + likeCount
         }
@@ -129,6 +132,22 @@ module.exports = {
       };
       let result = await UserService.addUserFavorite(data);
       res.ok(result);
+    }catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
+  },
+
+  delUserFavorite: async(req, res) => {
+    try {
+      sails.log.info("=== delUserFavorite ===", req.param('id'));
+      let user = await UserService.getLoginUser(req);
+      let data = {
+        userId: user.id,
+        postId: req.param('id')
+      };
+      let result = await UserService.delUserFavorite(data);
+      res.ok('ok');
     }catch (e) {
       sails.log.error(e);
       res.serverError(e);
