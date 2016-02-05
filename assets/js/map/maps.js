@@ -117,6 +117,15 @@ var mapStyles = [{
   }]
 }];
 
+// custom functions
+
+function setCookie(name, value) {
+  //var Days = 1; //default one day
+  //var exp  = new Date();
+  //exp.setTime(exp.getTime() + Days*24*60*60*1000);
+  document.cookie = name + "=" + escape(value) + "; path=/";
+}
+
 // Set map height to 100% ----------------------------------------------------------------------------------------------
 
 var $body = $('body');
@@ -196,6 +205,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
             lng: position.coords.longitude
           };
           map.setCenter(pos);
+
+          // save location for future usages.
+          setCookie("lat",position.coords.latitude);
+          setCookie("lon",position.coords.longitude);
         },
         // error
         function() {
@@ -207,6 +220,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
               lng: data.lon
             };
             map.setCenter(pos);
+
+            // save location for future usages.
+            setCookie("lat",data.lat);
+            setCookie("lon",data.lon);
           });
         },
         // option
@@ -490,7 +507,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
     function error(err) {
       console.log("get location err=>", err);
-      alert("we can't get you accurate location now. using internet location for instead.", err);
+      // alert("we can't get you accurate location now. using internet location for instead.", err);
       // use geoip for instead.
       jQuery.ajax({
         url: 'http://ip-api.com/json/',
