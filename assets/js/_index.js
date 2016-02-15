@@ -246,6 +246,33 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
+  $$(document).on('click', '.deletelike.notif-message', function() {
+    var delfav = $$(this);
+    var id = delfav.attr("data-id");
+    var img = delfav.attr("data-img");
+    myApp.addNotification({
+      title: 'You delete :(',
+      message: 'You have delete to Favorite',
+      media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
+    });
+    setTimeout(function() {
+      myApp.closeNotification('.notification-item');
+    }, 2000);
+    $$.ajax({
+      url: "/delUserFavorite/" + id,
+      type: "POST",
+      success: function(result) {
+        console.log(result);
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.log("xhr.status,thrownError=>", xhr.status, thrownError);
+        alert("if you like this item, login please :)");
+        window.location.assign("/auth/facebook");
+      }
+    }); // end ajax
+  });
+
+
 });
 
 $$(document).on('click', '.link.like', function() {
@@ -264,7 +291,6 @@ $$(document).on('click', '.link.like', function() {
     }
   }); // end ajax
 });
-
 
 // $$(document).on('click', '.item-link', function(e) {
 //   console.log("item clicked");

@@ -86,7 +86,7 @@ block body
                                           .item-inner
                                             .item-title-row
                                               .item-title
-                                                a.link(href='/postDetailf7/#{post.id}') #{post.title}
+                                                a.link(data-ignore-cache="true", href='/postDetailf7/#{post.id}') #{post.title} !!!
                                             .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 

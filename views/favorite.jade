@@ -16,12 +16,12 @@
                   .item-inner
                     .item-title-row
                       .item-title 
-                        a.link(href='/postDetailf7/#{favorite.id}') #{favorite.title}
+                        a.link(data-ignore-cache="true", href='/postDetailf7/#{favorite.id}') #{favorite.title}
                     .item-subtitle #{favorite.Item.itemname}
               .swipeout-actions-right
-                a.bg-pink.deletelike(href='#')
+                a.bg-pink.deletelike.notif-message(href='#')
                   img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
-                //- a.action1.bg-pink.like(href='#', data-id='#{favorite.id}') Like
+
   .card
     .card-header You may like...
     .card-content 
