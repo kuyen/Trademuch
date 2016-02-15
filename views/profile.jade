@@ -1,0 +1,47 @@
+.card(style="margin-top:70px;")
+  .card-content
+    .list-block.media-list
+      ul
+        li.item-content.profile-card
+          .item-media.profile-picture
+            -if(userFBId)
+              img(src='//graph.facebook.com/' + userFBId + '/picture?type=large', alt='avatar' height="100px")
+            -else
+              img(src='/img/human.png', alt='avatar' width="100")
+          .item-inner
+            .item-title-row
+              .item-title.profile-name #{profile.name}
+            .item-subtitle 
+              .row
+                  span Like
+                  span Post
+                  span Rate
+              .row
+                span #{profile.favCount}
+                span #{profile.postCount}
+                span #{profile.rate}
+                
+.card(style="margin-top:-50px;")
+.card-content 
+ -if(profile.postCount != 0)
+   .list-block.media-list
+     ul
+       each post in profile.allUserPost
+         li.swipeout
+             .swipeout-content
+               .item-content
+                 .item-media
+                   //- img(src=post.gallery[0], width='80')
+                   img(src=post.dataValues.images, width='80')
+                 .item-inner
+                   .item-title-row
+                     .item-title 
+                       a.link(href='/postDetailf7/#{post.dataValues.id}') #{post.dataValues.title}
+                   .item-subtitle NT$#{post.dataValues.price}
+             .swipeout-actions-right
+               a.bg-pink.Delete(href='#', data-id='#{post.dataValues.id}')
+                 img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
+ -else
+   .noPostItem     
+     img(src='/img/pc-man.png', alt='pc-man')        
+     p there is nothing... 

@@ -3,18 +3,19 @@ head
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
   meta(name='author', content='Balakadesign')
   meta(name='description', content='TradeMuch')
-  title TradeMuch
-  link(rel='apple-touch-icon-precomposed', sizes='144x144', href='ico/apple-touch-icon-144-precomposed.png')
-  link(rel='apple-touch-icon-precomposed', sizes='114x114', href='ico/apple-touch-icon-114-precomposed.png')
-  link(rel='apple-touch-icon-precomposed', sizes='72x72', href='ico/apple-touch-icon-72-precomposed.png')
-  link(rel='apple-touch-icon-precomposed', href='ico/apple-touch-icon-57-precomposed.png')
-  link(rel='shortcut icon', href='ico/favicon.ico')
+  title TradeMuch - Share everything around your nearby.
+  link(rel='apple-touch-icon-precomposed', sizes='144x144', href='apple-touch-icon-144-precomposed.png')
+  link(rel='apple-touch-icon-precomposed', sizes='114x114', href='apple-touch-icon-114-precomposed.png')
+  link(rel='apple-touch-icon-precomposed', sizes='72x72', href='apple-touch-icon-72-precomposed.png')
+  link(rel='apple-touch-icon-precomposed', href='apple-touch-icon-57-precomposed.png')
+  link(rel='shortcut icon', href='favicon.ico')
   link(rel='stylesheet', href='styles/mapCss/bootstrap-select.min.css', type='text/css')
   link(rel='stylesheet', href='styles/landing/barnaul.css', type='text/css')
   link(rel='stylesheet', href='styles/landing/phone.css', type='text/css')
   link(rel='stylesheet', href='styles/landing/css/lightbox2/dist/css/lightbox.css', type='text/css')
   link(rel='stylesheet', href='styles/landing/css/fotorama/fotorama.css', type='text/css')
   link(rel='stylesheet', href='styles/landing/scrollyeah.min.css', type='text/css')
+  link(rel='stylesheet', href='styles/landing/custom.css', type='text/css')
   body(data-spy='scroll', data-target='.navbar-collapse', data-offset='76')
     section#header
       nav.navbar.navbar-barnaul
@@ -23,30 +24,63 @@ head
             button.navbar-toggle(type='button', data-toggle='collapse', data-target='#brn-navbar-collapse-1')
               //- span.batch.icon32 &#xF0AA;
               // Logo image
-            a.navbar-brand(href='/public')
+            a.navbar-brand(href='/public', style="margin-bottom:20px;")
               img(src='img/tramuLogo.png', alt='Barnaul-logo', style="height: 45px;")
           #brn-navbar-collapse-1.collapse.navbar-collapse
-              <ul class="nav navbar-nav">
-              </ul>
-            ul.nav.navbar-nav.navbar-right
+            ul.nav.navbar-nav.navbar-right(style="padding-top: 25px;")
               li
                 a(href='/public') Home
               li
                 a(href='/main') Start
-                
+    
     section#brn-promo.iphone-cover-new(data-stellar-background-ratio='0.5', data-stellar-vertical-offset='-76')
       .container
         .row
           #description.col-md-6
             h1 Welcome to TradeMuch.
-              p.lead(data-content='description') Share everything around your nearby locations
-          .col-md-6.col-xs-12(style='position: relative;')
+              p.lead(data-content='description') Share everything around your nearby locations.
+              p 分享 - 交流 - 熱愛你的生活。
+          .col-md-6.col-xs-12(style='position: relative;margin-top:-35px;')
             .iphone-gallery-wrapper-new
-              .fotorama(data-nav='false')
+              .fotorama(data-nav='false',style="margin-top:-35px;")
                 iframe.phoneIframe(src='/main')
             .iphone-new
-              img.img-responsive(src='img/iPhone_bg2.png', alt='iphone gallery background')
-      
+              img.img-responsive(src='img/iPhone_bg2.png', alt='iphone gallery background',style="margin-top:-35px;")
+              
+    // atmosphere1
+    section#promo1.hidden-xs(data-stellar-background-ratio='0.5', data-stellar-vertical-offset='-76')
+      .container
+        .row
+          #promoDesc.col-md-6
+            h1 以你最習慣的方式，
+            h1 重新探索你的生活圈。
+              p.lead(data-content='description') 交流，是人類天生的技藝。分享你的物品，或是提供服務，尋找生活圈的好人好事。
+              p
+                a.start(href="/main") 再次探險你的週遭 >
+                
+    // atmosphere2
+    section#promo2.hidden-xs(data-stellar-background-ratio='0.5', data-stellar-vertical-offset='-76')
+      .container
+        .row
+          #promoDesc.col-md-6
+            h1 愛書人的寶庫，
+            h1 鑑賞家的天堂。
+              p.lead(data-content='description') 我們知道你有許多出人意表、充滿故事的良品想與大家分享，也知道你一定熱愛在詩意盎然的巷弄中尋找下一段精彩的交流。
+              p
+                a.start(href="/main") 開始這段分享之旅 >
+                
+    // atmosphere3
+    section#promo3.hidden-xs(data-stellar-background-ratio='0.5', data-stellar-vertical-offset='-76')
+      .container
+        .row
+          #promoDesc.col-md-6
+            h1 立刻開始你的尋物探險！
+              p.lead(data-content='description') 珍惜，是人類文明最珍貴的體現。看看你的週遭，也許有你意想不到的驚喜；分享你無價之寶，讓它能夠在別處重獲新生。
+              p
+               a.start(href="/main") 立刻尋找屬於你的好物 >
+          
+        
+          
     section#brn-features-app
       .container
         // Section header
@@ -125,47 +159,6 @@ head
       // /row
     // /container
 
-    section#brn-pricing
-      .container
-        // Section header
-        header
-          .row
-            .col-xs-12
-              // Don't forget to use span tag for center lines
-              h2.stripe
-                span 使用情境
-            // /col-xs-12
-          // /row
-        // Section header end
-        .row
-          .col-md-10.col-md-offset-1.col-sm-12
-            .row
-              // Pricing table item
-              .col-md-6
-                .pricing-table.text-center
-                  .pricing-header
-                    img(src='img/Supermarket.jpg', alt='Supermarket', style='width:85%')
-                  ul.pricing-items
-                    li 
-                     h2 逛賣場
-                     p 揪團買特價商品，多買一樣商品怎麼辦？
-                     p 即時po出商品，快速轉讓
-
-              .col-md-6
-                .pricing-table.text-center
-                  .pricing-header
-                    img(src='img/run.jpg', alt='run', style='width:85%')
-                  ul.pricing-items
-                    li 
-                     h2 跑步
-                     p 跑步時，鞋子突然壞了，需要一雙球鞋，求助 TradeMuch 平台鄰近的用戶
-                     p 運動場所看見喜歡的球鞋，詢問有關於球鞋資訊
-              // Pricing table item end
-            // /row
-          // /col-md-10.col-md-offset-1.col-sm-12
-        // /row
-      // /container
-      
     footer                    
       .container
        .row

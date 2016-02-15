@@ -122,11 +122,10 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     console.log(storedData);
 
     // hack <a> hover to solved #371
-    $("a.back.link :hover").css("color","white");
+    $("a.back.link :hover").css("color", "white");
 
   });
 });
-
 
 $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
@@ -140,6 +139,11 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   $$(".favoriteView").click(function() {
     myApp.closeNotification('.notification-item');
     $("#favoriteView > .page-content").load("/favorites");
+  });
+
+  $$(".profileView").click(function() {
+    myApp.closeNotification('.notification-item');
+    $("#profileView > .page-content").load("/profile");
   });
 
   $$("a.searchView.tab-link").click(function() {
@@ -167,12 +171,12 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   var timer, lock = false;
   // $('.page-content').delegate('.active', 'scroll', function(event) {
   $('.page-content').scroll(function(event) {
-    // disable on mapView
-    if ($('.tab-link.active').hasClass("mapView")) return;
-    // disable on postDetail
-    if ($('.view-main').attr("data-page")=="postDetailF7") return;
 
-    console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
+    var mapView = $('.tab-link.active').hasClass("mapView");
+    var profileView = $('.tab-link.active').hasClass("profileView");
+    var postDetailF7 = $('.view-main').attr("data-page") == 'postDetailF7' ? true : false;
+
+    // console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
     var scrollTop = event.originalEvent.target.scrollTop;
 
     if ($$(".page-content.active").offset().top <= 35) {
@@ -206,8 +210,22 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         timer = null;
         // window.myApp.hideToolbar(".mainToolbar");
       }
-      if ($$(".page-content.active").offset().top <= 0) $('#back-top').fadeIn();
+      if ($$(".page-content.active").offset().top <= 0) btnFading();
+      // $('#back-top').fadeIn();
     } // end scrollDown
+
+    function btnFading() {
+      // if ((!profileView && !mapView) && !postDetailF7) {
+      if ((!profileView && !mapView) && !postDetailF7) {
+        var toolbarState = $('.toolbar').hasClass('toolbar-hidden');
+        console.log(toolbarState);
+        if (toolbarState) {
+          $('#back-top').fadeOut();
+        } else {
+          $('#back-top').fadeIn();
+        }
+      }
+    } // end btnFading
 
   }); // end delegate
 
@@ -272,6 +290,27 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
+  $$("#search-result .swipeout").on("click", function() {
+    var f7open = $$(this).hasClass('swipeout-opened');
+    var closeOpen = $$(this).hasClass('close-open');
+    if (!f7open) {
+      if (closeOpen) {
+        $$(this).removeClass('close-open');
+        console.log("不動");
+      } else {
+        console.log("跳轉");
+        $('#back-top').fadeOut();
+        mainView.router.loadPage('/postDetailf7/' + $$(this).attr("data-id"));
+      }
+    }
+  }).on("touchend", function() {
+    var f7open = $$(this).hasClass('swipeout-opened');
+    if (!f7open) {
+      $$(this).removeClass('close-open');
+    }
+  }).on("close", function() {
+    $$(this).addClass('close-open');
+  })
 
 });
 
@@ -300,7 +339,8 @@ $$(document).on('click', '.link.like', function() {
 
 $$(document).on('click', '.tab-link', function(e) {
   console.log("tab-link clicked");
-  $('#back-top').fadeOut()
+
+  $$('#back-top').hide();
 });
 
 
@@ -328,3 +368,16 @@ $$('.panel-left, .panel-right').on('close', function() {
 });
 
 myApp.init();
+
+function getCookie(name) {
+  var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+  if (arr != null) return unescape(arr[2]);
+  return null;
+}
+
+function setCookie(name, value) {
+  //var Days = 1; //default one day
+  //var exp  = new Date();
+  //exp.setTime(exp.getTime() + Days*24*60*60*1000);
+  document.cookie = name + "=" + escape(value) + "; path=/";
+}

@@ -13,7 +13,11 @@ myApp.onPageAfterAnimation('storyMode', function(page) {
   // }); // end click
 });
 
-
+function getCookie(name) {
+  var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+  if (arr != null) return unescape(arr[2]);
+  return null;
+}
 
 // give/take mode select
 $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
@@ -145,6 +149,9 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     var storedData = myApp.formToJSON('#storyDetailChoose');
     myApp.formStoreData('storyDetailChoose', storedData);
   });
+  $$("input[name='price']").on('click', function() {
+    $$(this).val("");
+  });
 
   // storyMode
   $("input[name='seeking']").on('change', function() {
@@ -259,11 +266,11 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }
 
     // post price
-    // if (!data.detail.price || data.detail.price == "") {
-    //   myApp.hideIndicator();
-    //   myApp.alert("Please give your item/service a nice price :)", "Oops!")
-    //   return false;
-    // }
+    if (!data.detail.price || data.detail.price == "") {
+      myApp.hideIndicator();
+      myApp.alert("Please give your item/service a nice price, or even free :)", "Oops!")
+      return false;
+    }
 
     // post category
     // var customCategory = $$("input[name='item']").val();
@@ -334,7 +341,16 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           submit();
         },
         error: function(err) {
-          // todo
+          console.log("get html5 LocError!");
+
+          var lon = getCookie("lon");
+          var lat = getCookie("lat");
+          location = {
+            latitude: lat,
+            longitude: lon
+          }
+          data.location = location;
+          submit();
           // if get geoip's data failed then give a default loaciotn from user setting.
         }
       }); // end ajax
@@ -440,9 +456,49 @@ $(function() {
 
       var img = new Image();
       img.onload = function() {
+        var imgWidth = img.width * 0.25;
+        var imgHeight = img.height * 0.25;
         canvas.width = img.width * 0.25;
         canvas.height = img.height * 0.25;
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var that = this;
+        EXIF.getData(img, function(){
+            var orientation = EXIF.getTag(that, 'Orientation');
+            console.log("!!!!!!!!!!!!"+orientation);
+
+            if(orientation == 6 || orientation == 8|| orientation == 3)
+            {
+                var rotateAngle = 0;
+
+                switch(orientation){
+              	case 3:
+              		rotateAngle = 180;
+              		break;
+              	case 6:
+              		rotateAngle = 90;
+                      canvas.width = imgHeight;
+                      canvas.height = imgWidth;
+              		break;
+              	case 8:
+              		rotateAngle = -90;
+                      canvas.width = imgHeight;
+                      canvas.height = imgWidth;
+              		break;
+              }
+
+                var x = canvas.width / 2;
+                var y = canvas.height / 2;
+
+                ctx.translate(x, y);
+                ctx.rotate(rotateAngle*Math.PI/180);
+
+                ctx.drawImage(img, (-imgWidth / 2), (-imgHeight / 2), imgWidth, imgHeight);
+            }
+            else
+            {
+                ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+            }
+        });
+        // ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         var jpegBase64 = canvas.toDataURL("image/jpeg");
 
