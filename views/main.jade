@@ -86,7 +86,7 @@ block body
                                           .item-inner
                                             .item-title-row
                                               .item-title
-                                                a.link(href='/postDetailf7/#{post.id}') #{post.title}
+                                                a.link(data-ignore-cache="true", href='/postDetailf7/#{post.id}') #{post.title}
                                             .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
@@ -110,7 +110,7 @@ block scripts
               <div class="item-inner">
                 <div class="item-title-row">
                   <div class="item-title">
-                    <a class="link" href='/postDetailf7/{{id}}'>{{title}}</a>
+                    <a class="link" data-ignore-cache="true" href='/postDetailf7/{{id}}'>{{title}}</a>
                   </div>
                 </div>
                 <div class="item-subtitle">NT${{price}}</div>
