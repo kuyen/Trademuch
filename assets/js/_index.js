@@ -264,7 +264,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
-  $$(document).on('click', '.deletelike.notif-message', function() {
+  $$(document).on('click', '.deletelike.notif-message.swipeout-delete', function() {
     var delfav = $$(this);
     var id = delfav.attr("data-id");
     var img = delfav.attr("data-img");
@@ -300,7 +300,10 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       } else {
         console.log("跳轉");
         $('#back-top').fadeOut();
-        mainView.router.loadPage('/postDetailf7/' + $$(this).attr("data-id"));
+        mainView.router.load({
+          url: '/postDetailf7/' + $$(this).attr("data-id"),
+          ignoreCache: true
+        })
       }
     }
   }).on("touchend", function() {
