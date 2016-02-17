@@ -8,6 +8,9 @@ module.exports = {
       type: Sequelize.STRING,
       unique: true
     },
+    telephone: {
+      type: Sequelize.STRING
+    },
     latitude: {
       type: Sequelize.DOUBLE,
       allowNull: true,
