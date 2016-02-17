@@ -3,8 +3,8 @@
   ul
    li.card
      .card-header.post-img
-       div
-         img(src=post.gallery, data-hash='1', alt='' width='100%')
+       .imgWrapper.center
+         img(src=post.gallery, data-hash='1', alt='#{post.title}', style="width:100%;" )
              
      .card-content
       .card-content-inner
@@ -32,7 +32,10 @@
                   i.icon.icon-form-email
                 .item-inner
                   .item-title.bold #{post.email}
-     .card-footer(style="display:none")
+     .card-footer
+      .mapWrapper.center
+        a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
+          img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=400x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location')
   #fb-root
   .fb-comments(data-href="http://localhost:1337/postDetail/#{post.id}" data-width="400" data-numposts="5")       
   script.

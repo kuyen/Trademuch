@@ -32,11 +32,10 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
   var id = $$("input#itemId").val();
   $("#postDetailF7 > .page-content").load("/postDetail/" + id);
   $$(".back.link").on("click", function() {
-    var a = document.getElementById("facebook-jssdk");
-    a.parentNode.removeChild(a);
+    $$(".swipeout").css('background-color','white');
   });
 
-});
+}); // end page postDetailF7
 
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
@@ -290,7 +289,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
-  $$("#search-result .swipeout").on("click", function() {
+  $("#search-result").delegate('.swipeout', 'click', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
     var closeOpen = $$(this).hasClass('close-open');
     if (!f7open) {
@@ -299,23 +298,24 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         console.log("不動");
       } else {
         console.log("跳轉");
+        $$(this).css('background-color','rgb(169, 208, 247)');
         $('#back-top').fadeOut();
         mainView.router.load({
           url: '/postDetailf7/' + $$(this).attr("data-id"),
           ignoreCache: true
-        })
+        });
       }
     }
-  }).on("touchend", function() {
+  }).delegate('.swipeout', "touchend", function() {
     var f7open = $$(this).hasClass('swipeout-opened');
     if (!f7open) {
       $$(this).removeClass('close-open');
     }
-  }).on("close", function() {
+  }).delegate('.swipeout', "close", function() {
     $$(this).addClass('close-open');
   })
 
-});
+}); // end page home
 
 $$(document).on('click', '.link.like', function() {
   var fav = $$(this);
