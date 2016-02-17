@@ -313,7 +313,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }
   }).delegate('.swipeout', "close", function() {
     $$(this).addClass('close-open');
-  })
+  });
 
 }); // end page home
 

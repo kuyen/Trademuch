@@ -35,9 +35,15 @@
      .card-footer
       .mapWrapper.center
         a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
-          img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=400x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location')
-  #fb-root
-  .fb-comments(data-href="http://localhost:1337/postDetail/#{post.id}" data-width="400" data-numposts="5")       
+          img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=390x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location', style="width:100%;")
+
+  .card
+    .card-content 
+      .list-block.media-list
+        .item-content
+          .item-inner
+            #fb-root
+            .fb-comments.external(data-width="400", data-numposts="5")       
   script.
     (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -46,3 +52,8 @@
     js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+    
+    $$(function(){
+      var origin = window.location.origin;
+      $$(".fb-comments").attr('data-href', origin+"/postDetail/#{post.id}");
+    });
