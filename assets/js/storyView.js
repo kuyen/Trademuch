@@ -456,10 +456,26 @@ $(function() {
 
       var img = new Image();
       img.onload = function() {
-        var imgWidth = img.width * 0.25;
-        var imgHeight = img.height * 0.25;
-        canvas.width = img.width * 0.25;
-        canvas.height = img.height * 0.25;
+        var max_Length = 300;
+
+        var imgWidth = img.width;
+        var imgHeight = img.height;
+
+        if (imgWidth > imgHeight) {
+            if (imgWidth > max_Length) {
+                imgHeight = Math.round(imgHeight *= max_Length / imgWidth);
+                imgWidth = max_Length;
+            }
+        } else {
+            if (imgHeight > max_Length) {
+                imgWidth = Math.round(imgWidth *= max_Length / imgHeight);
+                imgHeight = max_Length;
+            }
+        }
+
+        canvas.width = imgWidth;
+        canvas.height = imgHeight;
+
         var that = this;
         EXIF.getData(img, function(){
             var orientation = EXIF.getTag(that, 'Orientation');
@@ -500,7 +516,7 @@ $(function() {
         });
         // ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        var jpegBase64 = canvas.toDataURL("image/jpeg");
+        var jpegBase64 = canvas.toDataURL("image/jpeg",0.6);
 
         console.log('=== jpegBase64 ===', jpegBase64);
         $('img.preview').attr('src', e.target.result);
