@@ -450,7 +450,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
       $.each(json.data, function(a) {
         if (map.getBounds().contains(new google.maps.LatLng(json.data[a].latitude, json.data[a].longitude))) {
-          is_cached(json.data[a].gallery[0], a);
+          // is_cached(json.data[a].gallery[0], a);
         }
       });
 
@@ -857,7 +857,7 @@ function pushItemsToArray(json, a, category, visibleItemsArray) {
     '<div class="item-specific"><a class="link item-link" href="#!" data-id="' + json.data[a].id + '">' +
     drawItemSpecific(category, json, a) +
     '</a></div>' +
-    '<img src="' + json.data[a].gallery[0] + '" alt="">' +
+    // '<img src="' + json.data[a].gallery[0] + '" alt="">' +
     '</div>' +
     '</a>' +
     '<div class="wrapper">' +
