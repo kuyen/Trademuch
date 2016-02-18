@@ -81,7 +81,8 @@
    'post /updateHobbyAndMail': 'UserController.updateHobbyAndMail',
    'get /hobby': 'UserController.hobbyView',
 
-   'get /main': 'UserController.index',
+   'get /main/*': 'UserController.index',
+
    'get /story': 'PostController.story',
    'get /storyCategory': 'PostController.storyCategory',
    'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
