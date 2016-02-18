@@ -7,14 +7,11 @@ var myApp = new Framework7({
   precompileTemplates: true,
   imagesLazyLoadSequential: true,
   imagesLazyLoadThreshold: 500,
-  pushState: true,
-  swipeBackPage: false,
+  swipeBackPage: true,
   uniqueHistory: true,
   animateNavBackIcon: true,
   hideToolbarOnPageScroll: true,
-  cacheIgnore: [
-    "postDetailF7"
-  ]
+  pushState: true
 });
 
 // Add main view
@@ -34,12 +31,12 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
 
   var id = $$("input#itemId").val();
   $("#postDetailF7 > .page-content").load("/postDetail/" + id);
+
   $$(".back.link").on("click", function() {
     $$(".swipeout").css('background-color','white');
-
     // clean fb sdk stuff
-    $$('head script[id="facebook-jssdk"]').remove();
-    $$('head style').remove()
+    // $$('head script[id="facebook-jssdk"]').remove();
+    // $$('head style').remove()
   });
 
 }); // end page postDetailF7
@@ -309,9 +306,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         $('#back-top').fadeOut();
         mainView.router.load({
           url: '/postDetailf7/' + $$(this).attr("data-id"),
-          ignoreCache: true,
-          reload: true,
-          force: true
+          ignoreCache: true
         });
       }
     }
