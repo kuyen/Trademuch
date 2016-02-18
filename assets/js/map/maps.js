@@ -322,8 +322,9 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
             newMarkers[i].content.className = 'marker-active marker-loaded';
             var clickMark = $(newMarkers[i].content)[0];
             var markInfo = $(clickMark).find('.map-marker')[0];
-            parent.window.myApp.closeNotification('.notification-item');
-            parent.window.myApp.addNotification({
+            try {
+              parent.window.myApp.closeNotification('.notification-item');
+              parent.window.myApp.addNotification({
                 title: $(markInfo).attr("data-title"),
                 message: $(markInfo).attr("data-price"),
                 media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
@@ -331,7 +332,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
                   parent.window.myApp.closeNotification('.notification-item');
                   parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
                 }
-            });
+              });
+            } catch (e) {
+              console.log("wait main");
+            }
             markerClicked = 1;
           }
         }
@@ -362,8 +366,9 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
           activeMarker.content.className = 'marker-active marker-loaded';
           var clickMark = $(activeMarker.content)[0];
           var markInfo = $(clickMark).find('.map-marker')[0];
-          parent.window.myApp.closeNotification('.notification-item');
-          parent.window.myApp.addNotification({
+          try {
+            parent.window.myApp.closeNotification('.notification-item');
+            parent.window.myApp.addNotification({
               title: $(markInfo).attr("data-title"),
               message: $(markInfo).attr("data-price"),
               media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
@@ -371,10 +376,17 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
                 parent.window.myApp.closeNotification('.notification-item');
                 parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
               }
-          });
+            });
+          } catch (e) {
+            console.log("wait main");
+          }
         } else {
           markerClicked = 0;
-          parent.window.myApp.closeNotification('.notification-item');
+          try {
+            parent.window.myApp.closeNotification('.notification-item');
+          } catch (e) {
+            console.log("wait main");
+          }
           activeMarker.infobox.setOptions({
             boxClass: 'fade-out-marker'
           });
@@ -412,7 +424,11 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
     // Dynamic loading markers and data from JSON ----------------------------------------------------------------------
 
     google.maps.event.addListener(map, 'idle', function() {
-      parent.window.myApp.closeNotification('.notification-item');
+      try {
+        parent.window.myApp.closeNotification('.notification-item');
+      } catch (e) {
+        console.log("wait main");
+      }
       var visibleArray = [];
       for (var i = 0; i < json.data.length; i++) {
         if (map.getBounds().contains(newMarkers[i].getPosition())) {
@@ -450,7 +466,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
       $.each(json.data, function(a) {
         if (map.getBounds().contains(new google.maps.LatLng(json.data[a].latitude, json.data[a].longitude))) {
-          is_cached(json.data[a].gallery[0], a);
+          // is_cached(json.data[a].gallery[0], a);
         }
       });
 
@@ -857,7 +873,7 @@ function pushItemsToArray(json, a, category, visibleItemsArray) {
     '<div class="item-specific"><a class="link item-link" href="#!" data-id="' + json.data[a].id + '">' +
     drawItemSpecific(category, json, a) +
     '</a></div>' +
-    '<img src="' + json.data[a].gallery[0] + '" alt="">' +
+    // '<img src="' + json.data[a].gallery[0] + '" alt="">' +
     '</div>' +
     '</a>' +
     '<div class="wrapper">' +
