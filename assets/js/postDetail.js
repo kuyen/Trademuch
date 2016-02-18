@@ -2,8 +2,7 @@ $$(document).on('pageInit', '.page[data-page="postDetailF7"]', function(e) {
   $$('a.left.back.link').click(function() {
     console.log("!!!!!!");
     var  history = mainView.history;
-    history[history.length-2] == '#home';
-    if(history){
+    if(history[history.length-2] == '#home'){
      mainView.router.back();
   }
     // mainView.router.back();
