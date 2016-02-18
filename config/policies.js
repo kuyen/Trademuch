@@ -22,20 +22,28 @@ module.exports.policies = {
   'AuthController': {
     '*': ['passport']
   },
-  'UserController': {
+  'MainController': {
     'index': [],
-    'find': [],
     'pcOrMobile':[],
-    'updateHobbyAndMail': [],
-    'hobbyView': ['sessionAuth'],
-    'addUserFavorite': [],
-    'delUserFavorite': ['sessionAuth'],
-    'getUserFavorites':['sessionAuth']
+  },
+  'UserController': {
+    'find': [],
+    'update': [],
+  },
+  'FrontUserController': {
+    'hobby': ['sessionAuth'],
+  },
+  'FavoriteController': {
+    'show': [],
+    'create': ['sessionAuth'],
+    'delete':['sessionAuth']
   },
   'PostController': {
+    'getAll': [],
+    'create': [],
+  },
+  'FrontPostController': {
     'story': ['sessionAuth'],
-    'getAllPost': [],
-    'postStory': [],
     'getPostById': [],
     'getPostByKeyword': []
   },

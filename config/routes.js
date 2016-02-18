@@ -43,8 +43,6 @@
      view: 'map'
    },
 
-   '/': 'UserController.pcOrMobile',
-
    '/storyDetail': {
      view: 'storyDetail'
    },
@@ -79,50 +77,49 @@
    'get /auth/:provider/:action': 'AuthController.callback',
 
    //  /rest/{controllers}/{action}
-   'post /updateHobbyAndMail': 'UserController.updateHobbyAndMail',
-   'get /hobby': 'UserController.hobbyView',
-   'get /main': 'UserController.index',
-   'get /story': 'PostController.story',
-   'get /storyCategory': 'PostController.storyCategory',
-   'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
-   'post /getAllPost': 'PostController.getAllPost',
+   'post /updateHobbyAndMail': 'UserController.update',
+   'get /hobby': 'FrontUserController.hobby',
+   'get /main': 'MainController.index',
+   'get /story': 'PostController.create',
+   'get /storyCategory': 'FrontPostController.createCategory',
+   'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
+   'post /getAllPost': 'PostController.getAll',
   // /rest/post/list
-   'post /postStory': 'PostController.postStory',
-   'get /postDetail/:id': 'PostController.getPostById',
-   'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
+   'post /postStory': 'PostController.create',
+   'get /postDetail/:id': 'FrontPostController.show',
+   'get /postDetailf7/:id': 'FrontPostController.showF7',
 
-   'post /addUserFavorite/:id': 'UserController.addUserFavorite',
-   'post /delUserFavorite/:id': 'UserController.delUserFavorite',
-   'get /getUserFavorites': 'UserController.getUserFavorites',
-   'get /favorites': 'UserController.getFavoriteView',
-   'get /profile': 'UserController.getProfileView',
+   'post /addUserFavorite/:id': 'FavoriteController.create',
+   'post /delUserFavorite/:id': 'FavoriteController.delete',
+   'get /getUserFavorites': 'FavoriteController.show',
+   'get /favorites': 'FrontUserController.favorites',
+   'get /profile': 'FrontUserController.profile',
 
 
    // image
    'get /testUpload': 'ImageController.index',
    'post /api/uploadImage': 'ImageController.upload',
-   'post /api/uploadImageBase64': 'ImageController.uploadBase64',
+   'post /api/uploadImageBase64': 'ImageController.upload',
 
    // search
    'get /search': {
      view: 'search'
    },
-   'get /search/:keyword': 'PostController.getPostByKeyword'
+   'get /search/:keyword': 'PostController.search',
 
 
   // view
-   'get /hobby': 'UserController.hobbyView',
-   'get /main': 'UserController.index',
-   'get /story': 'PostController.story',
-   'get /storyCategory': 'PostController.storyCategory',
-   'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
-   'get /postDetail/:id': 'PostController.getPostById',
-   'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
-   'get /favorites': 'UserController.getFavoriteView',
-   'get /profile': 'UserController.getProfileView',
-   'get /search': {
-      view: 'search'
-    },
+   '/': 'MainController.pcOrMobile',
+   'get /main': 'MainController.index',
+
+   'get /user/hobby': 'FrontUserController.hobby',
+   'get /user/favorites': 'FrontUserController.favorites',
+   'get /user/profile': 'FrontUserController.profile',
+
+   'get /post/create/Category': 'FrontPostController.createCategory',
+   'get /post/create/:categoryId': 'FrontPostController.createByCategoryId',
+   'get /post/:id': 'FrontPostController.show',
+   'get /post/f7/:id': 'FrontPostController.showF7',
 
   //  api
    'get  /rest/auth/login': 'AuthController.login',
@@ -135,17 +132,21 @@
    'get  /rest/auth/:provider/callback': 'AuthController.callback',
    'get  /rest/auth/:provider/:action': 'AuthController.callback',
 
-   'post /rest/user/update/:id': 'UserController.updateHobbyAndMail',
-   'get  /rest/user/favorites': 'UserController.getUserFavorites',
-   'post /rest/user/add/favorite/:id': 'UserController.addUserFavorite',
-   'post /rest/user/del/favorite/:id': 'UserController.delUserFavorite',
-    // 待捕齊
-    // get /rest/user/:id': 'UserController.getProfileById',
-
-   'post /rest/post/create': 'PostController.postStory',
-   'get  /rest/post/search/:keyword': 'PostController.getPostByKeyword'
+   'put  /rest/user/:id': 'UserController.update',
    // 待捕齊
-   // get /rest/post/:id': 'UserController.getPostById',
+   // get /rest/user/:id': 'UserController.find',
+
+   'get  /rest/favorites': 'FavoriteController.show',
+   'post /rest/favorite/:id': 'FavoriteController.create',
+   'delete /rest/favorite/:id': 'FavoriteController.delete',
+
+   'post /rest/post/create': 'PostController.create',
+   'get  /rest/post': 'PostController.getAll',
+   'get  /rest/post/search/:keyword': 'PostController.search',
+   // 待捕齊
+   // get /rest/post/:id': 'PostController.find',
+
+   'post /rest/image/upload': 'ImageController.upload',
 
 
    /***************************************************************************

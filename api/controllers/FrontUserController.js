@@ -1,43 +1,6 @@
 module.exports = {
-  find: async(req, res) => {
-    try {
-      let users = await UserService.findAll();
-      res.ok({
-        users
-      });
-    } catch (e) {
-      res.serverError(e);
-    }
-  },
 
-  update: async(req, res) => {
-    console.log("====updateHobbyAndMail===", req.body);
-    try {
-      let data = req.body;
-      let user = AuthService.getLoginUser(req);
-
-      if (data.email) {
-        await UserService.updateUserMail({
-          userId: user.id,
-          userMail: data.email
-        });
-      }
-      await UserService.updateUserLocation({
-        userId: user.id,
-        userLocation: data.location
-      });
-      await UserService.updateUserLike({
-        userId: user.id,
-        likeArray: data.hobby
-      });
-      res.ok('ok');
-    } catch (e) {
-      sails.log.error(e);
-      res.serverError(e);
-    }
-  },
-
-  getHobby: async(req, res) => {
+  hobby: async(req, res) => {
     try {
       let isHasMail = req.query.hasMail;
       if (!isHasMail)
@@ -54,7 +17,7 @@ module.exports = {
     }
   },
 
-  getFavoriteView: async(req, res) => {
+  favorites: async(req, res) => {
     try {
       console.log("==== getFavoriteViews ===");
       let allPosts = await PostService.getAllPost();
@@ -75,7 +38,7 @@ module.exports = {
     }
   },
 
-  getProfileView: async(req, res) => {
+  profile: async(req, res) => {
       try {
         console.log("==== getProfileView ===");
         let loginedUser = await UserService.getLoginUser(req);
