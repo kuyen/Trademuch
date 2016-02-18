@@ -20,7 +20,7 @@ block body
             .wrapper
               -console.log("loginState=>",loginState);
               -if(!loginState)
-                a.right.top.external( target="_top" href='/auth/facebook')
+                a.right.top.external(target="_top", href='/auth/facebook')
                   img.action(src='/img/facebook.png', alt='facebook', style="height: 35px;")
         .pages
           .page.toolbar-fixed(data-page='home')
@@ -132,3 +132,6 @@ block scripts
       </div>
     {{/if}}
   // Result List
+  script.
+    var host=window.location.origin;
+    //- $$('a.right.top.external').attr('href',host+'/auth/facebook');

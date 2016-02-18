@@ -11,15 +11,15 @@
           .item-inner
             .item-title-row
               .item-title.profile-name #{profile.name}
-            .item-subtitle 
-              .row
-                  span Like
-                  span Post
-                  span Rate
-              .row
-                span #{profile.favCount}
-                span #{profile.postCount}
-                span #{profile.rate}
+            .item-subtitle
+              .row.center
+                .col-33 Like
+                .col-33 Post
+                .col-33 Activity
+              .row.center
+                .col-33 #{profile.favCount}
+                .col-33 #{profile.postCount}
+                .col-33 #{profile.activity}
                 
 .card(style="margin-top:-50px;")
   .card-content 
@@ -35,7 +35,7 @@
                  .item-media
                    //- img(src=post.gallery[0], width='80')
                    -if(i<=5)
-                      img(src=post.dataValues.images, width='80')
+                      img(src=post.dataValues.images, width='80', height='80')
                    -else 
                       img.lazy.lazy-fadeIn(data-src=post.dataValues.images, width='80')
                  .item-inner

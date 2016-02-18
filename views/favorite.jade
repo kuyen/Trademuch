@@ -21,31 +21,6 @@
               .swipeout-actions-right
                 a.bg-pink.deletelike.notif-message.swipeout-delete(href='#', data-id='#{favorite.id}', data-img=favorite.images)
                   img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
-
-    //- .card.demo-card-header-pic
-    //-   .card-header.color-white.no-border(style='background-image:url(#{favorite.images[0]})', valign='middle')
-    //-     span.card-title(class='#{favorite.mode}')
-    //-       | [#{favorite.Item.itemname}] #{favorite.title}
-    //-       span
-    //-   .card-content
-    //-     .card-content-inner
-    //-       p.color-gray.card-desc
-    //-         | [
-    //-         img(src='#{favorite.type_icon}', alt='#{favorite.type}')
-    //-         | ]
-    //-         //- | [$#{favorite.price}] [#{favorite.type}] [#{favorite.location}] [#{favorite.user.username}]
-    //-       p.card-content #{favorite.content}
-    //-   .card-footer
-    //-     //- a.link.like(href='#!', data-id='#{favorite.id}') Like
-    //-     .detailFavbox
-    //-       .favbox.favoriteView
-    //-         a.link.favboxa.favoriteView(href='#!', data-id="#{favorite.id}")
-    //-           |                            
-    //-           -if(isFav==true)
-    //-             i.fa.fa-lg.fa-heart(style="color:red")
-    //-           -else
-    //-             i.fa.fa-lg.fa-heart()
-    //-     a.link(href='/postDetailf7/#{favorite.id}', data-id='#{favorite.id}') Detail
 -else  
   -if(loginState)
    .card
