@@ -233,6 +233,18 @@ module.exports = function(grunt) {
 				'views/**/*.jade': require('../pipeline').cssFilesToInject
 			}
 		},
+		devMapStylesJade: {
+			options: {
+				startTag: '// MAPSTYLES',
+				endTag: '// MAPSTYLES END',
+				fileTmpl: 'link(rel="stylesheet", href="%s")',
+				appRoot: '.tmp/public'
+			},
+
+			files: {
+				'views/**/*.jade': require('../pipeline').mapCssFilesToInject
+			}
+		},
 
 		devStylesRelativeJade: {
 			options: {
@@ -257,6 +269,18 @@ module.exports = function(grunt) {
 			},
 			files: {
 				'views/**/*.jade': ['.tmp/public/min/production.min.css']
+			}
+		},
+
+		prodMapStylesJade: {
+			options: {
+				startTag: '// MAPSTYLES',
+				endTag: '// MAPSTYLES END',
+				fileTmpl: 'link(rel="stylesheet", href="%s")',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'views/**/*.jade': ['.tmp/public/min/map.production.min.css']
 			}
 		},
 

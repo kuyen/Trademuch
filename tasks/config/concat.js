@@ -24,6 +24,10 @@ module.exports = function(grunt) {
 		css: {
 			src: require('../pipeline').cssFilesToInject,
 			dest: '.tmp/public/concat/production.css'
+		},
+		mapCss: {
+			src: require('../pipeline').mapCssFilesToInject,
+			dest: '.tmp/public/concat/map.production.css'
 		}
 	});
 

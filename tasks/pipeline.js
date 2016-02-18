@@ -44,6 +44,17 @@ var jsFilesToInject = [
   // '!js/ignore/these/files/*.js'
 ];
 
+var mapCssFilesToInject = [
+  'styles/bootstrap/css/bootstrap.min.css',
+  'styles/mapCss/bootstrap-select.min.css',
+  'styles/mapCss/owl.carousel.css',
+  'styles/mapCss/jquery.mCustomScrollbar.css',
+  'styles/mapCss/style.css',
+  'styles/mapCss/colors/blue.css',
+  '!styles/mapCss/user.style.css',
+  'styles/mapCss/index.css',
+];
+
 var mapJsFilesToInject = [
    'js/map/jquery-2.1.0.min.js',
    'js/map/before.load.js',
@@ -86,6 +97,7 @@ var templateFilesToInject = [
 // they reside in the first place)
 module.exports.cssFilesToInject = cssFilesToInject.map(transformPath);
 module.exports.jsFilesToInject = jsFilesToInject.map(transformPath);
+module.exports.mapCssFilesToInject = mapCssFilesToInject.map(transformPath);
 module.exports.mapJsFilesToInject = mapJsFilesToInject.map(transformPath);
 module.exports.templateFilesToInject = templateFilesToInject.map(transformPath);
 
