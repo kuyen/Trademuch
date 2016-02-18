@@ -1,5 +1,18 @@
 module.exports = {
   attributes: {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV2,
+      primaryKey: true
+    },
+
+    name: {
+      type: Sequelize.STRING
+    },
+
+    address: {
+      type: Sequelize.STRING
+    },
 
     latitude: {
       type: Sequelize.DOUBLE,
@@ -13,32 +26,25 @@ module.exports = {
       defaultValue: null,
       validate: { min: -180, max: 180 }
     },
-    PostGeometryId: {
-      type: Sequelize.INTEGER,
-      field: 'post_geometry_id'
-    },
-    UserGeometryId: {
-      type: Sequelize.INTEGER,
-      field: 'user_geometry_id'
-    },
+
     createdAt: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
       field: 'created_at'
     },
     updatedAt: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
       field: 'updated_at'
     }
   },
   associations: function() {
-    Geometry.belongsTo(PostGeometry, {through: 'post_geometry_id'});
-    Geometry.belongsTo(UserGeometry, {through: 'user_geometry_id'});
+    Place.belongsToMany(User, {foreignKey: 'place_id', through: UserPlace});
+    Place.belongsToMany(Post, {foreignKey: 'place_id', through: PostPlace});
 
   },
   options: {
     classMethods: {},
     instanceMethods: {},
     hooks: {},
-    tableName: 'geometry'
+    tableName: 'place'
   }
 };

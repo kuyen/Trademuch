@@ -1,5 +1,10 @@
 module.exports = {
   attributes: {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV2,
+      primaryKey: true
+    },
     protocol: Sequelize.STRING,
     password: Sequelize.STRING,
     accessToken: Sequelize.STRING,
@@ -25,11 +30,11 @@ module.exports = {
       field: 'user_id'
     },
     createdAt: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
       field: 'created_at'
     },
     updatedAt: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
       field: 'updated_at'
     }
 

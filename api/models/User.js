@@ -1,9 +1,29 @@
 module.exports = {
   attributes: {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV2,
+      primaryKey: true
+    },
+
     username: {
       type: Sequelize.STRING,
       allowNull: false
     },
+    fullName: {
+      type: Sequelize.STRING,
+      field: 'full_name'
+
+    },
+    firstName: {
+      type: Sequelize.STRING,
+      field: 'first_name'
+    },
+    lastName: {
+      type: Sequelize.STRING,
+      field: 'last_name'
+    },
+
     email: {
       type: Sequelize.STRING,
       unique: true
@@ -27,11 +47,11 @@ module.exports = {
     },
 
     createdAt: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
       field: 'created_at'
     },
     updatedAt: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DATE,
       field: 'updated_at'
     }
 
@@ -39,6 +59,7 @@ module.exports = {
   associations: function() {
     User.hasMany(Post, {foreignKey: 'user_id'});
     User.hasMany(Passport, {foreignKey: 'user_id'});
+    User.belongsToMany(Place, {foreignKey: 'user_id', through: UserPlace});
   },
   options: {
     classMethods: {},
