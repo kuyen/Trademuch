@@ -63,49 +63,49 @@
      view: 'learnMore'
    },
 
-   'get /login': 'AuthController.login',
-   'get /logout': 'AuthController.logout',
-   'get /register': 'AuthController.register',
-
-   'get /auth/status': 'AuthController.status',
-
-   'post /auth/local': 'AuthController.callback',
-   'post /auth/local/:action': 'AuthController.callback',
-
-   'get /auth/:provider': 'AuthController.provider',
-   'get /auth/:provider/callback': 'AuthController.callback',
-   'get /auth/:provider/:action': 'AuthController.callback',
-
-   //  /rest/{controllers}/{action}
-   'post /updateHobbyAndMail': 'UserController.update',
-   'get /hobby': 'FrontUserController.hobby',
-   'get /main': 'MainController.index',
-   'get /story': 'PostController.create',
-   'get /storyCategory': 'FrontPostController.createCategory',
-   'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
-   'post /getAllPost': 'PostController.getAll',
-  // /rest/post/list
-   'post /postStory': 'PostController.create',
-   'get /postDetail/:id': 'FrontPostController.show',
-   'get /postDetailf7/:id': 'FrontPostController.showF7',
-
-   'post /addUserFavorite/:id': 'FavoriteController.create',
-   'post /delUserFavorite/:id': 'FavoriteController.delete',
-   'get /getUserFavorites': 'FavoriteController.show',
-   'get /favorites': 'FrontUserController.favorites',
-   'get /profile': 'FrontUserController.profile',
-
-
-   // image
-   'get /testUpload': 'ImageController.index',
-   'post /api/uploadImage': 'ImageController.upload',
-   'post /api/uploadImageBase64': 'ImageController.upload',
-
-   // search
-   'get /search': {
-     view: 'search'
-   },
-   'get /search/:keyword': 'PostController.search',
+  //  'get /login': 'AuthController.login',
+  //  'get /logout': 'AuthController.logout',
+  //  'get /register': 'AuthController.register',
+  //
+  //  'get /auth/status': 'AuthController.status',
+  //
+  //  'post /auth/local': 'AuthController.callback',
+  //  'post /auth/local/:action': 'AuthController.callback',
+  //
+  //  'get /auth/:provider': 'AuthController.provider',
+  //  'get /auth/:provider/callback': 'AuthController.callback',
+  //  'get /auth/:provider/:action': 'AuthController.callback',
+  //
+  //  //  /rest/{controllers}/{action}
+  //  'post /updateHobbyAndMail': 'UserController.update',
+  //  'get /hobby': 'FrontUserController.hobby',
+  //  'get /main': 'MainController.index',
+  //  'get /story': 'PostController.create',
+  //  'get /storyCategory': 'FrontPostController.createCategory',
+  //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
+  //  'post /getAllPost': 'PostController.getAll',
+  // // /rest/post/list
+  //  'post /postStory': 'PostController.create',
+  //  'get /postDetail/:id': 'FrontPostController.show',
+  //  'get /postDetailf7/:id': 'FrontPostController.showF7',
+  //
+  //  'post /addUserFavorite/:id': 'FavoriteController.create',
+  //  'post /delUserFavorite/:id': 'FavoriteController.delete',
+  //  'get /getUserFavorites': 'FavoriteController.show',
+  //  'get /favorites': 'FrontUserController.favorites',
+  //  'get /profile': 'FrontUserController.profile',
+  //
+  //
+  //  // image
+  //  'get /testUpload': 'ImageController.index',
+  //  'post /api/uploadImage': 'ImageController.upload',
+  //  'post /api/uploadImageBase64': 'ImageController.upload',
+  //
+  //  // search
+  //  'get /search': {
+  //    view: 'search'
+  //  },
+  //  'get /search/:keyword': 'PostController.search',
 
 
   // view
