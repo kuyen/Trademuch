@@ -109,7 +109,7 @@
 
 
   // view
-   '/': 'MainController.pcOrMobile',
+   'get /': 'MainController.pcOrMobile',
    'get /main': 'MainController.index',
 
    'get /user/hobby': 'FrontUserController.hobby',
