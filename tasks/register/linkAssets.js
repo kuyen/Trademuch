@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 		'sails-linker:devStyles',
 		'sails-linker:devTpl',
 		'sails-linker:devJsJade',
+		'sails-linker:devMapJsJade',
 		'sails-linker:devStylesJade',
 		'sails-linker:devTplJade'
 	]);

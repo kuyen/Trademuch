@@ -44,6 +44,27 @@ var jsFilesToInject = [
   // '!js/ignore/these/files/*.js'
 ];
 
+var mapJsFilesToInject = [
+   'js/map/jquery-2.1.0.min.js',
+   'js/map/before.load.js',
+   'js/map/jquery-migrate-1.2.1.min.js',
+   '/styles/bootstrap/js/bootstrap.min.js',
+   '!js/map/smoothscroll.js',
+   'js/map/bootstrap-select.min.js',
+   '!js/map/jquery.hotkeys.js',
+   '!js/map/jquery.nouislider.all.min.js',
+   '!js/map/jquery.mCustomScrollbar.concat.min.js',
+  // removed sensor paramate to avoid warring.
+   'js/map/infobox.js',
+   'js/map/richmarker-compiled.js',
+   'js/map/markerclusterer.js',
+   'js/map/custom.js',
+   'js/map/maps.js',
+   'js/map/mapControl.js',
+   '!js/favbox.js',
+   '!js/main.js',
+];
+
 
 // Client-side HTML templates are injected using the sources below
 // The ordering of these templates shouldn't matter.
@@ -65,6 +86,7 @@ var templateFilesToInject = [
 // they reside in the first place)
 module.exports.cssFilesToInject = cssFilesToInject.map(transformPath);
 module.exports.jsFilesToInject = jsFilesToInject.map(transformPath);
+module.exports.mapJsFilesToInject = mapJsFilesToInject.map(transformPath);
 module.exports.templateFilesToInject = templateFilesToInject.map(transformPath);
 
 // Transform paths relative to the "assets" folder to be relative to the public
