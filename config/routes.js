@@ -78,14 +78,15 @@
    'get /auth/:provider/callback': 'AuthController.callback',
    'get /auth/:provider/:action': 'AuthController.callback',
 
+   //  /rest/{controllers}/{action}
    'post /updateHobbyAndMail': 'UserController.updateHobbyAndMail',
    'get /hobby': 'UserController.hobbyView',
-
    'get /main': 'UserController.index',
    'get /story': 'PostController.story',
    'get /storyCategory': 'PostController.storyCategory',
    'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
    'post /getAllPost': 'PostController.getAllPost',
+  // /rest/post/list
    'post /postStory': 'PostController.postStory',
    'get /postDetail/:id': 'PostController.getPostById',
    'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
