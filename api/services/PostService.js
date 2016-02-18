@@ -116,7 +116,7 @@ module.exports = {
       sails.log.info(getPost);
 
       let pic = getPost.images || getPost.Item.pic;
-      if(!pic) pic = '/img/items/1.jpg';
+      if(!pic) pic = 'img/items/1.jpg';
 
       let data = {
         id: getPost.id,
@@ -133,7 +133,7 @@ module.exports = {
         // type_icon: getPost.Item.Like.icon,
         type_icon: "../icons/give.png",
         // type_icon: "../icons/get.png",
-        gallery: [pic],
+        gallery: "/" + pic,
         username: getPost.User.username,
         email: getPost.User.email,
         itemname: getPost.Item.itemname,
