@@ -19,7 +19,7 @@
           li
             a.item-link.item-content.external.fbShare()
               .item-media.title-items
-                img(src='http://fanpagelist.com/images/facebook-32x32.png', alt='phone', style="height: auto;")
+                img(src='/img/facebook-32x32.png', alt='facebook', style="height: 32px;")
               .item-inner
                 .item-title.bold Share to Facebook
           //- li
@@ -27,9 +27,16 @@
           //-     //- img(src='/img/phone.png', alt='phone', style="height: auto;")
           //-     .item-media.title-items
           //-       //- i
-          //-       img(src='http://fanpagelist.com/images/facebook-32x32.png', alt='phone', style="height: auto;")
+          //-       img(src='http://fanpagelist.com/images/facebook-32x32.png', alt='facebook', style="height: auto;")
           //-     .item-inner
           //-       .item-title.bold Send to friend!
+          li
+            a.item-link.item-content.external.lineIt(href="http://line.me/R/msg/text/TradeMuch - #{post.title}")
+              .item-media.title-items
+                img(src='/img/linebutton_20x20_en.png', alt='line', style="height: 32px;")
+              .item-inner
+                .item-title.bold Line this!
+
           -if(post.phone)
             li
               a.item-link.item-content(href='#')
@@ -48,6 +55,9 @@
                   .item-title.bold.black #{post.email}
      .card-footer
       .mapWrapper.center
+        script(type='text/javascript', src='http://media.line.me/js/line-button.js?v=20140411')
+        script.
+          new media_line_me.LineButton({"pc":false,"lang":"en","type":"a"});
         a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
           img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=390x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location', style="width:100%;")
 
