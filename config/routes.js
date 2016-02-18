@@ -142,7 +142,7 @@
     // 待捕齊
     // get /rest/user/:id': 'UserController.getProfileById',
 
-   'post /rest/post/story': 'PostController.postStory',
+   'post /rest/post/create': 'PostController.postStory',
    'get  /rest/post/search/:keyword': 'PostController.getPostByKeyword'
    // 待捕齊
    // get /rest/post/:id': 'UserController.getPostById',
