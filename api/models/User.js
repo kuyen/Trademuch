@@ -11,20 +11,10 @@ module.exports = {
     telephone: {
       type: Sequelize.STRING
     },
-    latitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -90, max: 90 }
-    },
-    longitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -180, max: 180 }
-    },
+
     age: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     },
     gender:{
       type: Sequelize.ENUM('none', 'male', 'female'),
@@ -32,19 +22,28 @@ module.exports = {
     },
     isFirstLogin:{
       type: Sequelize.BOOLEAN,
-      defaultValue: true
+      defaultValue: true,
+      field: 'is_first_login'
+    },
+
+    createdAt: {
+      type: Sequelize.INTEGER,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.INTEGER,
+      field: 'updated_at'
     }
 
   },
   associations: function() {
-    User.hasMany(Post);
-    User.hasMany(Passport);
-    User.belongsToMany(Like, {through: 'UserLike'});
-    User.belongsToMany(Post, {through: 'UserFavorite'});
+    User.hasMany(Post, {foreignKey: 'user_id'});
+    User.hasMany(Passport, {foreignKey: 'user_id'});
   },
   options: {
     classMethods: {},
     instanceMethods: {},
-    hooks: {}
+    hooks: {},
+    tableName: 'user'
   }
 };

@@ -19,10 +19,23 @@ module.exports = {
         console.log('value', value);
         return this.setDataValue('tokens', JSON.stringify(value));
       }
+    },
+    UserId: {
+      type: Sequelize.INTEGER,
+      field: 'user_id'
+    },
+    createdAt: {
+      type: Sequelize.INTEGER,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.INTEGER,
+      field: 'updated_at'
     }
+
   },
   associations: function() {
-    Passport.belongsTo(User);
+    Passport.belongsTo(User, {through: 'user_id'});
   },
   options: {
     classMethods: {},
@@ -34,6 +47,7 @@ module.exports = {
         return next(null, false);
       }
     },
-    hooks: {}
+    hooks: {},
+    tableName: 'passport'
   }
 }

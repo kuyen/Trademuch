@@ -6,51 +6,40 @@ module.exports = {
     },
     startDate: {
       type: Sequelize.DATEONLY,
-      allowNull: false
+      allowNull: false,
+      field: 'start_date'
     },
     endDate: {
-      type: Sequelize.DATEONLY
+      type: Sequelize.DATEONLY,
+      field: 'end_date'
     },
-    price: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    content: {
-      type: Sequelize.STRING
-    },
-    mode: {
-      type: Sequelize.ENUM('get', 'give'),
-      allowNull: false
-    },
-    // geometry: {
-    //   type: Sequelize.GEOMETRY
-    // },
-    latitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -90, max: 90 }
-    },
-    longitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -180, max: 180 }
-    },
-    images:{
+
+    image:{
       type:Sequelize.STRING,
       allowNull: true,
       defaultValue: null
+    },
+
+    createdAt: {
+      type: Sequelize.INTEGER,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.INTEGER,
+      field: 'updated_at'
+    },
+    UserId: {
+      type: Sequelize.INTEGER,
+      field: 'user_id'
     }
   },
   associations: function() {
-    Post.belongsTo(Item);
-    Post.belongsTo(User);
-    Post.belongsToMany(User, {through: 'UserFavorite'});
+    Post.belongsTo(User, {through: 'user_id'});
   },
   options: {
     classMethods: {},
     instanceMethods: {},
-    hooks: {}
+    hooks: {},
+    tableName: 'post'
   }
 };
