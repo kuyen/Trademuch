@@ -26,7 +26,7 @@ module.exports = {
       }
     },
     UserId: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
       field: 'user_id'
     },
     createdAt: {

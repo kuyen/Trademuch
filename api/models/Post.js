@@ -11,12 +11,12 @@ module.exports = {
       allowNull: false
     },
     startDate: {
-      type: Sequelize.DATEONLY,
+      type: Sequelize.DATE,
       allowNull: false,
       field: 'start_date'
     },
     endDate: {
-      type: Sequelize.DATEONLY,
+      type: Sequelize.DATE,
       field: 'end_date'
     },
 
@@ -36,7 +36,7 @@ module.exports = {
       field: 'updated_at'
     },
     UserId: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
       field: 'user_id'
     }
   },
