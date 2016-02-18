@@ -11,7 +11,9 @@ var myApp = new Framework7({
   uniqueHistory: true,
   animateNavBackIcon: true,
   hideToolbarOnPageScroll: true,
-  pushState: true
+  pushState: true,
+  pushStateSeparator: "",
+  pushStateRoot: "/main"
 });
 
 // Add main view
