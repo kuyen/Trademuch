@@ -109,6 +109,45 @@
    },
    'get /search/:keyword': 'PostController.getPostByKeyword'
 
+
+  // view
+   'get /hobby': 'UserController.hobbyView',
+   'get /main': 'UserController.index',
+   'get /story': 'PostController.story',
+   'get /storyCategory': 'PostController.storyCategory',
+   'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
+   'get /postDetail/:id': 'PostController.getPostById',
+   'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
+   'get /favorites': 'UserController.getFavoriteView',
+   'get /profile': 'UserController.getProfileView',
+   'get /search': {
+      view: 'search'
+    },
+
+  //  api
+   'get  /rest/auth/login': 'AuthController.login',
+   'get  /rest/auth/logout': 'AuthController.logout',
+   'get  /rest/auth/register': 'AuthController.register',
+   'get  /rest/auth/auth/status': 'AuthController.status',
+   'post /rest/auth/local': 'AuthController.callback',
+   'post /rest/auth/local/:action': 'AuthController.callback',
+   'get  /rest/auth/:provider': 'AuthController.provider',
+   'get  /rest/auth/:provider/callback': 'AuthController.callback',
+   'get  /rest/auth/:provider/:action': 'AuthController.callback',
+
+   'post /rest/user/update': 'UserController.updateHobbyAndMail',
+   'get  /rest/user/favorites': 'UserController.getUserFavorites',
+   'post /rest/user/add/favorite/:id': 'UserController.addUserFavorite',
+   'post /rest/user/del/favorite/:id': 'UserController.delUserFavorite',
+    // 待捕齊
+    // get /rest/user/:id': 'UserController.getProfileById',
+
+   'post /rest/post/story': 'PostController.postStory',
+   'get  /rest/post/search/:keyword': 'PostController.getPostByKeyword'
+   // 待捕齊
+   // get /rest/post/:id': 'UserController.getPostById',
+
+
    /***************************************************************************
     *                                                                          *
     * Custom routes here...                                                    *
