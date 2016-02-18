@@ -133,5 +133,11 @@ block scripts
     {{/if}}
   // Result List
   script.
-    var host=window.location.origin;
-    //- $$('a.right.top.external').attr('href',host+'/auth/facebook');
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '915539495181624',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    };
+    
