@@ -29,7 +29,7 @@
       -var i=0
        each post in profile.allUserPost
         -i++
-         li.swipeout
+         li.swipeout(data-id=post.dataValues.id)
              .swipeout-content
                .item-content
                  .item-media
