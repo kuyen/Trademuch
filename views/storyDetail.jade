@@ -7,7 +7,7 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
             i.icon.icon-back-white.icon-back
             span Back
         .right
-          a#finishStep Finish
+          a#finishStep Done
     .pages
       .page.navbar-fixed(data-page='storyDetail')
         .page-content
@@ -50,7 +50,7 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
                       .item-input
                         input(type='text', name='title', placeholder='what is this?')
                 
-                  .item-content.col-90
+                  .item-content.col-90(style="display:none")
                     .item-media
                       i.icon.icon-form-comment(style='background-image: url("/img/input-icon/content.png");')
                     .item-inner
@@ -58,7 +58,7 @@ link(rel='stylesheet', href='styles/css/storyDetail.css', type='text/css')
                       .item-input
                         textarea.resizable(placeholder='description', type='text', name='content')
               
-                  .item-content.col-90
+                  .item-content.col-90(style="display:none")
                     .item-media
                       i.icon.icon-form-url(style='background-image: url("/img/input-icon/price.png");')
                     .item-inner
