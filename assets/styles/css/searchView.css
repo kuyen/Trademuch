@@ -55,7 +55,6 @@ ul#search-result {
   padding: 6px;
   width: 100%;
   background-color: #fff;
-  font-weight: lighter;
   /* for safira z-index bug */
   -webkit-transform: translateZ(1px);
   -moz-transform: translateZ(1px);

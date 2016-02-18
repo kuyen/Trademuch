@@ -20,7 +20,7 @@ block body
             .wrapper
               -console.log("loginState=>",loginState);
               -if(!loginState)
-                a.right.top.external( target="_top" href='/auth/facebook')
+                a.right.top.external(target="_top", href='/auth/facebook')
                   img.action(src='/img/facebook.png', alt='facebook', style="height: 35px;")
         .pages
           .page.toolbar-fixed(data-page='home')
@@ -82,11 +82,12 @@ block body
                                         .item-content
                                           .item-media
                                             //- img(src=post.gallery[0], width='80')
-                                            img(src=post.gallery[0], width='80')
+                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80')
+                                            //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
                                           .item-inner
                                             .item-title-row
                                               .item-title
-                                                a.link(href='/postDetailf7/#{post.id}') #{post.title}
+                                                a.link(data-ignore-cache="true", href='/postDetailf7/#{post.id}') #{post.title}
                                             .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
@@ -105,12 +106,12 @@ block scripts
           <div class="swipeout-content">
             <div class="item-content">
               <div class="item-media">
-                <img src={{gallery[0]}} width="80"/>
+                <img data-src={{gallery[0]}} width="80" class="lazy lazy-fadeIn"/>
               </div>
               <div class="item-inner">
                 <div class="item-title-row">
                   <div class="item-title">
-                    <a class="link" href='/postDetailf7/{{id}}'>{{title}}</a>
+                    <a class="link" data-ignore-cache="true" href='/postDetailf7/{{id}}'>{{title}}</a>
                   </div>
                 </div>
                 <div class="item-subtitle">NT${{price}}</div>
@@ -131,3 +132,6 @@ block scripts
       </div>
     {{/if}}
   // Result List
+  script.
+    var host=window.location.origin;
+    //- $$('a.right.top.external').attr('href',host+'/auth/facebook');

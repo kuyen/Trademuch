@@ -11,7 +11,10 @@ var myApp = new Framework7({
   swipeBackPage: false,
   uniqueHistory: true,
   animateNavBackIcon: true,
-  hideToolbarOnPageScroll: true
+  hideToolbarOnPageScroll: true,
+  cacheIgnore: [
+    "postDetailF7"
+  ]
 });
 
 // Add main view
@@ -32,11 +35,14 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
   var id = $$("input#itemId").val();
   $("#postDetailF7 > .page-content").load("/postDetail/" + id);
   $$(".back.link").on("click", function() {
-    var a = document.getElementById("facebook-jssdk");
-    a.parentNode.removeChild(a);
+    $$(".swipeout").css('background-color','white');
+
+    // clean fb sdk stuff
+    $$('head script[id="facebook-jssdk"]').remove();
+    $$('head style').remove()
   });
 
-});
+}); // end page postDetailF7
 
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
@@ -264,8 +270,33 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
+  $$(document).on('click', '.deletelike.notif-message.swipeout-delete', function() {
+    var delfav = $$(this);
+    var id = delfav.attr("data-id");
+    var img = delfav.attr("data-img");
+    myApp.addNotification({
+      title: 'You delete :(',
+      message: 'You have delete to Favorite',
+      media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
+    });
+    setTimeout(function() {
+      myApp.closeNotification('.notification-item');
+    }, 2000);
+    $$.ajax({
+      url: "/delUserFavorite/" + id,
+      type: "POST",
+      success: function(result) {
+        console.log(result);
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.log("xhr.status,thrownError=>", xhr.status, thrownError);
+        alert("if you like this item, login please :)");
+        window.location.assign("/auth/facebook");
+      }
+    }); // end ajax
+  });
 
-  $$("#search-result .swipeout").on("click", function() {
+  $("#search-result").delegate('.swipeout', 'click', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
     var closeOpen = $$(this).hasClass('close-open');
     if (!f7open) {
@@ -274,20 +305,26 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         console.log("不動");
       } else {
         console.log("跳轉");
+        $$(this).css('background-color','rgb(169, 208, 247)');
         $('#back-top').fadeOut();
-        mainView.router.loadPage('/postDetailf7/' + $$(this).attr("data-id"));
+        mainView.router.load({
+          url: '/postDetailf7/' + $$(this).attr("data-id"),
+          ignoreCache: true,
+          reload: true,
+          force: true
+        });
       }
     }
-  }).on("touchend", function() {
+  }).delegate('.swipeout', "touchend", function() {
     var f7open = $$(this).hasClass('swipeout-opened');
     if (!f7open) {
       $$(this).removeClass('close-open');
     }
-  }).on("close", function() {
+  }).delegate('.swipeout', "close", function() {
     $$(this).addClass('close-open');
-  })
+  });
 
-});
+}); // end page home
 
 $$(document).on('click', '.link.like', function() {
   var fav = $$(this);
@@ -305,7 +342,6 @@ $$(document).on('click', '.link.like', function() {
     }
   }); // end ajax
 });
-
 
 // $$(document).on('click', '.item-link', function(e) {
 //   console.log("item clicked");

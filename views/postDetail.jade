@@ -1,45 +1,126 @@
 
 .list-block.cards-list
   ul
-   li.card
+   li.card(data-fbId='#{fbId}')
      .card-header.post-img
-       div
-         img(src=post.gallery, data-hash='1', alt='' width='100%')
+       .imgWrapper.center
+         img(src=post.gallery, data-hash='1', alt='#{post.title}', style="width:100%;" )
              
      .card-content
       .card-content-inner
         span.post-title.bold #{post.title}  
-        span.post-price.bold $#{post.price}
-        span
-         .post-itemname.bold #{post.itemname}
-        span
-         .post-content.bold #{post.content ||'no description now.'}
+        //- span.post-price.bold $#{post.price}
+        //- span
+        //-  .post-itemname.bold #{post.itemname}
+        //- span
+        //-  .post-content.bold #{post.content ||'no description now.'}
       .list-block
-        ul
+        ul    
           li
-          -if(post.phone)
-            a.item-link.item-content(href='#')
-              //- img(src='/img/phone.png', alt='phone', style="height: auto;")
+            a.item-link.item-content.external.fbShare()
               .item-media.title-items
-                i.icon.icon-form-tel
+                img(src='/img/facebook-32x32.png', alt='facebook', style="height: 32px;")
               .item-inner
-                .item-title.bold #{'no phone number now.'}
+                .item-title.bold Share to Facebook
+          //- li
+          //-   a.item-link.item-content.external.fbSend()
+          //-     //- img(src='/img/phone.png', alt='phone', style="height: auto;")
+          //-     .item-media.title-items
+          //-       //- i
+          //-       img(src='http://fanpagelist.com/images/facebook-32x32.png', alt='facebook', style="height: auto;")
+          //-     .item-inner
+          //-       .item-title.bold Send to friend!
+          li
+            a.item-link.item-content.external.lineIt(href="http://line.me/R/msg/text/TradeMuch - #{post.title}")
+              .item-media.title-items
+                img(src='/img/linebutton_20x20_en.png', alt='line', style="height: 32px;")
+              .item-inner
+                .item-title.bold Line this!
+
+          -if(post.phone)
+            li
+              a.item-link.item-content(href='#')
+                //- img(src='/img/phone.png', alt='phone', style="height: auto;")
+                .item-media.title-items
+                  i.icon.icon-form-tel
+                .item-inner
+                  .item-title.bold #{'no phone number now.'}
           -if(post.email)
             li
-              a.item-link.item-content.external(href='mailto:#{post.email}')
+              a.item-content.external(href='mailto:#{post.email}')
                 //- img(src='/img/mail.png', alt='mail', style="height: auto;")
                 .item-media.email-user
                   i.icon.icon-form-email
                 .item-inner
-                  .item-title.bold #{post.email}
-     .card-footer(style="display:none")
-  #fb-root
-  .fb-comments(data-href="http://localhost:1337/postDetail/#{post.id}" data-width="400" data-numposts="5")       
+                  .item-title.bold.black #{post.email}
+     .card-footer
+      .mapWrapper.center
+        script(type='text/javascript', src='http://media.line.me/js/line-button.js?v=20140411')
+        script.
+          new media_line_me.LineButton({"pc":false,"lang":"en","type":"a"});
+        a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
+          img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=390x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location', style="width:100%;")
+
+  .card
+    .card-content 
+      .list-block.media-list
+        .item-content
+          .item-inner
+            #fb-root
+            .fb-comments.external(data-width="400", data-numposts="5")       
   script.
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '915539495181624',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+    };
     (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
+    if (d.getElementById(id)) return "asdas";
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+      
+    $$(function(){
+      var origin = window.location.origin;
+      $$(".fb-comments").attr('data-href', origin+"/postDetail/#{post.id}");
+    });
+    
+    $$(".fbSend").on('click',function(){
+      var origin = window.location.origin;
+      var fbId = $('card').attr('data-fbId');
+      FB.ui({
+        method: 'send',
+        link:  origin+"/postDetail/#{post.id}",
+        to: fbId,
+        messae: 'A request especially for one person.',
+        data: 'tracking information for the user',
+        display: "popup"
+      });
+    }); // end fbSend
+    
+    $$(".fbShare").on('click',function(){
+      var origin = window.location.origin;
+      FB.ui({
+        method: 'share_open_graph',
+        action_type: 'og.likes',
+        action_properties: JSON.stringify({
+      	  object:origin+"/postDetail/#{post.id}",
+        })
+      }, function(response){});
+      //- FB.ui({
+      //-   method: 'share',
+      //-   href: origin+"/postDetail/#{post.id}",
+      //- },
+      //- // callback
+      //- function(response) {
+      //-   if (response && !response.error_message) {
+      //-     //- alert('Posting completed.');
+      //-   } else {
+      //-     //- alert('Error while posting.');
+      //-   }
+      //- });
+    }); // end fbShare
