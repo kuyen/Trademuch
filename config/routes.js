@@ -135,7 +135,7 @@
    'get  /rest/auth/:provider/callback': 'AuthController.callback',
    'get  /rest/auth/:provider/:action': 'AuthController.callback',
 
-   'post /rest/user/update': 'UserController.updateHobbyAndMail',
+   'post /rest/user/update/:id': 'UserController.updateHobbyAndMail',
    'get  /rest/user/favorites': 'UserController.getUserFavorites',
    'post /rest/user/add/favorite/:id': 'UserController.addUserFavorite',
    'post /rest/user/del/favorite/:id': 'UserController.delUserFavorite',
