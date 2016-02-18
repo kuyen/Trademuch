@@ -95,6 +95,7 @@
    'post /delUserFavorite/:id': 'UserController.delUserFavorite',
    'get /getUserFavorites': 'UserController.getUserFavorites',
    'get /favorites': 'UserController.getFavoriteView',
+   'get /profile': 'UserController.getProfileView',
 
 
    // image

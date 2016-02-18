@@ -36,6 +36,7 @@ img.category {
 
 /*hobby page back to top*/
 
+
 /*#back-top {
   position: fixed;
   bottom: 30px;
@@ -83,6 +84,7 @@ img.category {
   background-color: #01579b;
 }*/
 
+
 /**/
 
 #registerFinish {
@@ -111,16 +113,17 @@ img.category {
 #storyDetailChoose input {
   text-align: center;
 }
-
-.item-input.StoryPrice{
+.item-input.StoryPrice {
   padding-right: 60px;
+  width: 100%;
 }
-
-#storyDetailChoose span.money{
+.item-input.StoryPrice > input {
+  width: auto;
+}
+#storyDetailChoose span.money {
   padding-right: 20px;
   padding-left: 50px;
 }
-
 #regionSelect {
   font-size: 16px;
   text-indent: calc(50% - 25px);
@@ -142,17 +145,14 @@ img.category {
   /*display:inline-block;*/
   height: 100%;
   width: 100%;
-  padding-top:1px;
+  padding-top: 1px;
 }
-
-.col-100.selectMode.give{
+.col-100.selectMode.give {
   border-width: 0px;
 }
-
-.col-100.selectMode.get{
+.col-100.selectMode.get {
   padding-bottom: 2px;
 }
-
 ::-webkit-input-placeholder {
   text-align: center;
 }
