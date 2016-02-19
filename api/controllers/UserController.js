@@ -14,7 +14,7 @@ module.exports = {
     console.log("====updateHobbyAndMail===", req.body);
     try {
       let data = req.body;
-      let user = AuthService.getLoginUser(req);
+      let user = UserService.getLoginUser(req);
 
       if (data.email) {
         await UserService.updateUserMail({
