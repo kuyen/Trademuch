@@ -68,44 +68,44 @@
   //  'get /register': 'AuthController.register',
   //
   //  'get /auth/status': 'AuthController.status',
-  //
+
   //  'post /auth/local': 'AuthController.callback',
   //  'post /auth/local/:action': 'AuthController.callback',
-  //
+
   //  'get /auth/:provider': 'AuthController.provider',
   //  'get /auth/:provider/callback': 'AuthController.callback',
   //  'get /auth/:provider/:action': 'AuthController.callback',
-  //
-  //  //  /rest/{controllers}/{action}
-  //  'post /updateHobbyAndMail': 'UserController.update',
+
+   //  /rest/{controllers}/{action}
+   'post /updateHobbyAndMail': 'UserController.update',
   //  'get /hobby': 'FrontUserController.hobby',
-  //  'get /main': 'MainController.index',
-  //  'get /story': 'PostController.create',
+   'get /main': 'MainController.index',
+   'get /story': 'PostController.create',
   //  'get /storyCategory': 'FrontPostController.createCategory',
   //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
-  //  'post /getAllPost': 'PostController.getAll',
-  // // /rest/post/list
-  //  'post /postStory': 'PostController.create',
+   'post /getAllPost': 'PostController.getAll',
+  // /rest/post/list
+   'post /postStory': 'PostController.create',
   //  'get /postDetail/:id': 'FrontPostController.show',
   //  'get /postDetailf7/:id': 'FrontPostController.showF7',
-  //
-  //  'post /addUserFavorite/:id': 'FavoriteController.create',
-  //  'post /delUserFavorite/:id': 'FavoriteController.delete',
-  //  'get /getUserFavorites': 'FavoriteController.show',
+
+   'post /addUserFavorite/:id': 'FavoriteController.create',
+   'post /delUserFavorite/:id': 'FavoriteController.delete',
+   'get /getUserFavorites': 'FavoriteController.show',
   //  'get /favorites': 'FrontUserController.favorites',
   //  'get /profile': 'FrontUserController.profile',
-  //
-  //
-  //  // image
-  //  'get /testUpload': 'ImageController.index',
-  //  'post /api/uploadImage': 'ImageController.upload',
-  //  'post /api/uploadImageBase64': 'ImageController.upload',
-  //
-  //  // search
-  //  'get /search': {
-  //    view: 'search'
-  //  },
-  //  'get /search/:keyword': 'PostController.search',
+
+
+   // image
+   'get /testUpload': 'ImageController.index',
+   'post /api/uploadImage': 'ImageController.upload',
+   'post /api/uploadImageBase64': 'ImageController.upload',
+
+   // search
+   'get /search': {
+     view: 'search'
+   },
+   'get /search/:keyword': 'PostController.search',
 
 
   // view
@@ -122,10 +122,10 @@
    'get /post/f7/:id': 'FrontPostController.showF7',
 
   //  api
-   'get  /rest/auth/login': 'AuthController.login',
-   'get  /rest/auth/logout': 'AuthController.logout',
-   'get  /rest/auth/register': 'AuthController.register',
-   'get  /rest/auth/auth/status': 'AuthController.status',
+  //  'get  /rest/auth/login': 'AuthController.login',
+  //  'get  /rest/auth/logout': 'AuthController.logout',
+  //  'get  /rest/auth/register': 'AuthController.register',
+  //  'get  /rest/auth/status': 'AuthController.status',
    'post /rest/auth/local': 'AuthController.callback',
    'post /rest/auth/local/:action': 'AuthController.callback',
    'get  /rest/auth/:provider': 'AuthController.provider',
@@ -136,7 +136,7 @@
    // 待捕齊
    // get /rest/user/:id': 'UserController.find',
 
-   'get  /rest/favorites': 'FavoriteController.show',
+   'get  /rest/favorites': 'FavoriteController.get',
    'post /rest/favorite/:id': 'FavoriteController.create',
    'delete /rest/favorite/:id': 'FavoriteController.delete',
 
