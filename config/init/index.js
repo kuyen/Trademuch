@@ -149,8 +149,8 @@ let self = module.exports = {
 
     for(let i =0 ;i < 50; i++){
 
-      let latitude = 51.5377994 + Math.random()/20;
-      let longitude = -0.1006775 + Math.random()/20;
+      let latitude = 24.1542943 + Math.random()/20;
+      let longitude = 120.6754701 + Math.random()/20;
 
       let item = [
         '手機',
