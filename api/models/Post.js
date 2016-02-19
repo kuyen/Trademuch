@@ -1,9 +1,7 @@
 module.exports = {
   attributes: {
-    id: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV2,
-      primaryKey: true
+    uuid: {
+      type: Sequelize.UUID
     },
 
     title: {
