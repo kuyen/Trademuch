@@ -22,26 +22,31 @@
                 span #{profile.rate}
                 
 .card(style="margin-top:-50px;")
-.card-content 
- -if(profile.postCount != 0)
+  .card-content 
+  -if(profile.postCount != 0)
    .list-block.media-list
      ul
+      -var i=0
        each post in profile.allUserPost
+        -i++
          li.swipeout
              .swipeout-content
                .item-content
                  .item-media
                    //- img(src=post.gallery[0], width='80')
-                   img(src=post.dataValues.images, width='80')
+                   -if(i<=5)
+                      img(src=post.dataValues.images, width='80')
+                   -else 
+                      img.lazy.lazy-fadeIn(data-src=post.dataValues.images, width='80')
                  .item-inner
                    .item-title-row
                      .item-title 
                        a.link(href='/post/f7/#{post.dataValues.id}') #{post.dataValues.title}
                    .item-subtitle NT$#{post.dataValues.price}
              .swipeout-actions-right
-               a.bg-pink.Delete(href='#', data-id='#{post.dataValues.id}')
+               a.bg-pink.deletelike(href='#', data-id='#{post.dataValues.id}')
                  img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
- -else
+  -else
    .noPostItem     
      img(src='/img/pc-man.png', alt='pc-man')        
      p there is nothing... 

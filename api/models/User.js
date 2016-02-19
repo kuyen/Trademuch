@@ -1,27 +1,38 @@
 module.exports = {
   attributes: {
+    uuid: {
+      type: Sequelize.UUID
+    },
+
     username: {
       type: Sequelize.STRING,
       allowNull: false
     },
+    fullName: {
+      type: Sequelize.STRING,
+      field: 'full_name'
+
+    },
+    firstName: {
+      type: Sequelize.STRING,
+      field: 'first_name'
+    },
+    lastName: {
+      type: Sequelize.STRING,
+      field: 'last_name'
+    },
+
     email: {
       type: Sequelize.STRING,
       unique: true
     },
-    latitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -90, max: 90 }
+    telephone: {
+      type: Sequelize.STRING
     },
-    longitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -180, max: 180 }
-    },
+
     age: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     },
     gender:{
       type: Sequelize.ENUM('none', 'male', 'female'),
@@ -29,19 +40,30 @@ module.exports = {
     },
     isFirstLogin:{
       type: Sequelize.BOOLEAN,
-      defaultValue: true
+      defaultValue: true,
+      field: 'is_first_login'
+    },
+
+    createdAt: {
+      type: Sequelize.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      field: 'updated_at'
     }
 
   },
   associations: function() {
-    User.hasMany(Post);
-    User.hasMany(Passport);
-    User.belongsToMany(Like, {through: 'UserLike'});
-    User.belongsToMany(Post, {through: 'UserFavorite'});
+    User.hasMany(Post, {foreignKey: 'user_id'});
+    User.hasMany(Passport, {foreignKey: 'user_id'});
+    User.belongsToMany(Place, {foreignKey: 'user_id', through: UserPlace});
+    User.belongsToMany(Post, {foreignKey: 'user_id', through: UserFavorite});
   },
   options: {
     classMethods: {},
     instanceMethods: {},
-    hooks: {}
+    hooks: {},
+    tableName: 'user'
   }
 };
