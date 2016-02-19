@@ -28,24 +28,18 @@ module.exports = {
     }
   },
 
-  show: async({userId}) => {
+  get: async({userId}) => {
     try {
       sails.log.info("getUserFavorites:userId=>",userId);
       let user = await User.findById(userId);
       let favorites = await user.getPosts({
-        include: [{
-          model: Item,
-          include: Like
-        }, {
-          model: User
-        }],
         order: 'createdAt DESC'
       });
       console.log("favorites.length=>",favorites.length);
       if(favorites.length>0){
         favorites.forEach(function(fav){
-          if(fav.images==null){
-            fav.images = '/img/items/1.jpg';
+          if(fav.coverImage==null){
+            fav.coverImage = '/img/items/1.jpg';
           }
         });
         // console.log("favorites=>",favorites)

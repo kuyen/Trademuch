@@ -136,7 +136,7 @@
    // 待捕齊
    // get /rest/user/:id': 'UserController.find',
 
-   'get  /rest/favorites': 'FavoriteController.show',
+   'get  /rest/favorites': 'FavoriteController.get',
    'post /rest/favorite/:id': 'FavoriteController.create',
    'delete /rest/favorite/:id': 'FavoriteController.delete',
 
