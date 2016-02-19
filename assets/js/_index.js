@@ -255,7 +255,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       myApp.closeNotification('.notification-item');
     }, 2000);
     $$.ajax({
-      url: "/addUserFavorite/" + id,
+      url: "/rest/favorite/" + id,
       type: "POST",
       success: function(result) {
         console.log(result);
@@ -281,8 +281,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       myApp.closeNotification('.notification-item');
     }, 2000);
     $$.ajax({
-      url: "/delUserFavorite/" + id,
-      type: "POST",
+      url: "/rest/favorite/" + id,
+      type: "DELETE",
       success: function(result) {
         console.log(result);
       },
@@ -327,7 +327,7 @@ $$(document).on('click', '.link.like', function() {
   var id = fav.attr("data-id");
   console.log("favboxa id=>", id);
   $$.ajax({
-    url: "/addUserFavorite/" + id,
+    url: "/rest/favorite/" + id,
     type: "POST",
     success: function(result) {
       console.log(result);

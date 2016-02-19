@@ -142,8 +142,8 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
     }
 
     jQuery.ajax({
-      url: '/updateHobbyAndMail',
-      type: 'POST',
+      url: '/rest/user',
+      type: 'PUT',
       data: data,
       success: function(data) {
         // if (data == "ok") {

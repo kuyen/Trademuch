@@ -37,7 +37,7 @@ module.exports = {
 
       let postArray = getPost.map((post) => {
         let pic = post.coverImage;
-        if(!pic) pic = 'img/items/1.jpg';
+        if(!pic) pic = '/img/items/1.jpg';
         let data = {
           id: post.id,
           title: post.title,
@@ -80,7 +80,7 @@ module.exports = {
       });
 
       let pic = post.coverImage;
-      if(!pic) pic = 'img/items/1.jpg';
+      if(!pic) pic = '/img/items/1.jpg';
 
       let data = {
         id: post.id,
@@ -156,7 +156,7 @@ module.exports = {
         var data = [];
         getPosts.forEach(function(post) {
           let pic = post.coverImage;
-          if(!pic) pic = 'img/items/1.jpg';
+          if(!pic) pic = '/img/items/1.jpg';
           data.push({
             id: post.id,
             title: post.title,

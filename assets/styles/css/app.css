@@ -68,7 +68,7 @@ img.action {
   border-style: solid;
   padding: 5px;
 }
-a {
+.navbar-inner  a {
   color: #fff !important;
 }
 i.icon.icon-back-white.icon-back {

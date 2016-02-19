@@ -3,8 +3,8 @@ $("body").delegate(".favboxa", "click", function() {
   var id = delfav.attr("data-id");
   console.log("favboxa id=>",id);
   $.ajax({
-    url: "/delUserFavorite/" + id,
-    type: "POST",
+    url: "/rest/favorite/" + id,
+    type: "DELETE",
     success: function(result) {
       console.log(result);
       delfav.children().css("color","white");

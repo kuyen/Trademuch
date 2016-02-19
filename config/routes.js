@@ -77,7 +77,7 @@
   //  'get /auth/:provider/:action': 'AuthController.callback',
 
    //  /rest/{controllers}/{action}
-   'post /updateHobbyAndMail': 'UserController.update',
+  //  'post /updateHobbyAndMail': 'UserController.update',
   //  'get /hobby': 'FrontUserController.hobby',
   //  'get /main': 'MainController.index',
   //  'get /story': 'PostController.create',
@@ -88,9 +88,9 @@
   //  'post /postStory': 'PostController.create',
   //  'get /postDetail/:id': 'FrontPostController.show',
   //  'get /postDetailf7/:id': 'FrontPostController.showF7',
-   'post /addUserFavorite/:id': 'FavoriteController.create',
-   'post /delUserFavorite/:id': 'FavoriteController.delete',
-   'get /getUserFavorites': 'FavoriteController.get',
+  //  'post /addUserFavorite/:id': 'FavoriteController.create',
+  //  'post /delUserFavorite/:id': 'FavoriteController.delete',
+  //  'get /getUserFavorites': 'FavoriteController.get',
   //  'get /favorites': 'FrontUserController.favorites',
   //  'get /profile': 'FrontUserController.profile',
 
@@ -133,7 +133,7 @@
    'get  /rest/auth/:provider/callback': 'AuthController.callback',
    'get  /rest/auth/:provider/:action': 'AuthController.callback',
 
-   'put  /rest/user/:id': 'UserController.update',
+   'put  /rest/user': 'UserController.update',
    // 待捕齊
    // get /rest/user/:id': 'UserController.find',
 
