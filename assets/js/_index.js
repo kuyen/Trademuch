@@ -30,7 +30,7 @@ window.mainView = mainView;
 $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
 
   var id = $$("input#itemId").val();
-  $("#postDetailF7 > .page-content").load("/postDetail/" + id);
+  $("#postDetailF7 > .page-content").load("/post/" + id);
   $$(".back.link").on("click", function() {
     $$(".swipeout").css('background-color','white');
   });
@@ -117,7 +117,7 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     myApp.formStoreData('storyCategoryChoose', storedData);
 
     var id = $$(this).find('input').val();
-    mainView.router.loadPage('/storyDetail/' + id)
+    mainView.router.loadPage('/post/create/' + id)
     console.log(storedData);
 
     // hack <a> hover to solved #371
@@ -137,12 +137,12 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   $$(".favoriteView").click(function() {
     myApp.closeNotification('.notification-item');
-    $("#favoriteView > .page-content").load("/favorites");
+    $("#favoriteView > .page-content").load("/user/favorites");
   });
 
   $$(".profileView").click(function() {
     myApp.closeNotification('.notification-item');
-    $("#profileView > .page-content").load("/profile");
+    $("#profileView > .page-content").load("/user/profile");
   });
 
   $$("a.searchView.tab-link").click(function() {
@@ -258,7 +258,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       error: function(xhr, ajaxOptions, thrownError) {
         console.log("xhr.status,thrownError=>", xhr.status, thrownError);
         alert("if you like this item, login please :)");
-        window.location.assign("/auth/facebook");
+        window.location.assign("/rest/auth/facebook");
       }
     }); // end ajax
   });
@@ -301,7 +301,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         $$(this).css('background-color','rgb(169, 208, 247)');
         $('#back-top').fadeOut();
         mainView.router.load({
-          url: '/postDetailf7/' + $$(this).attr("data-id"),
+          url: '/post/f7/' + $$(this).attr("data-id"),
           ignoreCache: true
         });
       }

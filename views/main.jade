@@ -20,7 +20,7 @@ block body
             .wrapper
               -console.log("loginState=>",loginState);
               -if(!loginState)
-                a.right.top.external( target="_top" href='/auth/facebook')
+                a.right.top.external( target="_top" href='/rest/auth/facebook')
                   img.action(src='/img/facebook.png', alt='facebook', style="height: 35px;")
         .pages
           .page.toolbar-fixed(data-page='home')
@@ -31,10 +31,10 @@ block body
                   //- .activeShow
                 a.searchView.tab-link(href='#searchView')
                   img(src='/img/search.png', alt='search')
-                a.storyView.link(href='/storyCategory')
+                a.storyView.link(href='/post/create/Category')
                   img(src='/img/add.png', alt='add')
                 -if(!loginState)
-                  a.link(href='/favorites')
+                  a.link(href='/user/favorites')
                     img(src='/img/favorite.png', alt='favorite')
                 -else
                   a.favoriteView.tab-link(href='#favoriteView', data-login="#{loginState}")
@@ -42,7 +42,7 @@ block body
                 //- a.listView.tab-link(href='#listView')
                 //-   img(src='/img/login.png', alt='list')
                 -if(!loginState)
-                  a.link(href='/favorites')
+                  a.link(href='/user/favorites')
                     img(src='/img/login.png', alt='favorite')
                 -else
                   a.profileView.tab-link(href='#profileView')
@@ -87,7 +87,7 @@ block body
                                           .item-inner
                                             .item-title-row
                                               .item-title
-                                                a.link(data-ignore-cache="true", href='/postDetailf7/#{post.id}') #{post.title}
+                                                a.link(data-ignore-cache="true", href='/post/f7/#{post.id}') #{post.title}
                                             .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
@@ -111,7 +111,7 @@ block scripts
               <div class="item-inner">
                 <div class="item-title-row">
                   <div class="item-title">
-                    <a class="link" data-ignore-cache="true" href='/postDetailf7/{{id}}'>{{title}}</a>
+                    <a class="link" data-ignore-cache="true" href='/post/f7/{{id}}'>{{title}}</a>
                   </div>
                 </div>
                 <div class="item-subtitle">NT${{price}}</div>

@@ -136,6 +136,7 @@ let self = module.exports = {
         coordinates: [39.807222,-76.984722]
       }
     }
+
     // let createPost = await Post.create(post);
 
     // let itemPost = await Item.create({
