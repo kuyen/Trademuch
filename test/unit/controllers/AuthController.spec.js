@@ -10,7 +10,7 @@ describe.skip('about Auth Controller operation.', function() {
       }
 
       let result = await request(sails.hooks.http.app)
-      .post('/auth/local/register')
+      .post('/rest/auth/local/register')
       .send(newUser);
 
       let {email} = newUser;
@@ -39,7 +39,7 @@ describe.skip('about Auth Controller operation.', function() {
       }
 
       let result = await request(sails.hooks.http.app)
-      .post('/auth/local')
+      .post('/rest/auth/local')
       .send(loginInfo);
 
       result.status.should.be.equal(302);

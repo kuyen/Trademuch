@@ -31,7 +31,7 @@ $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
     var storedData = myApp.formToJSON('#storyModeChoose');
     myApp.formStoreData('storyModeChoose', storedData);
 
-    mainView.router.loadPage('/storyCategory');
+    mainView.router.loadPage('/post/create/Category');
       // if(storedData.mode != ""  && storedData.hasOwnProperty('mode')) {
       //   $$('#nextSetp').removeAttr("disabled");
       // }else{
@@ -83,7 +83,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   if (!category) {
     setTimeout(function(){
       myApp.alert("oops! please seslect category agagin.", 'Error');
-      mainView.router.loadPage('/storyCategory');
+      mainView.router.loadPage('/post/create/Category');
     },3000);
   }
   console.log("category=>", category);
@@ -376,7 +376,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
       console.log("data before submit=>", (data));
       // save post
       $$.ajax({
-        url: "/postStory",
+        url: "/rest/post/create",
         type: "POST",
         data: data,
         success: function(result) {
@@ -386,8 +386,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          mainView.router.loadPage('/postDetailf7/' + result.id);
-          // window.location.href = '/app';
+          mainView.router.loadPage('/post/f7/' + result.id);
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();

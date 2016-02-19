@@ -28,7 +28,7 @@ module.exports = {
         profileFields: [ 'id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified', 'displayName' ],
         // FB api 2.5 get Email
         scope: ['email'],
-        callbackURL: "http://localhost:1337/auth/facebook/callback"
+        callbackURL: "http://localhost:1337/rest/auth/facebook/callback"
       }
     }
   },

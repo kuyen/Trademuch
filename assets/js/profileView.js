@@ -11,7 +11,7 @@ $("#profileView").delegate('.swipeout', 'click', function(event) {
       $$(this).css('background-color', 'rgb(169, 208, 247)');
       $('#back-top').fadeOut();
       mainView.router.load({
-        url: '/postDetailf7/' + $$(this).attr("data-id"),
+        url: '/post/f7/' + $$(this).attr("data-id"),
         ignoreCache: true
       });
     }

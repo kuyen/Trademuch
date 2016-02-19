@@ -330,7 +330,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
                 media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
                 onClick: function(){
                   parent.window.myApp.closeNotification('.notification-item');
-                  parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
+                  parent.window.mainView.router.loadPage('/post/f7/'+ $(markInfo).attr('data-id'));
                 }
               });
             } catch (e) {
@@ -374,7 +374,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
               media: '<img width="80" src="'+ $(markInfo).attr("data-img") +'">',
               onClick: function(){
                 parent.window.myApp.closeNotification('.notification-item');
-                parent.window.mainView.router.loadPage('/postDetailF7/'+ $(markInfo).attr('data-id'));
+                parent.window.mainView.router.loadPage('/post/f7/'+ $(markInfo).attr('data-id'));
               }
             });
           } catch (e) {

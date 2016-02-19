@@ -16,13 +16,7 @@ head
   //- //- link(rel='stylesheet', href='styles/mapCss/user.style.css', type='text/css')
   //- link(rel='stylesheet', href='styles/mapCss/index.css', type='text/css')
   // MAPSTYLES
-  link(rel="stylesheet", href="/styles/bootstrap/css/bootstrap.min.css")
-  link(rel="stylesheet", href="/styles/mapCss/bootstrap-select.min.css")
-  link(rel="stylesheet", href="/styles/mapCss/owl.carousel.css")
-  link(rel="stylesheet", href="/styles/mapCss/jquery.mCustomScrollbar.css")
-  link(rel="stylesheet", href="/styles/mapCss/style.css")
-  link(rel="stylesheet", href="/styles/mapCss/colors/blue.css")
-  link(rel="stylesheet", href="/styles/mapCss/index.css")
+  link(rel="stylesheet", href="/min/map.production.min.css")
   // MAPSTYLES END
   title Spotter - Universal Directory Listing HTML Template
   body#page-top.map-fullscreen.page-homepage.navigation-off-canvas(onunload='')
@@ -48,7 +42,7 @@ head
         //-             .icon
         //-               i.fa.fa-bars
         //-         -if (!userLogin) 
-        //-           a.submit-item(href='/auth/facebook') 
+        //-           a.submit-item(href='/rest/auth/facebook') 
         //-             .content
         //-               span Login!
         //-             .icon
@@ -134,17 +128,7 @@ head
         //- //- script(type='text/javascript', src='/js/favbox.js')
         //- //- script(type='text/javascript', src='/js/app.js')
         // MAPSCRIPTS
-        script(src="/js/map/jquery-2.1.0.min.js")
-        script(src="/js/map/before.load.js")
-        script(src="/js/map/jquery-migrate-1.2.1.min.js")
-        script(src="/styles/bootstrap/js/bootstrap.min.js")
-        script(src="/js/map/bootstrap-select.min.js")
-        script(src="/js/map/infobox.js")
-        script(src="/js/map/richmarker-compiled.js")
-        script(src="/js/map/markerclusterer.js")
-        script(src="/js/map/custom.js")
-        script(src="/js/map/maps.js")
-        script(src="/js/map/mapControl.js")
+        script(src="/min/map.production.min.js")
         // MAPSCRIPTS END
         script.
           var _latitude = 51.541216;
@@ -152,8 +136,8 @@ head
           //- var jsonPath = '/json/items.json.txt';
           // Load JSON data and create Google Maps
           $.ajax({
-            url: "/getAllPost",
-            type:"POST",
+            url: "/rest/post",
+            type:"GET",
             success: function(json){
               console.log(json);
               createHomepageGoogleMap(_latitude,_longitude,json);

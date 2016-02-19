@@ -1,4 +1,4 @@
-describe('about Item Service operation.', function() {
+describe.skip('about Item Service operation.', function() {
 
   describe('update lile item', () => {
 

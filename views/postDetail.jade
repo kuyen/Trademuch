@@ -4,7 +4,7 @@
    li.card(data-fbId='#{fbId}')
      .card-header
        .imgWrapper.center
-         img(src=post.gallery, data-hash='1', alt='#{post.title}', height='270', width='270' )
+         img(src=post.gallery, data-hash='1', alt='#{post.title}',width='100%' )
              
      .card-content
       .card-content-inner
@@ -68,14 +68,14 @@
       
     $$(function(){
       var origin = window.location.origin;
-      $$(".fb-comments").attr('data-href', origin+"/postDetail/#{post.id}");
+      $$(".fb-comments").attr('data-href', origin+"/post/#{post.id}");
     });
     
     $$(".fbShare").on('click',function(){
       var origin = window.location.href;
       FB.ui({
         method: 'share',
-        href: origin + "/postDetail/#{post.id}" 
+        href: origin + "/post/#{post.id}" 
       },
       // callback
       function(response) {
