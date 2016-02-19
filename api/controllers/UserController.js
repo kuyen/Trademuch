@@ -54,7 +54,7 @@ module.exports = {
           activity: Math.round(profilePost.length * 1.5 + favorites.length)
         }
       }
-      res.view('main', {
+      res.view('app', {
         favorites: favorites,
         loginState: userLogin,
         // loginedUser: loginedUser,

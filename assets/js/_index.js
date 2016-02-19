@@ -13,7 +13,7 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   pushState: true,
   pushStateSeparator: "",
-  pushStateRoot: "/main"
+  pushStateRoot: "/app"
 });
 
 // Add main view
