@@ -259,7 +259,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       error: function(xhr, ajaxOptions, thrownError) {
         console.log("xhr.status,thrownError=>", xhr.status, thrownError);
         alert("if you like this item, login please :)");
-        window.location.assign("/auth/facebook");
+        window.location.assign("/rest/auth/facebook");
       }
     }); // end ajax
   });

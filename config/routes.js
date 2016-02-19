@@ -63,18 +63,18 @@
      view: 'learnMore'
    },
 
-   'get /login': 'AuthController.login',
-   'get /logout': 'AuthController.logout',
-   'get /register': 'AuthController.register',
+  //  'get /login': 'AuthController.login',
+  //  'get /logout': 'AuthController.logout',
+  //  'get /register': 'AuthController.register',
+  //
+  //  'get /auth/status': 'AuthController.status',
 
-   'get /auth/status': 'AuthController.status',
+  //  'post /auth/local': 'AuthController.callback',
+  //  'post /auth/local/:action': 'AuthController.callback',
 
-   'post /auth/local': 'AuthController.callback',
-   'post /auth/local/:action': 'AuthController.callback',
-
-   'get /auth/:provider': 'AuthController.provider',
-   'get /auth/:provider/callback': 'AuthController.callback',
-   'get /auth/:provider/:action': 'AuthController.callback',
+  //  'get /auth/:provider': 'AuthController.provider',
+  //  'get /auth/:provider/callback': 'AuthController.callback',
+  //  'get /auth/:provider/:action': 'AuthController.callback',
 
    //  /rest/{controllers}/{action}
    'post /updateHobbyAndMail': 'UserController.update',
@@ -122,10 +122,10 @@
    'get /post/f7/:id': 'FrontPostController.showF7',
 
   //  api
-   'get  /rest/auth/login': 'AuthController.login',
-   'get  /rest/auth/logout': 'AuthController.logout',
-   'get  /rest/auth/register': 'AuthController.register',
-   'get  /rest/auth/auth/status': 'AuthController.status',
+  //  'get  /rest/auth/login': 'AuthController.login',
+  //  'get  /rest/auth/logout': 'AuthController.logout',
+  //  'get  /rest/auth/register': 'AuthController.register',
+  //  'get  /rest/auth/status': 'AuthController.status',
    'post /rest/auth/local': 'AuthController.callback',
    'post /rest/auth/local/:action': 'AuthController.callback',
    'get  /rest/auth/:provider': 'AuthController.provider',
