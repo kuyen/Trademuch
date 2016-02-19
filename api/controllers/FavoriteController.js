@@ -32,11 +32,11 @@ module.exports = {
     }
   },
 
-  show: async(req, res) => {
+  get: async(req, res) => {
     try {
       console.log("==== getUserFavorites ===");
       let user = await UserService.getLoginUser(req);
-      let userFavorites = await FavoriteService.show({
+      let userFavorites = await FavoriteService.get({
         userId: user.id
       });
       res.ok(userFavorites);

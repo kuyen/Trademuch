@@ -37,7 +37,7 @@ module.exports = {
       if(userLogin){
         loginedUser = await UserService.getLoginUser(req);
         // console.log("==== logined User is ===>", loginedUser);
-        favorites = await UserService.getUserFavorites({userId:loginedUser.id});
+        favorites = await FavoriteService.get({userId:loginedUser.id});
         // console.log("==== user favorites are ===>", favorites);
         result.data.forEach(function(post,index){
           favorites.forEach(function(fav){

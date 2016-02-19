@@ -1,28 +1,16 @@
 import sinon from 'sinon';
-describe('about User Controller operation.', function() { //skip
-  describe('find user', () => {
+describe('about Favorite Controller operation.', function() { //skip
+  describe('FavoriteController Favorite', () => {
 
-    it('should success.', async (done) => {
-      try {
-        let res = await request(sails.hooks.http.app).get(`/user/find`);
-        let {users} = res.body;
-        users.should.be.Array;
-        done();
-      } catch (e) {
-        done(e);
-      }
-    });
-
-  });
-  describe('UserController Favorite', () => {
-
-    let testUser, post, item, createPost, createPost2;
+    let testUser,testUser2, post , createPost, createPost2;
     before(async (done) => {
       try {
         testUser = await User.create({
-          "username": "testPost",
-          "email": "testUserController@gmail.com",
-          "age": 18
+          "username": "testuser",
+        });
+
+        testUser2 = await User.create({
+          "username": "testuser2",
         });
 
         sinon.stub(UserService, 'getLoginState', (req) => {
@@ -33,52 +21,33 @@ describe('about User Controller operation.', function() { //skip
           return testUser;
         });
 
-        post = {
-          title: "testTitle",
-          content: 'content',
-          startDate: "2015-12-25",
-          endDate: "2015-12-31",
-          price: "200",
-          mode: "give",
-          createdAt: "2015-12-15 10:09:07",
-          updatedAt: "2015-12-15 10:09:07",
-          ItemId: 1,
-          UserId: 1,
-          latitude: 24.148657699999998,
-          longitude: 120.67413979999999,
-          geometry: {
-            type: 'Point',
-            coordinates: [24.148657699999998,120.67413979999999]
-          }
-        }
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 0,
+          "longitude": 0,
+        })
 
-        createPost = await Post.create(post);
+        createPost = await Post.create({
+          "uuid": '12311231231',
+          "title": "AAAA",
+          "startDate": "2015-12-01",
+          "user_id": testUser2.id
+        });
 
-        post = {
-          title: "testTitlsdfe",
-          content: 'content',
-          startDate: "2015-12-25",
-          endDate: "2015-12-31",
-          price: "200",
-          mode: "give",
-          createdAt: "2015-12-15 10:09:07",
-          updatedAt: "2015-12-15 10:09:07",
-          ItemId: 1,
-          UserId: 1,
-          latitude: 23.148657699999998,
-          longitude: 120.67413979999999,
-          geometry: {
-            type: 'Point',
-            coordinates: [23.148657699999998,120.67413979999999]
-          }
-        }
+        await createPost.addPlace(place.id)
 
-        createPost2 = await Post.create(post);
+        createPost2 = await Post.create({
+          "uuid": '4564564uioi',
+          "title": "AAAA",
+          "startDate": "2015-12-01",
+        });
         await testUser.addPost(createPost2.id)
-
+        await createPost2.addPlace(place.id)
         done();
       } catch (e) {
-        done(e)
+        console.log(e);
+        done(e);
       }
     });
 
@@ -98,8 +67,7 @@ describe('about User Controller operation.', function() { //skip
 
         let before = await testUser.getPosts();
         let result = await request(sails.hooks.http.app)
-        .post('/addUserFavorite/' + createPost.id);
-        // sails.log.info(result);
+        .post('/rest/favorite/' + createPost.id);
         result.status.should.be.equal(200);
         let after = await testUser.getPosts();
         result.should.be.an.Array;
@@ -122,7 +90,7 @@ describe('about User Controller operation.', function() { //skip
         console.log(send);
         let before = await testUser.getPosts();
         let result = await request(sails.hooks.http.app)
-        .post('/delUserFavorite/' + createPost2.id);
+        .delete('/rest/favorite/' + createPost2.id);
         result.status.should.be.equal(200);
         let after = await testUser.getPosts();
         result.should.be.an.Array;
@@ -138,7 +106,7 @@ describe('about User Controller operation.', function() { //skip
       try {
 
         let result = await request(sails.hooks.http.app)
-        .get('/getUserFavorites');
+        .get('/rest/favorites');
         sails.log.info("!!!",result.body);
         result.status.should.be.equal(200);
 
