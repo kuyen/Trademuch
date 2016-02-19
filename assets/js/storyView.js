@@ -7,7 +7,7 @@ myApp.onPageAfterAnimation('storyMode', function(page) {
   console.log(page);
   // $$('.back.link').click(function(e) {
   //   // e.preventDefault();
-  //   mainView.router.loadPage('/main', {
+  //   mainView.router.loadPage('/app', {
   //     "pushState": true
   //   })
   // }); // end click
@@ -386,8 +386,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          mainView.router.loadPage('/post/' + result.id);
-          // window.location.href = '/main';
+          mainView.router.loadPage('/post/f7/' + result.id);
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();

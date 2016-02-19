@@ -15,7 +15,7 @@ block body
         .navbar
           .navbar-inner
             .wrapper
-              a.left.external.logo(href='/main')
+              a.left.external.logo(href='/app')
                 img(src='/img/logo.png', alt='logo', style="height: 45px;") 
             .wrapper
               -console.log("loginState=>",loginState);
@@ -82,7 +82,7 @@ block body
                                         .item-content
                                           .item-media
                                             //- img(src=post.gallery[0], width='80')
-                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80')
+                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80', height='80')
                                             //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
                                           .item-inner
                                             .item-title-row

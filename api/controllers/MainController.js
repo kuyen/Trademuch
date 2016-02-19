@@ -51,10 +51,10 @@ module.exports = {
           allUserPost: profilePost,
           postCount: profilePost.length,
           favCount: favorites.length,
-          rate: Math.round(profilePost.length * 1.5 + favorites.length)
+          activity: Math.round(profilePost.length * 1.5 + favorites.length)
         }
       }
-      res.view('main', {
+      res.view('app', {
         favorites: favorites,
         loginState: userLogin,
         // loginedUser: loginedUser,
@@ -65,5 +65,5 @@ module.exports = {
     } catch (e) {
       res.serverError(e);
     }
-  }
+  },
 }

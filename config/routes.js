@@ -88,7 +88,6 @@
    'post /postStory': 'PostController.create',
   //  'get /postDetail/:id': 'FrontPostController.show',
   //  'get /postDetailf7/:id': 'FrontPostController.showF7',
-
    'post /addUserFavorite/:id': 'FavoriteController.create',
    'post /delUserFavorite/:id': 'FavoriteController.delete',
    'get /getUserFavorites': 'FavoriteController.get',
@@ -111,8 +110,8 @@
 
   // view
    'get /': 'MainController.pcOrMobile',
-   'get /main': 'MainController.index',
-   'get /main/*': 'MainController.index',
+   'get /app': 'MainController.index',
+   'get /app/*': 'MainController.index',
 
    'get /user/hobby': 'FrontUserController.hobby',
    'get /user/favorites': 'FrontUserController.favorites',
