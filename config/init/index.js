@@ -43,156 +43,40 @@ let self = module.exports = {
   },
 
   testData: async () => {
-    // let likeFashion = await Like.findOne({
-    //   where:{
-    //     title: like[0].title
-    //   }
-    // });
-    // let itemlistFashion = [
-    //   '衣服',
-    //   '褲子',
-    //   '帽子',
-    //   '鞋子',
-    //   '包包',
-    //   '皮夾'
-    // ];
-    // await* itemlistFashion.map((fashion) => {
-    //   Item.create({
-    //     itemname: fashion,
-    //     LikeId: likeFashion.id
-    //   })
-    // });
 
-    // let likeFashion2 = await Like.findOne({
-    //   where:{
-    //     title: like[1].title
-    //   }
-    // });
-    // let itemlistFashion2 = [
-    //   "化妝品",
-    //   '化妝包',
-    //   '口紅',
-    //   '保養品',
-    //   '護唇膏'
-    // ];
-    // await* itemlistFashion2.map((fashion) => {
-    //   Item.create({
-    //     itemname: fashion,
-    //     LikeId: likeFashion2.id
-    //   })
-    // });
+    let testUser2 = await User.create({
+			"username": "testuser2",
+    });
 
-    // let likeDesign = await Like.findOne({
-    //   where:{
-    //     title: like[2].title
-    //   }
-    // });
-    // let itemlistDesign = [
-    //   '桌子',
-    //   '畫',
-    //   '椅子'
-    // ];
-    // await* itemlistDesign.map((design) => {
-    //   Item.create({
-    //     itemname: design,
-    //     LikeId: likeDesign.id
-    //   })
-    // });
-    //
-    // let likeIC = await Like.findOne({
-    //   where:{
-    //     title: like[3].title
-    //   }
-    // });
-    // let itemlistIC = [
-    //   '手機',
-    //   '平板',
-    //   '電腦',
-    //   '筆電',
-    //   'iphone'
-    // ];
-    // await* itemlistIC.map( async (ic) => {
-    //   await Item.create({
-    //     itemname: ic,
-    //     LikeId: likeIC.id
-    //   })
-    // });
+    let place = await Place.create({
+      "name": 'Test',
+      "address": 'address',
+      "latitude": 0,
+      "longitude": 0,
+    })
 
-    let post = {
-      title: "testTitle",
-      startDate: "2015-12-25",
-      endDate: "2015-12-31",
-      price: "200",
-      content: 'content',
-      mode: "give",
-      createdAt: "2015-12-15 10:09:07",
-      updatedAt: "2015-12-15 10:09:07",
-      ItemId: 17,
-      UserId: 1,
-      latitude: 39.807222,
-      longitude: -76.984722,
-      geometry: {
-        type: 'Point',
-        coordinates: [39.807222,-76.984722]
-      }
+    let post = await Post.create({
+      "uuid": '12311231231',
+      "title": "searchPost",
+      "startDate": "2015-12-01",
+      "user_id": testUser2.id
+    });
+
+    await post.addPlace(place.id)
+
+    for (let i = 0; i < 10; i++) {
+      let latitude = 51.5377994 + Math.random() / 100;
+      let longitude = -0.1006775 + Math.random() / 100;
+      let place = await Place.create({
+        "latitude": latitude,
+        "longitude": longitude,
+      })
+      let createPost = await Post.create({
+        "title": "AAAA",
+        "startDate": "2015-12-01",
+        "user_id": testUser2.id
+      });
+      await createPost.addPlace(place.id)
     }
-
-    // let createPost = await Post.create(post);
-
-    // let itemPost = await Item.create({
-    //   itemname: '鑽戒',
-    //   LikeId: likeFashion.id
-    // });
-
-    // var randomInt = function (low, high) {
-    //   return Math.floor(Math.random() * (high - low) + low);
-    // };
-
-    // for(let i =0 ;i < 50; i++){
-    //
-    //   let latitude = 51.5377994 + Math.random()/20;
-    //   let longitude = -0.1006775 + Math.random()/20;
-    //
-    //   let item = [
-    //     '手機',
-    //     '平板',
-    //     '電腦',
-    //     '筆電',
-    //     'iphone',
-    //     '衣服',
-    //     '褲子',
-    //     '帽子',
-    //     '鞋子',
-    //     '包包',
-    //     '皮夾'
-    //   ];
-    //
-    //   let itemPost = await Item.create({
-    //     itemname: item[randomInt(0,item.length)],
-    //     LikeId: likeFashion.id
-    //   });
-
-
-      // let post = {
-      //   title: "testTitle",
-      //   startDate: "2015-12-25",
-      //   endDate: "2015-12-31",
-      //   price: "200",
-      //   content: 'content',
-      //   mode: "give",
-      //   createdAt: "2015-12-15 10:09:07",
-      //   updatedAt: "2015-12-15 10:09:07",
-      //   // ItemId: itemPost.id,
-      //   user_id: 1,
-      //   latitude: latitude,
-      //   longitude: longitude,
-      //   geometry: {
-      //     type: 'Point',
-      //     coordinates: [latitude,longitude]
-      //   }
-      // }
-      // let createPost = await Post.create(post);
-
-    // }
   }
 }

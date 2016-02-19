@@ -15,7 +15,7 @@ block body
         .navbar
           .navbar-inner
             .wrapper
-              a.left.external.logo(href='/main')
+              a.left.external.logo(href='/app')
                 img(src='/img/logo.png', alt='logo', style="height: 45px;") 
             .wrapper
               -console.log("loginState=>",loginState);
@@ -79,7 +79,7 @@ block body
                                 each post in allPosts
                                   li.swipeout(data-id=post.id)
                                       .swipeout-content
-                                        .item-content
+                                        .item-content.prodList
                                           .item-media
                                             //- img(src=post.gallery[0], width='80')
                                             img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80')
@@ -88,7 +88,7 @@ block body
                                             .item-title-row
                                               .item-title
                                                 a.link(data-ignore-cache="true", href='/post/f7/#{post.id}') #{post.title}
-                                            .item-subtitle NT$#{post.price}
+                                            //- .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
                                           img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
@@ -104,7 +104,7 @@ block scripts
       {{#each this.items}}
         <li class="swipeout" data-id={{id}}>
           <div class="swipeout-content">
-            <div class="item-content">
+            <div class="item-content prodList">
               <div class="item-media">
                 <img data-src={{gallery[0]}} width="80" class="lazy lazy-fadeIn"/>
               </div>

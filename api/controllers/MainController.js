@@ -24,7 +24,7 @@ module.exports = {
         loginedUser = await UserService.getLoginUser(req);
         userFBId = await UserService.getFBId(loginedUser.id);
         // console.log("==== logined User is ===>", loginedUser);
-        favorites = await UserService.getUserFavorites({
+        favorites = await FavoriteService.get({
           userId: loginedUser.id
         });
         // console.log("==== user favorites are ===>", favorites);
@@ -51,10 +51,10 @@ module.exports = {
           allUserPost: profilePost,
           postCount: profilePost.length,
           favCount: favorites.length,
-          rate: Math.round(profilePost.length * 1.5 + favorites.length)
+          activity: Math.round(profilePost.length * 1.5 + favorites.length)
         }
       }
-      res.view('main', {
+      res.view('app', {
         favorites: favorites,
         loginState: userLogin,
         // loginedUser: loginedUser,
@@ -65,5 +65,5 @@ module.exports = {
     } catch (e) {
       res.serverError(e);
     }
-  }
+  },
 }

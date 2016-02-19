@@ -68,8 +68,8 @@ img.action {
   border-style: solid;
   padding: 5px;
 }
-a {
-  color: #fff;
+.navbar-inner  a {
+  color: #fff !important;
 }
 i.icon.icon-back-white.icon-back {
   width: 12px;
@@ -222,4 +222,17 @@ div.detbox {
   top: 30px;
   z-index: 9999;
   padding: 7.6px;
+}
+
+.list-block .prodList {
+  min-height: 100px !important;
+}
+.list-block .prodList  .item-media{
+  display: flex;
+  width: 80px;
+  height: 80px;
+  overflow: auto;
+}
+.prodList .item-content .item-media img{
+  width: 80px;
 }

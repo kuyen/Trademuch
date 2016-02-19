@@ -126,7 +126,7 @@ head
         //- script(type='text/javascript', src='/js/map/maps.js')
         //- script(type='text/javascript', src='/js/map/mapControl.js')
         //- //- script(type='text/javascript', src='/js/favbox.js')
-        //- //- script(type='text/javascript', src='/js/main.js')
+        //- //- script(type='text/javascript', src='/js/app.js')
         // MAPSCRIPTS
         script(src="/min/map.production.min.js")
         // MAPSCRIPTS END
@@ -136,8 +136,8 @@ head
           //- var jsonPath = '/json/items.json.txt';
           // Load JSON data and create Google Maps
           $.ajax({
-            url: "/getAllPost",
-            type:"POST",
+            url: "/rest/post",
+            type:"GET",
             success: function(json){
               console.log(json);
               createHomepageGoogleMap(_latitude,_longitude,json);

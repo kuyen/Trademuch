@@ -73,7 +73,7 @@ var mapJsFilesToInject = [
    'js/map/maps.js',
    'js/map/mapControl.js',
    '!js/favbox.js',
-   '!js/main.js',
+   '!js/app.js',
 ];
 
 

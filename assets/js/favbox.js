@@ -4,7 +4,7 @@ $("body").delegate(".favboxa", "click", function() {
   var id = fav.attr("data-id");
   console.log("favboxa id=>",id);
   $.ajax({
-    url: "/addUserFavorite/" + id,
+    url: "/rest/favorite/" + id,
     type: "POST",
     success: function(result) {
       console.log(result);

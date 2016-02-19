@@ -6,14 +6,14 @@ var myApp = new Framework7({
   template7Pages: true,
   precompileTemplates: true,
   imagesLazyLoadSequential: true,
-  imagesLazyLoadThreshold: 500,
+  imagesLazyLoadThreshold: 50,
   swipeBackPage: true,
   uniqueHistory: true,
   animateNavBackIcon: true,
   hideToolbarOnPageScroll: true,
   pushState: true,
   pushStateSeparator: "",
-  pushStateRoot: "/main"
+  pushStateRoot: "/app"
 });
 
 // Add main view
@@ -122,7 +122,7 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     myApp.formStoreData('storyCategoryChoose', storedData);
 
     var id = $$(this).find('input').val();
-    mainView.router.loadPage('/post/create/' + id)
+    mainView.router.loadPage('/post/create')
     console.log(storedData);
 
     // hack <a> hover to solved #371
@@ -222,7 +222,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       // if ((!profileView && !mapView) && !postDetailF7) {
       if ((!profileView && !mapView) && !postDetailF7) {
         var toolbarState = $('.toolbar').hasClass('toolbar-hidden');
-        console.log(toolbarState);
+        // console.log(toolbarState);
         if (toolbarState) {
           $('#back-top').fadeOut();
         } else {
@@ -255,7 +255,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       myApp.closeNotification('.notification-item');
     }, 2000);
     $$.ajax({
-      url: "/addUserFavorite/" + id,
+      url: "/rest/favorite/" + id,
       type: "POST",
       success: function(result) {
         console.log(result);
@@ -281,8 +281,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       myApp.closeNotification('.notification-item');
     }, 2000);
     $$.ajax({
-      url: "/delUserFavorite/" + id,
-      type: "POST",
+      url: "/rest/favorite/" + id,
+      type: "DELETE",
       success: function(result) {
         console.log(result);
       },
@@ -327,7 +327,7 @@ $$(document).on('click', '.link.like', function() {
   var id = fav.attr("data-id");
   console.log("favboxa id=>", id);
   $$.ajax({
-    url: "/addUserFavorite/" + id,
+    url: "/rest/favorite/" + id,
     type: "POST",
     success: function(result) {
       console.log(result);
