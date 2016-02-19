@@ -3,11 +3,11 @@ module.exports = {
 
     createdAt: {
       type: Sequelize.DATE,
-      field: 'created_at'
+      // field: 'created_at'
     },
     updatedAt: {
       type: Sequelize.DATE,
-      field: 'updated_at'
+      // field: 'updated_at'
     }
   },
 
