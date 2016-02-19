@@ -4,14 +4,13 @@ module.exports = {
     try {
       console.log("==== postStory ===", req.body);
       let data = req.body;
-      await PostService.create(data, req);
-      res.ok('ok');
+      let result = await PostService.create(data, req);
+      res.ok(result);
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);
     }
   },
-
   // search
   search: async(req, res) => {
     try {

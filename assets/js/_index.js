@@ -7,11 +7,13 @@ var myApp = new Framework7({
   precompileTemplates: true,
   imagesLazyLoadSequential: true,
   imagesLazyLoadThreshold: 500,
-  pushState: true,
-  swipeBackPage: false,
+  swipeBackPage: true,
   uniqueHistory: true,
   animateNavBackIcon: true,
-  hideToolbarOnPageScroll: true
+  hideToolbarOnPageScroll: true,
+  pushState: true,
+  pushStateSeparator: "",
+  pushStateRoot: "/main"
 });
 
 // Add main view
@@ -33,6 +35,9 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
   $("#postDetailF7 > .page-content").load("/post/" + id);
   $$(".back.link").on("click", function() {
     $$(".swipeout").css('background-color','white');
+    // clean fb sdk stuff
+    // $$('head script[id="facebook-jssdk"]').remove();
+    // $$('head style').remove()
   });
 
 }); // end page postDetailF7

@@ -13,6 +13,7 @@ module.exports = {
     try {
       console.log("==== getPostById ===", req.param('id'));
       let post = await PostService.getPostById(req.param('id'));
+      let fbId=0;
 
       let login = await UserService.getLoginState(req);
       let isFav = false;
@@ -21,13 +22,16 @@ module.exports = {
         let UserFavorites = await UserService.getUserFavorites({userId: user.id});
         console.log("===UserFavorites[0]=>",UserFavorites[0]);
         let itemId = req.param('id');
+        fbId = await UserService.getFBId(user.id);
+        console.log("fbId=>",fbId);
         UserFavorites.forEach(function(fav) {
           if(fav.id==itemId) isFav = true;
         }); // end forEach
       }
       res.view('postDetail', {
         post,
-        isFav
+        isFav,
+        fbId
       });
     } catch (e) {
       sails.log.error(e);
@@ -37,8 +41,9 @@ module.exports = {
 
   showF7: async(req, res) => {
     try {
-      console.log("==== getPostById ===", req.param('id'));
+      console.log("==== getF7ViewPostById ===", req.param('id'));
       let post = await PostService.getPostById(req.param('id'));
+      let fbId=0;
 
       let login = await UserService.getLoginState(req);
       let isFav = false;
@@ -47,13 +52,16 @@ module.exports = {
         let UserFavorites = await UserService.getUserFavorites({userId: user.id});
         console.log("===UserFavorites[0]=>",UserFavorites[0]);
         let itemId = req.param('id');
+        fbId = await UserService.getFBId(user.id);
+        console.log("fbId=>",fbId);
         UserFavorites.forEach(function(fav) {
           if(fav.id==itemId) isFav = true;
         }); // end forEach
       }
       res.view('postDetailF7', {
         post,
-        isFav
+        isFav,
+        fbId
       });
     } catch (e) {
       sails.log.error(e);

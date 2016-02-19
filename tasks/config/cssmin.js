@@ -14,6 +14,10 @@ module.exports = function(grunt) {
 		dist: {
 			src: ['.tmp/public/concat/production.css'],
 			dest: '.tmp/public/min/production.min.css'
+		},
+		map: {
+			src: ['.tmp/public/concat/map.production.css'],
+			dest: '.tmp/public/min/map.production.min.css'
 		}
 	});
 

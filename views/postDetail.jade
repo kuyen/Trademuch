@@ -1,37 +1,50 @@
 
 .list-block.cards-list
   ul
-   li.card
-     .card-header.post-img
+   li.card(data-fbId='#{fbId}')
+     .card-header
        .imgWrapper.center
          img(src=post.gallery, data-hash='1', alt='#{post.title}', style="width:100%;" )
              
      .card-content
       .card-content-inner
         span.post-title.bold #{post.title}  
-        span.post-price.bold $#{post.price}
-        span
-         .post-itemname.bold #{post.itemname}
-        span
-         .post-content.bold #{post.content ||'no description now.'}
+        //- span.post-price.bold $#{post.price}
+
+        //- span
+        //-  .post-itemname.bold #{post.itemname}
+
+        //- span
+        //-  .post-content.bold #{post.content ||'no description now.'}
       .list-block
-        ul
+        ul    
           li
-          -if(post.phone)
-            a.item-link.item-content(href='#')
-              //- img(src='/img/phone.png', alt='phone', style="height: auto;")
+            a.item-link.item-content.external.fbShare()
               .item-media.title-items
-                i.icon.icon-form-tel
+                img(src='/img/facebook-32x32.png', alt='facebook', style="height: 32px;")
               .item-inner
-                .item-title.bold #{'no phone number now.'}
+                .item-title.bold Share to Facebook
+          li
+            a.item-link.item-content.external.lineIt(href="http://line.me/R/msg/text/TradeMuch - #{post.title} - ")
+              .item-media.title-items
+                img(src='/img/linebutton_20x20_en.png', alt='line', style="height: 32px;")
+              .item-inner
+                .item-title.bold Line this!
+
+          -if(post.phone)
+            li
+              a.item-link.item-content(href='#')
+                .item-media.title-items
+                  i.icon.icon-form-tel
+                .item-inner
+                  .item-title.bold #{'no phone number now.'}
           -if(post.email)
             li
-              a.item-link.item-content.external(href='mailto:#{post.email}')
-                //- img(src='/img/mail.png', alt='mail', style="height: auto;")
+              a.item-content.external(href='mailto:#{post.email}')
                 .item-media.email-user
                   i.icon.icon-form-email
                 .item-inner
-                  .item-title.bold #{post.email}
+                  .item-title.bold.black #{post.email}
      .card-footer
       .mapWrapper.center
         a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
@@ -47,13 +60,31 @@
   script.
     (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
+    if (d.getElementById(id)) return "asdas";
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-    
+      
     $$(function(){
       var origin = window.location.origin;
       $$(".fb-comments").attr('data-href', origin+"/postDetail/#{post.id}");
     });
+    
+    $$(".fbShare").on('click',function(){
+      var origin = window.location.href;
+      FB.ui({
+        method: 'share',
+        href: origin
+      },
+      // callback
+      function(response) {
+        if (response && !response.error_message) {
+          //- alert('Posting completed.');
+        } else {
+          //- alert('Error while posting.');
+        }
+      });
+    }); // end fbShare
+    
+    $$('.lineIt').attr('href',$$('.lineIt').attr('href')+window.location.href)

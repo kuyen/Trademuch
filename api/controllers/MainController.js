@@ -51,7 +51,7 @@ module.exports = {
           allUserPost: profilePost,
           postCount: profilePost.length,
           favCount: favorites.length,
-          rate: profilePost.length * 1.5 + favorites.length
+          rate: Math.round(profilePost.length * 1.5 + favorites.length)
         }
       }
       res.view('main', {
