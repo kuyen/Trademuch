@@ -6,7 +6,7 @@ $(document).ready(function($) {
     console.log("click map item!");
     var url = $(this).attr('data-id');
     console.log("url key=>",url);
-    top.window.mainView.router.loadPage('/postDetailF7/'+url);
+    top.window.mainView.router.loadPage('/post/f7/'+url);
   });
 
 });
