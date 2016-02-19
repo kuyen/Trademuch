@@ -12,7 +12,7 @@ var self = module.exports = {
     '</form>'
     )
   },
-  upload: async  (req, res) => {
+  uploadOld: async  (req, res) => {
     try {
 
       let promise = new Promise((resolve, reject) => {
@@ -40,7 +40,7 @@ var self = module.exports = {
     }
   },
 
-  uploadBase64: async  (req, res) => {
+  upload: async  (req, res) => {
     try {
       let data = req.body;
       console.log("==== imageUpload ====",data);

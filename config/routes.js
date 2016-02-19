@@ -43,8 +43,6 @@
      view: 'map'
    },
 
-   '/': 'UserController.pcOrMobile',
-
    '/storyDetail': {
      view: 'storyDetail'
    },
@@ -65,48 +63,91 @@
      view: 'learnMore'
    },
 
-   'get /login': 'AuthController.login',
-   'get /logout': 'AuthController.logout',
-   'get /register': 'AuthController.register',
+  //  'get /login': 'AuthController.login',
+  //  'get /logout': 'AuthController.logout',
+  //  'get /register': 'AuthController.register',
+  //
+  //  'get /auth/status': 'AuthController.status',
+  //
+  //  'post /auth/local': 'AuthController.callback',
+  //  'post /auth/local/:action': 'AuthController.callback',
+  //
+  //  'get /auth/:provider': 'AuthController.provider',
+  //  'get /auth/:provider/callback': 'AuthController.callback',
+  //  'get /auth/:provider/:action': 'AuthController.callback',
+  //
+  //  //  /rest/{controllers}/{action}
+  //  'post /updateHobbyAndMail': 'UserController.update',
+  //  'get /hobby': 'FrontUserController.hobby',
+  //  'get /main': 'MainController.index',
+  //  'get /story': 'PostController.create',
+  //  'get /storyCategory': 'FrontPostController.createCategory',
+  //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
+  //  'post /getAllPost': 'PostController.getAll',
+  // // /rest/post/list
+  //  'post /postStory': 'PostController.create',
+  //  'get /postDetail/:id': 'FrontPostController.show',
+  //  'get /postDetailf7/:id': 'FrontPostController.showF7',
+  //
+  //  'post /addUserFavorite/:id': 'FavoriteController.create',
+  //  'post /delUserFavorite/:id': 'FavoriteController.delete',
+  //  'get /getUserFavorites': 'FavoriteController.show',
+  //  'get /favorites': 'FrontUserController.favorites',
+  //  'get /profile': 'FrontUserController.profile',
+  //
+  //
+  //  // image
+  //  'get /testUpload': 'ImageController.index',
+  //  'post /api/uploadImage': 'ImageController.upload',
+  //  'post /api/uploadImageBase64': 'ImageController.upload',
+  //
+  //  // search
+  //  'get /search': {
+  //    view: 'search'
+  //  },
+  //  'get /search/:keyword': 'PostController.search',
 
-   'get /auth/status': 'AuthController.status',
 
-   'post /auth/local': 'AuthController.callback',
-   'post /auth/local/:action': 'AuthController.callback',
+  // view
+   'get /': 'MainController.pcOrMobile',
+   'get /main': 'MainController.index',
 
-   'get /auth/:provider': 'AuthController.provider',
-   'get /auth/:provider/callback': 'AuthController.callback',
-   'get /auth/:provider/:action': 'AuthController.callback',
+   'get /user/hobby': 'FrontUserController.hobby',
+   'get /user/favorites': 'FrontUserController.favorites',
+   'get /user/profile': 'FrontUserController.profile',
 
-   'post /updateHobbyAndMail': 'UserController.updateHobbyAndMail',
-   'get /hobby': 'UserController.hobbyView',
+   'get /post/create/Category': 'FrontPostController.createCategory',
+   'get /post/create/:categoryId': 'FrontPostController.createByCategoryId',
+   'get /post/:id': 'FrontPostController.show',
+   'get /post/f7/:id': 'FrontPostController.showF7',
 
-   'get /main': 'UserController.index',
-   'get /story': 'PostController.story',
-   'get /storyCategory': 'PostController.storyCategory',
-   'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
-   'post /getAllPost': 'PostController.getAllPost',
-   'post /postStory': 'PostController.postStory',
-   'get /postDetail/:id': 'PostController.getPostById',
-   'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
+  //  api
+   'get  /rest/auth/login': 'AuthController.login',
+   'get  /rest/auth/logout': 'AuthController.logout',
+   'get  /rest/auth/register': 'AuthController.register',
+   'get  /rest/auth/auth/status': 'AuthController.status',
+   'post /rest/auth/local': 'AuthController.callback',
+   'post /rest/auth/local/:action': 'AuthController.callback',
+   'get  /rest/auth/:provider': 'AuthController.provider',
+   'get  /rest/auth/:provider/callback': 'AuthController.callback',
+   'get  /rest/auth/:provider/:action': 'AuthController.callback',
 
-   'post /addUserFavorite/:id': 'UserController.addUserFavorite',
-   'post /delUserFavorite/:id': 'UserController.delUserFavorite',
-   'get /getUserFavorites': 'UserController.getUserFavorites',
-   'get /favorites': 'UserController.getFavoriteView',
-   'get /profile': 'UserController.getProfileView',
+   'put  /rest/user/:id': 'UserController.update',
+   // 待捕齊
+   // get /rest/user/:id': 'UserController.find',
 
+   'get  /rest/favorites': 'FavoriteController.show',
+   'post /rest/favorite/:id': 'FavoriteController.create',
+   'delete /rest/favorite/:id': 'FavoriteController.delete',
 
-   // image
-   'get /testUpload': 'ImageController.index',
-   'post /api/uploadImage': 'ImageController.upload',
-   'post /api/uploadImageBase64': 'ImageController.uploadBase64',
+   'post /rest/post/create': 'PostController.create',
+   'get  /rest/post': 'PostController.getAll',
+   'get  /rest/post/search/:keyword': 'PostController.search',
+   // 待捕齊
+   // get /rest/post/:id': 'PostController.find',
 
-   // search
-   'get /search': {
-     view: 'search'
-   },
-   'get /search/:keyword': 'PostController.getPostByKeyword'
+   'post /rest/image/upload': 'ImageController.upload',
+
 
    /***************************************************************************
     *                                                                          *
