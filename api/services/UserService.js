@@ -35,5 +35,17 @@ module.exports = {
     } catch (e) {
       throw e
     }
-  }
+  },
+  
+  updateUserMail: async({userId,userMail,userLocation}) => {
+    try {
+      sails.log.info("updateUserMail(userId,userMail)=>",userId,userMail);
+      let user = await User.findById(userId);
+      user.email = userMail;
+      user = await user.save();
+      return user;
+    } catch (e) {
+      throw e;
+    }
+  },
 }

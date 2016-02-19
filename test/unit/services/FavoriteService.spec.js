@@ -33,6 +33,7 @@ describe('about Favorite Service operation.', function() {
           "uuid": '4564564uioi',
           "title": "AAAA",
           "startDate": "2015-12-01",
+          "user_id": testUser2.id
         });
         await testUser.addPost(createPost2.id)
         await createPost2.addPlace(place.id)

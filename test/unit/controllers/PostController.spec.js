@@ -16,6 +16,27 @@ describe('about Post Controller operation.', function() {
       sinon.stub(UserService, 'getLoginUser', (req) => {
         return user;
       });
+
+      let testUser2 = await User.create({
+  			"username": "testuser2",
+      });
+
+      let place = await Place.create({
+        "name": 'Test',
+        "address": 'address',
+        "latitude": 0,
+        "longitude": 0,
+      })
+
+      let createPost = await Post.create({
+        "uuid": '12311231231',
+        "title": "AAAA",
+        "startDate": "2015-12-01",
+        "user_id": testUser2.id
+      });
+
+      await createPost.addPlace(place.id)
+
       done();
     } catch (e) {
       done(e)
@@ -67,7 +88,7 @@ describe('about Post Controller operation.', function() {
     try {
       let result = await request(sails.hooks.http.app)
       .get('/rest/post');
-      sails.log.info(result);
+      sails.log.info(result.body);
       result.status.should.be.equal(200);
 
       done();

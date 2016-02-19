@@ -24,7 +24,7 @@ module.exports = {
       }
       await PlaceService.add({
         userId: user.id,
-        userLocation: data.location
+        placeInfo: data.location
       });
 
       res.ok('ok');
