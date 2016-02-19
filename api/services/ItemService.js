@@ -29,13 +29,7 @@ module.exports = {
 
   findByLikeId: async(id) => {
     try {
-      let findlike = await Item.findAll({
-        where: {
-          LikeId: id
-        },
-        order: 'quantity DESC'
-      });
-      return findlike;
+      return [];
     } catch (e) {
       throw e;
     }

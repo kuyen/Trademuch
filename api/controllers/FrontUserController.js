@@ -23,9 +23,10 @@ module.exports = {
       let allPosts = await PostService.getAllPost();
       let loginState = await UserService.getLoginState(req);
       let loginedUser = await UserService.getLoginUser(req);
-      let userFavorites = await UserService.getUserFavorites({
+      let userFavorites = await FavoriteService.get({
         userId: loginedUser.id
       });
+      console.log("!!!!!!!!!!!",allPosts);
       res.view('favorite', {
         favorites: userFavorites,
         loginState: loginState,
@@ -44,7 +45,7 @@ module.exports = {
         let loginedUser = await UserService.getLoginUser(req);
         let userFBId = await UserService.getFBId(loginedUser.id);
 
-        let favorites = await UserService.getUserFavorites({
+        let favorites = await FavoriteService.get({
           userId: loginedUser.id
         });
 

@@ -109,7 +109,7 @@ module.exports = {
   getAllCategory: async() => {
     try {
       // let like = await Like.findAll();
-      like = [
+      let like = [
         {title: '時尚', pic: '/img/hobby/fashion-woman.png'},
         {title: '美妝保養', pic: '/img/hobby/beauty.png'},
         {title: '設計工藝', pic: '/img/hobby/Design-Process.png'},

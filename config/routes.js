@@ -91,7 +91,7 @@
 
    'post /addUserFavorite/:id': 'FavoriteController.create',
    'post /delUserFavorite/:id': 'FavoriteController.delete',
-   'get /getUserFavorites': 'FavoriteController.show',
+   'get /getUserFavorites': 'FavoriteController.get',
   //  'get /favorites': 'FrontUserController.favorites',
   //  'get /profile': 'FrontUserController.profile',
 

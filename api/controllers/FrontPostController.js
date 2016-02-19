@@ -19,7 +19,7 @@ module.exports = {
       let isFav = false;
       if(login){
         let user = await UserService.getLoginUser(req);
-        let UserFavorites = await UserService.getUserFavorites({userId: user.id});
+        let UserFavorites = await FavoriteService.get({userId: user.id});
         console.log("===UserFavorites[0]=>",UserFavorites[0]);
         let itemId = req.param('id');
         fbId = await UserService.getFBId(user.id);
@@ -49,7 +49,7 @@ module.exports = {
       let isFav = false;
       if(login){
         let user = await UserService.getLoginUser(req);
-        let UserFavorites = await UserService.getUserFavorites({userId: user.id});
+        let UserFavorites = await FavoriteService.get({userId: user.id});
         console.log("===UserFavorites[0]=>",UserFavorites[0]);
         let itemId = req.param('id');
         fbId = await UserService.getFBId(user.id);

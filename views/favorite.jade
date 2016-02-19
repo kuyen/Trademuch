@@ -42,17 +42,18 @@
         //- each post in allPosts
         each val in [1, 2, 3]
           - var random = Math.floor(Math.random() * 10)
-          li.swipeout(data-id=allPosts[random].id)
-              .swipeout-content
-                .item-content
-                  .item-media
-                    //- img(src=post.gallery[0], width='80')
-                    img(src=allPosts[random].gallery[0], width='80')
-                  .item-inner
-                    .item-title-row
-                      .item-title  
-                        a.link(href='/post/f7/#{allPosts[random].id}') #{allPosts[random].title}
-                    .item-subtitle NT$#{allPosts[random].price}
-              .swipeout-actions-right
-                a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
-                  img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
+            -if( allPosts.length != 0)
+              li.swipeout(data-id=allPosts[random].id)
+                  .swipeout-content
+                    .item-content
+                      .item-media
+                        //- img(src=post.gallery[0], width='80')
+                        img(src=allPosts[random].gallery[0], width='80')
+                      .item-inner
+                        .item-title-row
+                          .item-title  
+                            a.link(href='/post/f7/#{allPosts[random].id}') #{allPosts[random].title}
+                        .item-subtitle NT$#{allPosts[random].price}
+                  .swipeout-actions-right
+                    a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
+                      img(src='/img/addlike.png', alt='addlike', style="height: 30px;")

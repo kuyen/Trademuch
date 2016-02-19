@@ -24,7 +24,7 @@ module.exports = {
         loginedUser = await UserService.getLoginUser(req);
         userFBId = await UserService.getFBId(loginedUser.id);
         // console.log("==== logined User is ===>", loginedUser);
-        favorites = await UserService.getUserFavorites({
+        favorites = await FavoriteService.get({
           userId: loginedUser.id
         });
         // console.log("==== user favorites are ===>", favorites);

@@ -386,7 +386,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          mainView.router.loadPage('/postDetailf7/' + result.id);
+          mainView.router.loadPage('/post/' + result.id);
           // window.location.href = '/main';
         },
         error: function(xhr, ajaxOptions, thrownError) {
