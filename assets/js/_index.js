@@ -6,14 +6,14 @@ var myApp = new Framework7({
   template7Pages: true,
   precompileTemplates: true,
   imagesLazyLoadSequential: true,
-  imagesLazyLoadThreshold: 500,
+  imagesLazyLoadThreshold: 50,
   swipeBackPage: true,
   uniqueHistory: true,
   animateNavBackIcon: true,
   hideToolbarOnPageScroll: true,
   pushState: true,
   pushStateSeparator: "",
-  pushStateRoot: "/main"
+  pushStateRoot: "/app"
 });
 
 // Add main view

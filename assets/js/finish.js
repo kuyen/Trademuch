@@ -152,7 +152,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
         $$("#submit").css("border-color", "white");
         $$("#submit").css("color", "darkgrey");
         window.location.href = '/';
-        // mainView.router.loadPage('/main');
+        // mainView.router.loadPage('/app');
         // }
       },
       error: function(err) {
