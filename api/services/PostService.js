@@ -41,7 +41,7 @@ module.exports = {
         let data = {
           id: post.id,
           title: post.title,
-          mode: post.mode || '',
+          mode: post.mode || 'give',
           price: post.price || '',
           location: post.Places[0].name || post.Places[0].address || `${post.Places[0].latitude},${post.Places[0].longitude}`,
           latitude: post.Places[0].latitude,
@@ -85,7 +85,7 @@ module.exports = {
       let data = {
         id: post.id,
         title: post.title,
-        mode: post.mode || '',
+        mode: post.mode || 'give',
         price: post.price || '',
         location: post.Places[0].name || post.Places[0].address || `${post.Places[0].latitude},${post.Places[0].longitude}`,
         latitude: post.Places[0].latitude,
@@ -93,7 +93,7 @@ module.exports = {
         url: `/post/f7/${post.id}`,
         type: '',
         type_icon: "../icons/give.png",
-        gallery: "/" + pic,
+        gallery: pic,
         content: post.content || '',
         itemname: post.title || '',
         username: post.User.username || post.User.fullName || post.User.fullName ,
@@ -160,7 +160,7 @@ module.exports = {
           data.push({
             id: post.id,
             title: post.title,
-            mode: post.mode || '',
+            mode: post.mode || 'give',
             price: post.price || '',
             location: post.Places[0].name || post.Places[0].address || `${post.Places[0].latitude},${post.Places[0].longitude}`,
             latitude: post.Places[0].latitude,

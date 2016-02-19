@@ -68,14 +68,14 @@
       
     $$(function(){
       var origin = window.location.origin;
-      $$(".fb-comments").attr('data-href', origin+"/postDetail/#{post.id}");
+      $$(".fb-comments").attr('data-href', origin+"/post/#{post.id}");
     });
     
     $$(".fbShare").on('click',function(){
       var origin = window.location.href;
       FB.ui({
         method: 'share',
-        href: origin + "/postDetail/#{post.id}" 
+        href: origin + "/post/#{post.id}" 
       },
       // callback
       function(response) {

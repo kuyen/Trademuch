@@ -74,7 +74,7 @@ var self = module.exports = {
       let uploadImages = [];
       uploadImages.push({
         name: uniqueSHA1String,
-        src: path
+        src: "/"+path
       });
       return res.json(uploadImages);
     } catch (e) {
