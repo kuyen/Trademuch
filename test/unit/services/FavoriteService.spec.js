@@ -1,4 +1,4 @@
-describe.only('about Favorite Service operation.', function() {
+describe('about Favorite Service operation.', function() {
 
   describe('User Favorite', () => {
 
