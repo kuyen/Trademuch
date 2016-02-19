@@ -1,6 +1,6 @@
 module.exports = {
 
-  show: async(req, res) => {
+  create: async(req, res) => {
     try {
       sails.log.info("=== addUserFavorite ===", req.param('id'));
       let user = await UserService.getLoginUser(req);
@@ -16,7 +16,7 @@ module.exports = {
     }
   },
 
-  create: async(req, res) => {
+  delete: async(req, res) => {
     try {
       sails.log.info("=== delUserFavorite ===", req.param('id'));
       let user = await UserService.getLoginUser(req);
@@ -32,7 +32,7 @@ module.exports = {
     }
   },
 
-  delete: async(req, res) => {
+  show: async(req, res) => {
     try {
       console.log("==== getUserFavorites ===");
       let user = await UserService.getLoginUser(req);
