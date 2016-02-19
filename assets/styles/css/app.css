@@ -69,7 +69,7 @@ img.action {
   padding: 5px;
 }
 a {
-  color: #fff;
+  color: #fff !important;
 }
 i.icon.icon-back-white.icon-back {
   width: 12px;
