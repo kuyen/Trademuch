@@ -41,13 +41,13 @@ describe('about User Controller operation.', function() { //skip
       done();
     });
 
-    it.only('update user Email should success.', async (done) => {
+    it('update user Email should success.', async (done) => {
       try {
 
         let result = await request(sails.hooks.http.app)
         .put('/rest/user/'+ testUser.id)
         .send({
-          email: '123@gmail.com',
+          email: '123123123@gmail.com',
           location:{
             latitude:10,
             longitude:-10
