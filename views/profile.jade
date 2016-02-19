@@ -32,13 +32,13 @@
         -console.log(post)
          li.swipeout(data-id=post.dataValues.id)
              .swipeout-content
-               .item-content
+               .item-content.prodList
                  .item-media
                    //- img(src=post.gallery[0], width='80')
                    -if(i<=5)
-                      img(src=post.dataValues.coverImage, width='80', height='80')
+                      img(src=post.dataValues.coverImage, width='80')
                    -else 
-                      img.lazy.lazy-fadeIn(data-src=post.dataValues.coverImage, width='80', height='80')
+                      img.lazy.lazy-fadeIn(data-src=post.dataValues.coverImage, width='80')
                  .item-inner
                    .item-title-row
                      .item-title 

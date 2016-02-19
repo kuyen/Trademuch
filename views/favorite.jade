@@ -11,13 +11,13 @@
           -i++
           li.swipeout(data-id=favorite.id)
               .swipeout-content
-                .item-content
+                .item-content.prodList
                   .item-media
                     //- img(src=post.gallery[0], width='80')
                     -if(i<=5)
-                      img(src=favorite.coverImage, width='80', height='80')
+                      img(src=favorite.coverImage, width='80')
                     -else
-                      img.lazy.lazy-fadeIn(data-src=favorite.coverImage, width='80', height='80')
+                      img.lazy.lazy-fadeIn(data-src=favorite.coverImage, width='80')
                   .item-inner
                     .item-title-row
                       .item-title 
@@ -50,10 +50,10 @@
           -if( allPosts.length != 0)
             li.swipeout(data-id=allPosts[random].id)
                 .swipeout-content
-                  .item-content
+                  .item-content.prodList
                     .item-media
                       //- img(src=post.gallery[0], width='80')
-                      img(src=allPosts[random].gallery[0], width='80', height='80')
+                      img(src=allPosts[random].gallery[0], width='80')
                     .item-inner
                       .item-title-row
                         .item-title  

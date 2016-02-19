@@ -79,13 +79,13 @@
    //  /rest/{controllers}/{action}
    'post /updateHobbyAndMail': 'UserController.update',
   //  'get /hobby': 'FrontUserController.hobby',
-   'get /main': 'MainController.index',
-   'get /story': 'PostController.create',
+  //  'get /main': 'MainController.index',
+  //  'get /story': 'PostController.create',
   //  'get /storyCategory': 'FrontPostController.createCategory',
   //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
-   'post /getAllPost': 'PostController.getAll',
+  //  'post /getAllPost': 'PostController.getAll',
   // /rest/post/list
-   'post /postStory': 'PostController.create',
+  //  'post /postStory': 'PostController.create',
   //  'get /postDetail/:id': 'FrontPostController.show',
   //  'get /postDetailf7/:id': 'FrontPostController.showF7',
    'post /addUserFavorite/:id': 'FavoriteController.create',
@@ -118,7 +118,7 @@
    'get /user/profile': 'FrontUserController.profile',
 
    'get /post/create/Category': 'FrontPostController.createCategory',
-   'get /post/create/:categoryId': 'FrontPostController.createByCategoryId',
+   'get /post/create': 'FrontPostController.createByCategoryId',
    'get /post/:id': 'FrontPostController.show',
    'get /post/f7/:id': 'FrontPostController.showF7',
 

@@ -122,7 +122,7 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     myApp.formStoreData('storyCategoryChoose', storedData);
 
     var id = $$(this).find('input').val();
-    mainView.router.loadPage('/post/create/' + id)
+    mainView.router.loadPage('/post/create')
     console.log(storedData);
 
     // hack <a> hover to solved #371

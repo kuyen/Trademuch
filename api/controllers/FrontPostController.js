@@ -84,11 +84,7 @@ module.exports = {
 
   createByCategoryId: async(req, res) => {
     try {
-
-      let categoryItems = await ItemService.findByLikeId(req.param('categoryId'));
-      res.view('storyDetail', {
-        categoryItems
-      });
+      res.view('storyDetail');
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);

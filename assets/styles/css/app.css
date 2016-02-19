@@ -223,3 +223,16 @@ div.detbox {
   z-index: 9999;
   padding: 7.6px;
 }
+
+.list-block .prodList {
+  min-height: 100px !important;
+}
+.list-block .prodList  .item-media{
+  display: flex;
+  width: 80px;
+  height: 80px;
+  overflow: auto;
+}
+.prodList .item-content .item-media img{
+  width: 80px;
+}

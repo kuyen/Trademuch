@@ -376,7 +376,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
       console.log("data before submit=>", (data));
       // save post
       $$.ajax({
-        url: "/postStory",
+        url: "/rest/post/create",
         type: "POST",
         data: data,
         success: function(result) {

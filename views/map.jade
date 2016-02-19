@@ -152,8 +152,8 @@ head
           //- var jsonPath = '/json/items.json.txt';
           // Load JSON data and create Google Maps
           $.ajax({
-            url: "/getAllPost",
-            type:"POST",
+            url: "/rest/post",
+            type:"GET",
             success: function(json){
               console.log(json);
               createHomepageGoogleMap(_latitude,_longitude,json);
