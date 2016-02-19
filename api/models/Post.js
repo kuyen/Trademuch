@@ -41,6 +41,7 @@ module.exports = {
   associations: function() {
     Post.belongsTo(User, {through: 'user_id'});
     Post.belongsToMany(Place, {foreignKey: 'post_id', through: PostPlace});
+    Post.belongsToMany(User, {foreignKey: 'post_id', through: UserFavorite});
   },
   options: {
     classMethods: {},
