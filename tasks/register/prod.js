@@ -9,6 +9,8 @@ module.exports = function (grunt) {
 		'sails-linker:devTpl',
 		'sails-linker:prodJsJade',
 		'sails-linker:prodStylesJade',
+		'sails-linker:prodMapJsJade',
+		'sails-linker:prodMapStylesJade',
 		'sails-linker:devTplJade'
 	]);
 };

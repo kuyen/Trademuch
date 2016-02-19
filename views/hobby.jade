@@ -25,14 +25,14 @@ block body
                         span
                           | #{categorys[index].title}
                         input(type='checkbox', name='hobby', value=categorys[index].id, style="display: none;")
-                        img.category.lazy.lazy-fadeIn(data-src=categorys[index].pic)
+                        img.category.lazy.lazy-fadeIn(data-src=categorys[index].pic, style="height:139px;")
                         img.checked(src='../img/checked.png', style="display: none;")
                       -if(index+1 < categorys.length)
                         .col-100.tablet-50.hobbyItem 
                           span
                             | #{categorys[index+1].title}
                           input(type='checkbox', name='hobby', value=categorys[index+1].id, style="display: none;")
-                          img.category.lazy.lazy-fadeIn(data-src=categorys[index+1].pic)
+                          img.category.lazy.lazy-fadeIn(data-src=categorys[index+1].pic, style="height:139px;")
                           img.checked(src='../img/checked.png' style="display: none;")
                   -index++
                p#back-top(style="display: none;")

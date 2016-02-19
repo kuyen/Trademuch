@@ -96,6 +96,7 @@
   //  'get /profile': 'FrontUserController.profile',
 
 
+
    // image
    'get /testUpload': 'ImageController.index',
    'post /api/uploadImage': 'ImageController.upload',
@@ -111,6 +112,7 @@
   // view
    'get /': 'MainController.pcOrMobile',
    'get /main': 'MainController.index',
+   'get /main/*': 'MainController.index',
 
    'get /user/hobby': 'FrontUserController.hobby',
    'get /user/favorites': 'FrontUserController.favorites',

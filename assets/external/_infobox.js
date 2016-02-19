@@ -42,7 +42,7 @@ function drawInfobox(category, infoboxContent, json, i){
                         '<i class="fa fa-angle-right"></i>' +
                     '</div>' +
                 '</a>' +
-                '<img src="' + gallery +  '">' +
+                // '<img src="' + gallery +  '">' +
             '</div>' +
         '</div>' +
     '</div>';

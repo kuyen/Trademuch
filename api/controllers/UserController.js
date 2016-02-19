@@ -1,4 +1,5 @@
 module.exports = {
+  
   find: async(req, res) => {
     try {
       let users = await UserService.findAll();

@@ -265,12 +265,12 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
       return false;
     }
 
-    // post price
-    if (!data.detail.price || data.detail.price == "") {
-      myApp.hideIndicator();
-      myApp.alert("Please give your item/service a nice price, or even free :)", "Oops!")
-      return false;
-    }
+    //post price
+    // if (!data.detail.price || data.detail.price == "") {
+    //   myApp.hideIndicator();
+    //   myApp.alert("Please give your item/service a nice price, or even free :)", "Oops!")
+    //   return false;
+    // }
 
     // post category
     // var customCategory = $$("input[name='item']").val();
@@ -381,11 +381,13 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
         data: data,
         success: function(result) {
           console.log(result);
+          result = JSON.parse(result);
           myApp.formDeleteData('storyModeChoose');
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          window.location.href = '/main';
+          mainView.router.loadPage('/postDetailf7/' + result.id);
+          // window.location.href = '/main';
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();

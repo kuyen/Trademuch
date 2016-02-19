@@ -106,6 +106,10 @@ img.category {
   margin-right: 30%;
   margin-left: 30%;
   opacity: 1;
+  height: 40px;
+}
+#greeting .button > span {
+  vertical-align: text-top;
 }
 #greeting input {
   text-align: center;
@@ -120,6 +124,10 @@ img.category {
 .item-input.StoryPrice > input {
   width: auto;
 }
+
+.item-title.label.black{
+  text-align: left;
+}
 #storyDetailChoose span.money {
   padding-right: 20px;
   padding-left: 50px;
@@ -129,7 +137,8 @@ img.category {
   text-indent: calc(50% - 25px);
 }
 #storyDetailChoose [name=title] {
-  font-size: 25px;
+  font-size: 22px;
+  float: left;
 }
 #storyModeChoose {
   height: 100%;

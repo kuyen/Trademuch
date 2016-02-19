@@ -195,8 +195,8 @@ div.favbox > a > i:hover {
   -webkit-text-stroke-color: #ff5757;
 }
 div.favbox > a > i {
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #ff5757;
+  /*-webkit-text-stroke-width: 3px;*/
+  /*-webkit-text-stroke-color: #ff5757;*/
 }
 
 /* 調整 for listView的favbox */
