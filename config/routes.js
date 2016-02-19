@@ -78,22 +78,22 @@
 
    //  /rest/{controllers}/{action}
    'post /updateHobbyAndMail': 'UserController.update',
-   'get /hobby': 'FrontUserController.hobby',
+  //  'get /hobby': 'FrontUserController.hobby',
    'get /main': 'MainController.index',
    'get /story': 'PostController.create',
-   'get /storyCategory': 'FrontPostController.createCategory',
-   'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
+  //  'get /storyCategory': 'FrontPostController.createCategory',
+  //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
    'post /getAllPost': 'PostController.getAll',
   // /rest/post/list
    'post /postStory': 'PostController.create',
-   'get /postDetail/:id': 'FrontPostController.show',
-   'get /postDetailf7/:id': 'FrontPostController.showF7',
+  //  'get /postDetail/:id': 'FrontPostController.show',
+  //  'get /postDetailf7/:id': 'FrontPostController.showF7',
 
    'post /addUserFavorite/:id': 'FavoriteController.create',
    'post /delUserFavorite/:id': 'FavoriteController.delete',
    'get /getUserFavorites': 'FavoriteController.show',
-   'get /favorites': 'FrontUserController.favorites',
-   'get /profile': 'FrontUserController.profile',
+  //  'get /favorites': 'FrontUserController.favorites',
+  //  'get /profile': 'FrontUserController.profile',
 
 
    // image

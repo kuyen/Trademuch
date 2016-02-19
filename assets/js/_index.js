@@ -30,7 +30,7 @@ window.mainView = mainView;
 $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
 
   var id = $$("input#itemId").val();
-  $("#postDetailF7 > .page-content").load("/postDetail/" + id);
+  $("#postDetailF7 > .page-content").load("/post/" + id);
   $$(".back.link").on("click", function() {
     var a = document.getElementById("facebook-jssdk");
     a.parentNode.removeChild(a);
@@ -118,7 +118,7 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     myApp.formStoreData('storyCategoryChoose', storedData);
 
     var id = $$(this).find('input').val();
-    mainView.router.loadPage('/storyDetail/' + id)
+    mainView.router.loadPage('/post/create/' + id)
     console.log(storedData);
 
     // hack <a> hover to solved #371
@@ -138,12 +138,12 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   $$(".favoriteView").click(function() {
     myApp.closeNotification('.notification-item');
-    $("#favoriteView > .page-content").load("/favorites");
+    $("#favoriteView > .page-content").load("/user/favorites");
   });
 
   $$(".profileView").click(function() {
     myApp.closeNotification('.notification-item');
-    $("#profileView > .page-content").load("/profile");
+    $("#profileView > .page-content").load("/user/profile");
   });
 
   $$("a.searchView.tab-link").click(function() {
@@ -275,7 +275,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       } else {
         console.log("跳轉");
         $('#back-top').fadeOut();
-        mainView.router.loadPage('/postDetailf7/' + $$(this).attr("data-id"));
+        mainView.router.loadPage('/post/f7/' + $$(this).attr("data-id"));
       }
     }
   }).on("touchend", function() {
