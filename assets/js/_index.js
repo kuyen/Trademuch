@@ -223,7 +223,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       // if ((!profileView && !mapView) && !postDetailF7) {
       if ((!profileView && !mapView) && !postDetailF7) {
         var toolbarState = $('.toolbar').hasClass('toolbar-hidden');
-        console.log(toolbarState);
+        // console.log(toolbarState);
         if (toolbarState) {
           $('#back-top').fadeOut();
         } else {
