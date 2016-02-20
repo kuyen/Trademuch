@@ -154,7 +154,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   });
 
   // storyMode
-  $("input[name='seeking']").on('change', function() {
+  $$("input[name='seeking']").on('change', function() {
     var mode, storyMode = {};
     if($$(this).prop('checked')) mode = "get";
     else mode = "give";
@@ -359,7 +359,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
 
     // submit depends on image upload.
     function submit() {
-      var imageCount = $("input.uploadBtn").get(0).files.length;
+      var imageCount = $$("input.uploadBtn")[0].files.length;
       if ((imageCount != null) && (imageCount > 0)) {
         console.log("saveImagesAndPost");
         saveImagesAndPost(data);
@@ -400,7 +400,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     function saveImagesAndPost(data) {
       console.log("data before submit=>", (data));
       // submit to upload post image.
-      var formData = new FormData($('form[id="storyImageUpload"]')[0]);
+      var formData = new FormData($$('form[id="storyImageUpload"]')[0]);
       $$.ajax({
         url: "/api/uploadImageBase64",
         type: "POST",
@@ -431,22 +431,15 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     $$("a[data-value='1-m']").click();
   }, 500);
 
-}); // end pageInit-storyDetail
-
-
-// post's image-fileinput(use jquery only)
-$(function() {
-
-  // using delegate to support multi-fileinput
-  $(document).delegate("input[name='image']", "change", function() {
-    var input = $(this);
+  $$(document).on("change", "input[name='image']", function() {
+    var input = $$(this);
 
     // shows count. disable count becasue now only can upload one photo.
     // $("div.fileUpload-btn > span").text("upload a photo(" + input.get(0).files.length + ")");
     var img = document.createElement("img");
 
     // show wrapper
-    $(".canvasWrapper").show();
+    $$(".canvasWrapper").show();
 
     // preview selected pic.
     var reader = new FileReader(input);
@@ -463,15 +456,15 @@ $(function() {
         var imgHeight = img.height;
 
         if (imgWidth > imgHeight) {
-            if (imgWidth > max_Length) {
-                imgHeight = Math.round(imgHeight *= max_Length / imgWidth);
-                imgWidth = max_Length;
-            }
+          if (imgWidth > max_Length) {
+            imgHeight = Math.round(imgHeight *= max_Length / imgWidth);
+            imgWidth = max_Length;
+          }
         } else {
-            if (imgHeight > max_Length) {
-                imgWidth = Math.round(imgWidth *= max_Length / imgHeight);
-                imgHeight = max_Length;
-            }
+          if (imgHeight > max_Length) {
+            imgWidth = Math.round(imgWidth *= max_Length / imgHeight);
+            imgHeight = max_Length;
+          }
         }
 
         canvas.width = imgWidth;
@@ -479,55 +472,60 @@ $(function() {
 
         var that = this;
         EXIF.getData(img, function(){
-            var orientation = EXIF.getTag(that, 'Orientation');
-            console.log("!!!!!!!!!!!!"+orientation);
+          var orientation = EXIF.getTag(that, 'Orientation');
+          console.log("!!!!!!!!!!!!"+orientation);
 
-            if(orientation == 6 || orientation == 8|| orientation == 3)
-            {
-                var rotateAngle = 0;
+          if(orientation == 6 || orientation == 8|| orientation == 3)
+          {
+            var rotateAngle = 0;
 
-                switch(orientation){
-              	case 3:
-              		rotateAngle = 180;
-              		break;
-              	case 6:
-              		rotateAngle = 90;
-                      canvas.width = imgHeight;
-                      canvas.height = imgWidth;
-              		break;
-              	case 8:
-              		rotateAngle = -90;
-                      canvas.width = imgHeight;
-                      canvas.height = imgWidth;
-              		break;
-              }
-
-                var x = canvas.width / 2;
-                var y = canvas.height / 2;
-
-                ctx.translate(x, y);
-                ctx.rotate(rotateAngle*Math.PI/180);
-
-                ctx.drawImage(img, (-imgWidth / 2), (-imgHeight / 2), imgWidth, imgHeight);
+            switch(orientation){
+              case 3:
+              rotateAngle = 180;
+              break;
+              case 6:
+              rotateAngle = 90;
+              canvas.width = imgHeight;
+              canvas.height = imgWidth;
+              break;
+              case 8:
+              rotateAngle = -90;
+              canvas.width = imgHeight;
+              canvas.height = imgWidth;
+              break;
             }
-            else
-            {
-                ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
-            }
+
+            var x = canvas.width / 2;
+            var y = canvas.height / 2;
+
+            ctx.translate(x, y);
+            ctx.rotate(rotateAngle*Math.PI/180);
+
+            ctx.drawImage(img, (-imgWidth / 2), (-imgHeight / 2), imgWidth, imgHeight);
+          }
+          else
+          {
+            ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+          }
         });
         // ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         var jpegBase64 = canvas.toDataURL("image/jpeg",0.6);
 
         console.log('=== jpegBase64 ===', jpegBase64);
-        $('img.preview').attr('src', e.target.result);
-        $("input[name='picBase64']").val(jpegBase64);
+        $$('img.preview').attr('src', e.target.result);
+        $$("input[name='picBase64']").val(jpegBase64);
       }
       if (event.target.result) img.src = event.target.result;
 
     }
-    if (input.get(0).files[0] != null) reader.readAsDataURL(input.get(0).files[0]);
+    console.log(input);
+    if (input[0].files[0] != null) reader.readAsDataURL(input[0].files[0]);
 
   }); // end fileUpload
+}); // end pageInit-storyDetail
 
-});
+
+// post's image-fileinput(use jquery only)
+
+// using delegate to support multi-fileinput

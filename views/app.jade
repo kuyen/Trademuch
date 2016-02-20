@@ -5,7 +5,7 @@ block body
   #splash
     img(src='/img/splashLogo.png', alt='splashLogo')
     
-  p#back-top(style="display:none;")
+  p.animated#back-top(style="display:none;")
     a(href='#top')
      span
      | Top       
@@ -21,7 +21,7 @@ block body
               -console.log("loginState=>",loginState);
               -if(!loginState)
                 a.right.top.external( target="_top" href='/rest/auth/facebook')
-                  img.action(src='/img/facebook.png', alt='facebook', style="height: 35px;")
+                  img.action(src='/img/facebook.png', alt='facebook', style="height: 20px;")
         .pages
           .page.toolbar-fixed(data-page='home')
             .toolbar.tabbar.mainToolbar

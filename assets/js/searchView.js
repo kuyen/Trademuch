@@ -16,43 +16,44 @@
 //   $$("div.page-content").scrollTop(0)
 // }); // end click
 
-$(document).ready(function(e) {
+// $(document).ready(function(e) {
+//
+// }); // end ready
 
-  $("select[name='category']").focus(function() {
-    $(this).css("background-color", "#ecf5ff");
-  });
-  $("select[name='category']").blur(function() {
-    $(this).css("background-color", "#ffffff");
-  });
+  // $$("select[name='category']").focus(function() {
+  //   $$(this).css("background-color", "#ecf5ff");
+  // });
+  // $$("select[name='category']").blur(function() {
+  //   $$(this).css("background-color", "#ffffff");
+  // });
 
-  $$(".categories .button").click(function() {
-    var keyword = $$(this).attr('data-keyword');
-    $(".searchbar-input > input").val(keyword);
-    // reset click state
-    var length = $$(".categories > .button").length;
-    for (var i = 0; i <= length; i++) {
-      $($(".categories > .button")[i]).removeClass('suggestClicked');
-    }
-    // give the one be clicked new state.
-    $(this).addClass('suggestClicked');
+$$(".categories .button").click(function() {
+  var keyword = $$(this).attr('data-keyword');
+  $$(".searchbar-input > input").val(keyword);
+  // reset click state
+  var length = $$(".categories > .button").length;
+  for (var i = 0; i <= length; i++) {
+    $$($$(".categories > .button")[i]).removeClass('suggestClicked');
+  }
+  // give the one be clicked new state.
+  $$(this).addClass('suggestClicked');
+  goSearch(keyword);
+});
+
+$$("#formSearch").on('submit', function(e) {
+  e.preventDefault();
+  var keyword = $$(".searchbar-input > input").val();
+  if (keyword) {
     goSearch(keyword);
-  });
+  } else {
+    window.myApp.alert("Don't forget to type something!");
+  }
+}); // end submit
 
-  $$("#formSearch").on('submit', function(e) {
-    e.preventDefault();
-    var keyword = $(".searchbar-input > input").val();
-    if (keyword) {
-      goSearch(keyword);
-    } else {
-      window.myApp.alert("Don't forget to type something!");
-    }
-  }); // end submit
-
-}); // end ready
 
 function goSearch(keyword) {
   $$.ajax({
-    url: "/search/" + keyword,
+    url: "/rest/post/search/" + keyword,
     type: "GET",
     success: function(result) {
       var data = JSON.parse(result);

@@ -105,7 +105,7 @@
    'get /search': {
      view: 'search'
    },
-   'get /search/:keyword': 'PostController.search',
+  //  'get /search/:keyword': 'PostController.search',
 
 
   // view

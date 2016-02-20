@@ -61,7 +61,7 @@ a.tab-link {}
 /* nav bar */
 
 img.action {
-  height: 35px;
+  height: 25px !important;
   border-radius: 10px;
   border-width: 2px;
   border-color: rgb(33, 113, 198);

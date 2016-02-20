@@ -16,11 +16,14 @@ var tmpPath = '.tmp/public/';
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
+  'bower/framework7/css/framework7.ios.colors.min.css',
+  'bower/framework7/css/my-app.css',
   '/fonts/font-awesome.css',
   'styles/**/*.css',
   '!styles/mapCss/**/*.css',
   '!styles/importer.css',
-  '!styles/landing/**/*.css'
+  '!styles/landing/**/*.css',
+  "!/styles/bootstrap/css/bootstrap.min.css"
 ];
 
 
@@ -30,11 +33,13 @@ var jsFilesToInject = [
 
   // Load sails.io before everything else
   '!js/dependencies/sails.io.js',
-  '/bower/jquery/jquery.js',
   // Dependencies like jQuery, or Angular are brought in here
   // 'js/dependencies/**/*.js',
   'bower/**/*.js',
   'js/*.js',
+  '!/bower/jquery/jquery.js',
+  "!/bower/bootstrap-sass/bootstrap.js",
+  "!/bower/bootstrap/bootstrap.js",
   '!bower/framework7/js/framework7.min.js',
   '!bower/framework7/js/my-app.js',
   // '!bower/framework7/js/*.js',

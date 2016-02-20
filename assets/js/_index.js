@@ -28,11 +28,18 @@ window.$$ = Framework7.$;
 window.myApp = myApp;
 window.mainView = mainView;
 
+function jsLoad(href)
+{
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", href, false);
+  xmlhttp.send();
+  return xmlhttp.responseText;
+}
 
 $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
-
   var id = $$("input#itemId").val();
-  $("#postDetailF7 > .page-content").load("/post/" + id);
+  // $("#postDetailF7 > .page-content").load("/post/" + id);
+  $$("#postDetailF7 > .page-content").html(jsLoad("/post/" + id));
   $$(".back.link").on("click", function() {
     $$(".swipeout").css('background-color','white');
     // clean fb sdk stuff
@@ -92,20 +99,22 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   /*hobby page back to top */
 
   // fade in #back-top
-  $(".page-content").scroll(function() {
-    if ($(this).scrollTop() > 100) {
-      $('#back-top').fadeIn();
+  $$(".page-content").scroll(function() {
+    if ($$(this).scrollTop() > 100) {
+      // $('#back-top').fadeIn();
+      $$('#back-top').removeClass('hide')
+      $$('#back-top').removeClass('fadeOut')
+      $$('#back-top').addClass('fadeIn')
     } else {
-      $('#back-top').fadeOut();
+      // $('#back-top').fadeOut();
+      $$('#back-top').removeClass('fadeIn')
+      $$('#back-top').addClass('fadeOut')
     }
   });
 
   // scroll body to 0px on click
-  $('#back-top').click(function() {
-    $(".page-content").animate({
-      scrollTop: 0
-    }, 400);
-    return false;
+  $$('#back-top').click(function() {
+    $$(".page-content").scrollTop(0,400)
   });
 
 }); // end hobbyPage
@@ -126,7 +135,7 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     console.log(storedData);
 
     // hack <a> hover to solved #371
-    $("a.back.link :hover").css("color", "white");
+    $$("a.back.link :hover").css("color", "white");
 
   });
 });
@@ -142,12 +151,12 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   $$(".favoriteView").click(function() {
     myApp.closeNotification('.notification-item');
-    $("#favoriteView > .page-content").load("/user/favorites");
+    $$("#favoriteView > .page-content").html(jsLoad("/user/favorites"));
   });
 
   $$(".profileView").click(function() {
     myApp.closeNotification('.notification-item');
-    $("#profileView > .page-content").load("/user/profile");
+    $$("#profileView > .page-content").html(jsLoad("/user/profile"));
   });
 
   $$("a.searchView.tab-link").click(function() {
@@ -174,14 +183,14 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   // hide Scroll bar when scroll down.
   var timer, lock = false;
   // $('.page-content').delegate('.active', 'scroll', function(event) {
-  $('.page-content').scroll(function(event) {
+  $$('.page-content').scroll(function() {
 
-    var mapView = $('.tab-link.active').hasClass("mapView");
-    var profileView = $('.tab-link.active').hasClass("profileView");
-    var postDetailF7 = $('.view-main').attr("data-page") == 'postDetailF7' ? true : false;
+    var mapView = $$('.tab-link.active').hasClass("mapView");
+    var profileView = $$('.tab-link.active').hasClass("profileView");
+    var postDetailF7 = $$('.view-main').attr("data-page") == 'postDetailF7' ? true : false;
 
     // console.log("event.originalEvent.wheelDelta=>", event.originalEvent.target.scrollTop);
-    var scrollTop = event.originalEvent.target.scrollTop;
+    var scrollTop = $$(this).scrollTop();
 
     if ($$(".page-content.active").offset().top <= 35) {
       if (scrollTop <= 94) {
@@ -203,9 +212,13 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         timer = null;
         // window.myApp.showToolbar(".mainToolbar");
       }
-      var backTopBtn = $("#back-top");
+      var backTopBtn = $$("#back-top");
       if (backTopBtn || backTopBtn == undefinded)
-        if ($$(".page-content.active").offset().top >= 0) $('#back-top').fadeOut();
+        if ($$(".page-content.active").offset().top >= 0){
+          // $('#back-top').fadeOut();
+          $$('#back-top').removeClass('fadeIn');
+          $$('#back-top').addClass('fadeOut')
+        }
     } // end scrollUp
 
     function scrollDown() {
@@ -214,30 +227,51 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         timer = null;
         // window.myApp.hideToolbar(".mainToolbar");
       }
-      if ($$(".page-content.active").offset().top <= 0) btnFading();
+      if ($$(".page-content.active").offset().top <= 0){
+        btnFading();
+      }
       // $('#back-top').fadeIn();
     } // end scrollDown
 
     function btnFading() {
       // if ((!profileView && !mapView) && !postDetailF7) {
       if ((!profileView && !mapView) && !postDetailF7) {
-        var toolbarState = $('.toolbar').hasClass('toolbar-hidden');
+        var toolbarState = $$('.toolbar').hasClass('toolbar-hidden');
         // console.log(toolbarState);
         if (toolbarState) {
-          $('#back-top').fadeOut();
+          // $('#back-top').fadeOut();
+          $$('#back-top').removeClass('fadeIn');
+          $$('#back-top').addClass('fadeOut');
         } else {
-          $('#back-top').fadeIn();
+          // $('#back-top').fadeIn();
+          $$('#back-top').show();
+          $$('#back-top').removeClass('fadeOut');
+          $$('#back-top').addClass('fadeIn');
         }
       }
     } // end btnFading
 
   }); // end delegate
 
+  function jsScrollTop(element, to, duration) {
+    if (duration <= 0) return;
+    var difference = to - element.scrollTop();
+    var perTick = difference / duration * 10;
+
+    setTimeout(function() {
+      element.scrollTop(element.scrollTop() + perTick);
+      $$('#back-top').hide()
+      if (element.scrollTop() === to) return;
+      jsScrollTop(element, to, duration - 10);
+    }, 10);
+  }
+
   $$('#back-top').click(function() {
-    $(this).hide();
-    $(".page-content").animate({
-      scrollTop: $(".card").offset().top
-    }, 2500);
+    $$(this).hide();
+    jsScrollTop($$(".page-content"),$$(".card").offset().top,400);
+    // $(".page-content").animate({
+    //   scrollTop: $$(".card").offset().top
+    // }, 400);
     window.myApp.showToolbar(".mainToolbar");
     return false;
   });
@@ -294,7 +328,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
-  $("#search-result").delegate('.swipeout', 'click', function(event) {
+  $$("#search-result").on('click', '.swipeout', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
     var closeOpen = $$(this).hasClass('close-open');
     if (!f7open) {
@@ -304,19 +338,21 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       } else {
         console.log("跳轉");
         $$(this).css('background-color','rgb(169, 208, 247)');
-        $('#back-top').fadeOut();
+        // $('#back-top').fadeOut();
+        $$('#back-top').removeClass('fadeIn')
+        $$('#back-top').addClass('fadeOut')
         mainView.router.load({
           url: '/post/f7/' + $$(this).attr("data-id"),
           ignoreCache: true
         });
       }
     }
-  }).delegate('.swipeout', "touchend", function() {
+  }).on("touchend", '.swipeout', function() {
     var f7open = $$(this).hasClass('swipeout-opened');
     if (!f7open) {
       $$(this).removeClass('close-open');
     }
-  }).delegate('.swipeout', "close", function() {
+  }).on("close", '.swipeout', function() {
     $$(this).addClass('close-open');
   });
 
