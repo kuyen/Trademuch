@@ -61,16 +61,20 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
 
     if (getRegion() == "zh-TW") {
       list = ["請選擇地區"];
-      $.merge(list, tw);
+      // $.merge(list, tw);
+      list = list.concat(tw);
 
     } else if (getRegion() == "en" || getRegion() == "en-gb") {
       list = ["Where are you?"];
-      $.merge(list, uk)
+      // $.merge(list, uk)
+      list = list.concat(uk);
 
     } else {
       list = ["Where are you?"];
-      $.merge(list, uk);
-      $.merge(list, tw)
+      // $.merge(list, uk);
+      // $.merge(list, tw);
+      list = list.concat(uk);
+      list = list.concat(tw);
     }
 
     setOption(list);
@@ -82,16 +86,31 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
   }
 
   function setOption(list) {
-    $.each(list, function(i, value) {
-      $('#regionSelect').append("<option value='" + value + "'>" + value + "</option>");
-      $("#regionSelect").trigger('change');
+    $$.each(list, function(i, value) {
+      $$('#regionSelect').append("<option value='" + value + "'>" + value + "</option>");
+      $$("#regionSelect").trigger('change');
     });
+  }
+
+  function loadScript(url, callback){
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
   }
 
   function addressToLatLng(addr) {
     var jsUrl = "http://maps.google.com/maps/api/js?libraries=places";
-    $.getScript(jsUrl)
-      .done(function(script, textStatus) {
+    loadScript(jsUrl, function() {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({
           "address": addr
@@ -131,8 +150,8 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
   }; // end getGeoIpLocation
 
   function submitSingUpForm(location) {
-    var email = $("input[name='email']").val();
-    var hobby = $("input[name='hobby']").val();
+    var email = $$("input[name='email']").val();
+    var hobby = $$("input[name='hobby']").val();
     var data = {
       hobby: hobby,
       location: location
@@ -141,7 +160,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       data.email = email;
     }
 
-    jQuery.ajax({
+    $$.ajax({
       url: '/rest/user',
       type: 'PUT',
       data: data,
