@@ -53,7 +53,7 @@ ul#search-result {
   z-index: 999;
   top: 135px;
   padding: 6px;
-  width: 100%;
+  width: calc(100% - 12px);
   background-color: #fff;
   /* for safira z-index bug */
   -webkit-transform: translateZ(1px);

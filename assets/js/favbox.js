@@ -1,5 +1,5 @@
 
-$("body").delegate(".favboxa", "click", function() {
+$$("body").on("click", ".favboxa", function() {
   var fav = $$(this);
   var id = fav.attr("data-id");
   console.log("favboxa id=>",id);

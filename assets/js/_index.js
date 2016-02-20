@@ -236,7 +236,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     function btnFading() {
       // if ((!profileView && !mapView) && !postDetailF7) {
       if ((!profileView && !mapView) && !postDetailF7) {
-        var toolbarState = $('.toolbar').hasClass('toolbar-hidden');
+        var toolbarState = $$('.toolbar').hasClass('toolbar-hidden');
         // console.log(toolbarState);
         if (toolbarState) {
           // $('#back-top').fadeOut();
@@ -328,7 +328,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
-  $("#search-result").on('click', '.swipeout', function(event) {
+  $$("#search-result").on('click', '.swipeout', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
     var closeOpen = $$(this).hasClass('close-open');
     if (!f7open) {

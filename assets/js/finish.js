@@ -26,9 +26,10 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
         return false;
       }
     }
-    var region = $$("#regionSelect").val();
-    var selected = $("#regionSelect option:selected");
-    if ( selected.index()!=0 ) {
+    var e = document.getElementById("regionSelect");
+    var region = e.options[e.selectedIndex].text;
+    var selected = e.options[e.selectedIndex].value;
+    if ( selected != "0" ) {
       addressToLatLng(region);
     } else {
       //   getGeoIpLocation();
@@ -87,7 +88,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
 
   function setOption(list) {
     $$.each(list, function(i, value) {
-      $$('#regionSelect').append("<option value='" + value + "'>" + value + "</option>");
+      $$('#regionSelect').append("<option value='" + i + "'>" + value + "</option>");
       $$("#regionSelect").trigger('change');
     });
   }

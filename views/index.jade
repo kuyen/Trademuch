@@ -26,10 +26,11 @@ body#page-top.map-fullscreen.page-homepage.navigation-off-canvas()
   #splash
     //- img(src='/img/splashLogo.png', alt='splashLogo')
     
-script(type='text/javascript', src='/js/map/jquery-2.1.0.min.js')
+//- script(type='text/javascript', src='/js/map/jquery-2.1.0.min.js')
 script.  
   window.setTimeout(function() {
-    $('#splash').addClass('animated fadeOut');
+    var splash = document.getElementById('splash');
+    splash.className += 'animated fadeOut';
     window.setTimeout(function() {
       window.location.replace("/app");
         //- $('#splash').hide();
