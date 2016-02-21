@@ -16,7 +16,7 @@ var tmpPath = '.tmp/public/';
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'bower/framework7/css/framework7.ios.colors.min.css',
+  'bower/framework7/css/framework7.ios.colors.css',
   'bower/framework7/css/my-app.css',
   '/fonts/font-awesome.css',
   'styles/**/*.css',
