@@ -88,6 +88,14 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
     });
   }
 
+  $(function(){
+				$("#regionSelect").click(function(){
+					$("#registerFinish").toggle()
+				},function(){
+					$("#registerFinish").toggle("background-image","url('img/taipei.jpg')")
+				});
+			})
+
   function addressToLatLng(addr) {
     var jsUrl = "http://maps.google.com/maps/api/js?libraries=places";
     $.getScript(jsUrl)
