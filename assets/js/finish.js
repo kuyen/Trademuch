@@ -65,6 +65,8 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       // $.merge(list, tw);
       list = list.concat(tw);
 
+      $$("#registerFinish").css("background-image", "url('/img/Taipei.jpg')");
+
     } else if (getRegion() == "en" || getRegion() == "en-gb") {
       list = ["Where are you?"];
       // $.merge(list, uk)
@@ -92,14 +94,6 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       $$("#regionSelect").trigger('change');
     });
   }
-
-  $(function(){
-				$("#regionSelect").click(function(){
-					$("#registerFinish").toggle()
-				},function(){
-					$("#registerFinish").toogle("background-image","url('img/taipei.jpg')")
-				});
-			})
 
   function loadScript(url, callback){
     // Adding the script tag to the head as suggested before
