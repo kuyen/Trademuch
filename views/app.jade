@@ -5,7 +5,7 @@ block body
   #splash
     img(src='/img/splashLogo.png', alt='splashLogo')
     
-  p#back-top(style="display:none;")
+  p.animated#back-top(style="display:none;")
     a(href='#top')
      span
      | Top       
@@ -15,13 +15,13 @@ block body
         .navbar
           .navbar-inner
             .wrapper
-              a.left.external.logo(href='/main')
+              a.left.external.logo(href='/app')
                 img(src='/img/logo.png', alt='logo', style="height: 45px;") 
             .wrapper
               -console.log("loginState=>",loginState);
               -if(!loginState)
-                a.right.top.external(target="_top", href='/auth/facebook')
-                  img.action(src='/img/facebook.png', alt='facebook', style="height: 35px;")
+                a.right.top.external( target="_top" href='/rest/auth/facebook')
+                  img.action(src='/img/facebook.png', alt='facebook', style="height: 20px;")
         .pages
           .page.toolbar-fixed(data-page='home')
             .toolbar.tabbar.mainToolbar
@@ -31,10 +31,10 @@ block body
                   //- .activeShow
                 a.searchView.tab-link(href='#searchView')
                   img(src='/img/search.png', alt='search')
-                a.storyView.link(href='/storyCategory')
+                a.storyView.link(href='/post/create/Category')
                   img(src='/img/add.png', alt='add')
                 -if(!loginState)
-                  a.link(href='/favorites')
+                  a.link(href='/user/favorites')
                     img(src='/img/favorite.png', alt='favorite')
                 -else
                   a.favoriteView.tab-link(href='#favoriteView', data-login="#{loginState}")
@@ -42,7 +42,7 @@ block body
                 //- a.listView.tab-link(href='#listView')
                 //-   img(src='/img/login.png', alt='list')
                 -if(!loginState)
-                  a.link(href='/favorites')
+                  a.link(href='/user/favorites')
                     img(src='/img/login.png', alt='favorite')
                 -else
                   a.profileView.tab-link(href='#profileView')
@@ -79,7 +79,7 @@ block body
                                 each post in allPosts
                                   li.swipeout(data-id=post.id)
                                       .swipeout-content
-                                        .item-content
+                                        .item-content.prodList
                                           .item-media
                                             //- img(src=post.gallery[0], width='80')
                                             img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80')
@@ -87,8 +87,8 @@ block body
                                           .item-inner
                                             .item-title-row
                                               .item-title
-                                                a.link(data-ignore-cache="true", href='/postDetailf7/#{post.id}') #{post.title}
-                                            .item-subtitle NT$#{post.price}
+                                                a.link(data-ignore-cache="true", href='/post/f7/#{post.id}') #{post.title}
+                                            //- .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
                                           img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
@@ -104,14 +104,14 @@ block scripts
       {{#each this.items}}
         <li class="swipeout" data-id={{id}}>
           <div class="swipeout-content">
-            <div class="item-content">
+            <div class="item-content prodList">
               <div class="item-media">
                 <img data-src={{gallery[0]}} width="80" class="lazy lazy-fadeIn"/>
               </div>
               <div class="item-inner">
                 <div class="item-title-row">
                   <div class="item-title">
-                    <a class="link" data-ignore-cache="true" href='/postDetailf7/{{id}}'>{{title}}</a>
+                    <a class="link" data-ignore-cache="true" href='/post/f7/{{id}}'>{{title}}</a>
                   </div>
                 </div>
                 <div class="item-subtitle">NT${{price}}</div>

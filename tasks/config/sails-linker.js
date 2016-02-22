@@ -159,6 +159,18 @@ module.exports = function(grunt) {
 			}
 		},
 
+		devMapJsJade: {
+			options: {
+				startTag: '// MAPSCRIPTS',
+				endTag: '// MAPSCRIPTS END',
+				fileTmpl: 'script(src="%s")',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'views/**/*.jade': require('../pipeline').mapJsFilesToInject
+			}
+		},
+
 		devJsRelativeJade: {
 			options: {
 				startTag: '// SCRIPTS',
@@ -181,6 +193,18 @@ module.exports = function(grunt) {
 			},
 			files: {
 				'views/**/*.jade': ['.tmp/public/min/production.min.js']
+			}
+		},
+
+		prodMapJsJade: {
+			options: {
+				startTag: '// MAPSCRIPTS',
+				endTag: '// MAPSCRIPTS END',
+				fileTmpl: 'script(src="%s")',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'views/**/*.jade': ['.tmp/public/min/map.production.min.js']
 			}
 		},
 
@@ -209,6 +233,18 @@ module.exports = function(grunt) {
 				'views/**/*.jade': require('../pipeline').cssFilesToInject
 			}
 		},
+		devMapStylesJade: {
+			options: {
+				startTag: '// MAPSTYLES',
+				endTag: '// MAPSTYLES END',
+				fileTmpl: 'link(rel="stylesheet", href="%s")',
+				appRoot: '.tmp/public'
+			},
+
+			files: {
+				'views/**/*.jade': require('../pipeline').mapCssFilesToInject
+			}
+		},
 
 		devStylesRelativeJade: {
 			options: {
@@ -233,6 +269,18 @@ module.exports = function(grunt) {
 			},
 			files: {
 				'views/**/*.jade': ['.tmp/public/min/production.min.css']
+			}
+		},
+
+		prodMapStylesJade: {
+			options: {
+				startTag: '// MAPSTYLES',
+				endTag: '// MAPSTYLES END',
+				fileTmpl: 'link(rel="stylesheet", href="%s")',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'views/**/*.jade': ['.tmp/public/min/map.production.min.css']
 			}
 		},
 

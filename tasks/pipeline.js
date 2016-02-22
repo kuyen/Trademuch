@@ -16,11 +16,14 @@ var tmpPath = '.tmp/public/';
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
+  'bower/framework7/css/framework7.ios.colors.min.css',
+  'bower/framework7/css/my-app.css',
   '/fonts/font-awesome.css',
   'styles/**/*.css',
   '!styles/mapCss/**/*.css',
   '!styles/importer.css',
-  '!styles/landing/**/*.css'
+  '!styles/landing/**/*.css',
+  "!/styles/bootstrap/css/bootstrap.min.css"
 ];
 
 
@@ -30,11 +33,13 @@ var jsFilesToInject = [
 
   // Load sails.io before everything else
   '!js/dependencies/sails.io.js',
-  '/bower/jquery/jquery.js',
   // Dependencies like jQuery, or Angular are brought in here
   // 'js/dependencies/**/*.js',
   'bower/**/*.js',
   'js/*.js',
+  '!/bower/jquery/jquery.js',
+  "!/bower/bootstrap-sass/bootstrap.js",
+  "!/bower/bootstrap/bootstrap.js",
   '!bower/framework7/js/framework7.min.js',
   '!bower/framework7/js/my-app.js',
   // '!bower/framework7/js/*.js',
@@ -42,6 +47,38 @@ var jsFilesToInject = [
   '!js/landing/*.js'
   // Use the "exclude" operator to ignore files
   // '!js/ignore/these/files/*.js'
+];
+
+var mapCssFilesToInject = [
+  'styles/bootstrap/css/bootstrap.min.css',
+  'styles/mapCss/bootstrap-select.min.css',
+  'styles/mapCss/owl.carousel.css',
+  'styles/mapCss/jquery.mCustomScrollbar.css',
+  'styles/mapCss/style.css',
+  'styles/mapCss/colors/blue.css',
+  '!styles/mapCss/user.style.css',
+  'styles/mapCss/index.css',
+];
+
+var mapJsFilesToInject = [
+   'js/map/jquery-2.1.0.min.js',
+   'js/map/before.load.js',
+   'js/map/jquery-migrate-1.2.1.min.js',
+   '/styles/bootstrap/js/bootstrap.min.js',
+   '!js/map/smoothscroll.js',
+   'js/map/bootstrap-select.min.js',
+   '!js/map/jquery.hotkeys.js',
+   '!js/map/jquery.nouislider.all.min.js',
+   '!js/map/jquery.mCustomScrollbar.concat.min.js',
+  // removed sensor paramate to avoid warring.
+   'js/map/infobox.js',
+   'js/map/richmarker-compiled.js',
+   'js/map/markerclusterer.js',
+   'js/map/custom.js',
+   'js/map/maps.js',
+   'js/map/mapControl.js',
+   '!js/favbox.js',
+   '!js/app.js',
 ];
 
 
@@ -65,6 +102,8 @@ var templateFilesToInject = [
 // they reside in the first place)
 module.exports.cssFilesToInject = cssFilesToInject.map(transformPath);
 module.exports.jsFilesToInject = jsFilesToInject.map(transformPath);
+module.exports.mapCssFilesToInject = mapCssFilesToInject.map(transformPath);
+module.exports.mapJsFilesToInject = mapJsFilesToInject.map(transformPath);
 module.exports.templateFilesToInject = templateFilesToInject.map(transformPath);
 
 // Transform paths relative to the "assets" folder to be relative to the public

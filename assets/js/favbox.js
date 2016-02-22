@@ -1,10 +1,10 @@
 
-$("body").delegate(".favboxa", "click", function() {
-  var fav = $(this);
+$$("body").on("click", ".favboxa", function() {
+  var fav = $$(this);
   var id = fav.attr("data-id");
   console.log("favboxa id=>",id);
   $.ajax({
-    url: "/addUserFavorite/" + id,
+    url: "/rest/favorite/" + id,
     type: "POST",
     success: function(result) {
       console.log(result);
@@ -15,7 +15,7 @@ $("body").delegate(".favboxa", "click", function() {
       fav.children().css("color","white");
       if(xhr.status==403){
         alert("if you like this item, login please :)");
-        window.location.assign("/auth/facebook");
+        window.location.assign("/rest/auth/facebook");
       }
     }
   }); // end ajax

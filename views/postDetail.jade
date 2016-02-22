@@ -4,7 +4,7 @@
    li.card(data-fbId='#{fbId}')
      .card-header
        .imgWrapper.center
-         img(src=post.gallery, data-hash='1', alt='#{post.title}', style="width:100%;" )
+         img(src=post.gallery, data-hash='1', alt='#{post.title}',width='100%' )
              
      .card-content
       .card-content-inner
@@ -48,7 +48,7 @@
      .card-footer
       .mapWrapper.center
         a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
-          img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=390x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location', style="width:100%;")
+          img(src="http://maps.google.com/maps/api/staticmap?zoom=18&size=390x180&sensor=ture&maptype=roadmap&markers="+post.latitude+","+post.longitude, data-hash='1', alt='location', width='270')
 
   .card
     .card-content 
@@ -68,14 +68,14 @@
       
     $$(function(){
       var origin = window.location.origin;
-      $$(".fb-comments").attr('data-href', origin+"/postDetail/#{post.id}");
+      $$(".fb-comments").attr('data-href', origin+"/post/#{post.id}");
     });
     
     $$(".fbShare").on('click',function(){
       var origin = window.location.href;
       FB.ui({
         method: 'share',
-        href: origin
+        href: origin + "/post/#{post.id}" 
       },
       // callback
       function(response) {

@@ -1,56 +1,52 @@
 module.exports = {
   attributes: {
+    uuid: {
+      type: Sequelize.UUID
+    },
+
     title: {
       type: Sequelize.STRING,
       allowNull: false
     },
     startDate: {
-      type: Sequelize.DATEONLY,
-      allowNull: false
+      type: Sequelize.DATE,
+      allowNull: false,
+      field: 'start_date'
     },
     endDate: {
-      type: Sequelize.DATEONLY
+      type: Sequelize.DATE,
+      field: 'end_date'
     },
-    price: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    content: {
-      type: Sequelize.STRING
-    },
-    mode: {
-      type: Sequelize.ENUM('get', 'give'),
-      allowNull: false
-    },
-    // geometry: {
-    //   type: Sequelize.GEOMETRY
-    // },
-    latitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -90, max: 90 }
-    },
-    longitude: {
-      type: Sequelize.DOUBLE,
-      allowNull: true,
-      defaultValue: null,
-      validate: { min: -180, max: 180 }
-    },
-    images:{
+
+    coverImage:{
       type:Sequelize.STRING,
       allowNull: true,
-      defaultValue: null
+      defaultValue: null,
+      field: 'cover_image'
+    },
+
+    createdAt: {
+      type: Sequelize.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      field: 'updated_at'
+    },
+    UserId: {
+      type: Sequelize.UUID,
+      field: 'user_id'
     }
   },
   associations: function() {
-    Post.belongsTo(Item);
-    Post.belongsTo(User);
-    Post.belongsToMany(User, {through: 'UserFavorite'});
+    Post.belongsTo(User, {through: 'user_id'});
+    Post.belongsToMany(Place, {foreignKey: 'post_id', through: PostPlace});
+    Post.belongsToMany(User, {foreignKey: 'post_id', through: UserFavorite});
   },
   options: {
     classMethods: {},
     instanceMethods: {},
-    hooks: {}
+    hooks: {},
+    tableName: 'post'
   }
 };
