@@ -93,12 +93,11 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
     });
   }
 
-
   $(function(){
 				$("#regionSelect").click(function(){
 					$("#registerFinish").toggle()
 				},function(){
-					$("#registerFinish").toggle("background-image","url('img/taipei.jpg')")
+					$("#registerFinish").toogle("background-image","url('img/taipei.jpg')")
 				});
 			})
 
