@@ -42,7 +42,7 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
-    "test": "grunt test",
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test",
     "dev_deploy": "grunt prod & rsync -az --exclude=.git --progress ./ deploy@trademuch.trunksys.com:~/trademuch",
     "dev_remote-start": "ssh deploy@trademuch.trunksys.com 'export NVM_DIR=\"/home/deploy/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\";cp ~/trademuch_dev_local.js ~/trademuch/config/local.js; cd trademuch && pm2 start app.js -i 0 --name \"trademuch\"'",
     "dev_remote-restart": "ssh deploy@trademuch.trunksys.com 'export NVM_DIR=\"/home/deploy/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\";cp ~/trademuch_dev_local.js ~/trademuch/config/local.js;cd trademuch;  pm2 restart trademuch'",
