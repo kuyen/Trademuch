@@ -64,6 +64,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       list = ["請選擇地區"];
       // $.merge(list, tw);
       list = list.concat(tw);
+      $$("#registerFinish").css("background-image", "url('/img/Taipei.jpg')");
 
     } else if (getRegion() == "en" || getRegion() == "en-gb") {
       list = ["Where are you?"];
@@ -108,6 +109,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
     // Fire the loading
     head.appendChild(script);
   }
+
 
   function addressToLatLng(addr) {
     var jsUrl = "http://maps.google.com/maps/api/js?libraries=places";
