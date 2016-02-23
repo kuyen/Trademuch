@@ -99,10 +99,24 @@ img.category {
     background-size: 100% 100%;
   }
 }
+
+.content-block.nologin{
+  display: -weblit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: box;
+}
+
 #greeting {
   padding: 10%;
-  margin-top: 20%;
   color: #fff;
+  margin: 20px;
+  display:-webkit-box;
+  -moz-box-orient:block-axis;
+  -webkit-box-orient:block-axis;
+  -o-box-orient:block-axis;
+  box-orient:block-axis;
+  /*margin-top: 15%;*/
 }
 #greeting .button {
   margin-right: 30%;

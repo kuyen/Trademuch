@@ -15,7 +15,8 @@
 
 ul#search-result {
   margin-top: 120px;
-  margin-bottom: -90px;
+  margin-bottom: auto;
+  /*margin-bottom: -90px;*/
 }
 #formSearch.searchbar {
   position: fixed;
