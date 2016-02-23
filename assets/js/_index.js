@@ -41,7 +41,6 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
   // $("#postDetailF7 > .page-content").load("/post/" + id);
   $$("#postDetailF7 > .page-content").html(jsLoad("/post/" + id));
   $$(".back.link").on("click", function() {
-    $$(".swipeout").css('background-color','white');
     // clean fb sdk stuff
     // $$('head script[id="facebook-jssdk"]').remove();
     // $$('head style').remove()
@@ -328,7 +327,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
-  $$("#search-result").on('click', '.swipeout', function(event) {
+  // $$("#search-result").on('click', '.swipeout', function(event) {
+  $$(document).on('click', '.swipeout', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
     var closeOpen = $$(this).hasClass('close-open');
     if (!f7open) {
@@ -354,6 +354,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }
   }).on("close", '.swipeout', function() {
     $$(this).addClass('close-open');
+  }).on('pageAfterAnimation', function() {
+    $$('.swipeout').css('background-color','white');
   });
 
 }); // end page home

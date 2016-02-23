@@ -15,9 +15,9 @@
                   .item-media
                     //- img(src=post.gallery[0], width='80')
                     -if(i<=5)
-                      img(src=favorite.coverImage, width='80')
+                      img(src=favorite.coverImage, width='80', style="overflow: hidden;")
                     -else
-                      img.lazy.lazy-fadeIn(data-src=favorite.coverImage, width='80')
+                      img.lazy.lazy-fadeIn(data-src=favorite.coverImage, width='80', style="overflow: hidden;")
                   .item-inner
                     .item-title-row
                       .item-title 
