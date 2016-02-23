@@ -82,7 +82,7 @@ block body
                                         .item-content.prodList
                                           .item-media
                                             //- img(src=post.gallery[0], width='80')
-                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80')
+                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80', style="overflow: hidden;")
                                             //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
                                           .item-inner
                                             .item-title-row
@@ -106,7 +106,7 @@ block scripts
           <div class="swipeout-content">
             <div class="item-content prodList">
               <div class="item-media">
-                <img data-src={{gallery[0]}} width="80" class="lazy lazy-fadeIn"/>
+                <img data-src={{gallery[0]}} width="80" class="lazy lazy-fadeIn" style="overflow: hidden;"/>
               </div>
               <div class="item-inner">
                 <div class="item-title-row">

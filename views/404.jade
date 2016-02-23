@@ -5,16 +5,16 @@ block body
   .navbar
     .navbar-inner
       .left
-        a.back.link(href='#')
+        a.back.link(href='#', onClick="window.history.back();")
           i.icon.icon-back-white.icon-back
           span Back
   .pages
-    .view.view-main.page(data-page='404')
+    #registerFinish.view.view-main.page(data-page='404')
       .page-content
         .content-block.nologin
           #greeting
             h2
               | Oooops!
               p We can't seems to find the page you're looking for. :(
-              a.button.active(target="_top" href="/app")
+              a.button.external.active(target="_top", href="#" , onClick="window.history.back();")
                 span Back

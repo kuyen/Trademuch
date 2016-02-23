@@ -327,7 +327,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
-  $$("#search-result").on('click', '.swipeout', function(event) {
+  // $$("#search-result").on('click', '.swipeout', function(event) {
+  $$(document).on('click', '.swipeout', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
     var closeOpen = $$(this).hasClass('close-open');
     if (!f7open) {
