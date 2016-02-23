@@ -64,7 +64,6 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       list = ["請選擇地區"];
       // $.merge(list, tw);
       list = list.concat(tw);
-
       $$("#registerFinish").css("background-image", "url('/img/Taipei.jpg')");
 
     } else if (getRegion() == "en" || getRegion() == "en-gb") {
