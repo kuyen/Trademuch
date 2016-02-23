@@ -41,7 +41,6 @@ $$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', functi
   // $("#postDetailF7 > .page-content").load("/post/" + id);
   $$("#postDetailF7 > .page-content").html(jsLoad("/post/" + id));
   $$(".back.link").on("click", function() {
-    $$(".swipeout").css('background-color','white');
     // clean fb sdk stuff
     // $$('head script[id="facebook-jssdk"]').remove();
     // $$('head style').remove()
@@ -354,6 +353,8 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }
   }).on("close", '.swipeout', function() {
     $$(this).addClass('close-open');
+  }).on('pageAfterAnimation', function() {
+    $$('.swipeout').css('background-color','white');
   });
 
 }); // end page home

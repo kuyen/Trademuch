@@ -2027,7 +2027,7 @@ html.pixel-ratio-3 .content-block-inner:after {
 /* === Lists === */
 .list-block {
   margin: 35px 0;
-  font-size: 17px;
+  font-size: 16px;
 }
 .list-block ul {
   background: #fff;
