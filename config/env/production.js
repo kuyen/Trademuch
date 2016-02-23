@@ -25,6 +25,9 @@ module.exports = {
 
   log: {
     level: "silent"
-  }
+  },
+  uploadImage: {
+    dirname: './.tmp/public/images/'
+  },
 
 };
