@@ -33,6 +33,24 @@ build:
   volumes:
     - ./:/app
 
+buildProd:
+  container_name: trademuch-build
+  image: node:4
+  command: "/bin/bash -l -c 'npm i | ./node_modules/grunt-cli/bin/grunt prod --force'"
+  working_dir: /app
+  volumes:
+    - ./:/app
+
+test:
+  container_name: trademuch-test
+  image: node:5
+  command: "/bin/bash -l -c 'npm i | npm test'"
+  environment:
+    NODE_ENV: "test"
+  working_dir: /app
+  volumes:
+    - ./:/app
+
 web:
   container_name: trademuch
   image: miiixr/picklete_env
