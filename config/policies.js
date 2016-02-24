@@ -41,6 +41,7 @@ module.exports.policies = {
   'PostController': {
     'getAll': [],
     'create': [],
+    'search': [],
   },
   'FrontPostController': {
     'story': ['sessionAuth'],
