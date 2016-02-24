@@ -7,8 +7,8 @@ module.exports.passport = {
     protocol: 'oauth2',
     strategy: require('passport-facebook').Strategy,
     options:{
-      clientID: '',
-      clientSecret: '',
+      clientID: 'null',
+      clientSecret: 'null',
       profileFields: [ 'id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified', 'displayName' ],
       scope: ['email'],
       callbackURL: "http://localhost:1337/rest/auth/facebook/callback"
