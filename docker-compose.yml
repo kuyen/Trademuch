@@ -43,7 +43,7 @@ buildProd:
 
 test:
   container_name: trademuch-test
-  image: node:5
+  image: miiixr/picklete_env
   command: "/bin/bash -l -c 'npm i | npm test'"
   environment:
     NODE_ENV: "test"
