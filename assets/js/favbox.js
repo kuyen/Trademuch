@@ -3,7 +3,7 @@ $$("body").on("click", ".favboxa", function() {
   var fav = $$(this);
   var id = fav.attr("data-id");
   console.log("favboxa id=>",id);
-  $.ajax({
+  $$.ajax({
     url: "/rest/favorite/" + id,
     type: "POST",
     success: function(result) {
