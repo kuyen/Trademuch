@@ -12,24 +12,25 @@ module.exports = {
     uuid: {
       type: Sequelize.UUID
     },
-    type:{
+    type: {
       type: Sequelize.ENUM('private', 'public'),
       defaultValue: 'public'
     },
-    limit:{
+    limit: {
       type: Sequelize.INTEGER
     },
 
     // to ordering
     createdAt: {
-      type: Sequelize.DATE,
-      field: 'created_at'
+      type: Sequelize.DATE
     },
     // to show last reply time
     updatedAt: {
-      type: Sequelize.DATE,
-      field: 'updated_at'
+      type: Sequelize.DATE
     }
 
+  },
+  options: {
+    underscored: true
   }
 };

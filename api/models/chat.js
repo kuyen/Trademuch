@@ -42,5 +42,8 @@ module.exports = {
     Chat.belongsTo(ChatRoom, {
       through: 'room_id'
     });
+  },
+  options: {
+    underscored: true
   }
 };
