@@ -12,8 +12,9 @@ module.exports = {
     uuid: {
       type: Sequelize.UUID
     },
-    user: {
-      type: Sequelize.STRING,
+    userId: {
+      type: Sequelize.UUID,
+      field: 'user_id',
       allowNull: false
     },
     content: {
@@ -41,6 +42,9 @@ module.exports = {
   associations: function() {
     Chat.belongsTo(ChatRoom, {
       through: 'room_id'
+    });
+    Chat.belongsTo(User, {
+      through: 'user_id'
     });
   },
   options: {
