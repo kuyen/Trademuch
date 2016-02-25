@@ -1,0 +1,70 @@
+
+.navbar
+  .navbar-inner
+    .left
+      a.back.link(href='#')
+        i.icon.icon-back-white.icon-back
+        span Back
+        
+.view.page(data-page='chat', style="margin-top:70px; margin-buttom:-70px;")
+  //- .page-content
+  
+  //- .page.toolbar-fixed
+  .page-content.messages-content(style="height: calc(100% - 70px);")
+      .messages
+        .messages-date
+          | Sunday, Feb 9 
+          span 12:58
+        |       
+        .message.message-sent
+          .message-text Hello
+        |       
+        .message.message-sent
+          .message-text How are you?
+        |       
+        .message.message-received
+          .message-name Kate
+          |         
+          .message-text I am fine, thanks
+          |         
+          .message-avatar(style='background-image:url(http://lorempixel.com/output/people-q-c-100-100-9.jpg)')
+        |       
+        .messages-date
+          | Sunday, Feb 3 
+          span 11:58
+        |       
+        .message.message-sent
+          .message-text Nice photo?
+        |       
+        .message.message-sent.message-pic
+          .message-text
+            img(src='http://lorempixel.com/300/300/')
+          |         
+          .message-label Delivered
+        |       
+        .message.message-received
+          .message-name Kate
+          |         
+          .message-text Wow, awesome!
+          |         
+          .message-avatar(style='background-image:url(http://lorempixel.com/output/people-q-c-100-100-9.jpg)')
+          
+  script(type='text/javascript', src='/js/dependencies/sails.io.js')
+  script(type='text/javascript').
+      // `io` is available as a global.
+      // `io.socket` will connect automatically, but at this point in the DOM, it is not ready yet
+      // (think of $(document).ready() from jQuery)
+      //
+      // Fortunately, this library provides an abstraction to avoid this issue.
+      // Requests you make before `io` is ready will be queued and replayed automatically when the socket connects.
+      // To disable this behavior or configure other things, you can set properties on `io.sails`.
+      // You have one cycle of the event loop to set `io.sails.autoConnect` to false before the auto-connection
+      // behavior starts.
+      io.socket.get('/hello', function serverResponded (body, JWR) {
+      // JWR ==> "JSON WebSocket Response"
+      console.log('Sails responded with: ', body);
+      console.log('with headers: ', JWR.headers);
+      console.log('and with status code: ', JWR.statusCode);
+      // first argument `body` === `JWR.body`
+      // (just for convenience, and to maintain familiar usage, a la `JQuery.get()`)
+      });

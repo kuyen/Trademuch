@@ -21,11 +21,10 @@ module.exports = {
       allowNull: false
     },
     // store private-chat room-id or item uuId
-    roomId:{
-      type: Sequelize.UUID
+    roomId: {
+      type: Sequelize.UUID,
+      field: 'room_id'
     },
-
-    // ====== timestamp =====
 
     // to ordering
     createdAt: {
@@ -38,5 +37,10 @@ module.exports = {
       field: 'updated_at'
     }
 
+  },
+  associations: function() {
+    Chat.belongsTo(ChatRoom, {
+      through: 'room_id'
+    });
   }
 };

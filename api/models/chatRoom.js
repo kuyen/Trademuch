@@ -16,12 +16,9 @@ module.exports = {
       type: Sequelize.ENUM('private', 'public'),
       defaultValue: 'public'
     },
-    // store private-chat room-id or item uuId
     limit:{
       type: Sequelize.INTEGER
     },
-
-    // ====== timestamp =====
 
     // to ordering
     createdAt: {
