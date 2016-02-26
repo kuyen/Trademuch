@@ -50,13 +50,16 @@
 
 .noPostItem {
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .noPostItem > p{
  text-align: center;
- font-size: 16px;
+ font-size: 18px;
  font-weight: 900;
- padding-bottom: 14px;
+ margin-bottom: 9px;
+ margin-top: auto;
 }
 
 /* ------------ detail ----------------- */

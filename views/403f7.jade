@@ -5,12 +5,12 @@
         i.icon.icon-back-white.icon-back
         span Back
 .pages
-  #registerFinish.page(data-page='403')
+  #registerFinish.page(data-page='403', style="margin-top:70px;")
     .page-content
       .content-block.nologin
-        #greeting(style="margin-top: 70px")
-          h2
-            | Welcome to TradeMuch!
-            p Let's log in to start your TradeMuch trip  :)
-            a.button.external.active(target="_top" href='/rest/auth/facebook')
-              span Login
+        #greeting
+          h1 Welcome to TradeMuch!
+            h2
+              p Let's log in to start your TradeMuch trip  :)
+              a.button.external.active(target="_top" href='/rest/auth/facebook')
+                p Login

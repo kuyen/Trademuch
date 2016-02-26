@@ -113,11 +113,12 @@ img.category {
 #greeting .button {
   margin: 0 auto;
   opacity: 1;
-  height: 40px;
+  height: 50px;
+  line-height: 50px;
   width: 60%;
 }
-#greeting .button > span {
-  vertical-align: text-top;
+#greeting .button > p {
+  margin: 0 auto;
 }
 #greeting input {
   text-align: center;

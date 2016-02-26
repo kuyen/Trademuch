@@ -1,6 +1,7 @@
 .phoneIframe {
   width: 100%;
   height: 590px;
+  border: none;
 }
 
 /* iphone gallery media queries */
@@ -9,6 +10,7 @@
   .phoneIframe {
     width: 100%;
     height: 590px;
+    border: none;
   }
 }
 /* SM media */
@@ -16,6 +18,7 @@
   .phoneIframe {
     width: 100%;
     height: 590px;
+    border: none;
   }
 }
 /* XS media */
@@ -23,5 +26,6 @@
   .phoneIframe {
     width: 100%;
     height: 393px;
+    border: none;
   }
 }
