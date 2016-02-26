@@ -25,17 +25,6 @@ module.exports = {
     roomId: {
       type: Sequelize.UUID,
       field: 'room_id'
-    },
-
-    // to ordering
-    createdAt: {
-      type: Sequelize.DATE,
-      field: 'created_at'
-    },
-    // to show last reply time
-    updatedAt: {
-      type: Sequelize.DATE,
-      field: 'updated_at'
     }
 
   },
