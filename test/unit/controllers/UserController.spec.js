@@ -45,7 +45,7 @@ describe('about User Controller operation.', function() { //skip
       try {
 
         let result = await request(sails.hooks.http.app)
-        .put('/rest/user/'+ testUser.id)
+        .put('/rest/user/')
         .send({
           email: '123123123@gmail.com',
           location:{
