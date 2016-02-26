@@ -46,7 +46,9 @@ module.exports.policies = {
   'FrontPostController': {
     'story': ['sessionAuth'],
     'getPostById': [],
-    'getPostByKeyword': []
+    'getPostByKeyword': [],
+    'show': [],
+    'showF7': []
   },
   'ImageController': {
     'upload': []
