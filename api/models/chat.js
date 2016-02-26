@@ -20,11 +20,6 @@ module.exports = {
     content: {
       type: Sequelize.STRING,
       allowNull: false
-    },
-    // store private-chat room-id or item uuId
-    roomId: {
-      type: Sequelize.UUID,
-      field: 'room_id'
     }
 
   },
