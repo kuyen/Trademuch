@@ -84,7 +84,7 @@ describe('about Post Service operation.', function() {
 
         post = await Post.create({
           "uuid": '12311231231',
-          "title": "searchPost",
+          "title": "searchPostA",
           "startDate": "2015-12-01",
           "user_id": testUser2.id
         });
@@ -160,7 +160,7 @@ describe('about Post Service operation.', function() {
     it('search should success.', async(done) => {
       try {
 
-        let getData = await PostService.getPostByKeyword("searchPost");
+        let getData = await PostService.getPostByKeyword("searchPostA");
 
         sails.log.info("search result=>", getData);
         getData.length.should.be.equal(1);
