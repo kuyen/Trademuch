@@ -1,192 +1,132 @@
 module.exports = {
 
-  join: async(req, res) => {
-    if (req.isSocket === true) {
+  // get client socket id
+  getId: async(req, res) => {
+    if (!req.isSocket) {
+      return res.badRequest('This endpoints only supports socket requests.');
+    }
 
-      let loginedUser, userFBId;
+    try {
+      let socketId = sails.sockets.id(req);
+      return res.ok({
+        'socketId': socketId
+      });
+    } catch (e) {
+      res.serverError(e);
+    }
+  }, // end getId
 
-      // check login state
-      let loginState = await UserService.getLoginState(req);
-      console.log("==== user login status ===>", loginState);
-      if (loginState) {
-        loginedUser = await UserService.getLoginUser(req);
-        userFBId = await UserService.getFBId(loginedUser.id);
-        console.log("==== logined User is ===>", loginedUser);
+  // Send global message
+  announce: async(req, res) => {
+    if (_.isUndefined(req.param('content'))) {
+      return res.badRequest('`content` is required.');
+    }
+    if (!req.isSocket) {
+      return res.badRequest('This endpoints only supports socket requests.');
+    }
+
+    try {
+      let socketId = sails.sockets.id(req);
+      let content = req.param('content');
+      let roomId = req.param('roomId');
+      let login = await UserService.getLoginState(req);
+
+      if (!login) {
+        return res.badRequest('please log in.');
       }
 
-      let room = req.body.room;
-      let type = req.body.type | 'public';
-      let limit = req.body.limit | 100;
+      let user = await UserService.getLoginUser(req);
+      let chat = await Chat.create({
+        'room_id': roomId,
+        'user_id': user.id,
+        'content': content,
+        'type': 'annunciation'
+      });
 
-      console.log('join room=>',room);
-
-      sails.sockets.join(req, room, function(err) {
-        if (err) {
-          return res.serverError(err);
-        }
-        sails.sockets.broadcast(room, "new user", {
-          'msg': "Hello " + loginedUser
+      if (roomId) {
+        sails.log.info("=== broadcast to roomId ==>", roomId);
+        sails.sockets.broadcast(roomId, "announce", {
+          'from': user,
+          'msg': content
         }, req);
-      });
-
-      return res.send(200, 'joined');
-    }
-    return res.send(202);
-  },
-
-  sendToRoom: async(req, res) => {
-    if (req.isSocket === true) {
-      sails.sockets.broadcast('mysecretroom', 'messageevent', {
-        message: "Listen very carefully, I'll shall say this only once..!"
-      });
-    }
-    return res.send(202);
-  },
-
-  hello: async(req, res) => {
-    try {
-      // Make sure this is a socket request (not traditional HTTP)
-      if (!req.isSocket) {
-        return res.badRequest();
-      }
-      // Have the socket which made the request join the "funSockets" room
-      // Broadcast a "hello" message to all the fun sockets.
-      // This message will be sent to all sockets in the "funSockets" room,
-      // but will be ignored by any client sockets that are not listening-- i.e. that didn't call `io.socket.on('hello', ...)`
-      // sails.sockets.broadcast('funSockets', 'hello', req);
-      // Respond to the request with an a-ok message
-
-      sails.sockets.join(req, 'funSockets', async(err) => {
-        if (err) {
-          return res.serverError(err);
-        }
-
-        let loginState = await UserService.getLoginState(req);
-        console.log("==== user login status ===>", loginState);
-
-        let loginedUser, userFBId, targetId = req.param('id');
-        if (loginState) {
-          loginedUser = await UserService.getLoginUser(req);
-          userFBId = await UserService.getFBId(loginedUser.id);
-          console.log("==== logined User is ===>", loginedUser);
-          sails.sockets.broadcast("funSockets", "hello", "Hello" + loginedUser);
-        } // end if
-
-
-        sails.sockets.blast("lalalalalalalaala");
-        sails.sockets.broadcast("funSockets", "hello", "Hello to all my fun sockets!");
-        sails.sockets.broadcast("funSockets", "test", "test to all my fun sockets!");
-
-        return res.json({
-          message: 'Subscribed to a fun room called funSockets!'
+      } else {
+        sails.log.info("=== blast ===");
+        sails.sockets.blast("announce", {
+          'from': user,
+          'msg': content
         });
-      });
-
-    } catch (e) {
-      res.serverError(e);
-    }
-  },
-
-  say: async(req, res) => {
-    try {
-      // Make sure this is a socket request (not traditional HTTP)
-      if (!req.isSocket) {
-        return res.badRequest();
       }
 
-      console.log("client says body =>", req.body);
-      console.log("client says query =>", req.query);
+      return res.ok({
+        message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomId
+      });
+    } catch (e) {
+      res.serverError(e);
+    }
+  }, // end announce
 
-      let room = req.body.room;
-      let msg = req.body.msg;
+  // to-do todo wip
+  // Send a private message from one user to another
+  private: async(req, res) => {
+    // Get the ID of the currently connected socket
+    var socketId = sails.sockets.getId(req.socket);
+    // Use that ID to look up the user in the session
+    // We need to do this because we can have more than one user
+    // per session, since we're creating one user per socket
+    User.findOne(req.session.users[socketId].id).exec(function(err, sender) {
+      // Publish a message to that user's "room".  In our app, the only subscriber to that
+      // room will be the socket that the user is on (subscription occurs in the onConnect
+      // method of config/sockets.js), so only they will get this message.
+      User.message(req.param('to'), {
+        from: sender,
+        msg: req.param('msg')
+      });
 
-      console.log('room=>', room);
-      console.log('msg=>', msg);
+    });
+  }, // end private
 
-      sails.sockets.join(req, room, function(err) {
-        if (err) {
-          return res.serverError(err);
+  // Post a message in a public chat room
+  public: async(req, res) => {
+      let params = ['content', 'roomId'];
+      params.forEach(function(param, index) {
+        if (_.isUndefined(req.param(param))) {
+          return res.badRequest(param + ' is required.');
         }
-        
-        sails.sockets.broadcast(room, "say", {
-          'msg': 'you say ' + msg
+      });
+      if (!req.isSocket) {
+        return res.badRequest('This endpoints only supports socket requests.');
+      }
+
+      try {
+        let socketId = sails.sockets.id(req);
+        let content = req.param('content');
+        let roomId = req.param('roomId');
+        let login = await UserService.getLoginState(req);
+
+        if (!login) {
+          return res.badRequest('please log in.');
+        }
+
+        let user = await UserService.getLoginUser(req);
+        let chat = await Chat.create({
+          'room_id': roomId,
+          'user_id': user.id,
+          'content': content,
+          'type': 'public'
         });
 
-        sails.sockets.broadcast(room, {
-          greeting: 'Hola!'
+        sails.sockets.broadcast(roomId, "public", {
+          'from': user,
+          'msg': content
+        }, req);
+
+        return res.ok({
+          chat,
+          message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomId
         });
-      });
+      } catch (e) {
+        res.serverError(e);
+      }
+    } // end public
 
-      return res.json({
-        message: 'got msg!'
-      });
-
-    } catch (e) {
-      res.serverError(e);
-    }
-  },
-
-
-
-  chat: async(req, res) => {
-    try {
-
-      let loginState = await UserService.getLoginState(req);
-      console.log("==== user login status ===>", loginState);
-
-      let loginedUser, userFBId, targetId = req.param('id');
-
-      if (loginState) {
-        loginedUser = await UserService.getLoginUser(req);
-        userFBId = await UserService.getFBId(loginedUser.id);
-        console.log("==== logined User is ===>", loginedUser);
-      } // end if
-
-      res.view('chat', {
-        loginState: loginState,
-        loginedUser: loginedUser,
-        // profile,
-        userFBId
-      });
-    } catch (e) {
-      res.serverError(e);
-    }
-  },
-  //
-  //
-  // create: async(req, res) => {
-  //   try {
-  //     console.log("==== postStory ===", req.body);
-  //     let data = req.body;
-  //     let result = await PostService.create(data, req);
-  //     res.ok(result);
-  //   } catch (e) {
-  //     sails.log.error(e);
-  //     res.serverError(e);
-  //   }
-  // },
-  // join: async(req, res) => {
-  //   try {
-  //     console.log("==== postStory ===", req.body);
-  //     let data = req.body;
-  //     let result = await PostService.create(data, req);
-  //     res.ok(result);
-  //   } catch (e) {
-  //     sails.log.error(e);
-  //     res.serverError(e);
-  //   }
-  // },
-  // create: async(req, res) => {
-  //   try {
-  //     console.log("==== postStory ===", req.body);
-  //     let data = req.body;
-  //     let result = await PostService.create(data, req);
-  //     res.ok(result);
-  //   } catch (e) {
-  //     sails.log.error(e);
-  //     res.serverError(e);
-  //   }
-  // },
-
-
-}
+};

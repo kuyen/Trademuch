@@ -154,7 +154,9 @@
    'put /room/:roomId/limit': 'RoomController.limit',
    'delete /room/:roomId/users': 'RoomController.leave',
    'post /chat/public': 'ChatController.public',
-   'post /chat/private': 'ChatController.private'
+   'post /chat/private': 'ChatController.private',
+   'post /chat/announce': 'ChatController.announce',
+   'get /chat/id': 'ChatController.getId'
 
 
 
