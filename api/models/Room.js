@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  autosubscribe: ['destroy', 'update', 'add:users', 'remove:users'],
+  // autosubscribe: ['destroy', 'update', 'add:users', 'remove:users'],
   // attributes: {
   //   name: 'string',
   //   users: {

@@ -2,75 +2,101 @@ module.exports = {
 
   // Join a chat room -- this is bound to 'post /room/:roomId/users'
   'join': async(req, res, next) => {
-    // Get the ID of the room to join
+    if (_.isUndefined(req.param('roomId'))) {
+      return res.badRequest('`roomId` is required.');
+    }
+    if (!req.isSocket) {
+      return res.badRequest('This endpoints only supports socket requests.');
+    }
+
     var roomId = req.param('roomId');
-    // Subscribe the requesting socket to the "message" context,
-    // so it'll get notified whenever Room.message() is called
-    // for this room.
-    // ChatRoom.subscribe(req, roomId, ['message']);
-    // Continue processing the route, allowing the blueprint
-    // to handle adding the user instance to the room's `users`
-    // collection.
-    // return next();
+    console.log('RoomController.join:roomId=>', roomId);
 
     try {
       let login = await UserService.getLoginState(req);
       if (!login) {
-        res.serverError('please log in.');
+        return res.serverError('please log in.');
       }
 
       let user = await UserService.getLoginUser(req);
-      let room = await ChatRoom.findOrCreate({
+
+      let room = await Room.findOne({
         where: {
-          uuid: roomId
-        },
-        defaults: {
-          user_id: user.id
+          'uuid': roomId
         }
       });
+      if (!room) {
+        room = await Room.create({
+          'uuid': roomId
+        });
+      }
+      await room.addUser(user.id);
 
-      res.ok({
-        room
+      sails.sockets.join(req, roomId, function(err) {
+        if (err) {
+          return res.serverError(err);
+        }
+        sails.sockets.broadcast(roomId, "join", {
+          'msg': "Hello " + user.username
+        });
+        return res.ok({
+          room,
+          message: 'Subscribed to a fun room called ' + roomId + '!'
+        });
       });
+
     } catch (e) {
       res.serverError(e);
     }
 
-  },
+  }, // end join
 
   // Leave a chat room -- this is bound to 'delete /room/:roomId/users'
-  'leave': function(req, res, next) {
-    // Get the ID of the room to join
-    var roomId = req.param('roomId');
-    // Unsubscribe the requesting socket from the "message" context
-    // ChatRoom.unsubscribe(req, roomId, ['message']);
-    // Continue processing the route, allowing the blueprint
-    // to handle removing the user instance from the room's
-    // `users` collection.
-    // return next();
-
-    try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        res.serverError('please log in.');
+  'leave': async(req, res, next) => {
+      if (_.isUndefined(req.param('roomId'))) {
+        return res.badRequest('`roomName` is required.');
+      }
+      if (!req.isSocket) {
+        return res.badRequest('This endpoints only supports socket requests.');
       }
 
-      let user = await UserService.getLoginUser(req);
-      let room = await ChatRoom.findOne({
-        where: {
-          uuid: roomId,
-          user_id: user.id
+      var roomId = req.param('roomId');
+
+      try {
+        let login = await UserService.getLoginState(req);
+        if (!login) {
+          return res.serverError('please log in.');
         }
-      });
-      room.online = false;
 
-      res.ok({
-        room
-      });
-    } catch (e) {
-      res.serverError(e);
-    }
+        let user = await UserService.getLoginUser(req);
+        let room = await RoomUser.findOne({
+          where: {
+            room_id: roomId,
+            user_id: user.id
+          }
+        });
+        if (!room) {
+          return res.serverError('room ' + roomId + 'doesnt exist');
+        }
+        room.online = false;
+        let updatedRoom = await room.save();
 
-  }
+        sails.sockets.leave(req, roomId, function(err) {
+          if (err) {
+            return res.serverError(err);
+          }
+          sails.sockets.broadcast(roomId, "leave", {
+            'msg': user + "leaved"
+          });
+          return res.ok({
+            updatedRoom,
+            message: 'leaved room ' + roomId + '!'
+          });
+        });
+      } catch (e) {
+        res.serverError(e);
+      }
+
+    } // end leave
 
 };
