@@ -12,26 +12,32 @@ module.exports = {
     uuid: {
       type: Sequelize.UUID
     },
-    userId: {
-      type: Sequelize.UUID,
-      field: 'user_id',
-      allowNull: false
-    },
+    // userId: {
+    //   type: Sequelize.UUID,
+    //   field: 'user_id',
+    //   allowNull: false
+    // },
+    // roomId: {
+    //   type: Sequelize.UUID,
+    //   field: 'room_id',
+    //   allowNull: false
+    // },
     content: {
       type: Sequelize.STRING,
       allowNull: false
     }
 
   },
+  options: {
+    underscored: true,
+    tableName: 'chat'
+  },
   associations: function() {
-    Chat.belongsTo(ChatRoom, {
+    Chat.belongsTo(Room, {
       through: 'room_id'
     });
     Chat.belongsTo(User, {
       through: 'user_id'
     });
-  },
-  options: {
-    underscored: true
   }
 };

@@ -7,6 +7,13 @@
 
 module.exports = {
 
+  autosubscribe: ['destroy', 'update', 'add:users', 'remove:users'],
+  // attributes: {
+  //   name: 'string',
+  //   users: {
+  //     collection: 'user',
+  //     via: 'rooms'
+  // }
   attributes: {
 
     uuid: {
@@ -18,19 +25,17 @@ module.exports = {
     },
     limit: {
       type: Sequelize.INTEGER
-    },
-
-    // to ordering
-    createdAt: {
-      type: Sequelize.DATE
-    },
-    // to show last reply time
-    updatedAt: {
-      type: Sequelize.DATE
     }
 
   },
   options: {
-    underscored: true
+    underscored: true,
+    tableName: 'room'
+  },
+  associations: function() {
+    Room.hasMany(Chat, {foreignKey: 'room_id'});
+    // to show online people
+    Room.belongsToMany(User, {foreignKey: 'room_id', through: RoomUser});
   }
+
 };

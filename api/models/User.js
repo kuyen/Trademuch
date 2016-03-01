@@ -59,6 +59,7 @@ module.exports = {
     User.hasMany(Passport, {foreignKey: 'user_id'});
     User.belongsToMany(Place, {foreignKey: 'user_id', through: UserPlace});
     User.belongsToMany(Post, {foreignKey: 'user_id', through: UserFavorite});
+    User.belongsToMany(Room, {foreignKey: 'user_id', through: RoomUser});
   },
   options: {
     classMethods: {},
