@@ -52,13 +52,15 @@ module.exports.policies = {
     'upload': []
   },
   'ChatController': {
-    'public': [],
-    'private': []
+    'public': ['sessionAuth'],
+    'private': ['sessionAuth']
   },
   'RoomController': {
-    'join': [],
-    'limit': [],
-    'leave': []
+    'join': ['sessionAuth'],
+    'setLimit': ['sessionAuth'],
+    'getLimit': ['sessionAuth'],
+    'leave': ['sessionAuth'],
+    'show': ['sessionAuth']
   }
   /***************************************************************************
    *                                                                          *

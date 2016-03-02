@@ -8,11 +8,9 @@ module.exports = {
 
     try {
       let socketId = sails.sockets.id(req);
-      return res.ok({
-        'socketId': socketId
-      });
+      return res.ok(socketId);
     } catch (e) {
-      res.serverError(e);
+      res.serverError(e.toString());
     }
   }, // end getId
 
@@ -28,7 +26,7 @@ module.exports = {
     try {
       let socketId = sails.sockets.id(req);
       let content = req.param('content');
-      let roomId = req.param('roomId');
+      let roomName = req.param('roomName');
       let login = await UserService.getLoginState(req);
 
       if (!login) {
@@ -37,15 +35,15 @@ module.exports = {
 
       let user = await UserService.getLoginUser(req);
       let chat = await Chat.create({
-        'room_id': roomId,
+        'room_id': roomName,
         'user_id': user.id,
         'content': content,
-        'type': 'annunciation'
+        'type': 'announce'
       });
 
-      if (roomId) {
-        sails.log.info("=== broadcast to roomId ==>", roomId);
-        sails.sockets.broadcast(roomId, "announce", {
+      if (roomName) {
+        sails.log.info("=== broadcast to roomName ==>", roomName);
+        sails.sockets.broadcast(roomName, "announce", {
           'from': user,
           'msg': content
         }, req);
@@ -58,7 +56,7 @@ module.exports = {
       }
 
       return res.ok({
-        message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomId
+        message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
       });
     } catch (e) {
       res.serverError(e);
@@ -87,7 +85,7 @@ module.exports = {
 
   // Post a message in a public chat room
   public: async(req, res) => {
-      let params = ['content', 'roomId'];
+      let params = ['content', 'roomName'];
       params.forEach(function(param, index) {
         if (_.isUndefined(req.param(param))) {
           return res.badRequest(param + ' is required.');
@@ -100,32 +98,43 @@ module.exports = {
       try {
         let socketId = sails.sockets.id(req);
         let content = req.param('content');
-        let roomId = req.param('roomId');
+        let roomName = req.param('roomName');
         let login = await UserService.getLoginState(req);
 
         if (!login) {
           return res.badRequest('please log in.');
         }
 
+        console.log('RoomService.public:room uuid=>', roomName);
+        console.log('RoomService.public:socketId=>', socketId);
+        console.log('RoomService.public:content=>', content);
+
         let user = await UserService.getLoginUser(req);
+        let room = await Room.findOne({
+          where: {
+            uuid: roomName
+          }
+        });
         let chat = await Chat.create({
-          'room_id': roomId,
+          'room_id': room.id,
           'user_id': user.id,
           'content': content,
           'type': 'public'
         });
 
-        sails.sockets.broadcast(roomId, "public", {
+        console.log('RoomService.public:user=>', user.username);
+
+        sails.sockets.broadcast(roomName, "public", {
           'from': user,
           'msg': content
-        }, req);
+        });
 
         return res.ok({
           chat,
-          message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomId
+          message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
         });
       } catch (e) {
-        res.serverError(e);
+        res.serverError(e.toString());
       }
     } // end public
 

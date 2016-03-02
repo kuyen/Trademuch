@@ -2,17 +2,17 @@ module.exports = {
 
   list: async(req) => {
     var socketId = sails.sockets.id(req);
-    var roomId = req.param('roomId');
+    var roomName = req.param('roomName');
     try {
       // check room exist or cteate a room.
       let findRoom = await Room.findOne({
         where: {
-          'uuid': roomId
+          'uuid': roomName
         }
       });
 
       if (!findRoom) {
-        throw Error('room `' + roomId + '` doesn`t exist!');
+        throw Error('room `' + roomName + '` doesn`t exist!');
       }
 
       // get online list and count before add user into.
@@ -24,7 +24,7 @@ module.exports = {
       });
 
       // get users
-      let name, memberNames = [],
+      let name, membersData = [],
         members = [];
       for (let member of online) {
         members.push(member.user_id);
@@ -36,7 +36,7 @@ module.exports = {
               id: id
             }
           })
-          memberNames.push(name);
+          membersData.push(name);
         } catch (e) {
           throw (e);
         }
@@ -44,7 +44,7 @@ module.exports = {
 
       let room = {
         count: online.length,
-        members: memberNames
+        members: membersData
       }
 
       return room;
@@ -57,7 +57,7 @@ module.exports = {
 
   'join': async(req) => {
     var socketId = sails.sockets.id(req);
-    var roomId = req.param('roomId');
+    var roomName = req.param('roomName');
     var userId = req.param('userId');
     var limit = req.param('limit') | 0;
     var type = userId != undefined ? 'private' : 'public';
@@ -65,12 +65,12 @@ module.exports = {
       // check room exist or cteate a room.
       let findRoom = await Room.findOne({
         where: {
-          'uuid': roomId
+          'uuid': roomName
         }
       });
       if (!findRoom) {
         findRoom = await Room.create({
-          'uuid': roomId,
+          'uuid': roomName,
           'type': type,
           'limit': limit
         });
@@ -116,7 +116,7 @@ module.exports = {
       });
 
       // get users
-      let name, memberNames = [],
+      let name, membersData = [],
         members = [];
       for (let member of online) {
         members.push(member.user_id);
@@ -128,7 +128,7 @@ module.exports = {
               id: id
             }
           })
-          memberNames.push(name);
+          membersData.push(name);
         } catch (e) {
           throw (e);
         }
@@ -140,20 +140,20 @@ module.exports = {
         uuid: findRoom.uuid,
         type: findRoom.type,
         limit: findRoom.limit,
-        members: memberNames,
+        members: membersData,
         count: online.length
       };
 
       console.log('RoomService.join:user=>', user.username);
-      console.log('RoomService.join:request room id=>', roomId);
+      console.log('RoomService.join:request room id=>', roomName);
       console.log('RoomService.join:socketId=>', socketId);
       console.log('RoomService.join:room =>', room);
 
-      await sails.sockets.join(req, roomId, function(err) {
+      await sails.sockets.join(req, roomName, function(err) {
         if (err) {
           throw Error(err);
         }
-        sails.sockets.broadcast(roomId, "join", {
+        sails.sockets.broadcast(roomName, "join", {
           'message': "Hello " + user.username
         });
       });
@@ -169,36 +169,36 @@ module.exports = {
 
   'leave': async(req) => {
     var socketId = sails.sockets.id(req);
-    var roomId = req.param('roomId');
+    var roomName = req.param('roomName');
     try {
       let user = await UserService.getLoginUser(req);
       let room = await RoomUser.findOne({
         where: {
-          room_id: roomId,
+          room_id: roomName,
           user_id: user.id
         }
       });
 
       if (!room) {
-        throw Error('room `' + roomId + '` doesn`t exist!');
+        throw Error('room `' + roomName + '` doesn`t exist!');
       }
       if (room.online === false) {
-        throw Error('user id `' + user.id + '` has already leaved room id `' + roomId + '`!');
+        throw Error('user id `' + user.id + '` has already leaved room id `' + roomName + '`!');
       }
 
       room.online = false;
       let updatedRoom = await room.save();
 
       console.log('RoomService.leave:user=>', user.username);
-      console.log('RoomService.leave:room uuid=>', roomId);
+      console.log('RoomService.leave:room uuid=>', roomName);
       console.log('RoomService.leave:socketId=>', socketId);
       console.log('RoomService.leave:room index =>', room.id);
 
-      await sails.sockets.leave(req, roomId, function(err) {
+      await sails.sockets.leave(req, roomName, function(err) {
         if (err) {
           throw Error(err);
         }
-        sails.sockets.broadcast(roomId, "leave", {
+        sails.sockets.broadcast(roomName, "leave", {
           'message': user + " has leaved."
         });
       });
@@ -213,23 +213,23 @@ module.exports = {
 
   'setLimit': async(req, limit) => {
     var socketId = sails.sockets.id(req);
-    var roomId = req.param('roomId');
+    var roomName = req.param('roomName');
     var newLimit = req.param('limit');
     try {
       let user = await UserService.getLoginUser(req);
       let room = await Room.findOne({
         where: {
-          uuid: roomId
+          uuid: roomName
         }
       });
       if (!room) {
-        throw Error('room `' + roomId + '` doesn`t exist!');
+        throw Error('room `' + roomName + '` doesn`t exist!');
       }
       room.limit = newLimit;
       let limitedRoom = await room.save();
 
       console.log('RoomService.setLimit:user=>', user.username);
-      console.log('RoomService.setLimit:room uuid=>', roomId);
+      console.log('RoomService.setLimit:room uuid=>', roomName);
       console.log('RoomService.setLimit:socketId=>', socketId);
       console.log('RoomService.setLimit:room id =>', limitedRoom.id);
       console.log('RoomService.setLimit:room new limit =>', limitedRoom.limit);
@@ -244,20 +244,20 @@ module.exports = {
 
   'getLimit': async(req) => {
       var socketId = sails.sockets.id(req);
-      var roomId = req.param('roomId');
+      var roomName = req.param('roomName');
       try {
         let user = await UserService.getLoginUser(req);
         let room = await Room.findOne({
           where: {
-            uuid: roomId
+            uuid: roomName
           }
         });
         if (!room) {
-          throw Error('room `' + roomId + '` doesn`t exist!');
+          throw Error('room `' + roomName + '` doesn`t exist!');
         }
 
         console.log('RoomService.getLimit:user=>', user.username);
-        console.log('RoomService.getLimit:room.uuid=>', roomId);
+        console.log('RoomService.getLimit:room.uuid=>', roomName);
         console.log('RoomService.getLimit:socketId=>', socketId);
         console.log('RoomService.getLimit:room.id =>', room.id);;
         console.log('RoomService.getLimit:room.limit =>', room.limit);

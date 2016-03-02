@@ -12,16 +12,10 @@ module.exports = {
     uuid: {
       type: Sequelize.UUID
     },
-    // userId: {
-    //   type: Sequelize.UUID,
-    //   field: 'user_id',
-    //   allowNull: false
-    // },
-    // roomId: {
-    //   type: Sequelize.UUID,
-    //   field: 'room_id',
-    //   allowNull: false
-    // },
+    type: {
+      type: Sequelize.ENUM('public', 'announce', 'private'),
+      defaultValue: 'public'
+    },
     content: {
       type: Sequelize.STRING,
       allowNull: false

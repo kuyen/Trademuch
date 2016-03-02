@@ -149,14 +149,20 @@
 
    'post /rest/image/upload': 'ImageController.upload',
 
-   // chatroom
-   'post /room/:roomId/users': 'RoomController.join',
-   'put /room/:roomId/limit': 'RoomController.limit',
-   'delete /room/:roomId/users': 'RoomController.leave',
-   'post /chat/public': 'ChatController.public',
-   'post /chat/private': 'ChatController.private',
-   'post /chat/announce': 'ChatController.announce',
-   'get /chat/id': 'ChatController.getId'
+   // chatroom view
+   'get /chat/:id/page': 'PostController.chat',
+   // chatroom - RoomController
+   'get /room/:roomName/users': 'RoomController.list',
+   'post /room/:roomName/users': 'RoomController.join',
+   'put /room/:roomName/limit': 'RoomController.setLimit',
+   'get /room/:roomName/limit': 'RoomController.getLimit',
+   'delete /room/:roomName/users': 'RoomController.leave',
+   // chatroom - ChatController
+   'get /chat/me': 'ChatController.getId',
+   'post /chat/:roomName/public': 'ChatController.public',
+   'post /chat/:userId/private': 'ChatController.private',
+   'post /chat/:roomName/announce': 'ChatController.announce',
+   'post /chat/announce': 'ChatController.announce'
 
 
 
