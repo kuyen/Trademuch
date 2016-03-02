@@ -1,30 +1,5 @@
 module.exports = {
 
-  chat: async(req, res) => {
-    try {
-
-      let loginState = await UserService.getLoginState(req);
-      console.log("==== user login status ===>", loginState);
-
-      let loginedUser, userFBId, targetId = req.param('id');
-
-      if (loginState) {
-        loginedUser = await UserService.getLoginUser(req);
-        userFBId = await UserService.getFBId(loginedUser.id);
-        console.log("==== logined User is ===>", loginedUser);
-      } // end if
-
-      res.view('chat', {
-        loginState: loginState,
-        loginedUser: loginedUser,
-        userFBId
-      });
-    } catch (e) {
-      res.serverError(e);
-    }
-  },
-
-
   create: async(req, res) => {
     try {
       console.log("==== postStory ===", req.body);

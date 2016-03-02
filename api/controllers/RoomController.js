@@ -1,5 +1,30 @@
 module.exports = {
 
+  //
+  chatView: async(req, res) => {
+    try {
+      let loginState = await UserService.getLoginState(req);
+      console.log("==== user login status ===>", loginState);
+
+      let loginedUser, userFBId, targetId = req.param('id');
+
+      if (loginState) {
+        loginedUser = await UserService.getLoginUser(req);
+        userFBId = await UserService.getFBId(loginedUser.id);
+        console.log("==== logined User is ===>", loginedUser);
+      } // end if
+
+      res.view('chat', {
+        loginState: loginState,
+        loginedUser: loginedUser,
+        userFBId
+      });
+    } catch (e) {
+      res.serverError(e);
+    }
+  },
+
+
   // List a chat room member and online count -- this is bound to 'get /room/:roomName/list'
   'list': async(req, res, next) => {
     if (_.isUndefined(req.param('roomName'))) {
