@@ -13,7 +13,7 @@ module.exports = {
 
       return res.ok(chat);
     } catch (e) {
-      res.serverError(e);
+      res.serverError(e.toString());
     }
   }, // end history
 

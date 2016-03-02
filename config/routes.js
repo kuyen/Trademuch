@@ -149,8 +149,9 @@
 
    'post /rest/image/upload': 'ImageController.upload',
 
+   //===================================================================
    // chatroom view
-   'get /chat/:id/page': 'PostController.chat',
+   'get /chat/:id/page': 'ChatController.chatView',
    // chatroom - RoomController
    'get /room/:roomName/users': 'RoomController.list',
    'post /room/:roomName/users': 'RoomController.join',
@@ -162,7 +163,9 @@
    'post /chat/:roomName/public': 'ChatController.public',
    'post /chat/:userId/private': 'ChatController.private',
    'post /chat/:roomName/announce': 'ChatController.announce',
+   'get /chat/:roomName/history': 'ChatController.history',
    'post /chat/announce': 'ChatController.announce'
+     //==================================================================
 
 
 
