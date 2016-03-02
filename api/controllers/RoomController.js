@@ -1,5 +1,35 @@
 module.exports = {
 
+  // List a chat room member and online count -- this is bound to 'get /room/:roomId/list'
+  'list': async(req, res, next) => {
+    if (_.isUndefined(req.param('roomId'))) {
+      return res.badRequest('`roomId` is required.');
+    }
+    if (!req.isSocket) {
+      return res.badRequest('This endpoints only supports socket requests.');
+    }
+
+    try {
+      let login = await UserService.getLoginState(req);
+      if (!login) {
+        return res.serverError('please log in.');
+      }
+
+      let room = await RoomService.list(req);
+
+      console.log('ListRoom', room);
+
+      return res.ok({
+        room
+      });
+
+    } catch (e) {
+      res.serverError(e.toString());
+    }
+
+  }, // end join
+
+
   // Join a chat room -- this is bound to 'post /room/:roomId/users'
   'join': async(req, res, next) => {
     if (_.isUndefined(req.param('roomId'))) {
@@ -14,58 +44,18 @@ module.exports = {
       if (!login) {
         return res.serverError('please log in.');
       }
-      //
-      // let user = await UserService.getLoginUser(req);
-      // let room = await Room.findOne({
-      //   where: {
-      //     'uuid': roomId
-      //   }
-      // });
-      // if (!room) {
-      //   room = await Room.create({
-      //     'uuid': roomId
-      //   });
-      // }
-      // await room.addUser(user.id);
-      //
-      // if (room.limit) {
-      //   sails.log.info("=== this room has meber limit ==>", room.limit);
-      //   let online = RoomUser.findAll({
-      //     where: {
-      //       'online': true,
-      //       'room_id': roomId
-      //     }
-      //   });
-      //   if (online > room.limit) {
-      //     sails.log.info("=== reach room online limit! ==");
-      //     return res.serverError('reach room online limit.');
-      //   }
-      // }
-      //
-      // sails.sockets.join(req, roomId, function(err) {
-      //   if (err) {
-      //     return res.serverError(err);
-      //   }
-      //   sails.sockets.broadcast(roomId, "join", {
-      //     'message': "Hello " + user.username
-      //   });
-      //   return res.ok({
-      //     room,
-      //     message: 'Subscribed to a fun room called ' + roomId + '!'
-      //   });
-      // });
 
-      let joinRoom = await RoomService.join(req);
+      let room = await RoomService.join(req);
 
-      console.log('joinRoom', joinRoom);
+      console.log('joinRoom', room);
 
       return res.ok({
-        joinRoom,
-        message: 'Subscribed to a fun room called ' + joinRoom.id + '!'
+        room,
+        message: 'Subscribed to a fun room id ' + room.id + '!'
       });
 
     } catch (e) {
-      res.serverError(e);
+      res.serverError(e.toString());
     }
 
   }, // end join
@@ -109,13 +99,13 @@ module.exports = {
       //   });
       // });
 
-      let leaveRoom = await RoomService.leave(req);
+      let room = await RoomService.leave(req);
 
-      console.log('leaveRoom', leaveRoom);
+      console.log('leaveRoom', room);
 
       return res.ok({
-        leaveRoom,
-        message: 'leaved room ' + leaveRoom.id + '!'
+        room,
+        message: 'leaved room ' + room.id + '!'
       });
 
     } catch (e) {
@@ -139,12 +129,12 @@ module.exports = {
         return res.serverError('please log in.');
       }
 
-      let limitedRoom = await RoomService.setLimit(req);
+      let room = await RoomService.setLimit(req);
 
-      console.log('limitedRoom', limitedRoom);
+      console.log('limitedRoom', room);
 
       return res.ok({
-        limitedRoom,
+        room,
         message: 'limit room `' + req.param('roomId') + '` member to `' + req.param('limit') + '`.'
       });
 

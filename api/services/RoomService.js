@@ -1,40 +1,153 @@
 module.exports = {
 
-  'join': async(req) => {
+  list: async(req) => {
     var socketId = sails.sockets.id(req);
     var roomId = req.param('roomId');
     try {
-      let user = await UserService.getLoginUser(req);
-      let room = await Room.findOne({
+      // check room exist or cteate a room.
+      let findRoom = await Room.findOne({
         where: {
           'uuid': roomId
         }
       });
-      if (!room) {
-        room = await Room.create({
+
+      if (!findRoom) {
+        throw Error('room `' + roomId + '` doesn`t exist!');
+      }
+
+      // get online list and count before add user into.
+      let online = await RoomUser.findAll({
+        where: {
+          room_id: findRoom.id,
+          online: true
+        }
+      });
+
+      // get users
+      let name, memberNames = [],
+        members = [];
+      for (let member of online) {
+        members.push(member.user_id);
+      }
+      for (let id of members) {
+        try {
+          name = await User.findOne({
+            where: {
+              id: id
+            }
+          })
+          memberNames.push(name);
+        } catch (e) {
+          throw (e);
+        }
+      }
+
+      let room = {
+        count: online.length,
+        members: memberNames
+      }
+
+      return room;
+
+    } catch (e) {
+      throw (e);
+    }
+  }, //end list
+
+
+  'join': async(req) => {
+    var socketId = sails.sockets.id(req);
+    var roomId = req.param('roomId');
+    var userId = req.param('userId');
+    var limit = req.param('limit') | 0;
+    var type = userId != undefined ? 'private' : 'public';
+    try {
+      // check room exist or cteate a room.
+      let findRoom = await Room.findOne({
+        where: {
           'uuid': roomId
+        }
+      });
+      if (!findRoom) {
+        findRoom = await Room.create({
+          'uuid': roomId,
+          'type': type,
+          'limit': limit
         });
       }
-      await room.addUser(user.id);
 
-      console.log('RoomService.join:user=>', user.username);
-      console.log('RoomService.join:room uuid=>', roomId);
-      console.log('RoomService.join:socketId=>', socketId);
-      console.log('RoomService.join:room id =>', room.id);
+      // get online list and count before add user into.
+      let online = await RoomUser.findAll({
+        where: {
+          room_id: findRoom.id,
+          online: true
+        }
+      });
 
-      if (room.limit || room.limit != 0) {
-        sails.log.info("=== this room has meber limit ==>", room.limit);
-        let online = RoomUser.findAll({
-          where: {
-            'online': true,
-            'room_id': roomId
-          }
-        });
-        if (online > room.limit) {
+      if (findRoom.limit || findRoom.limit != 0) {
+        sails.log.info("=== this room has meber limit ==>", findRoom.limit);
+        if (online.length >= findRoom.limit) {
           sails.log.info("=== reach room online limit! ==");
           throw Error('reach room online limit.');
         }
       }
+
+      // check if room exists user and the online state.
+      let user = await UserService.getLoginUser(req);
+      let findUser = await RoomUser.findOne({
+        where: {
+          'user_id': user.id
+        }
+      });
+      // change online state
+      if (findUser && findUser.online === false) {
+        findUser.online = true;
+        findUser = await findRoom.save();
+      } else {
+        await findRoom.addUser(user.id);
+      }
+
+      // get online list and count it again.
+      online = await RoomUser.findAll({
+        where: {
+          room_id: findRoom.id,
+          online: true
+        }
+      });
+
+      // get users
+      let name, memberNames = [],
+        members = [];
+      for (let member of online) {
+        members.push(member.user_id);
+      }
+      for (let id of members) {
+        try {
+          name = await User.findOne({
+            where: {
+              id: id
+            }
+          })
+          memberNames.push(name);
+        } catch (e) {
+          throw (e);
+        }
+      }
+
+      // merge room info
+      let room = {
+        id: findRoom.id,
+        uuid: findRoom.uuid,
+        type: findRoom.type,
+        limit: findRoom.limit,
+        members: memberNames,
+        count: online.length
+      };
+
+      console.log('RoomService.join:user=>', user.username);
+      console.log('RoomService.join:request room id=>', roomId);
+      console.log('RoomService.join:socketId=>', socketId);
+      console.log('RoomService.join:room =>', room);
 
       await sails.sockets.join(req, roomId, function(err) {
         if (err) {
@@ -48,7 +161,7 @@ module.exports = {
       return room;
 
     } catch (e) {
-      throw Error(e);
+      throw (e);
     }
 
   }, // end join
