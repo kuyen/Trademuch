@@ -18,5 +18,8 @@ module.exports = {
   },
   log: {
     level: 'verbose'
-  }
+  },
+  uploadImage: {
+    dirname: './.tmp/public/images/'
+  },
 };

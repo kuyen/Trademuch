@@ -38,14 +38,28 @@ ul#search-result {
 }
 .pc-man {
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px
 }
 .pc-man > p {
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
-  padding-bottom: 14px;
+  margin-bottom: 9px;
+  margin-top: auto;
+  /*padding-bottom: 14px;*/
 }
 
+.no-post > p {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 900;
+  /*padding-bottom: 14px;*/
+}
+
+.no-post > .button {
+  display: inline-block;
+}
 /* ----------- suggestion search keyword -------- */
 
 #searchView > .categories {
