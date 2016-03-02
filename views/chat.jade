@@ -10,17 +10,14 @@
   //- .page-content
   
   //- .page.toolbar-fixed
-  .page-content.messages-content(style="height: calc(100% - 70px);")
-      .messages
+  .page-content.messages-content
+      .messages(style="height: calc(90% - 70px);overflow-y: scroll;")
         .messages-date
           | Sunday, Feb 9 
           span 12:58
         |       
         .message.message-sent
           .message-text Hello
-        |       
-        .message.message-sent
-          .message-text How are you?
         |       
         .message.message-received
           .message-name Kate
@@ -49,22 +46,12 @@
           |         
           .message-avatar(style='background-image:url(http://lorempixel.com/output/people-q-c-100-100-9.jpg)')
           
-  script(type='text/javascript', src='/js/dependencies/sails.io.js')
+      .toolbar.messagebar
+        .toolbar-inner
+            textarea.text-left(placeholder='Message')
+            a.link(href='#') Send
+
+          
+  //- script(type='text/javascript', src='/js/dependencies/sails.io.js')
   script(type='text/javascript').
-      // `io` is available as a global.
-      // `io.socket` will connect automatically, but at this point in the DOM, it is not ready yet
-      // (think of $(document).ready() from jQuery)
-      //
-      // Fortunately, this library provides an abstraction to avoid this issue.
-      // Requests you make before `io` is ready will be queued and replayed automatically when the socket connects.
-      // To disable this behavior or configure other things, you can set properties on `io.sails`.
-      // You have one cycle of the event loop to set `io.sails.autoConnect` to false before the auto-connection
-      // behavior starts.
-      io.socket.get('/hello', function serverResponded (body, JWR) {
-      // JWR ==> "JSON WebSocket Response"
-      console.log('Sails responded with: ', body);
-      console.log('with headers: ', JWR.headers);
-      console.log('and with status code: ', JWR.statusCode);
-      // first argument `body` === `JWR.body`
-      // (just for convenience, and to maintain familiar usage, a la `JQuery.get()`)
-      });
+  
