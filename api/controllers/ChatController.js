@@ -1,5 +1,52 @@
 module.exports = {
 
+  // get chat history
+  history: async(req, res) => {
+    if (!req.isSocket) {
+      return res.badRequest('This endpoints only supports socket requests.');
+    }
+
+    try {
+      let chat = await ChatService.history(req);
+
+      console.log('chat history', chat);
+
+      return res.ok(chat);
+    } catch (e) {
+      res.serverError(e);
+    }
+  }, // end history
+
+  //
+  chatView: async(req, res) => {
+    try {
+      let loginState = await UserService.getLoginState(req);
+      console.log("==== user login status ===>", loginState);
+
+      let loginedUser, userFBId, chat,
+        targetId = req.param('id');
+
+      if (loginState) {
+        loginedUser = await UserService.getLoginUser(req);
+        userFBId = await UserService.getFBId(loginedUser.id);
+        console.log("==== logined User is ===>", loginedUser);
+      } // end if
+
+      // let chat = await ChatService.history(req);
+      // console.log('chat history', chat);
+
+      res.view('chat', {
+        loginState: loginState,
+        loginedUser: loginedUser,
+        userFBId,
+        chat
+      });
+    } catch (e) {
+      res.serverError(e.toString());
+    }
+  },
+
+
   // get client socket id
   getId: async(req, res) => {
     if (!req.isSocket) {
@@ -59,7 +106,7 @@ module.exports = {
         message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
       });
     } catch (e) {
-      res.serverError(e);
+      res.serverError(e.toString());
     }
   }, // end announce
 

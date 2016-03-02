@@ -1,8 +1,6 @@
 module.exports = {
 
-  list: async(req) => {
-    var socketId = sails.sockets.id(req);
-    var roomName = req.param('roomName');
+  list: async(roomName) => {
     try {
       // check room exist or cteate a room.
       let findRoom = await Room.findOne({

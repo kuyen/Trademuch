@@ -1,38 +1,15 @@
 module.exports = {
 
-  //
-  chatView: async(req, res) => {
-    try {
-      let loginState = await UserService.getLoginState(req);
-      console.log("==== user login status ===>", loginState);
-
-      let loginedUser, userFBId, targetId = req.param('id');
-
-      if (loginState) {
-        loginedUser = await UserService.getLoginUser(req);
-        userFBId = await UserService.getFBId(loginedUser.id);
-        console.log("==== logined User is ===>", loginedUser);
-      } // end if
-
-      res.view('chat', {
-        loginState: loginState,
-        loginedUser: loginedUser,
-        userFBId
-      });
-    } catch (e) {
-      res.serverError(e);
-    }
-  },
-
-
   // List a chat room member and online count -- this is bound to 'get /room/:roomName/list'
-  'list': async(req, res, next) => {
+  'list': async(req, res) => {
     if (_.isUndefined(req.param('roomName'))) {
       return res.badRequest('`roomName` is required.');
     }
     if (!req.isSocket) {
       return res.badRequest('This endpoints only supports socket requests.');
     }
+    var socketId = sails.sockets.id(req);
+    var roomName = req.param('roomName');
 
     try {
       let login = await UserService.getLoginState(req);
@@ -40,7 +17,7 @@ module.exports = {
         return res.serverError('please log in.');
       }
 
-      let room = await RoomService.list(req);
+      let room = await RoomService.list(roomName);
 
       console.log('ListRoom', room);
 
@@ -52,17 +29,22 @@ module.exports = {
       res.serverError(e.toString());
     }
 
-  }, // end join
+  }, // end list
 
 
   // Join a chat room -- this is bound to 'post /room/:roomName/users'
-  'join': async(req, res, next) => {
+  'join': async(req, res) => {
     if (_.isUndefined(req.param('roomName'))) {
       return res.badRequest('`roomName` is required.');
     }
     if (!req.isSocket) {
       return res.badRequest('This endpoints only supports socket requests.');
     }
+    var socketId = sails.sockets.id(req);
+    var roomName = req.param('roomName');
+    var userId = req.param('userId');
+    var limit = req.param('limit') | 0;
+    var type = userId != undefined ? 'private' : 'public';
 
     try {
       let login = await UserService.getLoginState(req);
