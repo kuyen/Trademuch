@@ -1,50 +1,64 @@
 module.exports = {
 
-  // get chat history
-  history: async(req, res) => {
-    if (!req.isSocket) {
-      return res.badRequest('This endpoints only supports socket requests.');
-    }
-
-    try {
-      let chat = await ChatService.history(req);
-
-      console.log('chat history', chat);
-
-      return res.ok(chat);
-    } catch (e) {
-      res.serverError(e.toString());
-    }
-  }, // end history
-
-  //
+  // send chat view
   chatView: async(req, res) => {
+    let socketId = sails.sockets.id(req);
+    let roomName = req.param('id');
+    sails.log.info('ChatController.chatView:roomName =>', roomName);
+
     try {
       let loginState = await UserService.getLoginState(req);
-      console.log("==== user login status ===>", loginState);
+      sails.log.info("==== user login status ===>", loginState);
 
-      let loginedUser, userFBId, chat,
-        targetId = req.param('id');
+      let history, user, userFBId, date, time;
 
       if (loginState) {
-        loginedUser = await UserService.getLoginUser(req);
-        userFBId = await UserService.getFBId(loginedUser.id);
-        console.log("==== logined User is ===>", loginedUser);
+        user = await UserService.getLoginUser(req);
+        userFBId = await UserService.getFBId(user.id);
+        user.fbId = userFBId;
+        sails.log.info("==== logined User is ===>", user);
+
+        history = await ChatService.history({
+          socketId,
+          roomName
+        });
+        sails.log.info('ChatController.history:history =>', JSON.stringify(history));
       } // end if
 
-      // let chat = await ChatService.history(req);
-      // console.log('chat history', chat);
-
       res.view('chat', {
-        loginState: loginState,
-        loginedUser: loginedUser,
-        userFBId,
-        chat
+        user,
+        history
       });
     } catch (e) {
       res.serverError(e.toString());
     }
   },
+
+
+  // get chat history
+  history: async(req, res) => {
+    if (!req.isSocket) {
+      return res.badRequest('This endpoints only supports socket requests.');
+    }
+    let socketId = sails.sockets.id(req);
+    let roomName = req.param('roomName');
+    let roomId = req.param('roomId') | 0;
+    sails.log.info('ChatController.history:roomName =>', roomName);
+    sails.log.info('ChatController.history:roomId =>', roomId);
+
+    try {
+      let history = await ChatService.history({
+        socketId,
+        roomName,
+        roomId
+      });
+      sails.log.info('ChatController.history:history =>', JSON.stringify(history));
+
+      return res.ok(history);
+    } catch (e) {
+      res.serverError(e.toString());
+    }
+  }, // end history
 
 
   // get client socket id
@@ -60,6 +74,7 @@ module.exports = {
       res.serverError(e.toString());
     }
   }, // end getId
+
 
   // Send global message
   announce: async(req, res) => {
@@ -114,7 +129,7 @@ module.exports = {
   // Send a private message from one user to another
   private: async(req, res) => {
     // Get the ID of the currently connected socket
-    var socketId = sails.sockets.getId(req.socket);
+    let socketId = sails.sockets.getId(req.socket);
     // Use that ID to look up the user in the session
     // We need to do this because we can have more than one user
     // per session, since we're creating one user per socket
@@ -129,6 +144,7 @@ module.exports = {
 
     });
   }, // end private
+
 
   // Post a message in a public chat room
   public: async(req, res) => {
@@ -152,11 +168,13 @@ module.exports = {
           return res.badRequest('please log in.');
         }
 
-        console.log('RoomService.public:room uuid=>', roomName);
-        console.log('RoomService.public:socketId=>', socketId);
-        console.log('RoomService.public:content=>', content);
+        sails.log.info('RoomService.public:room uuid=>', roomName);
+        sails.log.info('RoomService.public:socketId=>', socketId);
+        sails.log.info('RoomService.public:content=>', content);
 
         let user = await UserService.getLoginUser(req);
+        let userFBId = await UserService.getFBId(user.id);
+        user.fbId = userFBId;
         let room = await Room.findOne({
           where: {
             uuid: roomName
@@ -169,15 +187,16 @@ module.exports = {
           'type': 'public'
         });
 
-        console.log('RoomService.public:user=>', user.username);
+        sails.log.info('RoomService.public:user=>', user.username);
 
         sails.sockets.broadcast(roomName, "public", {
           'from': user,
           'msg': content
-        });
+        },req);
 
         return res.ok({
           chat,
+          user,
           message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
         });
       } catch (e) {

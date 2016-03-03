@@ -1,32 +1,83 @@
 module.exports = {
 
   // get chat history
-  history: async(req) => {
-    var socketId = sails.sockets.id(req);
-    var roomName = req.param('roomName');
-    var roomId = req.param('roomId');
+  history: async(data) => {
     try {
-      if(!roomId){
+
+      let history = {
+        empty: true
+      };
+
+      if (!data.roomId || data.roomId != 0) {
         let room = await Room.findOne({
-          where:{
-            uuid:roomName
+          where: {
+            uuid: data.roomName
           }
         });
         if (!room) {
-          throw Error('room `' + roomName + '` doesn`t exist.');
+          sails.log.info('room `' + data.roomName + '` doesn`t exist.');
+          return history;
         }
-        roomId = room.id;
+        data.roomId = room.id;
       }
-      let chat = await Chat.findAll({
+      sails.log.warn('data.roomId =>' + data.roomId);
+
+      let chats = await Chat.findAll({
         where: {
-          room_id: roomId
+          room_id: data.roomId
         }
-      })
-      if (!chat || !chat.length > 0) {
-        throw Error('room `' + roomName + '` has no history.');
+      });
+      if (!chats || chats.length == 0) {
+        sails.log.warn('room `' + data.roomName + '` has no history.');
+        return history;
       }
 
-      return chat;
+      history.empty = false;
+      let tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
+      let now = new Date(), nDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+      for (let chat of chats) {
+        tCal = new Date(chat.created_at.toString());
+        tDate = tCal.getFullYear() + "-" + (tCal.getMonth() + 1) + "-" + tCal.getDate();
+        tTime = tCal.getHours() + ":" + tCal.getMinutes();
+
+        if(nDate==tDate) tDate = "Today";
+
+        // find user
+        tUser = await User.findOne({
+          where: {
+            id: chat.user_id
+          }
+        });
+
+        // reassemble user info with fbId
+        tUser_fb = {
+          id: tUser.id,
+          email: tUser.email,
+          fullName: tUser.fullName,
+          gender: tUser.gender,
+          username: tUser.username,
+          telephone: tUser.telephone,
+          age: tUser.age
+        }
+        tUser_fb.fbId = await UserService.getFBId(tUser.id);
+
+        tResult = {
+          id: chat.id,
+          uuid: chat.uuid,
+          type: chat.type,
+          content: chat.content,
+          room_id: chat.room_id,
+          user: tUser_fb,
+          date: tDate,
+          time: tTime
+        }
+        result.push(tResult);
+
+        sails.log.error('result =>' + JSON.stringify(tResult));
+      }
+      history.result = result;
+
+      return history;
     } catch (e) {
       throw e;
     }

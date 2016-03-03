@@ -85,6 +85,7 @@ module.exports = {
 
   }, // end join
 
+
   // Leave a chat room -- this is bound to 'delete /room/:roomName/users'
   'leave': async(req, res, next) => {
     if (_.isUndefined(req.param('roomName'))) {
@@ -114,7 +115,7 @@ module.exports = {
         throw Error('leave room `' + roomName + '` failed.');
       }
 
-      await sails.sockets.leave(req, roomName, function(err) {
+      sails.sockets.leave(req, roomName, function(err) {
         if (err) {
           throw Error(err);
         }
