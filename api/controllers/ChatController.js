@@ -106,14 +106,14 @@ module.exports = {
       if (roomName) {
         sails.log.info("=== broadcast to roomName ==>", roomName);
         sails.sockets.broadcast(roomName, "announce", {
-          'from': user,
-          'msg': content
+          'user': user,
+          'content': content
         }, req);
       } else {
         sails.log.info("=== blast ===");
         sails.sockets.blast("announce", {
-          'from': user,
-          'msg': content
+          'user': user,
+          'content': content
         });
       }
 
@@ -126,7 +126,7 @@ module.exports = {
   }, // end announce
 
   // to-do todo wip
-  // Send a private message from one user to another
+  // Send a private message user one user to another
   private: async(req, res) => {
     // Get the ID of the currently connected socket
     let socketId = sails.sockets.getId(req.socket);
@@ -138,8 +138,8 @@ module.exports = {
       // room will be the socket that the user is on (subscription occurs in the onConnect
       // method of config/sockets.js), so only they will get this message.
       User.message(req.param('to'), {
-        from: sender,
-        msg: req.param('msg')
+        user: sender,
+        content: req.param('content')
       });
 
     });
@@ -190,8 +190,8 @@ module.exports = {
         sails.log.info('RoomService.public:user=>', user.username);
 
         sails.sockets.broadcast(roomName, "public", {
-          'from': user,
-          'msg': content
+          'user': user,
+          'content': content
         },req);
 
         return res.ok({

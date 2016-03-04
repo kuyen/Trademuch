@@ -34,13 +34,16 @@ module.exports = {
 
       history.empty = false;
       let tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
-      let now = new Date(), nDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+      let now = new Date(),
+        nDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+        
       for (let chat of chats) {
         tCal = new Date(chat.created_at.toString());
         tDate = tCal.getFullYear() + "-" + (tCal.getMonth() + 1) + "-" + tCal.getDate();
         tTime = tCal.getHours() + ":" + tCal.getMinutes();
 
-        if(nDate==tDate) tDate = "Today";
+        if (nDate == tDate) tDate = "Today";
+        if (nDate.split("-")[2] - tDate.split("-")[2] == 1) tDate = "Yesterday";
 
         // find user
         tUser = await User.findOne({

@@ -18,7 +18,7 @@ module.exports = {
       }
 
       let room = await RoomService.list(roomName);
-      console.log('ListRoom', room);
+      sails.log.info('ListRoom', room);
 
       return res.ok(
         room
@@ -59,7 +59,7 @@ module.exports = {
         limit,
         type
       });
-      console.log('joinRoom', room);
+      sails.log.info('joinRoom', room);
 
       if (!room) {
         throw Error('join room `' + roomName + '` failed.');
@@ -70,6 +70,7 @@ module.exports = {
           throw Error(err);
         }
         sails.sockets.broadcast(roomName, "join", {
+          room,
           'message': "Hello " + user.username
         });
       });
@@ -109,7 +110,7 @@ module.exports = {
         roomName,
         user
       });
-      console.log('leaveRoom', room);
+      sails.log.info('leaveRoom', room);
 
       if (!room) {
         throw Error('leave room `' + roomName + '` failed.');
@@ -120,7 +121,7 @@ module.exports = {
           throw Error(err);
         }
         sails.sockets.broadcast(roomName, "leave", {
-          'message': user + " has leaved."
+          'message': room.username + " has leaved."
         });
       });
 
@@ -159,7 +160,7 @@ module.exports = {
         roomName,
         limit
       });
-      console.log('limitedRoom', room);
+      sails.log.info('limitedRoom', room);
 
       return res.ok({
         room,
@@ -189,7 +190,7 @@ module.exports = {
 
         let roomLimit = await RoomService.getLimit(req);
 
-        console.log('roomLimit', roomLimit);
+        sails.log.info('roomLimit', roomLimit);
 
         return res.ok({
           roomLimit,

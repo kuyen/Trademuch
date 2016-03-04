@@ -1,5 +1,5 @@
 
-.page.toolbar-fixed.navbar-fixed.chat(data-page='chat', style="overflow-y: scroll;")
+.page.toolbar-fixed.navbar-fixed.chat(data-page='chat')
   .navbar
     .navbar-inner
       .left
@@ -9,26 +9,30 @@
           
   .toolbar.messagebar
     .toolbar-inner
-      textarea.text-left(placeholder='Message', maxlength=255)
+      textarea.text-left(placeholder='Message', maxlength=256)
       a.link(href='#') Send
       
   .page-content.messages-content
     .messages
       -if(history)
         -if(history.empty!=true)
+          -var second=false;
+          -var tDate="";
           each chat,index in history.result 
-            -console.log("!!!!!!!!!!!! index",index);
-            -var tDate=chat.date;
-            -var second=false;
-            -if( index>1 && tDate!=chat.date ) second=true;
-            -if(chat.user.id==user.id)
+            -console.log("!!!!!!!!!!!! chat.jade load index=>",index);
+            
+            -if( index>0 ) tDate = history.result[index-1].date
+              -if( tDate!=chat.date ) second=true;
+              -else second=false;
+            
+            -if( chat.user.id == user.id )
               -if( index==0 || second )
                 .messages-date
                   | #{chat.date} ,
                   span #{chat.time}
               .message.message-sent
-                .message-text #{chat.content}
-                .message-avatar(style='background-image:url("//graph.facebook.com/" + chat.user.fbId + "/picture?type=large)"')
+                .message-text(data-date="#{chat.date}",data-time="#{chat.time}") #{chat.content}
+                .message-avatar(style='background-image:url("//graph.facebook.com/'+ chat.user.fbId + '/picture?type=small")')
             -else   
               -if( index==0 || second )
                 .messages-date
@@ -36,8 +40,8 @@
                   span #{chat.time}
               .message.message-received
                 .message-name #{chat.user.username}
-                .message-text #{chat.content}
-                .message-avatar(style='background-image:url("//graph.facebook.com/" + chat.user.fbId + "/picture?type=large)"')
+                .message-text(data-date="#{chat.date}",data-time="#{chat.time}") #{chat.content}
+                .message-avatar(style='background-image:url("//graph.facebook.com/'+ chat.user.fbId + '/picture?type=small")')
 
   .info 
     -if(user.fbId)
