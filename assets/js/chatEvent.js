@@ -227,7 +227,7 @@ function initMessager() {
           time: false
         })
       });
-      return false;
+      return false;ㄉ
     }
 
     //public
