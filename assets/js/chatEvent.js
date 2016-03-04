@@ -71,7 +71,6 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
   io.socket.on('join', function(data) {
     console.log('join =>', data);
 
-    initMsg(data);
     // Add message
     window.myMessages.addMessage({
       // Message text
@@ -135,37 +134,6 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
 });
 
 
-function initMsg(roomInfo) {
-  // say something
-  var users = "";
-  for (var i = 0; i < roomInfo.room.users.length; i++) {
-    users += roomInfo.room.users[i].username + "/";
-    console.log("roomInfo.room.users[i]=>", roomInfo.room.users[i]);
-  }
-  console.log("users=>", users);
-  var msg =
-    "\n\n線上人數：" + roomInfo.room.count +
-    "\n人數限制：" + roomInfo.room.limit +
-    "\n編號：" + roomInfo.room.id +
-    "\n狀態：" + roomInfo.room.state +
-    "\n類型：" + roomInfo.room.type +
-    "\n線上名單：" + users;
-
-  // Add message
-  window.myMessages.addMessage({
-    // Message text
-    text: msg,
-    type: "received",
-    // Avatar and name:
-    avatar: '/img/chat＿60x60.png',
-    name: "TradeMuch Bot",
-    // Day
-    day: false,
-    time: false
-  })
-}
-
-
 function initMessager() {
 
   // Conversation flag
@@ -193,6 +161,7 @@ function initMessager() {
   $$('.messagebar .link').on('click', function() {
     // Message text
     var messageText = myMessagebar.value().trim();
+
     if (messageText.indexOf("</") != -1) {
       var tmp = messageText.split("</");
       messageText = "";
@@ -200,6 +169,7 @@ function initMessager() {
         messageText += tmp[i];
       }
     }
+
     // Exit if empy message
     if (messageText.length === 0) return;
 
@@ -222,6 +192,43 @@ function initMessager() {
     // }
 
     var postId = window.location.pathname.split("/")[3];
+
+    // get room info
+    if (messageText.indexOf("/list") != -1) {
+      //list
+      io.socket.get('/room/' + postId + '/users', function(data, sailsResponseObject) {
+        console.log('Sails responded with: ', data);
+        console.log('and with status code: ', sailsResponseObject.statusCode);
+
+        var users = "";
+        for (var i = 0; i < data.users.length; i++) {
+          users += data.users[i].username + "/";
+          console.log("data.users[i]=>", data.users[i]);
+        }
+        console.log("users=>", users);
+        var msg =
+          "\n\n線上人數：" + data.count +
+          "\n人數限制：" + data.limit +
+          "\n編號：" + data.id +
+          "\n狀態：" + data.state +
+          "\n類型：" + data.type +
+          "\n線上名單：" + users;
+
+        // Add message
+        window.myMessages.addMessage({
+          // Message text
+          text: msg,
+          type: "received",
+          // Avatar and name:
+          avatar: '/img/chat＿60x60.png',
+          name: "TradeMuch Bot",
+          // Day
+          day: false,
+          time: false
+        })
+      });
+      return false;
+    }
 
     //public
     io.socket.post('/chat/' + postId + '/public', {

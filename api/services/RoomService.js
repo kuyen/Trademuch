@@ -13,7 +13,7 @@ module.exports = {
         throw Error('room `' + roomName + '` doesn`t exist!');
       }
 
-      // get online list and count before add user into.
+      // get online list and count it again.
       let online = await RoomUser.findAll({
         where: {
           room_id: findRoom.id,
@@ -22,20 +22,25 @@ module.exports = {
       });
 
       // get users
-      let name, members = [];
+      let name, users = [];
       for (let member of online) {
-        members.push(member.user_id);
+        users.push(member.user_id);
       }
-      members = await User.findAll({
+      users = await User.findAll({
         where: {
-          id: members
+          id: users
         }
       });
 
+      // merge room info
       let room = {
+        id: findRoom.id,
+        uuid: findRoom.uuid,
+        type: findRoom.type,
+        limit: findRoom.limit,
         count: online.length,
-        members: members
-      }
+        users: users
+      };
 
       return room;
 
@@ -108,13 +113,13 @@ module.exports = {
       });
 
       // get users
-      let name, members = [];
+      let name, users = [];
       for (let member of online) {
-        members.push(member.user_id);
+        users.push(member.user_id);
       }
-      members = await User.findAll({
+      users = await User.findAll({
         where: {
-          id: members
+          id: users
         }
       });
 
@@ -124,8 +129,8 @@ module.exports = {
         uuid: findRoom.uuid,
         type: findRoom.type,
         limit: findRoom.limit,
-        users: members,
         count: online.length,
+        users: users,
         state: newRoom ? "new" : "join"
       };
 
