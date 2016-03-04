@@ -17,7 +17,7 @@ describe('about Flickr Service operation.', function() {
   });
 
 
-  describe('update lile item', () => {
+  describe.skip('update lile item', () => {
 
     it('getty search', async (done) => {
       try {
