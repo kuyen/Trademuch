@@ -124,7 +124,7 @@ module.exports = {
         uuid: findRoom.uuid,
         type: findRoom.type,
         limit: findRoom.limit,
-        members: members,
+        users: members,
         count: online.length,
         state: newRoom ? "new" : "join"
       };

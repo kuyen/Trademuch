@@ -71,7 +71,7 @@ module.exports = {
         }
         sails.sockets.broadcast(roomName, "join", {
           room,
-          'message': "Hello " + user.username
+          'message': user.username + " join"
         });
       });
 
@@ -121,7 +121,8 @@ module.exports = {
           throw Error(err);
         }
         sails.sockets.broadcast(roomName, "leave", {
-          'message': room.username + " has leaved."
+          room,
+          'message': room.user.username + " leaved."
         });
       });
 
