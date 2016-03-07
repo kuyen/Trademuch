@@ -1,6 +1,3 @@
-// disable websocket autoConnect.
-io.sails.autoConnect = false;
-
 //
 var myApp = new Framework7({
   init: false,

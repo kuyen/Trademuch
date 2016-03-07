@@ -34,8 +34,8 @@ var jsFilesToInject = [
   // Load sails.io before everything else
   // Dependencies like jQuery, or Angular are brought in here
   // 'js/dependencies/**/*.js',
-  'js/dependencies/sails.io.js',
   'bower/**/*.js',
+  'js/dependencies/sails.io.js',
   'js/*.js',
   '!/bower/jquery/jquery.js',
   "!/bower/bootstrap-sass/bootstrap.js",
@@ -44,6 +44,7 @@ var jsFilesToInject = [
   // '!bower/framework7/js/*.js',
   '!bower/framework7/js/my-app.js',
   '!/bower/sails.io.js',
+  '!/bower/sails.io.js/sails.io.js',
   '!/bower/platform.js',
   '!/bower/platform/*.js',
   '!/bower/platform.js/*.js',
