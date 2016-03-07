@@ -36,23 +36,18 @@ module.exports = {
       let tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
       // let now = new Date(),
       //   nDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-      let nDate = sails.moment("YYYY-MM-DD");
+      let nDate = sails.moment().format("YYYY-MM-DD");
 
       for (let chat of chats) {
         tCal = sails.moment(chat.created_at.toString());
         // tDate = tCal.getFullYear() + "-" + (tCal.getMonth() + 1) + "-" + tCal.getDate();
         // tTime = tCal.getHours() + ":" + tCal.getMinutes();
-        tDate = sails.moment(tCal, "YYYY-MM-DD");
-        tTime = sails.moment(tCal, "HH:mm");
-
-                        console.log("!!!!!!!!!!! tCal=>",tCal);
-                                        console.log("!!!!!!!!!!! tDate=>",tDate);
-                        console.log("!!!!!!!!!!! tTime=>",tTime);
+        tDate = sails.moment(tCal).format("YYYY-MM-DD");
+        tTime = sails.moment(tCal).format("HH:mm");
 
         if (nDate == tDate) tDate = "Today";
         if (nDate.toString().split("-")[2] - tDate.toString().split("-")[2] == 1) tDate = "Yesterday";
 
-                console.log("!!!!!!!!!!! nDate=>",nDate);
         // find user
         tUser = await User.findOne({
           where: {

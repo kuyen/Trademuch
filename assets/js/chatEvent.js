@@ -1,12 +1,12 @@
 // when page onload
 myApp.onPageBack('chat', function(page) {
-  console.log("onPageBeforeRemove=>", page);
+  console.log("onPageBack=>", page);
   offline();
 });
 
 window.onbeforeunload = function() {
   offline();
-}
+};
 
 function offline() {
   conversationStarted = false;
@@ -21,6 +21,12 @@ function offline() {
     console.log('Sails responded with: ', body);
     console.log('and with status code: ', sailsResponseObject.statusCode);
   });
+
+  if (chat.isConnected()) {
+    chat.disconnect();
+    chat = null;
+      // chat.removeAllListeners();
+  }
 }
 
 // // before page fully loaded
@@ -44,29 +50,30 @@ function offline() {
 //   myApp.showIndicator();
 // });
 
-// disable websocket autoConnect.
-io.sails.autoConnect = false;
-//
-var port = window.location.port == "1337" ? ":" + "1337" : "";
-var url = window.location.protocol + "//" + window.location.hostname + port;
-io.sails.url = url;
-var chat = io.sails.connect(url);
+var chat, myMessages, roomInfo, conversationStarted;
+// when page loaded
+var initPage = myApp.onPageAfterAnimation('chat', function(page) {
 
+  window.myApp.hideIndicator();
 
-// listen event join
-chat.on('connect', function(data) {
-  console.log('connect =>', data);
+  // "page" variable contains all required information about loaded and initialized page
+  console.log("onPageAfterAnimation=>", page);
 
+  // disable websocket autoConnect.
+  io.sails.autoConnect = false;
+  //
+  var port = window.location.port == "1337" ? ":" + "1337" : "";
+  var url = window.location.protocol + "//" + window.location.hostname + port;
+  io.sails.url = url;
+  if (!chat) {
+    chat = io.sails.connect(url);
+  }else{
+    if(chat.isConnected()) chat = io.sails.reconnect();
+  }
 
-
-  var myMessages, roomInfo, conversationStarted;
-  // when page loaded
-  var initPage = myApp.onPageAfterAnimation('chat', function(page) {
-
-    window.myApp.hideIndicator();
-
-    // "page" variable contains all required information about loaded and initialized page
-    console.log("onPageAfterAnimation=>", page);
+  // listen event join
+  chat.on('connect', function(data) {
+    console.log('connect =>', data);
 
     // reassemble post id
     var postId = window.location.pathname.split("/")[3];
