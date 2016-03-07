@@ -44,9 +44,9 @@ function offline() {
 //   myApp.showIndicator();
 // });
 
+var socket = io.sails.connect(window.location.origin);
 
-
-var myMessages, roomInfo;
+var myMessages, roomInfo, conversationStarted;
 // when page loaded
 var initPage = myApp.onPageAfterAnimation('chat', function(page) {
 
@@ -227,7 +227,8 @@ function initMessager() {
           time: false
         })
       });
-      return false;ㄉ
+      return false;
+      ㄉ
     }
 
     //public
