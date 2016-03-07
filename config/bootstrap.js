@@ -10,9 +10,11 @@
  */
 
 let init = require('./init');
+import moment from "moment";
 
-module.exports.bootstrap = async (cb) => {
+module.exports.bootstrap = async(cb) => {
   try {
+    sails.moment = moment;
     sails.services.passport.loadStrategies();
     await init.basicData();
     cb();

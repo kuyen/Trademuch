@@ -17,7 +17,7 @@ module.exports = {
       var keyword = req.param('keyword');
       console.log("==== getPostByKeyword ===", keyword);
       let items = await PostService.getPostByKeyword(keyword);
-      console.log("=== item[0] ===\n",items[0]);
+      console.log("=== item[0] ===\n", items[0]);
       res.ok({
         items
       });
@@ -33,17 +33,19 @@ module.exports = {
       let loginedUser, favorites;
       let userLogin = await UserService.getLoginState(req);
       let isFav = false;
-      if(userLogin){
+      if (userLogin) {
         loginedUser = await UserService.getLoginUser(req);
         // console.log("==== logined User is ===>", loginedUser);
-        favorites = await FavoriteService.get({userId:loginedUser.id});
+        favorites = await FavoriteService.get({
+          userId: loginedUser.id
+        });
         // console.log("==== user favorites are ===>", favorites);
-        result.data.forEach(function(post,index){
-          favorites.forEach(function(fav){
-            if(post.id===fav.id) post.isFav = true;
+        result.data.forEach(function(post, index) {
+          favorites.forEach(function(fav) {
+            if (post.id === fav.id) post.isFav = true;
             // console.log("index",index);
           }); // end forEach
-        });// end forEach
+        }); // end forEach
       } // end if
       res.ok(result);
     } catch (e) {

@@ -32,17 +32,29 @@ var cssFilesToInject = [
 var jsFilesToInject = [
 
   // Load sails.io before everything else
-  '!js/dependencies/sails.io.js',
   // Dependencies like jQuery, or Angular are brought in here
   // 'js/dependencies/**/*.js',
   'bower/**/*.js',
+  'js/dependencies/sails.io.js',
   'js/*.js',
   '!/bower/jquery/jquery.js',
   "!/bower/bootstrap-sass/bootstrap.js",
   "!/bower/bootstrap/bootstrap.js",
   '!bower/framework7/js/framework7.min.js',
-  '!bower/framework7/js/my-app.js',
   // '!bower/framework7/js/*.js',
+  '!bower/framework7/js/my-app.js',
+  '!/bower/sails.io.js',
+  '!/bower/sails.io.js/sails.io.js',
+  '!/bower/platform.js',
+  '!/bower/platform/*.js',
+  '!/bower/platform.js/*.js',
+  '!/bower/scream/*.js',
+  '!/bower/scream/dist/*.js',
+  '!/bower/scream/src/*.js',
+  '!/bower/brim/*.js',
+  '!/bower/brim/src/*.js',
+  '!/bower/brim/dist/*.js',
+  '!/bower/brim/tests/*.js',
   '!js/map/*.js',
   '!js/landing/*.js'
   // Use the "exclude" operator to ignore files
