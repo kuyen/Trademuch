@@ -29,6 +29,8 @@ form .row {
 }
 img.category {
   width: 100%;
+  border: 0;
+  vertical-align: middle;
 }
 #storyDetail .row {
   margin: 5px;
@@ -97,15 +99,26 @@ img.category {
     background-size: 100% 100%;
   }
 }
+.content-block.nologin {
+  width: 100%;
+  height: 80%;
+  vertical-align: middle;
+}
 #greeting {
-  padding: 10%;
-  margin-top: 20%;
+  margin: 0 auto;
+  padding: 10% 0 15% 0;
   color: #fff;
+  width: 60%;
 }
 #greeting .button {
-  margin-right: 30%;
-  margin-left: 30%;
+  margin: 0 auto;
   opacity: 1;
+  height: 50px;
+  line-height: 50px;
+  width: 60%;
+}
+#greeting .button > p {
+  margin: 0 auto;
 }
 #greeting input {
   text-align: center;
@@ -120,6 +133,9 @@ img.category {
 .item-input.StoryPrice > input {
   width: auto;
 }
+.item-title.label.black {
+  text-align: left;
+}
 #storyDetailChoose span.money {
   padding-right: 20px;
   padding-left: 50px;
@@ -129,7 +145,8 @@ img.category {
   text-indent: calc(50% - 25px);
 }
 #storyDetailChoose [name=title] {
-  font-size: 25px;
+  font-size: 22px;
+  float: left;
 }
 #storyModeChoose {
   height: 100%;

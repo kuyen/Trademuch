@@ -15,7 +15,8 @@
 
 ul#search-result {
   margin-top: 120px;
-  margin-bottom: -90px;
+  margin-bottom: auto;
+  /*margin-bottom: -90px;*/
 }
 #formSearch.searchbar {
   position: fixed;
@@ -37,14 +38,28 @@ ul#search-result {
 }
 .pc-man {
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px
 }
 .pc-man > p {
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
-  padding-bottom: 14px;
+  margin-bottom: 9px;
+  margin-top: auto;
+  /*padding-bottom: 14px;*/
 }
 
+.no-post > p {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 900;
+  /*padding-bottom: 14px;*/
+}
+
+.no-post > .button {
+  display: inline-block;
+}
 /* ----------- suggestion search keyword -------- */
 
 #searchView > .categories {
@@ -53,7 +68,7 @@ ul#search-result {
   z-index: 999;
   top: 135px;
   padding: 6px;
-  width: 100%;
+  width: calc(100% - 12px);
   background-color: #fff;
   /* for safira z-index bug */
   -webkit-transform: translateZ(1px);

@@ -31,7 +31,7 @@
     * `assets` directory)                                                      *
     *                                                                          *
     ***************************************************************************/
-   '/public':{
+   '/public': {
      view: 'landing'
    },
 
@@ -43,70 +43,131 @@
      view: 'map'
    },
 
-   '/': 'UserController.pcOrMobile',
-
    '/storyDetail': {
      view: 'storyDetail'
    },
 
-   '/TermService' : {
+   '/TermService': {
      view: 'TermService'
    },
 
-   '/PrivacyPolicy' : {
+   '/PrivacyPolicy': {
      view: 'PrivacyPolicy'
    },
 
-   '/Specification' : {
+   '/Specification': {
      view: 'Specification'
    },
 
-   '/learnMore' : {
+   '/learnMore': {
      view: 'learnMore'
    },
 
-   'get /login': 'AuthController.login',
-   'get /logout': 'AuthController.logout',
-   'get /register': 'AuthController.register',
+   //  'get /login': 'AuthController.login',
+   //  'get /logout': 'AuthController.logout',
+   //  'get /register': 'AuthController.register',
+   //
+   //  'get /auth/status': 'AuthController.status',
 
-   'get /auth/status': 'AuthController.status',
+   //  'post /auth/local': 'AuthController.callback',
+   //  'post /auth/local/:action': 'AuthController.callback',
 
-   'post /auth/local': 'AuthController.callback',
-   'post /auth/local/:action': 'AuthController.callback',
+   //  'get /auth/:provider': 'AuthController.provider',
+   //  'get /auth/:provider/callback': 'AuthController.callback',
+   //  'get /auth/:provider/:action': 'AuthController.callback',
 
-   'get /auth/:provider': 'AuthController.provider',
-   'get /auth/:provider/callback': 'AuthController.callback',
-   'get /auth/:provider/:action': 'AuthController.callback',
+   //  /rest/{controllers}/{action}
+   //  'post /updateHobbyAndMail': 'UserController.update',
+   //  'get /hobby': 'FrontUserController.hobby',
+   //  'get /main': 'MainController.index',
+   //  'get /story': 'PostController.create',
+   //  'get /storyCategory': 'FrontPostController.createCategory',
+   //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
+   //  'post /getAllPost': 'PostController.getAll',
+   // /rest/post/list
+   //  'post /postStory': 'PostController.create',
+   //  'get /postDetail/:id': 'FrontPostController.show',
+   //  'get /postDetailf7/:id': 'FrontPostController.showF7',
+   //  'post /addUserFavorite/:id': 'FavoriteController.create',
+   //  'post /delUserFavorite/:id': 'FavoriteController.delete',
+   //  'get /getUserFavorites': 'FavoriteController.get',
+   //  'get /favorites': 'FrontUserController.favorites',
+   //  'get /profile': 'FrontUserController.profile',
 
-   'post /updateHobbyAndMail': 'UserController.updateHobbyAndMail',
-   'get /hobby': 'UserController.hobbyView',
-
-   'get /main': 'UserController.index',
-   'get /story': 'PostController.story',
-   'get /storyCategory': 'PostController.storyCategory',
-   'get /storyDetail/:id': 'PostController.getStoryCategoryItemById',
-   'post /getAllPost': 'PostController.getAllPost',
-   'post /postStory': 'PostController.postStory',
-   'get /postDetail/:id': 'PostController.getPostById',
-   'get /postDetailf7/:id': 'PostController.getF7ViewPostById',
-
-   'post /addUserFavorite/:id': 'UserController.addUserFavorite',
-   'post /delUserFavorite/:id': 'UserController.delUserFavorite',
-   'get /getUserFavorites': 'UserController.getUserFavorites',
-   'get /favorites': 'UserController.getFavoriteView',
-   'get /profile': 'UserController.getProfileView',
 
 
    // image
    'get /testUpload': 'ImageController.index',
    'post /api/uploadImage': 'ImageController.upload',
-   'post /api/uploadImageBase64': 'ImageController.uploadBase64',
+   'post /api/uploadImageBase64': 'ImageController.upload',
 
    // search
    'get /search': {
      view: 'search'
    },
-   'get /search/:keyword': 'PostController.getPostByKeyword'
+   //  'get /search/:keyword': 'PostController.search',
+
+
+   // view
+   'get /': 'MainController.pcOrMobile',
+   'get /app': 'MainController.index',
+   'get /app/*': 'MainController.index',
+
+   'get /user/hobby': 'FrontUserController.hobby',
+   'get /user/favorites': 'FrontUserController.favorites',
+   'get /user/profile': 'FrontUserController.profile',
+
+   'get /post/create/Category': 'FrontPostController.createCategory',
+   'get /post/create': 'FrontPostController.createByCategoryId',
+   'get /post/:id': 'FrontPostController.show',
+   'get /post/f7/:id': 'FrontPostController.showF7',
+
+   //  api
+   //  'get  /rest/auth/login': 'AuthController.login',
+   //  'get  /rest/auth/logout': 'AuthController.logout',
+   //  'get  /rest/auth/register': 'AuthController.register',
+   //  'get  /rest/auth/status': 'AuthController.status',
+   'post /rest/auth/local': 'AuthController.callback',
+   'post /rest/auth/local/:action': 'AuthController.callback',
+   'get  /rest/auth/:provider': 'AuthController.provider',
+   'get  /rest/auth/:provider/callback': 'AuthController.callback',
+   'get  /rest/auth/:provider/:action': 'AuthController.callback',
+
+   'put  /rest/user': 'UserController.update',
+   // 待捕齊
+   // get /rest/user/:id': 'UserController.find',
+
+   'get  /rest/favorites': 'FavoriteController.get',
+   'post /rest/favorite/:id': 'FavoriteController.create',
+   'delete /rest/favorite/:id': 'FavoriteController.delete',
+
+   'post /rest/post/create': 'PostController.create',
+   'get  /rest/post': 'PostController.getAll',
+   'get  /rest/post/search/:keyword': 'PostController.search',
+   // 待捕齊
+   // get /rest/post/:id': 'PostController.find',
+
+   'post /rest/image/upload': 'ImageController.upload',
+
+   //===================================================================
+   // chatroom view
+   'get /chat/:id/page': 'ChatController.chatView',
+   // chatroom - RoomController
+   'get /room/:roomName/users': 'RoomController.list',
+   'post /room/:roomName/users': 'RoomController.join',
+   'put /room/:roomName/limit': 'RoomController.setLimit',
+   'get /room/:roomName/limit': 'RoomController.getLimit',
+   'delete /room/:roomName/users': 'RoomController.leave',
+   // chatroom - ChatController
+   'get /chat/me': 'ChatController.getId',
+   'post /chat/:roomName/public': 'ChatController.public',
+   'post /chat/:userId/private': 'ChatController.private',
+   'post /chat/:roomName/announce': 'ChatController.announce',
+   'get /chat/:roomName/history': 'ChatController.history',
+   'post /chat/announce': 'ChatController.announce'
+     //==================================================================
+
+
 
    /***************************************************************************
     *                                                                          *

@@ -22,53 +22,75 @@ module.exports.policies = {
   'AuthController': {
     '*': ['passport']
   },
-  'UserController': {
+  'MainController': {
     'index': [],
+    'pcOrMobile': [],
+  },
+  'UserController': {
     'find': [],
-    'pcOrMobile':[],
-    'updateHobbyAndMail': [],
-    'hobbyView': ['sessionAuth'],
-    'addUserFavorite': [],
-    'delUserFavorite': ['sessionAuth'],
-    'getUserFavorites':['sessionAuth']
+    'update': [],
+  },
+  'FrontUserController': {
+    'hobby': ['sessionAuth'],
+  },
+  'FavoriteController': {
+    'show': [],
+    'create': ['sessionAuth'],
+    'delete': ['sessionAuth']
   },
   'PostController': {
+    'getAll': [],
+    'create': [],
+    'search': [],
+  },
+  'FrontPostController': {
     'story': ['sessionAuth'],
-    'getAllPost': [],
-    'postStory': [],
     'getPostById': [],
-    'getPostByKeyword': []
+    'getPostByKeyword': [],
+    'show': [],
+    'showF7': []
   },
   'ImageController': {
     'upload': []
+  },
+  'ChatController': {
+    'public': ['sessionAuth'],
+    'private': ['sessionAuth']
+  },
+  'RoomController': {
+    'join': ['sessionAuth'],
+    'setLimit': ['sessionAuth'],
+    'getLimit': ['sessionAuth'],
+    'leave': ['sessionAuth'],
+    'show': ['sessionAuth']
   }
   /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
-  * access)                                                                  *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Default policy for all controllers and actions (`true` allows public     *
+   * access)                                                                  *
+   *                                                                          *
+   ***************************************************************************/
 
   // '*': true,
 
   /***************************************************************************
-  *                                                                          *
-  * Here's an example of mapping some policies to run before a controller    *
-  * and its actions                                                          *
-  *                                                                          *
-  ***************************************************************************/
-	// RabbitController: {
+   *                                                                          *
+   * Here's an example of mapping some policies to run before a controller    *
+   * and its actions                                                          *
+   *                                                                          *
+   ***************************************************************************/
+  // RabbitController: {
 
-		// Apply the `false` policy as the default for all of RabbitController's actions
-		// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-		// '*': false,
+  // Apply the `false` policy as the default for all of RabbitController's actions
+  // (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
+  // '*': false,
 
-		// For the action `nurture`, apply the 'isRabbitMother' policy
-		// (this overrides `false` above)
-		// nurture	: 'isRabbitMother',
+  // For the action `nurture`, apply the 'isRabbitMother' policy
+  // (this overrides `false` above)
+  // nurture	: 'isRabbitMother',
 
-		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-		// before letting any users feed our rabbits
-		// feed : ['isNiceToAnimals', 'hasRabbitFood']
-	// }
+  // Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
+  // before letting any users feed our rabbits
+  // feed : ['isNiceToAnimals', 'hasRabbitFood']
+  // }
 };

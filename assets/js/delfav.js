@@ -1,10 +1,10 @@
-$("body").delegate(".favboxa", "click", function() {
-  var delfav = $(this);
+$$("body").on("click", ".favboxa", function() {
+  var delfav = $$(this);
   var id = delfav.attr("data-id");
   console.log("favboxa id=>",id);
-  $.ajax({
-    url: "/delUserFavorite/" + id,
-    type: "POST",
+  $$.ajax({
+    url: "/rest/favorite/" + id,
+    type: "DELETE",
     success: function(result) {
       console.log(result);
       delfav.children().css("color","white");

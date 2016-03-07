@@ -1,5 +1,6 @@
 module.exports = {
   attributes: {
+
     protocol: Sequelize.STRING,
     password: Sequelize.STRING,
     accessToken: Sequelize.STRING,
@@ -19,10 +20,23 @@ module.exports = {
         console.log('value', value);
         return this.setDataValue('tokens', JSON.stringify(value));
       }
+    },
+    UserId: {
+      type: Sequelize.UUID,
+      field: 'user_id'
+    },
+    createdAt: {
+      type: Sequelize.DATE,
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      field: 'updated_at'
     }
+
   },
   associations: function() {
-    Passport.belongsTo(User);
+    Passport.belongsTo(User, {through: 'user_id'});
   },
   options: {
     classMethods: {},
@@ -34,6 +48,7 @@ module.exports = {
         return next(null, false);
       }
     },
-    hooks: {}
+    hooks: {},
+    tableName: 'passport'
   }
 }

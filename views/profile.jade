@@ -11,15 +11,15 @@
           .item-inner
             .item-title-row
               .item-title.profile-name #{profile.name}
-            .item-subtitle 
-              .row
-                span Like
-                span Post
-                span Activity
-              .row
-                span #{profile.favCount}
-                span #{profile.postCount}
-                span #{profile.activity}
+            .item-subtitle
+              .row.center
+                .col-33 Like
+                .col-33 Post
+                .col-33 Activity
+              .row.center
+                .col-33 #{profile.favCount}
+                .col-33 #{profile.postCount}
+                .col-33 #{profile.activity}
                 
 .card(style="margin-top:-50px;")
   .card-content 
@@ -29,20 +29,21 @@
       -var i=0
        each post in profile.allUserPost
         -i++
-         li.swipeout
+        -console.log(post)
+         li.swipeout(data-id=post.dataValues.id)
              .swipeout-content
-               .item-content
+               .item-content.prodList
                  .item-media
                    //- img(src=post.gallery[0], width='80')
                    -if(i<=5)
-                      img(src=post.dataValues.images, width='80', height='80')
+                      img(src=post.dataValues.coverImage, width='80', style="overflow: hidden;")
                    -else 
-                      img.lazy.lazy-fadeIn(data-src=post.dataValues.images, width='80')
+                      img.lazy.lazy-fadeIn(data-src=post.dataValues.coverImage, width='80', style="overflow: hidden;")
                  .item-inner
                    .item-title-row
                      .item-title 
-                       a.link(href='/postDetailf7/#{post.dataValues.id}') #{post.dataValues.title}
-                   .item-subtitle NT$#{post.dataValues.price}
+                       a.link(href='/post/f7/#{post.dataValues.id}') #{post.dataValues.title}
+                  //-  .item-subtitle NT$#{post.dataValues.price}
              .swipeout-actions-right
                a.bg-pink.deletelike(href='#', data-id='#{post.dataValues.id}')
                  img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")

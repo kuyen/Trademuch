@@ -1,6 +1,4 @@
 
-import config from '../../config/local'
-
 var self = module.exports = {
   index: async (req,res) => {
     res.writeHead(200, {'content-type': 'text/html'});
@@ -12,11 +10,11 @@ var self = module.exports = {
     '</form>'
     )
   },
-  upload: async  (req, res) => {
+  uploadOld: async  (req, res) => {
     try {
 
       let promise = new Promise((resolve, reject) => {
-        req.file('image').upload(config.uploadImage, async (err, files) => {
+        req.file('image').upload(sails.config.uploadImage, async (err, files) => {
           resolve(files);
         });
       });
@@ -40,7 +38,7 @@ var self = module.exports = {
     }
   },
 
-  uploadBase64: async  (req, res) => {
+  upload: async  (req, res) => {
     try {
       let data = req.body;
       console.log("==== imageUpload ====",data);
@@ -53,7 +51,7 @@ var self = module.exports = {
         .update(seed)
         .digest('hex');
       let imageBuffer = self.decodeBase64Image(base64Data);
-      let userUploadedFeedMessagesLocation = config.uploadImage.dirname;
+      let userUploadedFeedMessagesLocation = sails.config.uploadImage.dirname;
       let uniqueRandomImageName = uniqueSHA1String;
       let imageTypeDetected = imageBuffer
         .type
@@ -74,7 +72,7 @@ var self = module.exports = {
       let uploadImages = [];
       uploadImages.push({
         name: uniqueSHA1String,
-        src: path
+        src: "/"+path
       });
       return res.json(uploadImages);
     } catch (e) {
