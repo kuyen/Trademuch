@@ -174,7 +174,7 @@ module.exports = {
       roomUser.online = false;
       roomUser = await roomUser.save();
 
-      let tUser = await User.findOne({
+      let findUser = await User.findOne({
         where: {
           id: data.user.id
         }
@@ -182,15 +182,15 @@ module.exports = {
 
       // reassemble user info with fbId
       let leavedUser = {
-        id: tUser.id,
-        email: tUser.email,
-        fullName: tUser.fullName,
-        gender: tUser.gender,
-        username: tUser.username,
-        telephone: tUser.telephone,
-        age: tUser.age
+        id: findUser.id,
+        email: findUser.email,
+        fullName: findUser.fullName,
+        gender: findUser.gender,
+        username: findUser.username,
+        telephone: findUser.telephone,
+        age: findUser.age
       };
-      leavedUser.fbId = await UserService.getFBId(tUser.id);
+      leavedUser.fbId = await UserService.getFBId(findUser.id);
 
       let leavedRoom = {
         room: room,

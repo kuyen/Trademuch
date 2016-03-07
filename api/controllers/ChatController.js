@@ -125,24 +125,12 @@ module.exports = {
     }
   }, // end announce
 
-  // to-do todo wip
+
   // Send a private message user one user to another
   private: async(req, res) => {
-    // Get the ID of the currently connected socket
-    let socketId = sails.sockets.getId(req.socket);
-    // Use that ID to look up the user in the session
-    // We need to do this because we can have more than one user
-    // per session, since we're creating one user per socket
-    User.findOne(req.session.users[socketId].id).exec(function(err, sender) {
-      // Publish a message to that user's "room".  In our app, the only subscriber to that
-      // room will be the socket that the user is on (subscription occurs in the onConnect
-      // method of config/sockets.js), so only they will get this message.
-      User.message(req.param('to'), {
-        user: sender,
-        content: req.param('content')
-      });
 
-    });
+    // to-do todo wip
+
   }, // end private
 
 
@@ -192,7 +180,7 @@ module.exports = {
         sails.sockets.broadcast(roomName, "public", {
           'user': user,
           'content': content
-        },req);
+        }, req);
 
         return res.ok({
           chat,
