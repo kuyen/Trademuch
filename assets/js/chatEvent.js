@@ -46,7 +46,9 @@ function offline() {
 
 var port = window.location.port | 80;
 var url = window.location.protocol + "//" + window.location.hostname + ":" + port;
-var socket = io.sails.connect(url;
+io.sails.url = url;
+var socket = io.sails.connect(url);
+
 
 var myMessages, roomInfo, conversationStarted;
 // when page loaded
