@@ -44,7 +44,9 @@ function offline() {
 //   myApp.showIndicator();
 // });
 
-var socket = io.sails.connect(window.location.origin);
+var port = window.location.port | 80;
+var url = window.location.protocol + "//" + window.location.hostname + ":" + port;
+var socket = io.sails.connect(url;
 
 var myMessages, roomInfo, conversationStarted;
 // when page loaded
