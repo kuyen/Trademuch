@@ -1,3 +1,6 @@
+// disabl autoConnect to avoid error 400.
+if(io.sails) io.sails.autoConnect = false;
+
 //
 var myApp = new Framework7({
   init: false,
