@@ -62,7 +62,7 @@ module.exports = {
       res.ok({success: 'ok'});
     } catch (e) {
       console.log(e);
-      res.serverError({success: 'fail', status: e.message});
+      res.serverError({success: 'fail', message: e.message});
     }
   },
 
