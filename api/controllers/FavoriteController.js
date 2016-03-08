@@ -2,7 +2,7 @@ module.exports = {
 
   create: async(req, res) => {
     try {
-      sails.log.info("=== addUserFavorite ===", req.param('id'));
+      sails.log.info("=== addUserFavorite ===", req.param('id'),req.connection.remoteAddress);
       let user = await UserService.getLoginUser(req);
       let data = {
         userId: user.id,
@@ -34,7 +34,7 @@ module.exports = {
 
   get: async(req, res) => {
     try {
-      console.log("==== getUserFavorites ===");
+      console.log("==== getUserFavorites ===",req.connection.remoteAddress);
       let user = await UserService.getLoginUser(req);
       let userFavorites = await FavoriteService.get({
         userId: user.id

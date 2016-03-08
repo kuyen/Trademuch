@@ -1,6 +1,8 @@
 module.exports = {
   pcOrMobile: async(req, res) => {
     try {
+      console.log(req.socket.remoteAddress);
+      console.log(req.connection.remoteAddress);
       if (/mobile/i.test(req.headers['user-agent'])) {
         res.view('index')
       } else {
