@@ -181,6 +181,21 @@ module.exports = {
       } catch (e) {
         throw e;
       }
-    } // end search
+    }, // end search
 
+
+    delete: async(userId, postId) => {
+      try {
+        let post = await Post.findById(postId);
+        if(post.UserId == userId){
+          await post.destroy();
+        }else{
+          throw Error('Permissions denied')
+        }
+        return 'ok'
+      } catch (e) {
+        console.log(e);
+        throw e
+      }
+    }
 }
