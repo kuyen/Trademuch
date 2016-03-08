@@ -5,8 +5,24 @@
 .navbar-inner {
   padding-left: 20px;
 }
-.navbar-inner img {
-  height: 35px !important;
+.navbar-inner .logo > img {
+  height: 28px !important;
+}
+
+.img-square {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 5px;
+}
+
+.img-cover {
+  height:30vh;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 /* toolbar and tab */
@@ -46,7 +62,7 @@ a.tab-link {}
 .content-block {
   height: 100%;
   padding: 0px;
-  margin: 70px 0px -70px 0px;
+  margin: 44px 0px -70px 0px;
 }
 
 .nologin {
