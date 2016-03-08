@@ -165,7 +165,7 @@ describe('about Post Controller operation.', function() {
           let result = await request(sails.hooks.http.app)
           .delete(`/rest/post/${post.id}`);
           result.status.should.be.equal(200);
-          result.body.status.should.be.equal('ok');
+          result.body.success.should.be.equal('ok');
           console.log(result.body);
           done()
         } catch (e) {
@@ -214,7 +214,7 @@ describe('about Post Controller operation.', function() {
           let result = await request(sails.hooks.http.app)
           .delete(`/rest/post/${post.id}`);
           result.status.should.be.equal(500);
-          result.body.status.should.be.equal('fail');
+          result.body.success.should.be.equal('fail');
           done()
         } catch (e) {
           console.log(e);

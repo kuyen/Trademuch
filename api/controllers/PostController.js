@@ -59,10 +59,10 @@ module.exports = {
       let user = await UserService.getLoginUser(req);
       let postId = req.param('postId');
       await PostService.delete(user.id, postId);
-      res.ok({status: 'ok'});
+      res.ok({success: 'ok'});
     } catch (e) {
       console.log(e);
-      res.serverError({status: 'fail'});
+      res.serverError({success: 'fail', status: e.message});
     }
   },
 

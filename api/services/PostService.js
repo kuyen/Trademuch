@@ -190,7 +190,7 @@ module.exports = {
         if(post.UserId == userId){
           await post.destroy();
         }else{
-          throw Error()
+          throw Error('Permissions denied')
         }
         return 'ok'
       } catch (e) {
