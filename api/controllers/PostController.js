@@ -54,4 +54,16 @@ module.exports = {
     }
   },
 
+  delete: async(req, res) => {
+    try {
+      let user = await UserService.getLoginUser(req);
+      let postId = req.param('postId');
+      await PostService.delete(user.id, postId);
+      res.ok({status: 'ok'});
+    } catch (e) {
+      console.log(e);
+      res.serverError({status: 'fail'});
+    }
+  },
+
 }
