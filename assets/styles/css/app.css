@@ -245,9 +245,9 @@ div.detbox {
 }
 .list-block .prodList  .item-media{
   display: flex;
-  width: 80px;
-  height: 80px;
-  overflow: auto;
+  /*width: 80px;
+  height: 80px;*/
+  overflow: hidden;;
 }
 .prodList .item-content .item-media img{
   width: 80px;
