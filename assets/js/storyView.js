@@ -386,7 +386,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          mainView.router.loadPage('/post/f7/' + result.id);
+          mainView.router.loadPage('/post/' + result.id);
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();

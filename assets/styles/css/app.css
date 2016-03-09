@@ -5,8 +5,22 @@
 .navbar-inner {
   padding-left: 20px;
 }
-.navbar-inner img {
-  height: 35px !important;
+.navbar-inner .logo > img {
+  height: 28px !important;
+}
+.img-square {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 5px;
+}
+.img-cover {
+  height: 30vh;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 /* toolbar and tab */
@@ -20,7 +34,7 @@
 }
 .toolbar-inner > a > img {
   /* let img in the middle of tab */
-  margin-top: 6px;
+  margin-top: 3px;
   height: 30px;
 }
 a.link {}
@@ -34,7 +48,7 @@ a.tab-link {}
 }
 .toolbar .storyView img {
   /*margin-top: px;*/
-  height: 40px;
+  height: 32px;
 }
 
 /* page and view */
@@ -46,14 +60,12 @@ a.tab-link {}
 .content-block {
   height: 100%;
   padding: 0px;
-  margin: 70px 0px -70px 0px;
+  margin: 44px 0px -70px 0px;
 }
-
 .nologin {
   margin: 20px 0px -20px 0px;
   position: fixed;
 }
-
 #mapView {
   height: 100%;
 }
@@ -68,7 +80,7 @@ img.action {
   border-style: solid;
   padding: 5px;
 }
-.navbar-inner  a {
+.navbar-inner a {
   color: #fff !important;
 }
 i.icon.icon-back-white.icon-back {
@@ -223,16 +235,17 @@ div.detbox {
   z-index: 9999;
   padding: 7.6px;
 }
-
 .list-block .prodList {
   min-height: 100px !important;
 }
-.list-block .prodList  .item-media{
+.list-block .prodList .item-media {
   display: flex;
-  width: 80px;
-  height: 80px;
-  overflow: auto;
+  /*width: 80px;
+  height: 80px;*/
+
+  overflow: hidden;
+  ;
 }
-.prodList .item-content .item-media img{
+.prodList .item-content .item-media img {
   width: 80px;
 }

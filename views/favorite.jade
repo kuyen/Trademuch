@@ -21,7 +21,7 @@
                   .item-inner
                     .item-title-row
                       .item-title 
-                        a.link(data-ignore-cache="true", href='/post/f7/#{favorite.id}') #{favorite.title}
+                        a.link(data-ignore-cache="true", href='/post/#{favorite.id}') #{favorite.title}
                     //- .item-subtitle #{favorite.Item.itemname}
               .swipeout-actions-right
                 a.bg-pink.deletelike.notif-message.swipeout-delete(href='#', data-id='#{favorite.id}', data-img=favorite.coverImage)
@@ -57,7 +57,7 @@
                     .item-inner
                       .item-title-row
                         .item-title  
-                          a.link(href='/post/f7/#{allPosts[random].id}') #{allPosts[random].title}
+                          a.link(href='/post/#{allPosts[random].id}') #{allPosts[random].title}
                       //- .item-subtitle NT$#{allPosts[random].price}
                 .swipeout-actions-right
                   a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])

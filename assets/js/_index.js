@@ -333,7 +333,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         $$('#back-top').removeClass('fadeIn')
         $$('#back-top').addClass('fadeOut')
         mainView.router.load({
-          url: '/post/f7/' + $$(this).attr("data-id"),
+          url: '/post/' + $$(this).attr("data-id"),
           ignoreCache: true
         });
       }
