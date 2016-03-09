@@ -13,8 +13,23 @@ $$(document).on('pageInit', '.page[data-page="postDetailF7"]', function(e) {
 });
 
 
+$$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
+  var id = $$("input#itemId").val();
+  // $("#postDetailF7 > .page-content").load("/post/" + id);
+  // $$("#postDetailF7 > .page-content").html(jsLoad("/post/" + id));
+  $$(".back.link").on("click", function() {
+    // clean fb sdk stuff
+    // $$('head script[id="facebook-jssdk"]').remove();
+    // $$('head style').remove()
+  });
+
+}); // end page postDetailF7
+
+
 // when page loaded
 var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function(page) {
+
+  console.log("postDetail onPageAfterAnimation");
 
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];

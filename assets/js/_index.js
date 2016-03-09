@@ -39,18 +39,6 @@ function jsLoad(href)
   return xmlhttp.responseText;
 }
 
-$$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
-  var id = $$("input#itemId").val();
-  // $("#postDetailF7 > .page-content").load("/post/" + id);
-  $$("#postDetailF7 > .page-content").html(jsLoad("/post/" + id));
-  $$(".back.link").on("click", function() {
-    // clean fb sdk stuff
-    // $$('head script[id="facebook-jssdk"]').remove();
-    // $$('head style').remove()
-  });
-
-}); // end page postDetailF7
-
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   console.log("hobbyPage!!!!!!!!");
