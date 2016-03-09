@@ -3,10 +3,10 @@ module.exports = {
   create: async(data, req) => {
     try {
       let user = UserService.getLoginUser(req);
-      console.log("???????????",data);
+      // TODO: 加亂數是為了讓地標不重複
       let place = await Place.create({
-        "latitude": data.location.latitude,
-        "longitude": data.location.longitude,
+        "latitude": parseFloat(data.location.latitude) + ((Math.random()*2-1)/10000),
+        "longitude": parseFloat(data.location.longitude) + ((Math.random()*2-1)/10000),
       });
       let post = await Post.create({
         uuid: '',
@@ -198,4 +198,5 @@ module.exports = {
         throw e
       }
     }
+
 }
