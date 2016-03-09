@@ -71,34 +71,3 @@
           .item-inner
             #fb-root
             .fb-comments.external(data-width="400", data-numposts="5")       
-  script.
-    (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return "asdas";
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-      
-    $$(function(){
-      var origin = window.location.origin;
-      $$(".fb-comments").attr('data-href', origin+"/post/#{post.id}");
-    });
-    
-    $$(".fbShare").on('click',function(){
-      var origin = window.location.href;
-      FB.ui({
-        method: 'share',
-        href: origin + "/post/#{post.id}" 
-      },
-      // callback
-      function(response) {
-        if (response && !response.error_message) {
-          //- alert('Posting completed.');
-        } else {
-          //- alert('Error while posting.');
-        }
-      });
-    }); // end fbShare
-    
-    $$('.lineIt').attr('href',$$('.lineIt').attr('href')+window.location.href)

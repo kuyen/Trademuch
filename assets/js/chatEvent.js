@@ -9,7 +9,9 @@ window.onbeforeunload = function() {
 };
 
 function offline() {
-  conversationStarted = false;
+  if(!chat) return false;
+  if(conversationStarted) conversationStarted = false;
+  
   // reassemble post id
   var postId = window.location.pathname.split("/")[3];
   // listen event join
