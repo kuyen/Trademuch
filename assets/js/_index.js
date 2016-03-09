@@ -91,14 +91,12 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   // fade in #back-top
   $$(".page-content").scroll(function() {
     if ($$(this).scrollTop() > 100) {
-      // $('#back-top').fadeIn();
-      $$('#back-top').removeClass('hide')
-      $$('#back-top').removeClass('fadeOut')
-      $$('#back-top').addClass('fadeIn')
+      $$('#back-top').removeClass('hide');
+      $$('#back-top').removeClass('fadeOut');
+      $$('#back-top').addClass('fadeIn');
     } else {
-      // $('#back-top').fadeOut();
-      $$('#back-top').removeClass('fadeIn')
-      $$('#back-top').addClass('fadeOut')
+      $$('#back-top').removeClass('fadeIn');
+      $$('#back-top').addClass('fadeOut');
     }
   });
 
@@ -207,7 +205,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         if ($$(".page-content.active").offset().top >= 0){
           // $('#back-top').fadeOut();
           $$('#back-top').removeClass('fadeIn');
-          $$('#back-top').addClass('fadeOut')
+          $$('#back-top').addClass('fadeOut');
         }
     } // end scrollUp
 

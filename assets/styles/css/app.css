@@ -113,7 +113,7 @@ i.icon.icon-back-white.icon-back {
   overflow-y: scroll;*/
 }
 #back-top a {
-  width: 65px;
+  width: 45px;
   display: block;
   text-align: center;
   font: 10px/100% Arial, Helvetica, sans-serif;
@@ -135,8 +135,8 @@ i.icon.icon-back-white.icon-back {
   text-shadow: 0px 0px 8px #000, 0px 0px 10px #444, 0px 0px 12px #666;
 }
 #back-top > a > span {
-  width: 65px;
-  height: 65px;
+  width: 45px;
+  height: 45px;
   display: block;
   margin-bottom: 7px;
   background: #01579b url(/img/up-arrow.png) no-repeat center center;
