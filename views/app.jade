@@ -16,12 +16,13 @@ block body
           .navbar-inner
             .wrapper
               a.left.external.logo(href='/app')
-                img(src='/img/logo.png', alt='logo', style="height: 45px;") 
+                img(src='/img/logo.png', alt='logo') 
             .wrapper
               -console.log("loginState=>",loginState);
               -if(!loginState)
                 a.right.top.external( target="_top" href='/rest/auth/facebook')
-                  img.action(src='/img/facebook.png', alt='facebook', style="height: 20px;")
+                  i.fa.fa-facebook-square
+                  //- img.action(src='/img/facebook.png', alt='facebook', style="height: 20px;")
         .pages
           .page.toolbar-fixed(data-page='home')
             .toolbar.tabbar.mainToolbar
@@ -49,7 +50,7 @@ block body
                     img(src='/img/login.png', alt='profile')
             |         
             .page-content(style="padding-bottom:70px")
-              .content-block(style="height: 100%; padding: 0px; margin: 70px 0 -70px 0;")
+              .content-block(style="height: 100%; padding: 0px; margin: 44px 0 -70px 0;")
                 #mainTab.tabs(style="height: calc(100% - 64px);")
                   #mapView.tab.active(style="height: 100%;")
                     iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0; overflow:hidden; ", scrolling="no")
@@ -82,7 +83,8 @@ block body
                                         .item-content.prodList
                                           .item-media
                                             //- img(src=post.gallery[0], width='80')
-                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80', style="overflow: hidden;")
+                                            .img-square.lazy(data-background= post.gallery[0])
+                                            //img.lazy.lazy-fadeIn(data-src=, width='80', style="overflow: hidden;")
                                             //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
                                           .item-inner
                                             .item-title-row

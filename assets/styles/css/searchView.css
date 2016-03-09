@@ -66,7 +66,7 @@ ul#search-result {
   margin: 0;
   position: fixed;
   z-index: 999;
-  top: 135px;
+  top: 109px;
   padding: 6px;
   width: calc(100% - 12px);
   background-color: #fff;
