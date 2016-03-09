@@ -27,14 +27,19 @@ module.exports = {
         userId: loginedUser.id
       });
 
+      let deleteItem = []
       allPosts.data.forEach(function(post, i){
         userFavorites.forEach(function(favorite, j){
           if(post.id == favorite.id){
-            allPosts.data.splice(i, 1);
+            deleteItem.push(i);
           }
         })
       })
-      
+
+      for(let i = deleteItem.length-1; i >= 0; i--){
+        allPosts.data.splice(deleteItem[i], 1);
+      }
+
       res.view('favorite', {
         favorites: userFavorites,
         loginState: loginState,
