@@ -62,3 +62,4 @@
                 .swipeout-actions-right
                   a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
                     img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
+          -allPosts.splice(random, 1)

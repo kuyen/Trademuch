@@ -26,7 +26,15 @@ module.exports = {
       let userFavorites = await FavoriteService.get({
         userId: loginedUser.id
       });
-      console.log("!!!!!!!!!!!",allPosts);
+
+      allPosts.data.forEach(function(post, i){
+        userFavorites.forEach(function(favorite, j){
+          if(post.id == favorite.id){
+            allPosts.data.splice(i, 1);
+          }
+        })
+      })
+      
       res.view('favorite', {
         favorites: userFavorites,
         loginState: loginState,
