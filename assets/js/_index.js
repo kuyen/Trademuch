@@ -145,6 +145,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   $$(".storyView.link").click(function(event) {
     mainView.router.load({
       url: "/post/create/Category",
+      reload: true,
       pushState: false,
       pushStateOnLoad: false
     });
