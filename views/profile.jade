@@ -41,11 +41,11 @@
                       .img-square.lazy(data-background= post.dataValues.coverImage)
                  .item-inner
                    .item-title-row
-                      .item-title 
-                        a.link(href='/post/f7/#{post.dataValues.id}') #{post.dataValues.title}
-                      //- .item-after
-                      //-   span.badge 5
-                  //-  .item-subtitle NT$#{post.dataValues.price}
+                    .item-title 
+                      a.link(href='/post/#{post.dataValues.id}') #{post.dataValues.title}
+                    //- .item-after
+                    //-   span.badge 5
+                    //- .item-subtitle NT$#{post.dataValues.price}
              .swipeout-actions-right
                a.bg-pink.deletePost(href='#', data-id='#{post.dataValues.id}')
                  img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
