@@ -20,33 +20,33 @@ function getCookie(name) {
 }
 
 // give/take mode select
-$$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
-
-  $$('.selectMode').click(function() {
-    if ($$(this).find('input').prop("checked")) {
-      $$(this).find('input').prop("checked", false);
-    } else {
-      $$(this).find('input').prop("checked", true);
-    }
-    var storedData = myApp.formToJSON('#storyModeChoose');
-    myApp.formStoreData('storyModeChoose', storedData);
-
-    mainView.router.loadPage('/post/create/Category');
-      // if(storedData.mode != ""  && storedData.hasOwnProperty('mode')) {
-      //   $$('#nextSetp').removeAttr("disabled");
-      // }else{
-      //   $$('#nextSetp').attr("disabled",true);
-      // }
-  }); // end click
-
-
-});
+// $$(document).on('pageInit', '.page[data-page="storyMode"]', function(e) {
+//
+//   $$('.selectMode').click(function() {
+//     if ($$(this).find('input').prop("checked")) {
+//       $$(this).find('input').prop("checked", false);
+//     } else {
+//       $$(this).find('input').prop("checked", true);
+//     }
+//     var storedData = myApp.formToJSON('#storyModeChoose');
+//     myApp.formStoreData('storyModeChoose', storedData);
+//
+//     mainView.router.loadPage('/post/create/Category');
+//       // if(storedData.mode != ""  && storedData.hasOwnProperty('mode')) {
+//       //   $$('#nextSetp').removeAttr("disabled");
+//       // }else{
+//       //   $$('#nextSetp').attr("disabled",true);
+//       // }
+//   }); // end click
+//
+//
+// });
 
 $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', function(e) {
 
   // init f7-calendar
   var now = new Date();
-  var today = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
+  var today = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
   // set a range time picker
   // var calendarPostPeriod = myApp.calendar({
   //   input: '#calendar-postPeriod',
@@ -81,10 +81,15 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   // if no hobby...
   var category = myApp.formGetData('storyCategoryChoose');
   if (!category) {
-    setTimeout(function(){
+    setTimeout(function() {
       myApp.alert("oops! please seslect category agagin.", 'Error');
-      mainView.router.loadPage('/post/create/Category');
-    },3000);
+      mainView.router.load({
+        url: "/post/create/Category",
+        pushState: false,
+        pushStateOnLoad: false,
+        reload: true
+      });
+    }, 3000);
   }
   console.log("category=>", category);
 
@@ -125,8 +130,8 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   });
 
   $$("input[name='title']").on('input', function() {
-    console.log("title length",$$(this).val().trim().length);
-    if($$(this).val().trim().length>0){
+    console.log("title length", $$(this).val().trim().length);
+    if ($$(this).val().trim().length > 0) {
       var storedData = myApp.formToJSON('#storyDetailChoose');
       myApp.formStoreData('storyDetailChoose', storedData);
 
@@ -156,7 +161,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   // storyMode
   $$("input[name='seeking']").on('change', function() {
     var mode, storyMode = {};
-    if($$(this).prop('checked')) mode = "get";
+    if ($$(this).prop('checked')) mode = "get";
     else mode = "give";
 
     storyMode.mode = mode;
@@ -167,14 +172,14 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   });
 
   // html5 start date picker
-  $$("input[name='postPeriodStart']").attr("min",today);
+  $$("input[name='postPeriodStart']").attr("min", today);
   $$("input[name='postPeriodStart']").on('click', function() {
     $$(this).val("");
     cleanQuickDatePickerState();
   });
 
   // html5 end date picker
-  $$("input[name='postPeriodEnd']").attr("min",today);
+  $$("input[name='postPeriodEnd']").attr("min", today);
   $$("input[name='postPeriodEnd']").on('click', function() {
     $$(this).val("");
     cleanQuickDatePickerState();
@@ -239,7 +244,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     // {"mode":"give","hobby":"1","detail":{"title":"123","radioItem":"2","item":""},
     // "location":{"latitude":24.148657699999998,"longitude":120.67413979999999,"accuracy":30}}
     e.preventDefault();
-    $$(this).attr('disabled',true);
+    $$(this).attr('disabled', true);
     myApp.showIndicator();
 
     var postMode = myApp.formGetData('storyModeChoose');
@@ -260,7 +265,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     }
 
     // post title
-    if ( (!data.detail || !data.detail.title) || ( !data.detail.title.length>0 )) {
+    if ((!data.detail || !data.detail.title) || (!data.detail.title.length > 0)) {
       myApp.hideIndicator();
       myApp.alert("Don't forget to enter a nice title :)", "Oops!");
       $$("#finishStep").removeAttr('disabled');
@@ -390,7 +395,9 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          mainView.router.loadPage('/post/' + result.id);
+          mainView.router.load({
+            url: '/post/' + result.id,
+          });
         },
         error: function(xhr, ajaxOptions, thrownError) {
           $$("#finishStep").removeAttr('disabled');
@@ -477,46 +484,43 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
         canvas.height = imgHeight;
 
         var that = this;
-        EXIF.getData(img, function(){
+        EXIF.getData(img, function() {
           var orientation = EXIF.getTag(that, 'Orientation');
-          console.log("!!!!!!!!!!!!"+orientation);
+          console.log("!!!!!!!!!!!!" + orientation);
 
-          if(orientation == 6 || orientation == 8|| orientation == 3)
-          {
+          if (orientation == 6 || orientation == 8 || orientation == 3) {
             var rotateAngle = 0;
 
-            switch(orientation){
+            switch (orientation) {
               case 3:
-              rotateAngle = 180;
-              break;
+                rotateAngle = 180;
+                break;
               case 6:
-              rotateAngle = 90;
-              canvas.width = imgHeight;
-              canvas.height = imgWidth;
-              break;
+                rotateAngle = 90;
+                canvas.width = imgHeight;
+                canvas.height = imgWidth;
+                break;
               case 8:
-              rotateAngle = -90;
-              canvas.width = imgHeight;
-              canvas.height = imgWidth;
-              break;
+                rotateAngle = -90;
+                canvas.width = imgHeight;
+                canvas.height = imgWidth;
+                break;
             }
 
             var x = canvas.width / 2;
             var y = canvas.height / 2;
 
             ctx.translate(x, y);
-            ctx.rotate(rotateAngle*Math.PI/180);
+            ctx.rotate(rotateAngle * Math.PI / 180);
 
             ctx.drawImage(img, (-imgWidth / 2), (-imgHeight / 2), imgWidth, imgHeight);
-          }
-          else
-          {
+          } else {
             ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
           }
         });
         // ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        var jpegBase64 = canvas.toDataURL("image/jpeg",0.6);
+        var jpegBase64 = canvas.toDataURL("image/jpeg", 0.6);
 
         console.log('=== jpegBase64 ===', jpegBase64);
         $$('img.preview').attr('src', e.target.result);

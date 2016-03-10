@@ -32,7 +32,7 @@ block body
                   //- .activeShow
                 a.searchView.tab-link(href='#searchView')
                   img(src='/img/search.png', alt='search')
-                a.storyView.link(href='/post/create/Category')
+                a.storyView.link
                   img(src='/img/add.png', alt='add')
                 -if(!loginState)
                   a.link(href='/user/favorites')
@@ -78,23 +78,24 @@ block body
                           .list-block.media-list
                             .list-group
                               ul#search-result
-                                each post in allPosts
-                                  li.swipeout(data-id=post.id)
-                                      .swipeout-content
-                                        .item-content.prodList
-                                          .item-media
-                                            //- img(src=post.gallery[0], width='80')
-                                            .img-square.lazy(data-background= post.gallery[0])
-                                            //img.lazy.lazy-fadeIn(data-src=, width='80', style="overflow: hidden;")
-                                            //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
-                                          .item-inner
-                                            .item-title-row
-                                              .item-title
-                                                a.link(data-force="true", data-ignore-cache="true", href='/post/#{post.id}') #{post.title}
-                                            //- .item-subtitle NT$#{post.price}
-                                      .swipeout-actions-right
-                                        a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
-                                          img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
+                                -if(allPosts)
+                                  each post in allPosts
+                                    li.swipeout(data-id=post.id)
+                                        .swipeout-content
+                                          .item-content.prodList
+                                            .item-media
+                                              //- img(src=post.gallery[0], width='80')
+                                              .img-square.lazy(data-background= post.gallery[0])
+                                              //img.lazy.lazy-fadeIn(data-src=, width='80', style="overflow: hidden;")
+                                              //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
+                                            .item-inner
+                                              .item-title-row
+                                                .item-title
+                                                  a.link(data-ignore-cache="true", href='/post/#{post.id}') #{post.title}
+                                              //- .item-subtitle NT$#{post.price}
+                                        .swipeout-actions-right
+                                          a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
+                                            img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
                   |  
                   -if(loginState)
                     #profileView.tab
@@ -126,7 +127,7 @@ block scripts
 
   //f7 search-result callback
   script(type='text/template7', id="searchResult").
-    {{#if this.items.length>0}}
+    {{#if this.items>0}}
       {{#each this.items}}
         <li class="swipeout" data-id={{id}}>
           <div class="swipeout-content">
@@ -161,7 +162,8 @@ block scripts
       </div>
     {{/if}}
   // Result List
-  script.
+  
+  script(type='text/javascript').
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '915539495181624',
@@ -169,4 +171,12 @@ block scripts
         version    : 'v2.5'
       });
     };
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return "asdas";
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=915539495181624";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
     

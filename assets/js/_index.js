@@ -1,11 +1,10 @@
 // disabl autoConnect to avoid error 400.
-if(io.sails) io.sails.autoConnect = false;
+if (io.sails) io.sails.autoConnect = false;
 
 //
 var myApp = new Framework7({
   init: false,
   modalTitle: 'TradeMuch',
-  animateNavBackIcon: true,
   template7Pages: true,
   precompileTemplates: true,
   imagesLazyLoadSequential: true,
@@ -16,7 +15,8 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   pushState: true,
   pushStateSeparator: "",
-  pushStateRoot: "/app"
+  pushStateRoot: "/app",
+  debug: false,
 });
 
 // Add main view
@@ -31,8 +31,7 @@ window.$$ = Framework7.$;
 window.myApp = myApp;
 window.mainView = mainView;
 
-function jsLoad(href)
-{
+function jsLoad(href) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", href, false);
   xmlhttp.send();
@@ -102,7 +101,7 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
 
   // scroll body to 0px on click
   $$('#back-top').click(function() {
-    $$(".page-content").scrollTop(0,400)
+    $$(".page-content").scrollTop(0, 400)
   });
 
 }); // end hobbyPage
@@ -119,7 +118,13 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
     myApp.formStoreData('storyCategoryChoose', storedData);
 
     var id = $$(this).find('input').val();
-    mainView.router.loadPage('/post/create')
+    // mainView.router.loadPage('/post/create')
+    mainView.router.load({
+      url: "/post/create",
+      reload: true,
+      pushState: false,
+      pushStateOnLoad: false
+    });
     console.log(storedData);
 
     // hack <a> hover to solved #371
@@ -136,6 +141,14 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       $$('#splash').hide();
     }, 650);
   }, 250);
+
+  $$(".storyView.link").click(function(event) {
+    mainView.router.load({
+      url: "/post/create/Category",
+      pushState: false,
+      pushStateOnLoad: false
+    });
+  });
 
   $$(".favoriteView").click(function() {
     myApp.closeNotification('.notification-item');
@@ -202,7 +215,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
       }
       var backTopBtn = $$("#back-top");
       if (backTopBtn || backTopBtn == undefinded)
-        if ($$(".page-content.active").offset().top >= 0){
+        if ($$(".page-content.active").offset().top >= 0) {
           // $('#back-top').fadeOut();
           $$('#back-top').removeClass('fadeIn');
           $$('#back-top').addClass('fadeOut');
@@ -215,7 +228,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         timer = null;
         // window.myApp.hideToolbar(".mainToolbar");
       }
-      if ($$(".page-content.active").offset().top <= 0){
+      if ($$(".page-content.active").offset().top <= 0) {
         btnFading();
       }
       // $('#back-top').fadeIn();
@@ -256,7 +269,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
 
   $$('#back-top').click(function() {
     $$(this).hide();
-    jsScrollTop($$(".page-content"),$$(".card").offset().top,400);
+    jsScrollTop($$(".page-content"), $$(".card").offset().top, 400);
     // $(".page-content").animate({
     //   scrollTop: $$(".card").offset().top
     // }, 400);
@@ -320,7 +333,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     var delPost = $$(this);
     var id = delPost.attr("data-id");
     var li = $$(this).parents('li');
-    myApp.confirm('Are you sure?', function () {
+    myApp.confirm('Are you sure?', function() {
       $$.ajax({
         url: "/rest/post/" + id,
         type: "DELETE",
@@ -347,7 +360,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         console.log("不動");
       } else {
         console.log("跳轉");
-        $$(this).css('background-color','rgb(169, 208, 247)');
+        $$(this).css('background-color', 'rgb(169, 208, 247)');
         // $('#back-top').fadeOut();
         $$('#back-top').removeClass('fadeIn')
         $$('#back-top').addClass('fadeOut')
@@ -365,7 +378,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   }).on("close", '.swipeout', function() {
     $$(this).addClass('close-open');
   }).on('pageAfterAnimation', function() {
-    $$('.swipeout').css('background-color','white');
+    $$('.swipeout').css('background-color', 'white');
   });
 
 }); // end page home

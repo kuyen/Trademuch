@@ -42,7 +42,7 @@
                  .item-inner
                    .item-title-row
                     .item-title 
-                      a.link(href='/post/#{post.dataValues.id}') #{post.dataValues.title}
+                      a.link(data-ignore-cache="true", href='/post/#{post.dataValues.id}') #{post.dataValues.title}
                     //- .item-after
                     //-   span.badge 5
                     //- .item-subtitle NT$#{post.dataValues.price}

@@ -36,11 +36,13 @@ var jsFilesToInject = [
   // 'js/dependencies/**/*.js',
   'bower/**/*.js',
   'js/dependencies/sails.io.js',
+  'js/dependencies/framework7.js',
+  'js/dependencies/framework7.debug.js',
   'js/*.js',
   '!/bower/jquery/jquery.js',
   "!/bower/bootstrap-sass/bootstrap.js",
   "!/bower/bootstrap/bootstrap.js",
-  '!bower/framework7/js/framework7.min.js',
+  '!bower/framework7/js/*.js',
   // '!bower/framework7/js/*.js',
   '!bower/framework7/js/my-app.js',
   '!/bower/sails.io.js',
@@ -73,24 +75,24 @@ var mapCssFilesToInject = [
 ];
 
 var mapJsFilesToInject = [
-   'js/map/jquery-2.1.0.min.js',
-   'js/map/before.load.js',
-   'js/map/jquery-migrate-1.2.1.min.js',
-   '/styles/bootstrap/js/bootstrap.min.js',
-   '!js/map/smoothscroll.js',
-   'js/map/bootstrap-select.min.js',
-   '!js/map/jquery.hotkeys.js',
-   '!js/map/jquery.nouislider.all.min.js',
-   '!js/map/jquery.mCustomScrollbar.concat.min.js',
+  'js/map/jquery-2.1.0.min.js',
+  'js/map/before.load.js',
+  'js/map/jquery-migrate-1.2.1.min.js',
+  '/styles/bootstrap/js/bootstrap.min.js',
+  '!js/map/smoothscroll.js',
+  'js/map/bootstrap-select.min.js',
+  '!js/map/jquery.hotkeys.js',
+  '!js/map/jquery.nouislider.all.min.js',
+  '!js/map/jquery.mCustomScrollbar.concat.min.js',
   // removed sensor paramate to avoid warring.
-   'js/map/infobox.js',
-   'js/map/richmarker-compiled.js',
-   'js/map/markerclusterer.js',
-   'js/map/custom.js',
-   'js/map/maps.js',
-   'js/map/mapControl.js',
-   '!js/favbox.js',
-   '!js/app.js',
+  'js/map/infobox.js',
+  'js/map/richmarker-compiled.js',
+  'js/map/markerclusterer.js',
+  'js/map/custom.js',
+  'js/map/maps.js',
+  'js/map/mapControl.js',
+  '!js/favbox.js',
+  '!js/app.js',
 ];
 
 
@@ -121,5 +123,5 @@ module.exports.templateFilesToInject = templateFilesToInject.map(transformPath);
 // Transform paths relative to the "assets" folder to be relative to the public
 // folder, preserving "exclude" operators.
 function transformPath(path) {
-  return (path.substring(0,1) == '!') ? ('!' + tmpPath + path.substring(1)) : (tmpPath + path);
+  return (path.substring(0, 1) == '!') ? ('!' + tmpPath + path.substring(1)) : (tmpPath + path);
 }
