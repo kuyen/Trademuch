@@ -895,12 +895,17 @@ html.android .page-from-center-to-right:before {
   -webkit-align-items: center;
   align-items: center;
 }
+
+.toolbar-inner {
+  padding: 0;
+}
+
 .navbar-inner.cached {
   display: none;
 }
+
 .navbar,
 .toolbar {
-  height: 44px;
   width: 100%;
   box-sizing: border-box;
   font-size: 17px;
@@ -910,6 +915,15 @@ html.android .page-from-center-to-right:before {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+.navbar {
+  height: 44px;
+}
+.toolbar {
+  height: 49px;
+}
+
+
 .navbar b,
 .toolbar b {
   font-weight: 500;
