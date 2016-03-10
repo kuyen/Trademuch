@@ -10,6 +10,8 @@ var myApp = new Framework7({
   imagesLazyLoadSequential: true,
   imagesLazyLoadThreshold: 50,
   swipeBackPage: true,
+  swipeBackPageAnimateShadow: false,
+  swipeBackPageAnimateOpacity: false,
   uniqueHistory: true,
   animateNavBackIcon: true,
   hideToolbarOnPageScroll: true,
@@ -145,7 +147,6 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
   $$(".storyView.link").click(function(event) {
     mainView.router.load({
       url: "/post/create/Category",
-      reload: true,
       pushState: false,
       pushStateOnLoad: false
     });
