@@ -3,7 +3,7 @@ module.exports = {
   // get chat history
   history: async(data) => {
     try {
-
+      console.log("!!???????!!!!!",data.userId);
       let history = {
         empty: true
       };
@@ -89,5 +89,28 @@ module.exports = {
     }
   }, // end history
 
+  lastOnehistory: async(uuid, userId) => {
+    try {
+      let room = await Room.findOne({
+        uuid: uuid
+      });
+      let last;
+      if(room){
+        last = await Chat.find({
+          where:{
+            room_id: room.id,
+            user_id:{
+              $ne: userId
+            }
+          },
+          limit: 1,
+          order: 'created_at DESC'
+        });
+      }
+      return last;
+    } catch (e) {
+      throw e
+    }
+  },
 
 };
