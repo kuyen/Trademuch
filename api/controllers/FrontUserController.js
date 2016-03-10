@@ -26,7 +26,20 @@ module.exports = {
       let userFavorites = await FavoriteService.get({
         userId: loginedUser.id
       });
-      console.log("!!!!!!!!!!!",allPosts);
+
+      let deleteItem = []
+      allPosts.data.forEach(function(post, i){
+        userFavorites.forEach(function(favorite, j){
+          if(post.id == favorite.id){
+            deleteItem.push(i);
+          }
+        })
+      })
+
+      for(let i = deleteItem.length-1; i >= 0; i--){
+        allPosts.data.splice(deleteItem[i], 1);
+      }
+
       res.view('favorite', {
         favorites: userFavorites,
         loginState: loginState,

@@ -77,9 +77,9 @@
          .card-footer
           .mapWrapper.center
             a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)
-              -var staticMap = "http://maps.google.com/maps/api/staticmap?zoom=18&size=390x180&sensor=ture&maptype=roadmap&markers="
+              -var staticMap = "http://maps.google.com/maps/api/staticmap?zoom=18&size=350x180&sensor=ture&maptype=roadmap&markers="
               -var link = staticMap+post.latitude+","+post.longitude;
-              img(src=link, data-hash='1', alt='location', width='350')
+              img.staticMap(src=link, data-hash='1', alt='location')
               
       // facebook commitboard
       //- .card
