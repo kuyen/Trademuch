@@ -8,7 +8,7 @@ block body
   p.animated#back-top(style="display:none;")
     a(href='#top')
      span
-     | Top       
+           
   .views
 
     .view.view-main
@@ -26,7 +26,7 @@ block body
         .pages
           .page.toolbar-fixed(data-page='home')
             .toolbar.tabbar.mainToolbar
-              .toolbar-inner
+              .toolbar-inner.appView
                 a.mapView.tab-link.active(href='#mapView')
                   img(src='/img/map.png', alt='map')
                   //- .activeShow
@@ -49,11 +49,12 @@ block body
                   a.profileView.tab-link(href='#profileView')
                     img(src='/img/login.png', alt='profile')
             |         
-            .page-content(style="padding-bottom:70px")
+            .page-content(style="padding-bottom:44px")
               .content-block(style="height: 100%; padding: 0px; margin: 44px 0 -70px 0;")
-                #mainTab.tabs(style="height: calc(100% - 64px);")
+                #mainTab.tabs(style="height: calc(100% - 49px);")
                   #mapView.tab.active(style="height: 100%;")
-                    iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0; overflow:hidden; ", scrolling="no")
+                    #map(style="width:100%;height:100%")
+                    //iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0; overflow:hidden; ", scrolling="no")
                   |               
                   #favoriteView.tab
                     .page-content
@@ -89,7 +90,7 @@ block body
                                           .item-inner
                                             .item-title-row
                                               .item-title
-                                                a.link(data-ignore-cache="true", href='/post/f7/#{post.id}') #{post.title}
+                                                a.link(data-force="true", data-ignore-cache="true", href='/post/#{post.id}') #{post.title}
                                             //- .item-subtitle NT$#{post.price}
                                       .swipeout-actions-right
                                         a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
@@ -100,6 +101,29 @@ block body
                       .page-content
                       
 block scripts
+  script(src='/js/inline-map.js')
+  script(type='text/javascript').
+    function initMap() {
+      var _latitude = 51.541216;
+      var _longitude = -0.095678;
+
+      $$.ajax({
+        url: "/rest/post",
+        type: "GET",
+        dataType: 'json',
+        success: function(json){
+          //console.log(json);
+          createHomepageGoogleMap(_latitude,_longitude,json);
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+          console.log(xhr.status);
+          console.log(thrownError);
+        }
+      });
+    }
+  script(src='https://maps.googleapis.com/maps/api/js?callback=initMap', defer, async)
+
+
   //f7 search-result callback
   script(type='text/template7', id="searchResult").
     {{#if this.items.length>0}}
@@ -113,7 +137,7 @@ block scripts
               <div class="item-inner">
                 <div class="item-title-row">
                   <div class="item-title">
-                    <a class="link" data-ignore-cache="true" href='/post/f7/{{id}}'>{{title}}</a>
+                    <a class="link" data-ignore-cache="true" href='/post/{{id}}'>{{title}}</a>
                   </div>
                 </div>
                 <div class="item-subtitle">NT${{price}}</div>

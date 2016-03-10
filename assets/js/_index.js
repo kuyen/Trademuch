@@ -39,18 +39,6 @@ function jsLoad(href)
   return xmlhttp.responseText;
 }
 
-$$(document).on('pageInit pageReInit', '.page[data-page="postDetailF7"]', function(e) {
-  var id = $$("input#itemId").val();
-  // $("#postDetailF7 > .page-content").load("/post/" + id);
-  $$("#postDetailF7 > .page-content").html(jsLoad("/post/" + id));
-  $$(".back.link").on("click", function() {
-    // clean fb sdk stuff
-    // $$('head script[id="facebook-jssdk"]').remove();
-    // $$('head style').remove()
-  });
-
-}); // end page postDetailF7
-
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   console.log("hobbyPage!!!!!!!!");
@@ -103,14 +91,12 @@ $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   // fade in #back-top
   $$(".page-content").scroll(function() {
     if ($$(this).scrollTop() > 100) {
-      // $('#back-top').fadeIn();
-      $$('#back-top').removeClass('hide')
-      $$('#back-top').removeClass('fadeOut')
-      $$('#back-top').addClass('fadeIn')
+      $$('#back-top').removeClass('hide');
+      $$('#back-top').removeClass('fadeOut');
+      $$('#back-top').addClass('fadeIn');
     } else {
-      // $('#back-top').fadeOut();
-      $$('#back-top').removeClass('fadeIn')
-      $$('#back-top').addClass('fadeOut')
+      $$('#back-top').removeClass('fadeIn');
+      $$('#back-top').addClass('fadeOut');
     }
   });
 
@@ -219,7 +205,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         if ($$(".page-content.active").offset().top >= 0){
           // $('#back-top').fadeOut();
           $$('#back-top').removeClass('fadeIn');
-          $$('#back-top').addClass('fadeOut')
+          $$('#back-top').addClass('fadeOut');
         }
     } // end scrollUp
 
@@ -366,7 +352,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         $$('#back-top').removeClass('fadeIn')
         $$('#back-top').addClass('fadeOut')
         mainView.router.load({
-          url: '/post/f7/' + $$(this).attr("data-id"),
+          url: '/post/' + $$(this).attr("data-id"),
           ignoreCache: true
         });
       }
