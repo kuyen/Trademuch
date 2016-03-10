@@ -330,6 +330,27 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }); // end ajax
   });
 
+  $$(document).on('click', '.deletePost', function() {
+    var delPost = $$(this);
+    var id = delPost.attr("data-id");
+    var li = $$(this).parents('li');
+    myApp.confirm('Are you sure?', function () {
+      $$.ajax({
+        url: "/rest/post/" + id,
+        type: "DELETE",
+        success: function(result) {
+          console.log(result);
+          myApp.swipeoutDelete(li)
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          console.log("xhr.status,thrownError=>", xhr.status, thrownError);
+          alert("if you delete  post, login please :)");
+          window.location.assign("/auth/facebook");
+        }
+      }); // end ajax
+    });
+  });
+
   // $$("#search-result").on('click', '.swipeout', function(event) {
   $$(document).on('click', '.swipeout', function(event) {
     var f7open = $$(this).hasClass('swipeout-opened');
