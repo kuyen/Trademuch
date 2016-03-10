@@ -21,6 +21,7 @@
   height: 30vh;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-size: 100%;
 }
 
 /* toolbar and tab */
@@ -230,7 +231,7 @@ div.favbox.favoriteView > a {
 /* detail-button */
 div.detbox {
   /*position: absolute;*/
-
+  
   top: 30px;
   z-index: 9999;
   padding: 7.6px;
@@ -242,7 +243,7 @@ div.detbox {
   display: flex;
   /*width: 80px;
   height: 80px;*/
-
+  
   overflow: hidden;
   ;
 }
