@@ -81,7 +81,7 @@ module.exports = {
 
         let postLastChat = [];
         for(let post of profilePost ){
-          let lastChat = await ChatService.lastOnehistory(post.uuid,loginedUser.id);
+          let lastChat = await ChatService.lastOnehistory(post.dataValues.id, loginedUser.id);
           post = {
             ...post.dataValues
           }

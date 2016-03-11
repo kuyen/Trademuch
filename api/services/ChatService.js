@@ -3,7 +3,6 @@ module.exports = {
   // get chat history
   history: async(data) => {
     try {
-      console.log("!!???????!!!!!",data.userId);
       let history = {
         empty: true
       };
@@ -39,6 +38,12 @@ module.exports = {
       let nDate = sails.moment().format("YYYY-MM-DD");
 
       for (let chat of chats) {
+
+        if(chat.userId != data.userId){
+          chat.speakRead = true;
+          await chat.save();
+        }
+
         tCal = sails.moment(chat.created_at.toString());
         // tDate = tCal.getFullYear() + "-" + (tCal.getMonth() + 1) + "-" + tCal.getDate();
         // tTime = tCal.getHours() + ":" + tCal.getMinutes();
@@ -91,8 +96,10 @@ module.exports = {
 
   lastOnehistory: async(uuid, userId) => {
     try {
-      let room = await Room.findOne({
-        uuid: uuid
+      let room = await Room.find({
+        where:{
+          uuid: uuid
+        }
       });
       let last;
       if(room){
@@ -101,7 +108,8 @@ module.exports = {
             room_id: room.id,
             user_id:{
               $ne: userId
-            }
+            },
+            speakRead: false
           },
           limit: 1,
           order: 'created_at DESC'
