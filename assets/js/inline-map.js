@@ -174,8 +174,48 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
     );
   }
 
+  var inforBoxArray = [];
+
   for (var i = 0; i < json.data.length; i++) {
-    //console.log(json.data[i]);
+    console.log(json.data[i]);
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(json.data[i].latitude, json.data[i].longitude),
+      map: map
+    });
+
+    var content = '<div class="infoContent">'+
+          '<h1>'+ json.data[i].title+'</h1>'+
+          '<div class="bodyContent">'+
+            '<p>'+ json.data[i].price +'</p>'+
+            '<img class="img-square" src="' + json.data[i].gallery[0] + '">' +
+          '</div>'+
+        '</div>';
+
+    var infowindow = new google.maps.InfoWindow();
+    inforBoxArray.push(infowindow);
+
+    google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
+      return function() {
+        for(var i =0 ; i < inforBoxArray.length; i++){
+          inforBoxArray[i].close();
+        }
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+      };
+    })(marker, content, infowindow));
+
   }
+
+  google.maps.event.addListener(map, "click", function(event) {
+    for(var i =0 ; i < inforBoxArray.length; i++){
+      inforBoxArray[i].close();
+    }
+  });
+
+  google.maps.event.addListener(map, "drag", function(event) {
+    for(var i =0 ; i < inforBoxArray.length; i++){
+      inforBoxArray[i].close();
+    }
+  });
 
 }
