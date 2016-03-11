@@ -6,7 +6,7 @@ describe('about Post Controller operation.', function() {
   describe('about Post Controller operation.', function() {
 
     let like, item;
-    before(async (done) => {
+    before(async(done) => {
       try {
         let user = await User.create({
           "username": "testPost",
@@ -46,13 +46,13 @@ describe('about Post Controller operation.', function() {
       }
     });
 
-    after( (done) => {
+    after((done) => {
       UserService.getLoginState.restore();
       UserService.getLoginUser.restore();
       done();
     });
 
-    it('add new Post have radioItem should success.', async (done) => {
+    it('add new Post have radioItem should success.', async(done) => {
       try {
 
         let send = {
@@ -74,8 +74,8 @@ describe('about Post Controller operation.', function() {
         }
 
         let result = await request(sails.hooks.http.app)
-        .post('/rest/post/create')
-        .send(send);
+          .post('/rest/post/create')
+          .send(send);
 
         result.status.should.be.equal(200);
 
@@ -87,10 +87,10 @@ describe('about Post Controller operation.', function() {
 
 
 
-    it('get all post should success.', async (done) => {
+    it('get all post should success.', async(done) => {
       try {
         let result = await request(sails.hooks.http.app)
-        .get('/rest/post');
+          .get('/rest/post');
         sails.log.info(result.body);
         result.status.should.be.equal(200);
 
@@ -103,9 +103,9 @@ describe('about Post Controller operation.', function() {
   });
 
 
-  describe.only('delete post', (done) => {
+  describe('delete post', (done) => {
     let user1, user2;
-    before(async (done) => {
+    before(async(done) => {
       try {
         user1 = await User.create({
           "username": "testDelPost",
@@ -128,7 +128,7 @@ describe('about Post Controller operation.', function() {
 
     describe('delete owen post', (done) => {
       let post;
-      before(async (done) => {
+      before(async(done) => {
         try {
 
           sinon.stub(UserService, 'getLoginState', (req) => {
@@ -163,7 +163,7 @@ describe('about Post Controller operation.', function() {
       it('user delete owen post', async(done) => {
         try {
           let result = await request(sails.hooks.http.app)
-          .delete(`/rest/post/${post.id}`);
+            .delete(`/rest/post/${post.id}`);
           result.status.should.be.equal(200);
           result.body.success.should.be.equal('ok');
           console.log(result.body);
@@ -177,7 +177,7 @@ describe('about Post Controller operation.', function() {
 
     describe('delete not user post', (done) => {
       let post;
-      before(async (done) => {
+      before(async(done) => {
         try {
 
           sinon.stub(UserService, 'getLoginState', (req) => {
@@ -212,7 +212,7 @@ describe('about Post Controller operation.', function() {
       it('user delete owen post', async(done) => {
         try {
           let result = await request(sails.hooks.http.app)
-          .delete(`/rest/post/${post.id}`);
+            .delete(`/rest/post/${post.id}`);
           result.status.should.be.equal(500);
           result.body.success.should.be.equal('fail');
           done()

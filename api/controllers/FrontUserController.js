@@ -67,13 +67,27 @@ module.exports = {
             UserId: loginedUser.id
           }
         });
+
+        let postLastChat = [];
+        for(let post of profilePost ){
+          let lastChat = await ChatService.lastOnehistory(post.dataValues.id, loginedUser.id);
+          post = {
+            ...post.dataValues
+          }
+          post.lastChat =  lastChat ? lastChat.dataValues.content : null
+          postLastChat.push({
+            ...post
+          })
+        }
+        console.log(postLastChat);
         let profile = {
           name: loginedUser.username,
-          allUserPost: profilePost,
+          allUserPost: postLastChat,
           postCount: profilePost.length,
           favCount: favorites.length,
           activity: Math.round(profilePost.length * 1.5 + favorites.length)
         }
+
 
         res.view('profile', {
           profile,

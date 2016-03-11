@@ -6,8 +6,8 @@ module.exports = {
       console.log("???????????", data);
       // TODO: 加亂數是為了讓地標不重複
       let place = await Place.create({
-        "latitude": parseFloat(data.location.latitude) + ((Math.random()*2-1)/10000),
-        "longitude": parseFloat(data.location.longitude) + ((Math.random()*2-1)/10000),
+        "latitude": parseFloat(data.location.latitude) + ((Math.random() * 2 - 1) / 10000),
+        "longitude": parseFloat(data.location.longitude) + ((Math.random() * 2 - 1) / 10000),
       });
       let post = await Post.create({
         uuid: '',
@@ -222,19 +222,19 @@ module.exports = {
   }, // end search
 
 
-  delete: async({
-    userId,
-    postId
-  }) => {
+  delete: async(userId, postId) => {
     try {
-      sails.log.info(userId, postId);
-      let user = await User.findById(userId);
-      let post = await Post.findOne(postId);
-      let favorites;
-      return favorites;
+      let post = await Post.findById(postId);
+      if (post.UserId == userId) {
+        await post.destroy();
+      } else {
+        throw Error('Permissions denied')
+      }
+      return 'ok'
     } catch (e) {
-      throw e;
+      console.log(e);
+      throw e
     }
-  }, // end delete
+  }
 
 }
