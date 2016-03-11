@@ -71,8 +71,15 @@ describe('about Post Service operation.', function() {
     let post, item;
     before(async(done) => {
       try {
+        await Post.destroy({
+          where: {
+            id: {
+              $gte: 1
+            }
+          }
+        });
         let testUser2 = await User.create({
-    			"username": "testuser2",
+          "username": "testuser2",
         });
 
         let place = await Place.create({
@@ -177,7 +184,7 @@ describe('about Post Service operation.', function() {
 
   describe('delete post', (done) => {
     let user1, user2;
-    before(async (done) => {
+    before(async(done) => {
       try {
         user1 = await User.create({
           "username": "testDelPost",
@@ -200,7 +207,7 @@ describe('about Post Service operation.', function() {
 
     describe('delete owen post', (done) => {
       let post;
-      before(async (done) => {
+      before(async(done) => {
         try {
 
           sinon.stub(UserService, 'getLoginState', (req) => {
@@ -249,7 +256,7 @@ describe('about Post Service operation.', function() {
 
     describe('delete not user post', (done) => {
       let post;
-      before(async (done) => {
+      before(async(done) => {
         try {
 
           sinon.stub(UserService, 'getLoginState', (req) => {
@@ -288,10 +295,10 @@ describe('about Post Service operation.', function() {
           await PostService.delete(user2.id, post.id);
           let after = await Post.findAll();
           before.length.should.be.equal(after.length);
-          done()
+          should.fail('no error was thrown when it should have been')
         } catch (e) {
           console.log(e);
-          done(e)
+          done()
         }
       });
 
