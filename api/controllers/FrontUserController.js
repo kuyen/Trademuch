@@ -68,17 +68,6 @@ module.exports = {
           }
         });
 
-        // let postLastChat = await Promise.all(
-        //   profilePost.map( (post) => {
-        //     let lastChat = ChatService.lastOnehistory(post.uuid);
-        //     let profile = {
-        //       ...post,
-        //       lastChat
-        //     }
-        //     return profile
-        //   })
-        // );
-
         let postLastChat = [];
         for(let post of profilePost ){
           let lastChat = await ChatService.lastOnehistory(post.dataValues.id, loginedUser.id);
