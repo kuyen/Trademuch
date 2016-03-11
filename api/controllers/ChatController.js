@@ -20,9 +20,10 @@ module.exports = {
 
         history = await ChatService.history({
           socketId,
-          roomName
+          roomName,
+          userId: user.id
         });
-        sails.log.info('ChatController.history:history =>', JSON.stringify(history));
+        sails.log.info('ChatController.chatView:history =>', JSON.stringify(history));
       } // end if
 
       res.view('chat', {
@@ -42,7 +43,7 @@ module.exports = {
     }
     let socketId = sails.sockets.id(req);
     let roomName = req.param('roomName');
-    let roomId = req.param('roomId') | 0;
+    let roomId = req.param('roomId') || 0;
     sails.log.info('ChatController.history:roomName =>', roomName);
     sails.log.info('ChatController.history:roomId =>', roomId);
 
@@ -50,7 +51,8 @@ module.exports = {
       let history = await ChatService.history({
         socketId,
         roomName,
-        roomId
+        roomId,
+        userId: 1
       });
       sails.log.info('ChatController.history:history =>', JSON.stringify(history));
 
