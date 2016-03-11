@@ -103,7 +103,7 @@ describe('about Post Controller operation.', function() {
   });
 
 
-  describe.only('delete post', (done) => {
+  describe('delete post', (done) => {
     let user1, user2;
     before(async (done) => {
       try {

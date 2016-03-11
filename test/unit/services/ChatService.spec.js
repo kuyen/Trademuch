@@ -1,6 +1,6 @@
 describe('about Chat Service .', function() {
 
-  describe.only('get last chat', () => {
+  describe('get last chat', () => {
 
     let room, user, chatUser, chat, post, chats;
     before(async (done) => {
