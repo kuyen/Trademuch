@@ -56,7 +56,8 @@ var jsFilesToInject = [
   '!/bower/brim/dist/*.js',
   '!/bower/brim/tests/*.js',
   '!js/map/*.js',
-  '!js/landing/*.js'
+  '!js/landing/*.js',
+  'js/map/richmarker-compiled.js'
   // Use the "exclude" operator to ignore files
   // '!js/ignore/these/files/*.js'
 ];
