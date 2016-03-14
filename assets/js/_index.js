@@ -17,9 +17,13 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   pushState: true,
   pushStateSeparator: "",
-  pushStateRoot: "/app2",
+  pushStateRoot: "/app",
   debug: false,
 });
+
+// Expose Internal DOM library
+window.$$ = Framework7.$;
+window.myApp = myApp;
 
 // Add main view
 var mainView = myApp.addView('.view-main', {
@@ -27,20 +31,17 @@ var mainView = myApp.addView('.view-main', {
   dynamicNavbar: true,
   domCache: false,
 });
-
-
-// Add main view
-var searchView = myApp.addView('#searchView', {
-  // Enable Dynamic Navbar for this view
-  dynamicNavbar: true,
-  domCache: false,
-});
-
-
-// Expose Internal DOM library
-window.$$ = Framework7.$;
-window.myApp = myApp;
 window.mainView = mainView;
+
+
+// // Add main view
+// var addView = myApp.addView('.view-add', {
+//   dynamicNavbar: true,
+//   domCache: false,
+//   reloadPages: true,
+//   linksView: mainView,
+// });
+// window.addView = addView;
 
 function jsLoad(href) {
   var xmlhttp = new XMLHttpRequest();
@@ -152,28 +153,14 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }, 650);
   }, 250);
 
-
-  $$('#mapView').on('show', function () {
-    console.log('Tab 1 is visible');
-  });
-
-  $$('#searchView').on('show', function () {
-      console.log('Tab 2 is visible');
-  });
-
-  $$('#profileView').on('show', function () {
-      console.log('Tab 3 is visible');
-  });
-
-
-  $$(".storyView.link").click(function(event) {
-    mainView.router.load({
-      url: "/post/create/Category",
-      reload: true,
-      pushState: false,
-      pushStateOnLoad: false,
-    });
-  });
+  // $$(".storyView.link").click(function(event) {
+  //   mainView.router.load({
+  //     url: "/post/create/Category",
+  //     reload: true,
+  //     pushState: false,
+  //     pushStateOnLoad: false,
+  //   });
+  // });
 
   $$(".favoriteView").click(function() {
     myApp.closeNotification('.notification-item');

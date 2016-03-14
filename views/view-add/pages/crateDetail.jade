@@ -1,0 +1,44 @@
+
+#searchView.tab.page(data-page='search')
+
+  .page-content
+    
+    .content-block(style="height: 100%; padding: 0px; margin: 44px 0 -70px 0;")
+      form#formSearch.searchbar
+       // Search bar
+       .searchbar-input
+         input.i18n(type='search', data-i18n='[placeholder]global.search')
+         a.searchbar-clear(href='#') clear
+         a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
+      // Search bar overlay
+      .searchbar-overlay
+      .row.categories
+        a.button.button-round(href='#nike', data-keyword='nike') Nike
+        a.button.button-round(href='#iphone', data-keyword='iphone') IPhone
+        a.button.button-round(href='#test', data-keyword='外套') 外套
+        a.button.button-round(href='#test', data-keyword='全新') 全新
+        
+      .page-content
+        .card
+          .card-content
+            .list-block.media-list
+              .list-group
+                ul#search-result
+                  -if(allPosts)
+                    each post in allPosts
+                      li.swipeout(data-id=post.id)
+                          .swipeout-content
+                            .item-content.prodList
+                              .item-media
+                                //- img(src=post.gallery[0], width='80')
+                                .img-square.lazy(data-background= post.gallery[0])
+                                //img.lazy.lazy-fadeIn(data-src=, width='80', style="overflow: hidden;")
+                                //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
+                              .item-inner
+                                .item-title-row
+                                  .item-title
+                                    a.link(data-ignore-cache="true", href='/post/#{post.id}') #{post.title}
+                                //- .item-subtitle NT$#{post.price}
+                          .swipeout-actions-right
+                            a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
+                              img(src='/img/addlike.png', alt='addlike', style="height: 30px;")

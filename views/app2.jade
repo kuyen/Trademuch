@@ -6,29 +6,176 @@ block body
   include ./includes/statusbar.jade
   include ./includes/panel.jade
   
-  //- view elements 
+  //- app elements 
   include ./includes/splash.jade
   include ./includes/backTop.jade
   
   .views
-    
-    .view.view-main.toolbar-fixed
-      include ./view-main/navbar.jade
-      .pages.tabs.navbar-fixed
-        include ./view-main/pages/map.jade 
-        include ./view-main/pages/search.jade 
-      
-    //- .view-add.no-toolbar
-    //-   include ./view-main/navbar.jade
-    //-   include ./view-main/pages.jade
-      
-    //- toolbar outside of any view
-    include ./includes/toolbar.jade
+  
+  .views.tabs.toolbar-through
+      #view-1.view.view-main.tab(data-page='index-1')
+          .pages
+            .page(data-page='index-1')
+              .page-content
+                .content-block-title Welcome
+                .content-block
+                  p
+                    | This is an example of tab bar application layout. The main point of such tabbed layout is that each tab contains independent view with its own routing and navigation.
+                  p
+                    | Each tab/view may have different layout, different navbar type (dynamic, fixed or static) or without navbar like this tab.
+                  p
+                    | And of course, your favorite panels are still here: 
+                    a.open-panel(href='#') left
+                    |  and 
+                    a.open-panel(href='#', data-panel='right') right
+                  p
+                    | Icons and their labels in tab bar below are just for example and don&apos;t related to their content.
+
+        #view-2.view.tab.active(data-page='index-2')
+          .navbar
+            .navbar-inner
+              .center.sliding(style='left: 141px;') Second View
+          .pages.navbar-through
+            .page(data-page='index-2')
+              .page-content
+                .content-block
+                  p
+                    | This is a second view. Lets, for example, have here some internal pages with navbar navigation
+                .list-block
+                  ul
+                    li
+                      a.item-link(href='about.html')
+                        .item-content
+                          .item-inner
+                            .item-title About Us
+                    li
+                      a.item-link(href='services.html')
+                        .item-content
+                          .item-inner
+                            .item-title Services
+        #view-3.view.tab(data-page='index-3')
+          .pages
+            .page(data-page='index-3')
+              .page-content
+                .content-block-title Another plain static view
+                .content-block
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at. Curabitur auctor cursus imperdiet. Nam molestie nisi nec est lacinia volutpat in a purus. Maecenas consectetur condimentum viverra. Donec ultricies nec sem vel condimentum. Phasellus eu tincidunt enim, sit amet convallis orci. Vestibulum quis fringilla dolor.
+                  p
+                    | Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc. Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium condimentum. Cras sed dolor odio.
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at. Curabitur auctor cursus imperdiet. Nam molestie nisi nec est lacinia volutpat in a purus. Maecenas consectetur condimentum viverra. Donec ultricies nec sem vel condimentum. Phasellus eu tincidunt enim, sit amet convallis orci. Vestibulum quis fringilla dolor.
+        #view-4.view.tab(data-page='index-4')
+          .pages.navbar-fixed
+            .page(data-page='index-4')
+              .navbar
+                .navbar-inner
+                  .center(style='left: 0px;') Settings
+              .page-content
+                .list-block
+                  ul
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-name
+                        .item-inner
+                          .item-title.label Name
+                          .item-input
+                            input(type='text', placeholder='Your name')
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-email
+                        .item-inner
+                          .item-title.label E-mail
+                          .item-input
+                            input(type='email', placeholder='E-mail')
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-url
+                        .item-inner
+                          .item-title.label URL
+                          .item-input
+                            input(type='url', placeholder='URL')
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-password
+                        .item-inner
+                          .item-title.label Password
+                          .item-input
+                            input(type='password', placeholder='Password')
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-tel
+                        .item-inner
+                          .item-title.label Phone
+                          .item-input
+                            input(type='tel', placeholder='Phone')
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-gender
+                        .item-inner
+                          .item-title.label Gender
+                          .item-input
+                            select
+                              option Male
+                              option Female
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-calendar
+                        .item-inner
+                          .item-title.label Birth date
+                          .item-input
+                            input(type='date', placeholder='Birth day', value='2014-04-30')
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-toggle
+                        .item-inner
+                          .item-title.label Switch
+                          .item-input
+                            label.label-switch
+                              input(type='checkbox')
+                              .checkbox
+                    li
+                      .item-content
+                        .item-media
+                          i.icon.icon-form-settings
+                        .item-inner
+                          .item-title.label Slider
+                          .item-input
+                            .range-slider
+                              input(type='range', min='0', max='100', value='50', step='0.1')
+                .content-block
+                  p
+                    | Mauris commodo lacus at nisl lacinia, nec facilisis erat rhoncus. Sed eget pharetra nunc. Aenean vitae vehicula massa, sed sagittis ante. Quisque luctus nec velit dictum convallis. Nulla facilisi. Ut sed erat nisi. Donec non dolor massa. Mauris malesuada dolor velit, in suscipit leo consectetur vitae. Duis tempus ligula non eros pretium condimentum. Cras sed dolor odio.
+
+        .toolbar.tabbar.tabbar-labels
+          .toolbar-inner
+            a.tab-link(href='#view-1')
+              i.icon.tabbar-demo-icon-1
+              span.tabbar-label Information
+            a.tab-link.active(href='#view-2')
+              i.icon.tabbar-demo-icon-2
+              span.tabbar-label Inbox
+            a.tab-link(href='#view-3')
+              i.icon.tabbar-demo-icon-3
+                span.badge.bg-red 4
+              span.tabbar-label Upload
+            a.tab-link(href='#view-4')
+              i.icon.tabbar-demo-icon-4
+              span.tabbar-label Photos
+
     
 block scripts     
-  include ./includes/fb.jade
-  include ./includes/map.jade
-  include ./includes/search.jade
+  include ./view-main/includes/fb.jade
+  include ./view-main/includes/map.jade
+  include ./view-main/includes/searchResult.jade
 
 
   
