@@ -35,16 +35,11 @@ var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function
   //   $$(".fb-comments").attr('data-href', origin);
   // });
 
-  $$('div[data-page="postDetail"] .left .link.back').click(function(e) {
+  $$('div[data-page="postDetail"] .left .link.postDetailBack').click(function(e) {
     console.log(" postDetail back click ");
     var historyView = mainView.history;
-    if (historyView[historyView.length - 1] != '#home') {
+    if (historyView[historyView.length -2] != '#home') {
       console.log("after post");
-      $$('div[data-page="postDetail"] .left .link.back').addClass('with-animation');
-      $$('div[data-page="postDetail"] .left .link.back').attr('data-ignore-cache', 'true');
-      $$('div[data-page="postDetail"] .left .link.back').attr('data-reload-previous', 'true');
-      $$('div[data-page="postDetail"] .left .link.back').attr('data-force', 'true');
-      $$('div[data-page="postDetail"] .left .link.back').attr('href', '/app');
       // historyView = [];
       // var homeIndex = 0;
       // for (var a = 0; a < mainView.history.length; a++) {
@@ -53,16 +48,22 @@ var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function
       //   if (mainView.history[a] == "#home") homeIndex = mainView.history.length - a;
       // }
       // mainView.history = historyView;
-      // console.log("not home");
-      // console.log(homeIndex);
-      // console.log(mainView.history.length);
-      // mainView.router.load({
-      //   url: "#home",
-      //   "force": true,
-      //   "ignoreCache": true,
-      // });
+      mainView.router.back({
+        url: "#home",
+        "reloadPrevious": true,
+        "force": true,
+        "ignoreCache": true,
+      });
       // } else {
       //   mainView.router.back();
+      // $$(this).addClass('back');
+      // $$('div[data-page="postDetail"] .left .link.back').addClass('with-animation');
+      // $$('div[data-page="postDetail"] .left .link.back').attr('data-ignore-cache', 'true');
+      // $$('div[data-page="postDetail"] .left .link.back').attr('data-reload-previous', 'true');
+      // $$('div[data-page="postDetail"] .left .link.back').attr('data-force', 'true');
+      // $$('div[data-page="postDetail"] .left .link.back').attr('href', '/app');
+    } else {
+      window.history.back();
     }
   });
 

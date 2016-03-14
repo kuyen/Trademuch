@@ -17,7 +17,7 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   pushState: true,
   pushStateSeparator: "",
-  pushStateRoot: "/app",
+  pushStateRoot: "/app2",
   debug: false,
 });
 
@@ -25,8 +25,17 @@ var myApp = new Framework7({
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
   dynamicNavbar: true,
-  domCache: true
+  domCache: false,
 });
+
+
+// Add main view
+var searchView = myApp.addView('#searchView', {
+  // Enable Dynamic Navbar for this view
+  dynamicNavbar: true,
+  domCache: false,
+});
+
 
 // Expose Internal DOM library
 window.$$ = Framework7.$;
@@ -39,7 +48,6 @@ function jsLoad(href) {
   xmlhttp.send();
   return xmlhttp.responseText;
 }
-
 
 $$(document).on('pageInit', '.page[data-page="hobbyPage"]', function(e) {
   console.log("hobbyPage!!!!!!!!");
@@ -125,7 +133,7 @@ $$(document).on('pageInit', '.page[data-page="storyCategory"]', function(e) {
       url: "/post/create",
       reload: true,
       pushState: false,
-      pushStateOnLoad: false
+      pushStateOnLoad: false,
     });
     console.log(storedData);
 
@@ -144,11 +152,26 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     }, 650);
   }, 250);
 
+
+  $$('#mapView').on('show', function () {
+    console.log('Tab 1 is visible');
+  });
+
+  $$('#searchView').on('show', function () {
+      console.log('Tab 2 is visible');
+  });
+
+  $$('#profileView').on('show', function () {
+      console.log('Tab 3 is visible');
+  });
+
+
   $$(".storyView.link").click(function(event) {
     mainView.router.load({
       url: "/post/create/Category",
+      reload: true,
       pushState: false,
-      pushStateOnLoad: false
+      pushStateOnLoad: false,
     });
   });
 
@@ -368,7 +391,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         $$('#back-top').addClass('fadeOut')
         mainView.router.load({
           url: '/post/' + $$(this).attr("data-id"),
-          ignoreCache: true
+          ignoreCache: true,
         });
       }
     }

@@ -111,6 +111,7 @@
    // view
    'get /': 'MainController.pcOrMobile',
    'get /app': 'MainController.index',
+   'get /app2': 'MainController.index2',
    'get /app/*': 'MainController.index',
 
    'get /user/hobby': 'FrontUserController.hobby',

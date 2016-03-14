@@ -86,8 +86,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
       mainView.router.load({
         url: "/post/create/Category",
         pushState: false,
-        pushStateOnLoad: false,
-        reload: true
+        pushStateOnLoad: false
       });
     }, 3000);
   }

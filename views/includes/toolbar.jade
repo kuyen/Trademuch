@@ -1,0 +1,39 @@
+.toolbar.tabbar.mainToolbar
+  .toolbar-inner
+    a.mapView.tab-link.active(href='#mapView', alt='profile', data-view="#mapView")
+      img(src='/img/map.png', alt='map')
+    |     
+    a.searchView.tab-link(href='#searchView', data-view="#searchView")
+      img(src='/img/search.png', alt='search')
+    |           
+    a.storyView.link
+      img(src='/img/add.png', alt='add', data-view=".right-view")
+    |     
+    a.favoriteView.tab-link(href='#favoriteView', data-login="#{loginState}", data-view="#favoriteView")
+      img(src='/img/favorite.png', alt='favorite', data-view=".right-view")
+    | 
+    a.profileView.tab-link(href='#profileView')
+      img(src='/img/login.png', alt='profile', data-view="#profileView")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      //- -if(!loginState)
+      //-   a.link(href='/user/favorites')
+      //-     img(src='/img/favorite.png', alt='favorite')
+      //- -else
+      //-   a.favoriteView.tab-link(href='#favoriteView', data-login="#{loginState}")
+      //-     img(src='/img/favorite.png', alt='favorite')
+      //- |     
+      //- -if(!loginState)
+      //-   a.link(href='/user/favorites')
+      //-     img(src='/img/login.png', alt='favorite')
+      //- -else
+      //-   a.profileView.tab-link(href='#profileView')
+      //-     img(src='/img/login.png', alt='profile')

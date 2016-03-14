@@ -1,0 +1,34 @@
+extends ./layout
+
+block body
+  
+  //- screen elements
+  include ./includes/statusbar.jade
+  include ./includes/panel.jade
+  
+  //- view elements 
+  include ./includes/splash.jade
+  include ./includes/backTop.jade
+  
+  .views
+    
+    .view.view-main.toolbar-fixed
+      include ./view-main/navbar.jade
+      .pages.tabs.navbar-fixed
+        include ./view-main/pages/map.jade 
+        include ./view-main/pages/search.jade 
+      
+    //- .view-add.no-toolbar
+    //-   include ./view-main/navbar.jade
+    //-   include ./view-main/pages.jade
+      
+    //- toolbar outside of any view
+    include ./includes/toolbar.jade
+    
+block scripts     
+  include ./includes/fb.jade
+  include ./includes/map.jade
+  include ./includes/search.jade
+
+
+  

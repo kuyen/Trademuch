@@ -24,6 +24,7 @@ module.exports.policies = {
   },
   'MainController': {
     'index': [],
+    'index2': [],
     'pcOrMobile': [],
   },
   'UserController': {

@@ -1,0 +1,24 @@
+extends ./layout
+
+block body
+  
+  include ./includes/splash.jade
+  include ./includes/backTop.jade
+  
+  include ./view-main/statusbar.jade
+  include ./view-main/panel.jade
+      
+  .views
+  
+    .view.view-main
+      include ./view-main/navbar.jade
+      include ./view-main/pages.jade
+      include ./view-main/toolbar.jade
+  
+block scripts     
+  include ./includes/fb.jade
+  include ./includes/map.jade
+  include ./includes/search.jade
+
+
+  
