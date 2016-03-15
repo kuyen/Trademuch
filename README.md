@@ -30,3 +30,13 @@ How to start development mode
 
 - grunt
   [link](http://gruntjs.com/getting-started)
+
+
+elasticsearch
+=============
+
+run elasticsearch, api endpoint will be http://<docker-IP>:9200/
+
+```
+docker-compose up -d elasticsearch
+```
