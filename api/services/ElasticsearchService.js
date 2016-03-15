@@ -4,27 +4,31 @@ module.exports = {
 
   init: async() => {
     try {
-      let result = await axios.put(`http://${sails.config.elasticsearch.host}/trademuch`,{
-        mappings: {
-          post: {
-            properties: {
-              id: {
-                type: "string"
-              },
-              title: {
-                type: "string"
-              },
-              location: {
-                type: "geo_point"
+      let result;
+      let findeIndex = await axios.get(`http://${sails.config.elasticsearch.host}/_aliases`);
+      if( !findeIndex.data.trademuch ){
+        result = await axios.put(`http://${sails.config.elasticsearch.host}/trademuch`,{
+          mappings: {
+            post: {
+              properties: {
+                id: {
+                  type: "string"
+                },
+                title: {
+                  type: "string"
+                },
+                location: {
+                  type: "geo_point"
+                }
               }
             }
           }
-        }
-      });
-      sails.log.info("Mappings OK!",result.data);
-      return result.data
+        });
+        sails.log.info("Mappings OK!",result.data);
+      }
+      return result
     } catch (e) {
-      sails.log.error(e)
+      sails.log.info("請啟動 elasticsearch, 並更新config, `docker-compose up -d elasticsearch`", e.message)
       throw e
     }
   },
