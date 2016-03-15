@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-describe.only('about Elasticsearch Service .', function() {
+describe('about Elasticsearch Service .', function() {
   let elastic;
   describe('init', () => {
 
