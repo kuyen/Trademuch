@@ -33,7 +33,6 @@ var mainView = myApp.addView('.view-main', {
 });
 window.mainView = mainView;
 
-
 // // Add main view
 // var addView = myApp.addView('.view-add', {
 //   dynamicNavbar: true,
@@ -42,6 +41,14 @@ window.mainView = mainView;
 //   linksView: mainView,
 // });
 // window.addView = addView;
+
+// Add main view
+var viewSearch = myApp.addView('.view-search', {
+  dynamicNavbar: true,
+  domCache: false,
+  linksView: mainView,
+});
+window.viewSearch = viewSearch;
 
 function jsLoad(href) {
   var xmlhttp = new XMLHttpRequest();
@@ -172,26 +179,26 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
     $$("#profileView > .page-content").html(jsLoad("/user/profile"));
   });
 
-  $$("a.searchView.tab-link").click(function() {
-    myApp.closeNotification('.notification-item');
-    $$("#searchView > .page-content").addClass("active");
-    $$("#favoriteView  > .page-content").removeClass("active");
-    $$("#profileView > .page-content").removeClass("active");
-  });
-
-  $$("a.favoriteView.tab-link").click(function() {
-    myApp.closeNotification('.notification-item');
-    $$("#favoriteView > .page-content").addClass("active");
-    $$("#searchView > .page-content").removeClass("active");
-    $$("#profileView > .page-content").removeClass("active");
-  });
-
-  $$("a.profileView.tab-link").click(function() {
-    myApp.closeNotification('.notification-item');
-    $$("#profileView > .page-content").addClass("active");
-    $$("#searchView > .page-content").removeClass("active");
-    $$("#favoritetView > .page-content").removeClass("active");
-  });
+  // $$("a.searchView.tab-link").click(function() {
+  //   myApp.closeNotification('.notification-item');
+  //   $$("#searchView > .page-content").addClass("active");
+  //   $$("#favoriteView  > .page-content").removeClass("active");
+  //   $$("#profileView > .page-content").removeClass("active");
+  // });
+  //
+  // $$("a.favoriteView.tab-link").click(function() {
+  //   myApp.closeNotification('.notification-item');
+  //   $$("#favoriteView > .page-content").addClass("active");
+  //   $$("#searchView > .page-content").removeClass("active");
+  //   $$("#profileView > .page-content").removeClass("active");
+  // });
+  //
+  // $$("a.profileView.tab-link").click(function() {
+  //   myApp.closeNotification('.notification-item');
+  //   $$("#profileView > .page-content").addClass("active");
+  //   $$("#searchView > .page-content").removeClass("active");
+  //   $$("#favoritetView > .page-content").removeClass("active");
+  // });
 
   // hide Scroll bar when scroll down.
   var timer, lock = false;
@@ -376,7 +383,7 @@ $$(document).on('pageInit', '.page[data-page="home"]', function(e) {
         // $('#back-top').fadeOut();
         $$('#back-top').removeClass('fadeIn')
         $$('#back-top').addClass('fadeOut')
-        mainView.router.load({
+        viewSearch.router.load({
           url: '/post/' + $$(this).attr("data-id"),
           ignoreCache: true,
         });
