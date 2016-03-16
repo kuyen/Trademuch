@@ -26,11 +26,11 @@
 
 /* toolbar and tab */
 
-.mainToolbar {
+.toolbar-style {
   height: 64px;
   background-color: #212121 !important;
 }
-.toolbar-inner {
+.toolbar-style > .toolbar-inner {
   padding: 0 0px;
 }
 .toolbar-inner > a > img {
@@ -44,10 +44,10 @@ a.tab-link.active {
   background-color: #424242;
 }
 a.tab-link {}
-.toolbar .storyView {
+.toolbar-style .storyView {
   background-color: #01579B;
 }
-.toolbar .storyView img {
+.toolbar-style .storyView img {
   /*margin-top: px;*/
   height: 32px;
 }
@@ -231,7 +231,7 @@ div.favbox.favoriteView > a {
 /* detail-button */
 div.detbox {
   /*position: absolute;*/
-  
+
   top: 30px;
   z-index: 9999;
   padding: 7.6px;
@@ -243,7 +243,7 @@ div.detbox {
   display: flex;
   /*width: 80px;
   height: 80px;*/
-  
+
   overflow: hidden;
   ;
 }

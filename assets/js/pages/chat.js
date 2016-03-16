@@ -1,5 +1,5 @@
 // when page onload
-myApp.onPageBack('chat', function(page) {
+myApp.onPageBeforeRemove('chat', function(page) {
   console.log("onPageBack=>", page);
   offline();
 });
@@ -9,9 +9,9 @@ window.onbeforeunload = function() {
 };
 
 function offline() {
-  if(!chat) return false;
-  if(conversationStarted) conversationStarted = false;
-  
+  if (!chat) return false;
+  if (conversationStarted) conversationStarted = false;
+
   // reassemble post id
   var postId = window.location.pathname.split("/")[3];
   // listen event join
@@ -27,7 +27,7 @@ function offline() {
   if (chat.isConnected()) {
     chat.disconnect();
     chat = null;
-      // chat.removeAllListeners();
+    // chat.removeAllListeners();
   }
 }
 
@@ -56,10 +56,10 @@ var chat, myMessages, roomInfo, conversationStarted;
 // when page loaded
 var initPage = myApp.onPageAfterAnimation('chat', function(page) {
 
-  window.myApp.hideIndicator();
-
   // "page" variable contains all required information about loaded and initialized page
   console.log("onPageAfterAnimation=>", page);
+
+  myApp.hideIndicator();
 
   // disable websocket autoConnect.
   io.sails.autoConnect = false;
@@ -69,8 +69,8 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
   io.sails.url = url;
   if (!chat) {
     chat = io.sails.connect(url);
-  }else{
-    if(chat.isConnected()) chat = io.sails.reconnect();
+  } else {
+    if (chat.isConnected()) chat = io.sails.reconnect();
   }
 
   // listen event join

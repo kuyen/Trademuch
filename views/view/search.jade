@@ -1,6 +1,6 @@
 #searchView.view.view-search.tab(data-page='search')
-  include ./includes/navbar.jade
-  .pages.navbar-through
+  include ../includes/navbar.jade
+  .pages.navbar-through.toolbar-through
     .page(data-page='search')
       form#formSearch.searchbar
        // Search bar
@@ -35,7 +35,8 @@
                               .item-inner
                                 .item-title-row
                                   .item-title
-                                    a.link(data-ignore-cache="true", href='/post/#{post.id}' data-view=".view-search") #{post.title}
+                                    //- a.link(href='/post/#{post.id}') #{post.title}
+                                    a.item.link(href='#', data-id='#{post.id}') #{post.title}
                                 //- .item-subtitle NT$#{post.price}
                           .swipeout-actions-right
                             a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 

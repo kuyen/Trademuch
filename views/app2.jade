@@ -10,40 +10,21 @@ block body
   include ./includes/splash.jade
   include ./includes/backTop.jade
   
-  .views.tabs.toolbar-through
+  .views.toolbar-through.tabs
   
-    //-=============================================
-    
-    //- .view.view-main
-    //-   include ./view-main/navbar.jade
-    //-   include ./view-main/toolbar.jade
-    //-   .pages.navbar-through.toolbar-through.tabs
-    //-     include ./view-main/pages/map.jade 
-    //-     include ./view-main/pages/search.jade
-    //-     include ./view-main/pages/favorite.jade
-    //-     include ./view-main/pages/profile.jade
-    
-    
-    include ./view-map.jade 
-    include ./view-search.jade
-        
+    include ./view/main.jade 
+    include ./view/search.jade
+    include ./view/addPost.jade
+    include ./view/favorite.jade
+    include ./view/profile.jade
+      
     include ./includes/toolbar.jade
-    //-=============================================
     
-    //- .view.view-add
-    //-   include ./view-add/navbar.jade
-    //-   include ./view-add/toolbar.jade
-    //-   .pages.navbar-through.no-toolbar
-    //-     include ./view-add/pages/category.jade
-    //-     include ./view-add/pages/crateDetail.jade
-    
-    //-============================================= 
-        
     
 block scripts     
-  include ./view-main/includes/fb.jade
-  include ./view-main/includes/map.jade
-  include ./view-main/includes/searchResult.jade
+  include ./includes/fb.jade
+  include ./includes/map.jade
+  include ./includes/searchResult.jade
 
 
   

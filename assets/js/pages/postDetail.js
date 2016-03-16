@@ -2,7 +2,7 @@
 //   $$('a.left.back.link').click(function() {
 //     console.log("!!!!!!");
 //     var historyView = mainView.history;
-//     if (historyView[historyView.length - 2] == '#home') {
+//     if (historyView[historyView.length - 2] == '#main') {
 //       mainView.router.back();
 //     } else {
 //       window.location.href = '/app';
@@ -38,18 +38,18 @@ var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function
   $$('div[data-page="postDetail"] .left .link.postDetailBack').click(function(e) {
     console.log(" postDetail back click ");
     var historyView = mainView.history;
-    if (historyView[historyView.length -2] != '#home') {
+    if (historyView[historyView.length -2] != '#main') {
       console.log("after post");
       // historyView = [];
       // var homeIndex = 0;
       // for (var a = 0; a < mainView.history.length; a++) {
       //   console.log(mainView.history[a]);
       //   if (mainView.history[a].indexOf("/post/create") == -1) historyView.push(mainView.history[a]);
-      //   if (mainView.history[a] == "#home") homeIndex = mainView.history.length - a;
+      //   if (mainView.history[a] == "#main") homeIndex = mainView.history.length - a;
       // }
       // mainView.history = historyView;
       mainView.router.back({
-        url: "#home",
+        url: "#main",
         "reloadPrevious": true,
         "force": true,
         "ignoreCache": true,

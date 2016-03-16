@@ -177,7 +177,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
   var inforBoxArray = [];
 
   for (var i = 0; i < json.data.length; i++) {
-    console.log(json.data[i]);
+    // console.log(json.data[i]);
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(json.data[i].latitude, json.data[i].longitude),
       map: map
