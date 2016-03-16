@@ -64,6 +64,15 @@ let self = module.exports = {
 
     await post.addPlace(place.id)
 
+    await ElasticsearchService.addPost({
+      id: post.id,
+      title: post.title,
+      location:{
+        lat: 0,
+        lon: 0
+      }
+    })
+
     for (let i = 0; i < 10; i++) {
       let latitude = 51.5377994 + Math.random() / 100;
       let longitude = -0.1006775 + Math.random() / 100;
@@ -77,6 +86,15 @@ let self = module.exports = {
         "user_id": testUser2.id
       });
       await createPost.addPlace(place.id)
+
+      await ElasticsearchService.addPost({
+        id: createPost.id,
+        title: createPost.title,
+        location:{
+          lat: latitude,
+          lon: longitude
+        }
+      })
     }
   }
 }
