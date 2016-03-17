@@ -1,5 +1,3 @@
-"use strict";
-
 // init f7 app.
 var myApp = new Framework7({
   init: false,
@@ -35,6 +33,8 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   hideTabbarOnPageScroll: true,
   hideNavbarOnPageScroll: true,
+  // showBarsOnPageScrollEnd: false,
+  // showBarsOnPageScrollTop: false,
 
   // ajax reactions
   onAjaxStart: function(xhr) {
@@ -43,67 +43,100 @@ var myApp = new Framework7({
   onAjaxComplete: function(xhr) {
     setTimeout(function() {
       myApp.hideIndicator();
-    }, 500);
+    }, 225);
   },
 
-  // plugin switch
+  // --------------------------------------- //
+  //            plugin switchs               //
+  // --------------------------------------- //
   log: true,
   pageEventCatcher: true,
   disableSocketAutoConnection: true,
   backTopBtn: false,
+  fbSupport: true,
+  hideMyToolbar: true,
 
-  // view switch
+  // --------------------------------------- //
+  //              view switchs               //
+  // --------------------------------------- //
   mainView: true,
   searchView: true,
   favoriteView: true,
   profileView: true,
+  // addPostView: true,
 
 }); // end myApp
-
-// Expose Internal DOM library
-window.$$ = Framework7.$;
-window.myApp = myApp;
 
 // Add main view
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
   dynamicNavbar: true,
-  domCache: false,
-  linksView: mainView,
+  domCache: true,
+  linksView: '.view-main',
+  url: "#main",
 });
-window.mainView = mainView;
 
 // Add search view
 var searchView = myApp.addView('.view-search', {
   dynamicNavbar: true,
-  domCache: false,
-  linksView: searchView,
+  domCache: true,
+  linksView: '.view-search',
+  url: "#search",
 });
-window.searchView = searchView;
 
 // Add addPost view
-var searchView = myApp.addView('.view-addPost', {
-  dynamicNavbar: true,
-  domCache: false,
-  linksView: searchView,
-});
-window.searchView = searchView;
+// var addPostView = myApp.addView('.view-addPost', {
+//   dynamicNavbar: true,
+//   domCache: true,
+//   linksView: "#addPostView",
+//
+// });
 
 // Add favorite view
 var favoriteView = myApp.addView('.view-favorite', {
   dynamicNavbar: true,
-  domCache: false,
-  linksView: favoriteView,
+  domCache: true,
+  linksView: '.view-favorite',
+  url: "#favorite",
 });
-window.favoriteView = favoriteView;
 
 // Add profile view
 var profileView = myApp.addView('.view-profile', {
   dynamicNavbar: true,
-  domCache: false,
-  linksView: profileView,
+  domCache: true,
+  linksView: '.view-profile',
+  url: "#profile",
 });
+
+// Expose Internal DOM library
+window.$$ = Framework7.$;
+window.myApp = myApp;
+window.mainView = mainView;
+window.searchView = searchView;
+// window.addPostView = addPostView;
+window.favoriteView = favoriteView;
 window.profileView = profileView;
 
 // exec f7 app.
 myApp.init();
+
+// expose toolbar method
+function showMyToolbar(toolbar) {
+  if (typeof toolbar == 'undefined' || toolbar == null) {
+    toolbar = '.toolbar';
+  }
+  $$(toolbar).removeClass('toolbar-hidden');
+  $$(toolbar).removeClass('toolbar-hiding');
+  $$(toolbar).addClass('animated fadeIn');
+  $$(toolbar).show();
+}
+myApp.showMyToolbar = showMyToolbar;
+
+//
+function hideMyToolbar(toolbar) {
+  if (typeof toolbar == 'undefined' || toolbar == null) {
+    toolbar = '.toolbar';
+  }
+  $$(toolbar).hide();
+}
+myApp.hideMyToolbar = hideMyToolbar;

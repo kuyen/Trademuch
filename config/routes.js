@@ -81,7 +81,7 @@
    //  'get /hobby': 'FrontUserController.hobby',
    //  'get /main': 'MainController.index',
    //  'get /story': 'PostController.create',
-   //  'get /storyCategory': 'FrontPostController.createCategory',
+   //  'get /postCategory': 'FrontPostController.createCategory',
    //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
    //  'post /getAllPost': 'PostController.getAll',
    // /rest/post/list

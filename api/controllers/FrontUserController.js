@@ -40,7 +40,7 @@ module.exports = {
         allPosts.data.splice(deleteItem[i], 1);
       }
 
-      res.view('favorite', {
+      res.view('pages/favorite', {
         favorites: userFavorites,
         loginState: loginState,
         loginedUser: loginedUser,
@@ -89,7 +89,7 @@ module.exports = {
         }
 
 
-        res.view('profile', {
+        res.view('pages/profile', {
           profile,
           userFBId
         });

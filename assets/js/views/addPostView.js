@@ -79,7 +79,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   // });
 
   // if no hobby...
-  var category = myApp.formGetData('storyCategoryChoose');
+  var category = myApp.formGetData('postCategoryChoose');
   if (!category) {
     setTimeout(function() {
       myApp.alert("oops! please seslect category agagin.", 'Error');
@@ -247,7 +247,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     myApp.showIndicator();
 
     var postMode = myApp.formGetData('storyModeChoose');
-    var category = myApp.formGetData('storyCategoryChoose');
+    var category = myApp.formGetData('postCategoryChoose');
     var detail = myApp.formGetData('storyDetailChoose');
 
     var data = {};
@@ -391,7 +391,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           result = JSON.parse(result);
           $$("#finishStep").removeAttr('disabled');
           myApp.formDeleteData('storyModeChoose');
-          myApp.formDeleteData('storyCategoryChoose');
+          myApp.formDeleteData('postCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
           mainView.router.load({

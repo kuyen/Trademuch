@@ -44,10 +44,10 @@ a.tab-link.active {
   background-color: #424242;
 }
 a.tab-link {}
-.toolbar-style .storyView {
+.toolbar-style .addPostView {
   background-color: #01579B;
 }
-.toolbar-style .storyView img {
+.toolbar-style .addPostView img {
   /*margin-top: px;*/
   height: 32px;
 }

@@ -1,0 +1,32 @@
+.navbar
+  .navbar-inner
+    .left
+      a.back.link(href='#')
+        i.icon.icon-back-white.icon-back
+        span Back
+    .center.sliding 請選擇一個分類
+    .right
+      //- a#nextSetp2(href='/storyDetail', data-context="" disabled) Next
+
+.pages
+  .page.navbar-fixed.no-toolbar.no-tabbar(data-page='postCategory')          
+    .page-content.hide-toolbar-on-scroll.hide-tabbar-on-scroll
+          
+      form#postCategoryChoose
+        -console.log(categorys.length);
+        -var index = 0
+        each category in categorys
+          -if(index % 2 == 0)
+            .row.no-gutter
+              .col-100.tablet-50.hobbyItem
+                span
+                  | #{categorys[index].title}
+                input(type='radio', name='hobby', value=categorys[index].id, style="display: none;")
+                img.category(src=categorys[index].pic)
+              -if(index+1 < categorys.length)
+                .col-100.tablet-50.hobbyItem 
+                  span
+                    | #{categorys[index+1].title}
+                  input(type='radio', name='hobby', value=categorys[index+1].id, style="display: none;")
+                  img.category(src=categorys[index+1].pic)
+          -index++

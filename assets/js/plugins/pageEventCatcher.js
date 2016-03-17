@@ -6,15 +6,16 @@ Framework7.prototype.plugins.pageEventCatcher = function(app, params) {
     name: 'Event',
     color: 1
   };
-  pluginLog(tag, 'plugin loaded');
+  pluginLog(tag, 'plugin `pageEventCatcher` loaded');
 
   return {
     hooks: {
       appInit: function() {
-        pluginLog(tag, 'appInit');
+        var msg = "[appInit] ";
+        pluginLog(tag, msg);
       },
       navbarInit: function(navbar, pageData) {
-        var msg = "[appInit] " + pageData.name;
+        var msg = "[navbarInit] " + pageData.name;
         pluginLog(tag, msg, {
           navbar,
           pageData
@@ -27,31 +28,31 @@ Framework7.prototype.plugins.pageEventCatcher = function(app, params) {
         });
       },
       pageBeforeInit: function(pageData) {
-        var msg = "[pageInit] " + pageData.name;
+        var msg = "[pageBeforeInit] " + pageData.name;
         pluginLog(tag, msg, {
           pageData
         });
       },
       pageBeforeAnimation: function(pageData) {
-        var msg = "[pageInit] " + pageData.name;
+        var msg = "[pageBeforeAnimation] " + pageData.name;
         pluginLog(tag, msg, {
           pageData
         });
       },
       pageAfterAnimation: function(pageData) {
-        var msg = "[pageInit] " + pageData.name;
+        var msg = "[pageAfterAnimation] " + pageData.name;
         pluginLog(tag, msg, {
           pageData
         });
       },
       pageBeforeRemove: function(pageData) {
-        var msg = "[pageInit] " + pageData.name;
+        var msg = "[pageBeforeRemove] " + pageData.name;
         pluginLog(tag, msg, {
           pageData
         });
       },
       addView: function(view) {
-        var msg = "[pageInit] " + pageData.name;
+        var msg = "[addView] ";
         pluginLog(tag, msg, {
           view
         });

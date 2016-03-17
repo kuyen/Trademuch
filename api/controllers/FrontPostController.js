@@ -28,7 +28,7 @@ module.exports = {
           if(fav.id==itemId) isFav = true;
         }); // end forEach
       }
-      res.view('postDetail', {
+      res.view('pages/postDetail', {
         post,
         isFav,
         fbId
@@ -73,7 +73,7 @@ module.exports = {
     try {
 
       let categorys = await PostService.getAllCategory();
-      res.view('storyCategory', {
+      res.view('pages/postCategory', {
         categorys
       });
     } catch (e) {

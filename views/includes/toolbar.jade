@@ -1,15 +1,16 @@
 .toolbar.toolbar-bottom.tabbar.toolbar-style
   .toolbar-inner
-    a.mapView.tab-link.active(href='#mapView', alt='profile')
+    a.mapView.tab-link.active(href='#mapView')
       img(src='/img/map.png', alt='map')
     |     
     a.searchView.tab-link(href='#searchView')
       img(src='/img/search.png', alt='search')
     |           
-    a.storyView.link(data-view=".view-add")
-      img(src='/img/add.png', alt='add')
+    //- a.addPostView.tab-link(href="#addPostView")
+    a.addPostView.link(data-view="#addPostView")
+      img(src='/img/add.png', alt='addPost')
     |     
-    a.favoriteView.tab-link(href='#favoriteView', data-login="#{loginState}")
+    a.favoriteView.tab-link(href='#favoriteView')
       img(src='/img/favorite.png', alt='favorite')
     | 
     a.profileView.tab-link(href='#profileView')

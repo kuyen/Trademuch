@@ -14,11 +14,18 @@ function getCookie(name) {
 }
 
 //
-function setCookie(name, value) {
-  //var Days = 1; //default one day
-  //var exp  = new Date();
-  //exp.setTime(exp.getTime() + Days*24*60*60*1000);
-  document.cookie = name + "=" + escape(value) + "; path=/";
+function setCookie(name, value, days) {
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = "; expires=" + date.toGMTString();
+  } else var expires = "";
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+//
+function removeCookie(name) {
+  setCookie(name, "", -1);
 }
 
 // console print debug messages
