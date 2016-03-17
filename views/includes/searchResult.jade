@@ -1,6 +1,6 @@
 //f7 search-result callback
 script(type='text/template7', id="searchResult").
-  {{#if this.items>0}}
+  {{#if this.items.length>0}}
     {{#each this.items}}
       <li class="swipeout" data-id={{id}}>
         <div class="swipeout-content">

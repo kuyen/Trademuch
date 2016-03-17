@@ -17,6 +17,6 @@ module.exports = function(req, res, next) {
 
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
-  return res.view('403f7');
+  return res.view('pages/403');
   // return res.redirect('/rest/auth/facebook')
 };

@@ -1,11 +1,10 @@
-//- .pages.navbar-through.toolbar-through
-.page(data-page='favorite')          
-  .page-content 
+.page.toolbar-through(data-page='favorite')          
+  .page-content
   
     -if(favorites && favorites.length > 0)
       .card
         .card-header You like !!
-        .card-content 
+        .card-content
         .list-block.media-list
           ul#fav-result
             -i=0

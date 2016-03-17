@@ -1,58 +1,35 @@
-var pageBeforeRemove = myApp.onPageBeforeRemove('postCreate', function(page) {
+var page = 'createDetail';
 
-  myApp.showMyToolbar();
+//
+myApp.onPageBeforeRemove(page, function(page) {
+
+  if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
 
 });
 
+//
+myApp.onPageInit(page, function(page) {
 
-
-$$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', function(e) {
+  myApp.hideMyToolbar();
 
   // init f7-calendar
   var now = new Date();
   var today = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-  // set a range time picker
-  // var calendarPostPeriod = myApp.calendar({
-  //   input: '#calendar-postPeriod',
-  //   rangePicker: true,
-  //   closeOnSelect: true,
-  //   disabled: function(date) {
-  //     // enable today
-  //     if (date.getFullYear() == now.getFullYear() &&
-  //       date.getMonth() == now.getMonth() &&
-  //       date.getDate() == now.getDate()) {
-  //       return false;
-  //     }
-  //     // only enable future time
-  //     if (date.getTime() < now.getTime()) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   },
-  // });
-  // disable f7's date picker
-  // $$("input[name='postPeriod']").on('click', function() {
-  //   $$(this).val("");
-  //   cleanQuickDatePickerState();
-  // });
-  // $$("input[name='postPeriod']").on('change', function() {
-  //   var storedData = myApp.formToJSON('#storyDetailChoose');
-  //   myApp.formStoreData('storyDetailChoose', storedData);
-  //   console.log("period=>", $(this).val());
-  // });
 
   // if no hobby...
-  var category = myApp.formGetData('postCategoryChoose');
+  var category = myApp.formGetData('createCategoryChoose');
   if (!category) {
+    myApp.showIndicator();
     setTimeout(function() {
       myApp.alert("oops! please seslect category agagin.", 'Error');
       mainView.router.load({
         url: "/post/create/Category",
+        reload: true,
         pushState: false,
         pushStateOnLoad: false
       });
-    }, 3000);
+      myApp.hideIndicator();
+    }, 225);
   }
   console.log("category=>", category);
 
@@ -78,8 +55,8 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
       $$(this).find('input').prop("checked", true);
     }
 
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
+    var storedData = myApp.formToJSON('#createDetailChoose');
+    myApp.formStoreData('createDetailChoose', storedData);
     console.log("storedData=>", storedData);
   });
 
@@ -88,15 +65,15 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     radioItem.prop("checked", false);
     $$('.checked').hide();
     var item = $$("input[name='item']").val();
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
+    var storedData = myApp.formToJSON('#createDetailChoose');
+    myApp.formStoreData('createDetailChoose', storedData);
   });
 
   $$("input[name='title']").on('input', function() {
     console.log("title length", $$(this).val().trim().length);
     if ($$(this).val().trim().length > 0) {
-      var storedData = myApp.formToJSON('#storyDetailChoose');
-      myApp.formStoreData('storyDetailChoose', storedData);
+      var storedData = myApp.formToJSON('#createDetailChoose');
+      myApp.formStoreData('createDetailChoose', storedData);
 
       // save title input to itemname at this version.
       $$("input[name='item']").val($$(this).val());
@@ -104,18 +81,18 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
   });
 
   $$("textarea[name='content']").on('input', function() {
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
+    var storedData = myApp.formToJSON('#createDetailChoose');
+    myApp.formStoreData('createDetailChoose', storedData);
   });
 
   $$("input[name='image']").on('change', function() {
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
+    var storedData = myApp.formToJSON('#createDetailChoose');
+    myApp.formStoreData('createDetailChoose', storedData);
   });
 
   $$("input[name='price']").on('input', function() {
-    var storedData = myApp.formToJSON('#storyDetailChoose');
-    myApp.formStoreData('storyDetailChoose', storedData);
+    var storedData = myApp.formToJSON('#createDetailChoose');
+    myApp.formStoreData('createDetailChoose', storedData);
   });
   $$("input[name='price']").on('click', function() {
     $$(this).val("");
@@ -211,8 +188,8 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     myApp.showIndicator();
 
     var postMode = myApp.formGetData('storyModeChoose');
-    var category = myApp.formGetData('postCategoryChoose');
-    var detail = myApp.formGetData('storyDetailChoose');
+    var category = myApp.formGetData('createCategoryChoose');
+    var detail = myApp.formGetData('createDetailChoose');
 
     var data = {};
     data.mode = postMode == undefined ? null : postMode.mode;
@@ -355,11 +332,14 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
           result = JSON.parse(result);
           $$("#finishStep").removeAttr('disabled');
           myApp.formDeleteData('storyModeChoose');
-          myApp.formDeleteData('postCategoryChoose');
-          myApp.formDeleteData('storyDetailChoose');
+          myApp.formDeleteData('createCategoryChoose');
+          myApp.formDeleteData('createDetailChoose');
           myApp.hideIndicator();
-          mainView.router.load({
+          myApp.getCurrentView().router.load({
             url: '/post/' + result.id,
+            reload: true,
+            pushState: false,
+            pushStateOnLoad: false,
           });
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -496,4 +476,44 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     if (input[0].files[0] != null) reader.readAsDataURL(input[0].files[0]);
 
   }); // end fileUpload
-}); // end pageInit-storyDetail
+});
+
+
+
+
+
+
+
+$$(document).on('pageInit pageReInit', '.page[data-page="createDetail"]', function(e) {
+  // set a range time picker
+  // var calendarPostPeriod = myApp.calendar({
+  //   input: '#calendar-postPeriod',
+  //   rangePicker: true,
+  //   closeOnSelect: true,
+  //   disabled: function(date) {
+  //     // enable today
+  //     if (date.getFullYear() == now.getFullYear() &&
+  //       date.getMonth() == now.getMonth() &&
+  //       date.getDate() == now.getDate()) {
+  //       return false;
+  //     }
+  //     // only enable future time
+  //     if (date.getTime() < now.getTime()) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   },
+  // });
+  // disable f7's date picker
+  // $$("input[name='postPeriod']").on('click', function() {
+  //   $$(this).val("");
+  //   cleanQuickDatePickerState();
+  // });
+  // $$("input[name='postPeriod']").on('change', function() {
+  //   var storedData = myApp.formToJSON('#createDetailChoose');
+  //   myApp.formStoreData('createDetailChoose', storedData);
+  //   console.log("period=>", $(this).val());
+  // });
+
+}); // end pageInit-createDetail

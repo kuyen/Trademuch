@@ -11,6 +11,9 @@
 
     return {
       hooks: {
+        appInit: function() {
+          appInit();
+        },
         pageBeforeInit: function(pageData) {
           if (pageData.name == "favorite") pageBeforeInit(pageData);
         },
@@ -30,13 +33,21 @@
     };
   };
 
+  function appInit() {
+
+    myApp.reloadFavorite = function() {
+      $$.get("/user/favorites", function(data) {
+        $$("#favoriteView > .pages").html(data);
+        // the way below contant navbar and transform animation.
+        // favoriteView.loadContent(data;)
+      })
+    };
+
+  } // end appInit
+
   // runs when BEFORE insert a f7 page to view.
   function pageBeforeInit(pageData) {
     // todo
-
-    myApp.reloadFavorite = function() {
-      $$("#favoriteView > .pages").html(jsLoad("/user/favorites"));
-    };
 
   } // end pageInit
 

@@ -73,7 +73,7 @@ module.exports = {
     try {
 
       let categorys = await PostService.getAllCategory();
-      res.view('pages/postCategory', {
+      res.view('pages/createCategory', {
         categorys
       });
     } catch (e) {
@@ -84,7 +84,7 @@ module.exports = {
 
   createByCategoryId: async(req, res) => {
     try {
-      res.view('storyDetail');
+      res.view('pages/createDetail');
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);

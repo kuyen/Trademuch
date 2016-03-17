@@ -1,3 +1,49 @@
+
+$$(".tab-link.favoriteView").click(function() {
+  console.log("click");
+  if (loginState == true) {
+    myApp.closeNotification('.notification-item');
+    myApp.reloadFavorite();
+    console.log("login and click");
+  }
+});
+
+$$(".tab-link.profileView").click(function() {
+  console.log("click");
+  if (loginState == true) {
+    myApp.closeNotification('.notification-item');
+    myApp.reloadProfile();
+    console.log("login and click");
+  }
+});
+
+
+$$(".addPostView").click(function(event) {
+  console.log("click");
+  console.log(loginState);
+  if (loginState == true) {
+    myApp.closeNotification('.notification-item');
+    // myApp.addPost();
+    myApp.getPostCategory();
+    // addPostView.router.load({
+    //   url: "/post/create/Category",
+    //   reload: false,
+    //   pushState: false,
+    //   pushStateOnLoad: false,
+    // });
+    $$(this).removeClass('tab-link');
+    $$(this).addClass('link');
+    // myApp.getPostCategory();
+    console.log("login and click");
+  }else{
+    $$(this).removeClass('link');
+    $$(this).addClass('tab-link');
+    $$(this).click()
+  }
+});
+
+
+
 $$('#tab1').on('show', function() {
   myApp.alert('Tab 1 is visible');
 });
@@ -10,31 +56,24 @@ $$('#tab3').on('show', function() {
   myApp.alert('Tab 3 is visible');
 });
 
-$$(".tab-link.favoriteView").click(function() {
-  myApp.closeNotification('.notification-item');
-  // $$("#favoriteView > .pages").html(jsLoad("/user/favorites"));
-  myApp.reloadFavorite();
-});
 
-$$(".tab-link.profileView").click(function() {
-  myApp.closeNotification('.notification-item');
-  myApp.reloadProfile();
-});
-
-// $$(".tab-link.addPostView").click(function() {
-//   myApp.closeNotification('.notification-item');
-//   $$("#addPostView > .pages").html(jsLoad("/post/create/Category"));
+// $$(".link.addPostView").click(function(event) {
+//   if (loginState == true) {
+//     myApp.closeNotification('.notification-item');
+//     // myApp.getCurrentView().router.load({
+//     //   url: "/post/create/Category",
+//     //   reload: false,
+//     //   pushState: false,
+//     //   pushStateOnLoad: false,
+//     // });
+//     myApp.getPostCategory();
+//     console.log("ink.addPostView login and click");
+//   } else {
+//     $$(this).removeClass('link');
+//     $$(this).addClass('tab-link');
+//     $$(".link.addPostView").click()
+//   }
 // });
-
-$$(".link.addPostView").click(function(event) {
-  // myApp.hideMyToolbar();
-  // myApp.getCurrentView().history.push(myApp.getCurrentView())
-  myApp.getCurrentView().router.load({
-    url: "/post/create/Category",
-    pushState: true,
-    pushStateOnLoad: true,
-  });
-});
 
 
 // $$(document).on('click', '.item-link', function(e) {

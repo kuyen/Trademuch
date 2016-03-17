@@ -17,7 +17,7 @@
                
 .pages
   .page.navbar-fixed.no-toolbar.no-tabbar(data-page='postDetail')          
-    .page-content.hide-toolbar-on-scroll.hide-tabbar-on-scroll
+    .page-content.keep-navbar-on-scroll
       -if(post)
         input#itemId(type="hidden",value='#{post.id}')
         .list-block.cards-list
@@ -70,13 +70,13 @@
                           .item-title.bold #{'no phone number now.'}
                           
                   //- ------------------ email
-                  -if(post.email)
-                    li
-                      a.item-content.external(href='mailto:#{post.email}')
-                        .item-media.email-user
-                          i.icon.icon-form-email
-                        .item-inner
-                          .item-title.bold.black #{post.email}
+                  //- -if(post.email)
+                  //-   li
+                  //-     a.item-content.external(href='mailto:#{post.email}')
+                  //-       .item-media.email-user
+                  //-         i.icon.icon-form-email
+                  //-       .item-inner
+                  //-         .item-title.bold.black #{post.email}
              .card-footer
               .mapWrapper.center
                 a.external(href="https://www.google.com.tw/maps/place/"+post.latitude+","+post.longitude)

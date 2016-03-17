@@ -1,8 +1,15 @@
 #addPostView.view.view-addPost.tab(data-page='addPost')
-  //- include ../includes/navbar.jade
+  include ../includes/navbar.jade
 
-  .pages.navbar-through.layout-white
-    .page(data-page='addPost')
-      .page-content
-      
-            
+  -if(loginState)
+    .pages.navbar-through.layout-white
+      .page(data-page='addPost')
+        .page-content
+        
+  -else
+    .pages.navbar-through
+    include ../includes/noLogin.jade
+    
+script.
+  var loginState = !{loginState};
+    

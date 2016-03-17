@@ -26,7 +26,7 @@ module.exports = {
         sails.log.info('ChatController.chatView:history =>', JSON.stringify(history));
       } // end if
 
-      res.view('chat', {
+      res.view('pages/chat', {
         user,
         history
       });

@@ -14,8 +14,10 @@ $$(document).on('click', '.swipeout', function(event) {
       $$('#back-top').addClass('fadeOut')
       myApp.getCurrentView().router.load({
         url: '/post/' + $$(this).attr("data-id"),
-        reload: false,
-        ignoreCache: true,
+        // reload: false,
+        // pushState: true,
+        // pushStateOnLoad: true,
+        // reload: false,
         pushState: true,
         pushStateOnLoad: true,
       });

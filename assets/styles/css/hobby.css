@@ -32,7 +32,7 @@ img.category {
   border: 0;
   vertical-align: middle;
 }
-#storyDetail .row {
+#createDetail .row {
   margin: 5px;
 }
 
@@ -123,7 +123,7 @@ img.category {
 #greeting input {
   text-align: center;
 }
-#storyDetailChoose input {
+#createDetailChoose input {
   text-align: center;
 }
 .item-input.StoryPrice {
@@ -136,7 +136,7 @@ img.category {
 .item-title.label.black {
   text-align: left;
 }
-#storyDetailChoose span.money {
+#createDetailChoose span.money {
   padding-right: 20px;
   padding-left: 50px;
 }
@@ -144,7 +144,7 @@ img.category {
   font-size: 16px;
   text-indent: calc(50% - 25px);
 }
-#storyDetailChoose [name=title] {
+#createDetailChoose [name=title] {
   font-size: 22px;
   float: left;
 }

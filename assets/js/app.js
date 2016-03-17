@@ -4,7 +4,7 @@ var myApp = new Framework7({
 
   // basic info
   modalTitle: 'TradeMuch',
-  statusbarOverlay: true,
+  statusbarOverlay: false,
 
   // broswering state
   uniqueHistory: true,
@@ -30,11 +30,9 @@ var myApp = new Framework7({
   animateNavBackIcon: true,
 
   // page scrolling
-  hideToolbarOnPageScroll: true,
-  hideTabbarOnPageScroll: true,
-  hideNavbarOnPageScroll: true,
-  // showBarsOnPageScrollEnd: false,
-  // showBarsOnPageScrollTop: false,
+  // hideToolbarOnPageScroll: true,
+  // hideTabbarOnPageScroll: true,
+  // hideNavbarOnPageScroll: true,
 
   // ajax reactions
   onAjaxStart: function(xhr) {
@@ -63,7 +61,7 @@ var myApp = new Framework7({
   searchView: true,
   favoriteView: true,
   profileView: true,
-  // addPostView: true,
+  addPostView:true,
 
 }); // end myApp
 
@@ -84,14 +82,6 @@ var searchView = myApp.addView('.view-search', {
   url: "#search",
 });
 
-// Add addPost view
-// var addPostView = myApp.addView('.view-addPost', {
-//   dynamicNavbar: true,
-//   domCache: true,
-//   linksView: "#addPostView",
-//
-// });
-
 // Add favorite view
 var favoriteView = myApp.addView('.view-favorite', {
   dynamicNavbar: true,
@@ -108,14 +98,22 @@ var profileView = myApp.addView('.view-profile', {
   url: "#profile",
 });
 
+// Add addPost view
+var addPostView = myApp.addView('.view-addPost', {
+  dynamicNavbar: true,
+  domCache: true,
+  linksView: '.view-addPost',
+  url: "#addPost",
+});
+
 // Expose Internal DOM library
 window.$$ = Framework7.$;
 window.myApp = myApp;
 window.mainView = mainView;
 window.searchView = searchView;
-// window.addPostView = addPostView;
 window.favoriteView = favoriteView;
 window.profileView = profileView;
+window.addPostView = addPostView;
 
 // exec f7 app.
 myApp.init();

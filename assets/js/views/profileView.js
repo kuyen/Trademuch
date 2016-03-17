@@ -11,6 +11,9 @@
 
     return {
       hooks: {
+        appInit: function() {
+          appInit();
+        },
         pageBeforeInit: function(pageData) {
           if (pageData.name == "profile") pageBeforeInit(pageData);
         },
@@ -30,12 +33,21 @@
     };
   };
 
+
+  function appInit() {
+
+    myApp.reloadProfile = function() {
+      $$.get("/user/profile", function(data) {
+        $$("#profileView > .pages").html(data);
+        // the way below contant navbar and transform animation.
+        // favoriteView.loadContent(data;)
+      })
+    };
+
+  } // end appInit
+
   // runs when BEFORE insert a f7 page to view.
   function pageBeforeInit(pageData) {
-
-    myApp.reloadProfile = function(){
-      $$("#profileView > .pages").html(jsLoad("/user/profile"));
-    };
 
   } // end pageInit
 
