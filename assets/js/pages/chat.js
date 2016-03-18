@@ -78,7 +78,8 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
     console.log('connect =>', data);
 
     // reassemble post id
-    var postId = window.location.pathname.split("/")[3];
+    // var postId = window.location.pathname.split("/")[3];
+    var postId = myApp.getCurrentView().url.split("/")[2];
 
     // join or create a room.
     chat.post('/room/' + postId + '/users', function(body, sailsResponseObject) {
@@ -213,7 +214,8 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
       //   name = 'Kate';
       // }
 
-      var postId = window.location.pathname.split("/")[3];
+      // var postId = window.location.pathname.split("/")[3];
+      var postId = myApp.getCurrentView().url.split("/")[2];
 
       // get room info
       if (messageText.indexOf("/list") != -1) {
