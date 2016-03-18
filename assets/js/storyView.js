@@ -239,7 +239,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     // {"mode":"give","hobby":"1","detail":{"title":"123","radioItem":"2","item":""},
     // "location":{"latitude":24.148657699999998,"longitude":120.67413979999999,"accuracy":30}}
     e.preventDefault();
-
+    $$(this).attr('disabled',true);
     myApp.showIndicator();
 
     var postMode = myApp.formGetData('storyModeChoose');
@@ -255,6 +255,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     if (!data.mode || data.mode == null) {
       myApp.hideIndicator();
       mainView.router.loadPage('/story');
+      $$("#finishStep").removeAttr('disabled');
       return false;
     }
 
@@ -262,6 +263,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
     if ( (!data.detail || !data.detail.title) || ( !data.detail.title.length>0 )) {
       myApp.hideIndicator();
       myApp.alert("Don't forget to enter a nice title :)", "Oops!");
+      $$("#finishStep").removeAttr('disabled');
       return false;
     }
 
@@ -350,6 +352,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
             longitude: lon
           }
           data.location = location;
+          $$("#finishStep").removeAttr('disabled');
           submit();
           // if get geoip's data failed then give a default loaciotn from user setting.
         }
@@ -382,13 +385,15 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
         success: function(result) {
           console.log(result);
           result = JSON.parse(result);
+          $$("#finishStep").removeAttr('disabled');
           myApp.formDeleteData('storyModeChoose');
           myApp.formDeleteData('storyCategoryChoose');
           myApp.formDeleteData('storyDetailChoose');
           myApp.hideIndicator();
-          mainView.router.loadPage('/post/f7/' + result.id);
+          mainView.router.loadPage('/post/' + result.id);
         },
         error: function(xhr, ajaxOptions, thrownError) {
+          $$("#finishStep").removeAttr('disabled');
           myApp.hideIndicator();
           myApp.alert('Due to internet connection issues, please try again later or check you GPS status. thank you.', 'Error');
           console.log(xhr.status);
@@ -418,6 +423,7 @@ $$(document).on('pageInit pageReInit', '.page[data-page="storyDetail"]', functio
         },
         error: function(xhr, ajaxOptions, thrownError) {
           myApp.hideIndicator();
+          $$("#finishStep").removeAttr('disabled');
           var msg = 'upload image failed. please try it again.(' + xhr.status + ')';
           myApp.alert(msg, 'Error');
           console.log(xhr.status);

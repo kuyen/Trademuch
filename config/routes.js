@@ -144,6 +144,7 @@
    'post /rest/post/create': 'PostController.create',
    'get  /rest/post': 'PostController.getAll',
    'get  /rest/post/search/:keyword': 'PostController.search',
+   'delete  /rest/post/:postId': 'PostController.delete',
    // 待捕齊
    // get /rest/post/:id': 'PostController.find',
 

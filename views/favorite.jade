@@ -15,13 +15,13 @@
                   .item-media
                     //- img(src=post.gallery[0], width='80')
                     -if(i<=5)
-                      img(src=favorite.coverImage, width='80', style="overflow: hidden;")
+                      .img-square(style='background-image: url("#{favorite.coverImage}")')
                     -else
-                      img.lazy.lazy-fadeIn(data-src=favorite.coverImage, width='80', style="overflow: hidden;")
+                      .img-square.lazy(data-background= favorite.coverImage)
                   .item-inner
                     .item-title-row
                       .item-title 
-                        a.link(data-ignore-cache="true", href='/post/f7/#{favorite.id}') #{favorite.title}
+                        a.link(data-ignore-cache="true", href='/post/#{favorite.id}') #{favorite.title}
                     //- .item-subtitle #{favorite.Item.itemname}
               .swipeout-actions-right
                 a.bg-pink.deletelike.notif-message.swipeout-delete(href='#', data-id='#{favorite.id}', data-img=favorite.coverImage)
@@ -53,12 +53,14 @@
                   .item-content.prodList
                     .item-media
                       //- img(src=post.gallery[0], width='80')
-                      img(src=allPosts[random].gallery[0], width='80')
+                      .img-square(style='background-image: url("#{allPosts[random].gallery[0]}")')
+                      //- img(src=allPosts[random].gallery[0], width='80')
                     .item-inner
                       .item-title-row
                         .item-title  
-                          a.link(href='/post/f7/#{allPosts[random].id}') #{allPosts[random].title}
+                          a.link(href='/post/#{allPosts[random].id}') #{allPosts[random].title}
                       //- .item-subtitle NT$#{allPosts[random].price}
                 .swipeout-actions-right
                   a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
                     img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
+          -allPosts.splice(random, 1)

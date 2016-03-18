@@ -895,12 +895,17 @@ html.android .page-from-center-to-right:before {
   -webkit-align-items: center;
   align-items: center;
 }
+
+.toolbar-inner {
+  padding: 0;
+}
+
 .navbar-inner.cached {
   display: none;
 }
+
 .navbar,
 .toolbar {
-  height: 70px;
   width: 100%;
   box-sizing: border-box;
   font-size: 17px;
@@ -910,6 +915,15 @@ html.android .page-from-center-to-right:before {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+.navbar {
+  height: 44px;
+}
+.toolbar {
+  height: 49px;
+}
+
+
 .navbar b,
 .toolbar b {
   font-weight: 500;
@@ -1028,7 +1042,8 @@ html.pixel-ratio-3 .navbar:after {
   display: none;
 }
 .navbar .center {
-  font-size: 17px;
+  color: #fff;
+  font-size: 15px;
   font-weight: 500;
   text-align: center;
   margin: 0;
@@ -1050,7 +1065,7 @@ html.pixel-ratio-3 .navbar:after {
   align-items: center;
 }
 html.ios-gt-8 .navbar .center {
-  font-weight: 600;
+  font-weight: normal;
 }
 .navbar .left,
 .navbar .right {
@@ -1434,11 +1449,11 @@ html.pixel-ratio-3 .toolbar:before {
   position: absolute;
 }
 .subnavbar ~ .page-content {
-  padding-top: 70px;
+  padding-top: 44px;
 }
 .navbar-through .page-content,
 .navbar-fixed .page-content {
-  padding-top: 70px;
+  padding-top: 44px;
 }
 .navbar-through .with-subnavbar .page-content,
 .navbar-fixed .with-subnavbar .page-content,
@@ -1918,7 +1933,7 @@ i.icon.icon-plus {
 }
 /* === Content Block === */
 .content-block {
-  margin: 80px 0;
+  margin: 44px 0;
   padding: 0 15px;
   color: #6d6d72;
   box-sizing: border-box;
