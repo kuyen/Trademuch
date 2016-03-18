@@ -38,15 +38,19 @@
 
     pageData.query.splashState = getCookie("splash");
 
-    if (pageData.query.splashState === "true" || pageData.query.splashState === true) {
+    if (pageData.query.splashState) {
       $$('#splash').css("display", "none");
+
+      pluginLog({
+        name: 'mainView',
+        color: 5
+      }, 'hide splash');
     }
 
     pluginLog({
-      name: 'mainView - cookie splash state',
+      name: 'mainView',
       color: 5
-    }, pageData.query.splashState);
-
+    }, 'cookie splash state =>' + pageData.query.splashState);
   }
 
   //
@@ -54,17 +58,23 @@
 
     var splashState = pageData.query.splashState;
 
-    if (splashState != "true" || splashState != true) {
+    if (!splashState) {
+      $$('#splash').addClass('animated fadeOut');
+
       setTimeout(function() {
-        $$('#splash').addClass('animated fadeOut');
-        setTimeout(function() {
-          $$('#splash').css("display", "none");
-        }, 650);
-      }, 250);
+        $$('#splash').css("display", "none");
+      }, 1000);
+
       setCookie("splash", true);
+
+      pluginLog({
+        name: 'mainView',
+        color: 5
+      }, 'fading out splash..');
     }
 
     $$(window).on('unload', function() {
+      // remove cookie to re-animate splash
       // removeCookie("splash");
     });
 
