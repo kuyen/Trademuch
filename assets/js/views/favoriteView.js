@@ -23,7 +23,7 @@
         pageBeforeRemove: function(pageData) {
           if (pageData.name == "favorite") pageBeforeRemove(pageData);
         },
-        pageBeforeAnimation: function(pageData) {
+        pageBeforeAnimation: function(pageData){
           if (pageData.name == "favorite") pageBeforeAnimation(pageData);
         },
         pageAfterAnimation: function(pageData) {

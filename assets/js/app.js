@@ -52,7 +52,7 @@ var myApp = new Framework7({
   disableSocketAutoConnection: true,
   backTopBtn: false,
   fbSupport: true,
-  hideMyToolbar: true,
+  barsController: true,
 
   // --------------------------------------- //
   //              view switchs               //
@@ -61,7 +61,7 @@ var myApp = new Framework7({
   searchView: true,
   favoriteView: true,
   profileView: true,
-  addPostView:true,
+  addPostView: true,
 
 }); // end myApp
 
@@ -117,24 +117,3 @@ window.addPostView = addPostView;
 
 // exec f7 app.
 myApp.init();
-
-// expose toolbar method
-function showMyToolbar(toolbar) {
-  if (typeof toolbar == 'undefined' || toolbar == null) {
-    toolbar = '.toolbar';
-  }
-  $$(toolbar).removeClass('toolbar-hidden');
-  $$(toolbar).removeClass('toolbar-hiding');
-  $$(toolbar).addClass('animated fadeIn');
-  $$(toolbar).show();
-}
-myApp.showMyToolbar = showMyToolbar;
-
-//
-function hideMyToolbar(toolbar) {
-  if (typeof toolbar == 'undefined' || toolbar == null) {
-    toolbar = '.toolbar';
-  }
-  $$(toolbar).hide();
-}
-myApp.hideMyToolbar = hideMyToolbar;

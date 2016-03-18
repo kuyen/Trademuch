@@ -3,14 +3,14 @@ var page = 'createDetail';
 //
 myApp.onPageBeforeRemove(page, function(page) {
 
-  if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
+  // if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
 
 });
 
 //
 myApp.onPageInit(page, function(page) {
 
-  myApp.hideMyToolbar();
+  // myApp.hideMyToolbar();
 
   // init f7-calendar
   var now = new Date();

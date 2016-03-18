@@ -2,7 +2,7 @@ var page = 'createCategory';
 
 myApp.onPageInit(page, function(page) {
 
-  myApp.hideMyToolbar();
+  // myApp.hideMyToolbar();
 
   $$('.hobbyItem').click(function() {
     if ($$(this).find('input').prop("checked"))
@@ -28,13 +28,13 @@ myApp.onPageInit(page, function(page) {
 
 myApp.onPageBack(page, function(page) {
 
-  myApp.showMyToolbar();
+  // myApp.showMyToolbar();
 
 });
 
 //
 myApp.onPageBeforeRemove(page, function(page) {
 
-  if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
+  // if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
 
 });

@@ -30,7 +30,9 @@ var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function
 
   console.log("postDetail onPageAfterAnimation");
 
-  myApp.hideMyToolbar();
+  // if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
+
+  // myApp.hideMyToolbar();
 
   // $$(function() {
   //   var origin = window.location.origin;
@@ -131,6 +133,5 @@ var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function
 
 var pageBeforeRemove = myApp.onPageBeforeRemove('postDetail', function(page) {
 
-  myApp.showMyToolbar();
 
 });
