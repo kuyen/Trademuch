@@ -93,7 +93,8 @@ let self = module.exports = {
         location:{
           lat: latitude,
           lon: longitude
-        }
+        },
+        pic: '/img/items/1.jpg'
       })
     }
   }

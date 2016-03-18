@@ -15,10 +15,14 @@ module.exports = {
                   type: "string"
                 },
                 title: {
-                  type: "string"
+                  type: "string",
+                  analyzer: "english"
                 },
                 location: {
                   type: "geo_point"
+                },
+                pic:{
+                  type: "string"
                 }
               }
             }
@@ -33,7 +37,7 @@ module.exports = {
     }
   },
 
-  addPost: async({id, title, location}) => {
+  addPost: async({id, title, location, pic}) => {
     try {
       let result = await axios.post(`http://${sails.config.elasticsearch.host}/trademuch/post`,{
         id: id,
@@ -41,7 +45,8 @@ module.exports = {
         location: {
           lat: location.lat,
           lon: location.lon
-        }
+        },
+        pic: pic
       });
       sails.log.info(result.data);
       return result.data
@@ -96,6 +101,8 @@ module.exports = {
         },
         sort: sort
       };
+
+      console.log(JSON.stringify(data));
 
       let result = await axios({
         method: 'get',
