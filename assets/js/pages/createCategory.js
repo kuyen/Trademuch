@@ -2,8 +2,6 @@ var page = 'createCategory';
 
 myApp.onPageInit(page, function(page) {
 
-  // myApp.hideMyToolbar();
-
   $$('.hobbyItem').click(function() {
     if ($$(this).find('input').prop("checked"))
       $$(this).find('input').prop("checked", false);
@@ -28,13 +26,11 @@ myApp.onPageInit(page, function(page) {
 
 myApp.onPageBack(page, function(page) {
 
-  // myApp.showMyToolbar();
 
 });
 
 //
 myApp.onPageBeforeRemove(page, function(page) {
 
-  // if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
 
 });

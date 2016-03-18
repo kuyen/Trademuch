@@ -29,11 +29,7 @@
 var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function(page) {
 
   console.log("postDetail onPageAfterAnimation");
-
-  // if (myApp.getCurrentView().activePage.url.indexOf("#") != -1) myApp.showMyToolbar();
-
-  // myApp.hideMyToolbar();
-
+  
   // $$(function() {
   //   var origin = window.location.origin;
   //   $$(".fb-comments").attr('data-href', origin);
