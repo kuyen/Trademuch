@@ -1,4 +1,3 @@
-
 $$(".tab-link.favoriteView").click(function() {
   console.log("click");
   if (loginState == true) {
@@ -22,6 +21,10 @@ $$(".addPostView").click(function(event) {
   console.log("click");
   console.log(loginState);
   if (loginState == true) {
+    if ($$(this).hasClass('tab-link')) {
+      $$(this).removeClass('tab-link');
+      $$(this).addClass('link');
+    }
     myApp.closeNotification('.notification-item');
     // myApp.addPost();
     myApp.getPostCategory();
@@ -31,30 +34,17 @@ $$(".addPostView").click(function(event) {
     //   pushState: false,
     //   pushStateOnLoad: false,
     // });
-    $$(this).removeClass('tab-link');
-    $$(this).addClass('link');
     // myApp.getPostCategory();
     console.log("login and click");
-  }else{
-    $$(this).removeClass('link');
-    $$(this).addClass('tab-link');
+  } else {
+    if ($$(this).hasClass('link')) {
+      $$(this).removeClass('link');
+      $$(this).addClass('tab-link');
+    }
     $$(this).click()
   }
 });
 
-
-
-$$('#tab1').on('show', function() {
-  myApp.alert('Tab 1 is visible');
-});
-
-$$('#tab2').on('show', function() {
-  myApp.alert('Tab 2 is visible');
-});
-
-$$('#tab3').on('show', function() {
-  myApp.alert('Tab 3 is visible');
-});
 
 
 // $$(".link.addPostView").click(function(event) {

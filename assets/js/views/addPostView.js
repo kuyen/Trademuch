@@ -45,6 +45,7 @@
 
     myApp.getPostCategory = function() {
       myApp.getCurrentView().router.load({
+      // addPostView.router.load({
         url: "/post/create/Category",
         reload: false,
         pushState: false,
