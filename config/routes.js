@@ -78,7 +78,6 @@
    // view
    'get /': 'MainController.pcOrMobile',
    'get /app': 'MainController.index',
-   'get /app2': 'MainController.index2',
    'get /app/*': 'MainController.index',
 
    'get /user/hobby': 'FrontUserController.hobby',
@@ -121,20 +120,20 @@
 
    //===================================================================
    // chatroom view
-   'get /chat/:id/page': 'ChatController.chatView',
+   'get /chat/:postId/page': 'ChatController.chatView',
    // chatroom - RoomController
-   'get /room/:roomName/users': 'RoomController.list',
-   'post /room/:roomName/users': 'RoomController.join',
-   'put /room/:roomName/limit': 'RoomController.setLimit',
-   'get /room/:roomName/limit': 'RoomController.getLimit',
-   'delete /room/:roomName/users': 'RoomController.leave',
+   'get /rest/room/:postId/users': 'RoomController.list',
+   'post /rest/room/:postId/users': 'RoomController.join',
+   'put /rest/room/:postId/limit': 'RoomController.setLimit',
+   'get /rest/room/:postId/limit': 'RoomController.getLimit',
+   'delete /rest/room/:postId/users': 'RoomController.leave',
    // chatroom - ChatController
-   'get /chat/me': 'ChatController.getId',
-   'post /chat/:roomName/public': 'ChatController.public',
-   'post /chat/:userId/private': 'ChatController.private',
-   'post /chat/:roomName/announce': 'ChatController.announce',
-   'get /chat/:roomName/history': 'ChatController.history',
-   'post /chat/announce': 'ChatController.announce'
+   'get /rest/chat/me': 'ChatController.getId',
+   'post /rest/chat/:postId/public': 'ChatController.public',
+   'post /rest/chat/:userId/private': 'ChatController.private',
+   'post /rest/chat/:postId/announce': 'ChatController.announce',
+   'get /rest/chat/:postId/history': 'ChatController.history',
+   'post /rest/chat/announce': 'ChatController.announce'
      //==================================================================
 
 

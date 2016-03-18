@@ -19,7 +19,7 @@ myApp.onPageInit(page, function(page) {
     myApp.showIndicator();
     setTimeout(function() {
       myApp.alert("oops! please seslect category agagin.", 'Error');
-      mainView.router.load({
+      myApp.getCurrentView().router.load({
         url: "/post/create/Category",
         reload: true,
         pushState: false,
@@ -74,6 +74,9 @@ myApp.onPageInit(page, function(page) {
 
       // save title input to itemname at this version.
       $$("input[name='item']").val($$(this).val());
+      $$('#finishStep').removeAttr('disabled');
+    } else {
+      $$('#finishStep').attr('disabled', 'disabled');
     }
   });
 
@@ -176,6 +179,12 @@ myApp.onPageInit(page, function(page) {
     }
   } // end cleanQuickDatePickerState
 
+  $$("img.preview").click(function(e) {
+    e.preventDefault();
+    $$(this).addClass('active-state');
+    $$('.uploadBtn')[0].click();
+    $$('.uploadBtn').trigger('click');
+  });
 
   $$(document).on('click', '#finishStep', function(e) {
     // {"mode":"give","hobby":"1","detail":{"title":"123","radioItem":"2","item":""},

@@ -17,7 +17,7 @@
                
 .pages
   .page.navbar-fixed.no-toolbar.no-tabbar(data-page='postDetail')          
-    .page-content.keep-navbar-on-scroll
+    .page-content
       -if(post)
         input#itemId(type="hidden",value='#{post.id}')
         .list-block.cards-list
@@ -54,7 +54,7 @@
                         
                   //- ------------------ chat
                   li
-                    a.item-link.item-content.chat(href="/chat/#{post.id}/page")
+                    a.item-link.item-content.chat(href="/chat/#{post.id}/page" data-ignore-cache="true")
                       .item-media.title-items
                         img(src='/img/chat＿60x60.png', alt='chat', style="height: 32px;")
                       .item-inner

@@ -13,10 +13,6 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
 
   checkRegion();
 
-  // window.mainView.hideNavbar();
-  // window.myApp.hideToolbar(".mainToolbar");
-  // window.mainView.hideToolbar();
-
   $$(document).click("#submit", function(e) {
     e.preventDefault();
     var email = $$('input[name="email"]').val();
@@ -29,7 +25,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
     var e = document.getElementById("regionSelect");
     var region = e.options[e.selectedIndex].text;
     var selected = e.options[e.selectedIndex].value;
-    if ( selected != "0" ) {
+    if (selected != "0") {
       addressToLatLng(region);
     } else {
       //   getGeoIpLocation();
@@ -94,7 +90,7 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
     });
   }
 
-  function loadScript(url, callback){
+  function loadScript(url, callback) {
     // Adding the script tag to the head as suggested before
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -114,24 +110,24 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
   function addressToLatLng(addr) {
     var jsUrl = "http://maps.google.com/maps/api/js?libraries=places";
     loadScript(jsUrl, function() {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({
-          "address": addr
-        }, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
-            var location = {
-              latitude: latitude,
-              longitude: longitude
-            };
-            submitSingUpForm(location);
-            // } else {
-            //   // if no result than use geoip
-            //   getGeoIpLocation();
-          }
-        });
-      }); // end getscript
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+        "address": addr
+      }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          var latitude = results[0].geometry.location.lat();
+          var longitude = results[0].geometry.location.lng();
+          var location = {
+            latitude: latitude,
+            longitude: longitude
+          };
+          submitSingUpForm(location);
+          // } else {
+          //   // if no result than use geoip
+          //   getGeoIpLocation();
+        }
+      });
+    }); // end getscript
   }; // end addressToLatLng
 
   function getGeoIpLocation() {
@@ -168,14 +164,18 @@ $$(document).on('pageInit', '.page[data-page="finish"]', function(e) {
       type: 'PUT',
       data: data,
       success: function(data) {
-        // if (data == "ok") {
         $$("#submit").attr("disabled", true);
         $$("#submit").css("background-color", "gray");
         $$("#submit").css("border-color", "white");
         $$("#submit").css("color", "darkgrey");
-        window.location.href = '/';
-        // mainView.router.loadPage('/app');
-        // }
+        window.location.replace('/');
+        // myApp.getCurrentView().router.back({
+        //   url: myApp.getCurrentView().url,
+        //   force: true,
+        //   ignoreCache: true,
+        //   reload: true,
+        //   pushState: true,
+        // });
       },
       error: function(err) {
         console.log(err);

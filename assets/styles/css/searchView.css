@@ -13,10 +13,11 @@
 
 /* ----------- result list ---------------------- */
 
+.searchbar-wrapper {
+  height: 20%;
+}
 ul#search-result {
-  margin-top: 120px;
   margin-bottom: auto;
-  /*margin-bottom: -90px;*/
 }
 #formSearch.searchbar {
   position: fixed;
@@ -49,20 +50,19 @@ ul#search-result {
   margin-top: auto;
   /*padding-bottom: 14px;*/
 }
-
 .no-post > p {
   text-align: center;
   font-size: 14px;
   font-weight: 900;
   /*padding-bottom: 14px;*/
 }
-
 .no-post > .button {
   display: inline-block;
 }
+
 /* ----------- suggestion search keyword -------- */
 
-#searchView > .categories {
+#searchView .categories {
   margin: 0;
   position: fixed;
   z-index: 999;
@@ -80,11 +80,11 @@ ul#search-result {
   background-color: #007aff;
   color: white;
 }
-#searchView > .categories > .button:hover {
+#searchView .categories > .button:hover {
   background-color: #007aff;
   color: white;
 }
-#searchView  > .categories > a:hover, a:focus {
+#searchView .categories > a:hover, a:focus {
   color: white;
   font-weight: 900;
 }

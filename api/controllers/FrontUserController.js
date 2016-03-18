@@ -7,7 +7,7 @@ module.exports = {
         res.redirect('/')
 
       let categorys = await PostService.getAllCategory();
-      res.view('hobby', {
+      res.view('pages/registerHobby', {
         isHasMail,
         categorys
       });

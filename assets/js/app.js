@@ -7,10 +7,12 @@ var myApp = new Framework7({
   statusbarOverlay: false,
 
   // broswering state
-  uniqueHistory: true,
   pushState: true,
   pushStateSeparator: "",
   pushStateRoot: "/app",
+  preloadPreviousPage: true,
+  uniqueHistory: true,
+  allowDuplicateUrls: true,
 
   // f7 compile template
   template7Pages: true,
@@ -54,6 +56,9 @@ var myApp = new Framework7({
   backTopBtn: false,
   fbSupport: true,
   barsController: true,
+  upscroller: {
+    text: 'Go to Top'
+  },
 
   // --------------------------------------- //
   //              view switchs               //
@@ -70,41 +75,40 @@ var myApp = new Framework7({
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
   dynamicNavbar: true,
-  domCache: true,
-  linksView: '.view-main',
-  url: "#main",
+  domCache: false,
+  linksView: mainView,
+  // url: "/app#main",
 });
 
 // Add search view
 var searchView = myApp.addView('.view-search', {
   dynamicNavbar: true,
-  domCache: true,
-  linksView: '.view-search',
-  url: "#search",
+  domCache: false,
+  linksView: searchView,
+  // url: "/app#search",
 });
 
 // Add favorite view
 var favoriteView = myApp.addView('.view-favorite', {
   dynamicNavbar: true,
-  domCache: true,
-  linksView: '.view-favorite',
-  url: "#favorite",
+  domCache: false,
+  linksView: favoriteView,
+  // url: "/app#favorite",
 });
 
 // Add profile view
 var profileView = myApp.addView('.view-profile', {
   dynamicNavbar: true,
-  domCache: true,
-  linksView: '.view-profile',
-  url: "#profile",
+  domCache: false,
+  linksView: profileView,
+  // url: "/app#profile",
 });
 
 // Add addPost view
 var addPostView = myApp.addView('.view-addPost', {
   dynamicNavbar: true,
-  domCache: true,
-  linksView: '.view-addPost',
-  url: "#addPost",
+  domCache: false,
+  linksView: addPostView,
 });
 
 // Expose Internal DOM library

@@ -11,20 +11,5 @@
     .page-content.hide-bars-on-scroll
           
       form#createCategoryChoose
-        -console.log(categorys.length);
-        -var index = 0
-        each category in categorys
-          -if(index % 2 == 0)
-            .row.no-gutter
-              .col-100.tablet-50.hobbyItem
-                span
-                  | #{categorys[index].title}
-                input(type='radio', name='hobby', value=categorys[index].id, style="display: none;")
-                img.category(src=categorys[index].pic)
-              -if(index+1 < categorys.length)
-                .col-100.tablet-50.hobbyItem 
-                  span
-                    | #{categorys[index+1].title}
-                  input(type='radio', name='hobby', value=categorys[index+1].id, style="display: none;")
-                  img.category(src=categorys[index+1].pic)
-          -index++
+        include ../includes/category.jade
+      

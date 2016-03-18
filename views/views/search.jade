@@ -5,24 +5,25 @@
   .pages.navbar-through
     .page(data-page='search')
       .page-content     
-      
-        form#formSearch.searchbar
-         // Search bar
-         .searchbar-input
-           input.i18n(type='search', data-i18n='[placeholder]global.search')
-           a.searchbar-clear(href='#') clear
-           a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
-           
-        // Search bar overlay
-        .searchbar-overlay
         
-        .row.categories
-          a.button.button-round(href='#nike', data-keyword='nike') Nike
-          a.button.button-round(href='#iphone', data-keyword='iphone') IPhone
-          a.button.button-round(href='#test', data-keyword='外套') 外套
-          a.button.button-round(href='#test', data-keyword='全新') 全新
+        .searchbar-wrapper
+          form#formSearch.searchbar
+           // Search bar
+           .searchbar-input
+             input.i18n(type='search', data-i18n='[placeholder]global.search')
+             a.searchbar-clear(href='#') clear
+             a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
+             
+           // Search bar overlay
+           .searchbar-overlay
           
-        .searchResult  
+          .row.categories
+            a.button.button-round(href='#nike', data-keyword='nike') Nike
+            a.button.button-round(href='#iphone', data-keyword='iphone') IPhone
+            a.button.button-round(href='#test', data-keyword='外套') 外套
+            a.button.button-round(href='#test', data-keyword='全新') 全新
+      
+        .searchResult-wrapper
           .card
             .card-content
               .list-block.media-list

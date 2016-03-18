@@ -94,9 +94,9 @@ module.exports = {
 
         if(user.isFirstLogin){
           if( user.dataValues.hasOwnProperty('email') ){
-            return res.redirect('/user/hobby?hasMail=true');
+            return res.redirect('/app/user/hobby?hasMail=true');
           }else{
-            return res.redirect('/user/hobby?hasMail=false');
+            return res.redirect('/app/user/hobby?hasMail=false');
           }
         }
 

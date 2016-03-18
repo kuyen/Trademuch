@@ -19,7 +19,7 @@ function offline() {
     console.log('leave =>', msg);
   });
   //leave
-  chat.delete('/room/' + postId + '/users', function(body, sailsResponseObject) {
+  chat.delete('/rest/room/' + postId + '/users', function(body, sailsResponseObject) {
     console.log('Sails responded with: ', body);
     console.log('and with status code: ', sailsResponseObject.statusCode);
   });
@@ -82,7 +82,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
     var postId = myApp.getCurrentView().url.split("/")[2];
 
     // join or create a room.
-    chat.post('/room/' + postId + '/users', function(body, sailsResponseObject) {
+    chat.post('/rest/room/' + postId + '/users', function(body, sailsResponseObject) {
       console.log('Sails responded with: ', body);
       console.log('and with status code: ', sailsResponseObject.statusCode);
       console.log("users(0)=>", body.room.users[0]);
@@ -220,7 +220,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
       // get room info
       if (messageText.indexOf("/list") != -1) {
         //list
-        chat.get('/room/' + postId + '/users', function(data, sailsResponseObject) {
+        chat.get('/rest/room/' + postId + '/users', function(data, sailsResponseObject) {
           console.log('Sails responded with: ', data);
           console.log('and with status code: ', sailsResponseObject.statusCode);
 
@@ -256,7 +256,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
       }
 
       //public
-      chat.post('/chat/' + postId + '/public', {
+      chat.post('/rest/chat/' + postId + '/public', {
           'content': messageText
         },
         function(body, sailsResponseObject) {
