@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-describe.only('about Elasticsearch Service .', function() {
+describe('about Elasticsearch Service .', function() {
   let elastic;
   describe('init', () => {
 
@@ -74,7 +74,7 @@ describe.only('about Elasticsearch Service .', function() {
     });
   });
 
-  describe('test search place', () => {
+  describe.only('test search place', () => {
 
     // let testUser,place;
     before(async (done) => {
@@ -114,7 +114,7 @@ describe.only('about Elasticsearch Service .', function() {
         })
         await ElasticsearchService.addPost({
           id: 3,
-          title: 'test Elastic term 1',
+          title: 'test Elastic termTest 1',
           location:{
             lat: 24.08,
             lon: 120.08
@@ -122,7 +122,7 @@ describe.only('about Elasticsearch Service .', function() {
         })
         await ElasticsearchService.addPost({
           id: 4,
-          title: 'test Elastic term 2',
+          title: 'test Elastic termTest 2',
           location:{
             lat: 80,
             lon: 100
@@ -130,7 +130,39 @@ describe.only('about Elasticsearch Service .', function() {
         })
         await ElasticsearchService.addPost({
           id: 4,
-          title: 'test Elastic term 2',
+          title: 'test Elastic termTest 2',
+          location:{
+            lat: 80.1,
+            lon: 100
+          }
+        })
+        await ElasticsearchService.addPost({
+          id: 4,
+          title: 'AAA',
+          location:{
+            lat: 80.1,
+            lon: 100
+          }
+        })
+        await ElasticsearchService.addPost({
+          id: 4,
+          title: '測試測試',
+          location:{
+            lat: 80.1,
+            lon: 100
+          }
+        })
+        await ElasticsearchService.addPost({
+          id: 4,
+          title: '二手iphone',
+          location:{
+            lat: 80.1,
+            lon: 100
+          }
+        })
+        await ElasticsearchService.addPost({
+          id: 4,
+          title: '二手 Mac',
           location:{
             lat: 80.1,
             lon: 100
@@ -165,7 +197,7 @@ describe.only('about Elasticsearch Service .', function() {
     it('test add search keyword ', async (done) => {
       try {
         let result = await ElasticsearchService.postPlace({
-          keyword: "term"
+          keyword: "termTest"
         });
         console.log(result);
         result.length.should.be.equal(3);
@@ -180,7 +212,7 @@ describe.only('about Elasticsearch Service .', function() {
       try {
         let result = await ElasticsearchService.postPlace({
           distance: '20km',
-          keyword: "term",
+          keyword: "termTest",
           location: {
             lat: 80,
             lon: 100
@@ -188,6 +220,76 @@ describe.only('about Elasticsearch Service .', function() {
         });
         console.log(result);
         result.length.should.be.equal(2);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it('test add search keyword ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "AA"
+        });
+        console.log(result);
+        result.length.should.be.equal(1);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it('test add search keyword ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "測試"
+        });
+        console.log(result);
+        result.length.should.be.equal(1);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it('test add search keyword ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "測"
+        });
+        console.log(result);
+        result.length.should.be.equal(1);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it('test add search keyword ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "二手"
+        });
+        console.log(result);
+        result.length.should.be.equal(2);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it('test add search keyword ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "iphone"
+        });
+        console.log(result);
+        result.length.should.be.equal(1);
         done();
       } catch (e) {
         sails.log.error(e);

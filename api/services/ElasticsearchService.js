@@ -15,8 +15,7 @@ module.exports = {
                   type: "string"
                 },
                 title: {
-                  type: "string",
-                  analyzer: "english"
+                  type: "string"
                 },
                 location: {
                   type: "geo_point"
@@ -64,9 +63,18 @@ module.exports = {
       };
       let sort = [];
       if(keyword){
+        // filterQuery = {
+        //   term: {
+        //     title: keyword
+        //   }
+        // }
         filterQuery = {
-          term: {
-            title: keyword
+          match: {
+            title: {
+              query: keyword,
+              fuzziness: 2,
+              prefix_length: 1
+            }
           }
         }
       }
