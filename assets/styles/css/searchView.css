@@ -14,20 +14,20 @@
 /* ----------- result list ---------------------- */
 
 .searchbar-wrapper {
-  height: 20%;
+  height: 108px;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  -webkit-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  transform: translateZ(1px);
 }
 ul#search-result {
   margin-bottom: auto;
 }
 #formSearch.searchbar {
-  position: fixed;
-  z-index: 9999;
-  margin-top: -5px;
-  /* for safira z-index bug */
-  -webkit-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  transform: translateZ(1px);
+  /*margin-top: -5px;*/
 }
 .item-title > a {
   color: #000;
@@ -63,18 +63,7 @@ ul#search-result {
 /* ----------- suggestion search keyword -------- */
 
 #searchView .categories {
-  margin: 0;
-  position: fixed;
-  z-index: 999;
-  top: 109px;
-  padding: 6px;
-  width: calc(100% - 12px);
   background-color: #fff;
-  /* for safira z-index bug */
-  -webkit-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  transform: translateZ(1px);
 }
 .suggestClicked {
   background-color: #007aff;
@@ -87,4 +76,7 @@ ul#search-result {
 #searchView .categories > a:hover, a:focus {
   color: white;
   font-weight: 900;
+}
+.searchResult-wrapper {
+  margin-top: 110px;
 }

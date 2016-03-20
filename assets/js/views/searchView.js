@@ -76,19 +76,22 @@
       var fav = $$(this);
       var id = fav.attr("data-id");
       var img = fav.attr("data-img");
-      myApp.addNotification({
-        title: 'You like :D',
-        message: 'You have Add to Favorite',
-        media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
-      });
-      setTimeout(function() {
-        myApp.closeNotification('.notification-item');
-      }, 2000);
       $$.ajax({
         url: "/rest/favorite/" + id,
         type: "POST",
         success: function(result) {
-          console.log(result);
+          if (result != "") {
+            myApp.getCurrentView().loadContent(result);
+          }else{
+            myApp.addNotification({
+              title: 'You like :D',
+              message: 'You have Add to Favorite',
+              media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
+            });
+            setTimeout(function() {
+              myApp.closeNotification('.notification-item');
+            }, 2000);
+          }
         },
         error: function(xhr, ajaxOptions, thrownError) {
           console.log("xhr.status,thrownError=>", xhr.status, thrownError);
