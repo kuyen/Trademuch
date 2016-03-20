@@ -1,8 +1,9 @@
 module.exports = {
+
   pcOrMobile: async(req, res) => {
     try {
       if (/mobile/i.test(req.headers['user-agent'])) {
-        res.view('index')
+        return res.redirect('/app');
       } else {
         res.view('landing')
       }
@@ -11,36 +12,42 @@ module.exports = {
       res.serverError(e);
     }
   },
+
   index: async(req, res) => {
     try {
-      let allPosts = await PostService.getAllPost();
-      let loginedUser, favorites;
-      let userLogin = await UserService.getLoginState(req);
-      console.log("==== user login status ===>", userLogin);
+      let items = await PostService.getAllPost();
+      // check login state
+      let loginState = await UserService.getLoginState(req);
+      let loginedUser = {},
+        favorites = {},
+        favIds = [],
+        fbId = 0;
 
-      let isFav = false;
-      let userFBId;
-      if (userLogin) {
+      if (loginState) {
         loginedUser = await UserService.getLoginUser(req);
-        userFBId = await UserService.getFBId(loginedUser.id);
-        // console.log("==== logined User is ===>", loginedUser);
+        fbId = await UserService.getFBId(loginedUser.id);
         favorites = await FavoriteService.get({
-          userId: loginedUser.id
+          userId: loginedUser.id,
         });
-        // console.log("==== user favorites are ===>", favorites);
-        allPosts.data.forEach(function(post, index) {
-          favorites.forEach(function(fav) {
-            if (post.id === fav.id) post.isFav = true;
-            // console.log("index",index);
-          }); // end forEach
-        }); // end forEach
-      } // end if
-      // console.log("==== user favorites status ===>", favorites);
-      // console.log("==== user favorites status ===>", favorites.length);
+        sails.log.info("| MainController.index:[loginedUser]", loginedUser);
 
-      // profileViewData
+        for (let i = 0; i < favorites.length; i++) {
+          favIds.push(favorites[i].id);
+        }
+        sails.log.info("| MainController.index:[favIds]", favIds);
+
+        for (let i = 0; i < favIds.length; i++) {
+          items.data[favIds[i] - 1].isFav = true;
+          sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
+        }
+        // sails.log.info("| MainController.index:[items]", items);
+      } // end if
+
+      sails.log.info("| MainController.index:[loginState]", loginState);
+
+      // prepare user profile data
       let profile = {};
-      if (userLogin) {
+      if (loginState) {
         let profilePost = await Post.findAll({
           where: {
             UserId: loginedUser.id
@@ -51,19 +58,92 @@ module.exports = {
           allUserPost: profilePost,
           postCount: profilePost.length,
           favCount: favorites.length,
-          activity: Math.round(profilePost.length * 1.5 + favorites.length)
+          activity: Math.round(profilePost.length * 1.5 + favorites.length),
+          fbId: fbId,
         }
       }
-      res.view('app2', {
-        favorites: favorites,
-        loginState: userLogin,
-        // loginedUser: loginedUser,
-        allPosts: allPosts.data,
+
+      // output!
+      res.view('app', {
+        loginState,
+        favorites,
+        items: items.data,
         profile,
-        userFBId
       });
     } catch (e) {
       res.serverError(e);
     }
   },
+
+  search: async(req, res) => {
+    try {
+      // find items
+      let keyword = req.param('keyword');
+      let items = await PostService.getPostByKeyword(keyword);
+
+      sails.log.info("| MainController.search:[keyword]", keyword);
+      sails.log.info("| MainController.search:[items]", items);
+
+      // check login state
+      let loginState = await UserService.getLoginState(req);
+      let loginedUser = {},
+        favorites = {},
+        isFav = false,
+        fbId = 0;
+
+      if (loginState) {
+        loginedUser = await UserService.getLoginUser(req);
+        fbId = await UserService.getFBId(loginedUser.id);
+        favorites = await FavoriteService.get({
+          userId: loginedUser.id,
+        });
+        sails.log.info("| MainController.index:[loginedUser]", loginedUser);
+
+        for (let i = 0; i < favorites.length; i++) {
+          favIds.push(favorites[i].id);
+        }
+        sails.log.info("| MainController.index:[favIds]", favIds);
+
+        for (let i = 0; i < favIds.length; i++) {
+          items.data[favIds[i] - 1].isFav = true;
+          csails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
+        }
+        // sails.log.info("| MainController.index:[items]", items);
+      } // end if
+
+      sails.log.info("| MainController.index:[loginState]", loginState);
+
+      // prepare user profile data
+      let profile = {};
+      if (loginState) {
+        let profilePost = await Post.findAll({
+          where: {
+            UserId: loginedUser.id
+          }
+        });
+        profile = {
+          name: loginedUser.username,
+          allUserPost: profilePost,
+          postCount: profilePost.length,
+          favCount: favorites.length,
+          activity: Math.round(profilePost.length * 1.5 + favorites.length),
+          fbId: fbId,
+        }
+      }
+
+      // output!
+      res.view('app', {
+        loginState,
+        favorites,
+        profile,
+        items,
+        keyword,
+      });
+    } catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
+  },
+
+
 }

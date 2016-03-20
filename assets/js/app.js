@@ -71,21 +71,24 @@ var myApp = new Framework7({
 
 }); // end myApp
 
+var address = window.location.origin;
+
 // Add main view
 var mainView = myApp.addView('.view-main', {
   // Enable Dynamic Navbar for this view
   dynamicNavbar: true,
   domCache: false,
   linksView: mainView,
-  // url: "/app#main",
+  url: address + myApp.params.pushStateRoot,
 });
 
 // Add search view
 var searchView = myApp.addView('.view-search', {
   dynamicNavbar: true,
-  domCache: false,
+  // turn-on cache to keep search results.
+  domCache: true,
   linksView: searchView,
-  // url: "/app#search",
+  url: address + "/search",
 });
 
 // Add favorite view
@@ -119,6 +122,30 @@ window.searchView = searchView;
 window.favoriteView = favoriteView;
 window.profileView = profileView;
 window.addPostView = addPostView;
+
+var pathname = window.location.pathname.split("/")[1];
+var tag = {
+  name: 'app Initing',
+  color: 4,
+};
+
+switch (pathname) {
+  case mainView.url.split(address + "/")[1]:
+    myApp.showTab("#" + mainView.container.id);
+    $$(".mapView").addClass('active');
+    pluginLog(tag, 'enter default app view');
+    break;
+
+  case searchView.url.split(address + "/")[1]:
+    myApp.showTab("#" + searchView.container.id)
+    $$(".searchView").addClass('active');
+    pluginLog(tag, 'entere search view');
+    break;
+
+  default:
+    myApp.showTab("#" + mainView.container.id);
+    $$(".mapView").addClass('active');
+}
 
 // exec f7 app.
 myApp.init();

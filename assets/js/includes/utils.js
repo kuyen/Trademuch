@@ -41,13 +41,13 @@ function pluginLog(tag, msg, objs) {
         color = 'background:#323131; color: #ec9500';
         break;
       case 2:
-        color = 'background:#323131; color: #c73eff';
+        color = 'background:#000000; color: #c354f0';
         break;
       case 3:
         color = 'background:#323131; color: #3eff46';
         break;
       case 4:
-        color = 'background:#323131; color: #e3195c';
+        color = 'background:#FFF; color: #d60707';
         break;
       case 5:
         color = 'background:#323131; color: #d0ff12';

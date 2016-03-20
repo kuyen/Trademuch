@@ -32,35 +32,27 @@
     *                                                                          *
     ***************************************************************************/
    '/public': {
-     view: 'landing'
-   },
-
-   '/2': {
-     view: 'index2'
+     view: 'landing/index'
    },
 
    '/map': {
      view: 'map'
    },
 
-   '/storyDetail': {
-     view: 'storyDetail'
+   '/termService': {
+     view: 'landing/termService'
    },
 
-   '/TermService': {
-     view: 'TermService'
+   '/privacyPolicy': {
+     view: 'landing/privacyPolicy'
    },
 
-   '/PrivacyPolicy': {
-     view: 'PrivacyPolicy'
-   },
-
-   '/Specification': {
-     view: 'Specification'
+   '/specification': {
+     view: 'landing/specification'
    },
 
    '/learnMore': {
-     view: 'learnMore'
+     view: 'landing/learnMore'
    },
 
    // image
@@ -68,17 +60,17 @@
    'post /api/uploadImage': 'ImageController.upload',
    'post /api/uploadImageBase64': 'ImageController.upload',
 
-   // search
-   'get /search': {
-     view: 'search'
-   },
-   //  'get /search/:keyword': 'PostController.search',
 
-
-   // view
+   // default app view
    'get /': 'MainController.pcOrMobile',
    'get /app': 'MainController.index',
    'get /app/*': 'MainController.index',
+
+   // search view
+   'get /search': {
+     view: 'app'
+   },
+   'get /search/:keyword': 'MainController.search',
 
    'get /user/hobby': 'FrontUserController.hobby',
    'get /user/favorites': 'FrontUserController.favorites',
@@ -87,7 +79,6 @@
    'get /post/create/Category': 'FrontPostController.createCategory',
    'get /post/create': 'FrontPostController.createByCategoryId',
    'get /post/:id': 'FrontPostController.show',
-   'get /post/f7/:id': 'FrontPostController.showF7',
 
    //  api
    //  'get  /rest/auth/login': 'AuthController.login',

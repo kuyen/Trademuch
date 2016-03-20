@@ -7,8 +7,8 @@
           ul
             li.item-content.profile-card
               .item-media.profile-picture
-                -if(userFBId)
-                  img(src='//graph.facebook.com/' + userFBId + '/picture?type=large', alt='avatar' height="100px")
+                -if(profile.fbId)
+                  img(src='//graph.facebook.com/' + post.userFBId + '/picture?type=large', alt='avatar' height="100px")
                 -else
                   img(src='/img/human.png', alt='avatar' width="100")
               .item-inner

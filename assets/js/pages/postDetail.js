@@ -29,13 +29,13 @@
 var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function(page) {
 
   console.log("postDetail onPageAfterAnimation");
-  
+
   // $$(function() {
   //   var origin = window.location.origin;
   //   $$(".fb-comments").attr('data-href', origin);
   // });
 
-  $$("body").on("click", ".favboxa", function() {
+  $$(".favboxa").click(function() {
     var fav = $$(this);
     var id = fav.attr("data-id");
     console.log("favboxa id=>", id);
@@ -57,22 +57,22 @@ var postDetailAfterAnimation = myApp.onPageAfterAnimation('postDetail', function
     }); // end ajax
   }); // end click
 
-  $$(document).on('click', '.link.like', function() {
-    var fav = $$(this);
-    var id = fav.attr("data-id");
-    console.log("favboxa id=>", id);
-    $$.ajax({
-      url: "/rest/favorite/" + id,
-      type: "POST",
-      success: function(result) {
-        console.log(result);
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        console.log("xhr.status,thrownError=>", xhr.status, thrownError);
-        mainView.router.loadPage('/story');
-      }
-    }); // end ajax
-  });
+  // $$(document).on('click', '.link.like', function() {
+  //   var fav = $$(this);
+  //   var id = fav.attr("data-id");
+  //   console.log("favboxa id=>", id);
+  //   $$.ajax({
+  //     url: "/rest/favorite/" + id,
+  //     type: "POST",
+  //     success: function(result) {
+  //       console.log(result);
+  //     },
+  //     error: function(xhr, ajaxOptions, thrownError) {
+  //       console.log("xhr.status,thrownError=>", xhr.status, thrownError);
+  //       mainView.router.loadPage('/story');
+  //     }
+  //   }); // end ajax
+  // });
 
   // $$('div[data-page="postDetail"] .left .link.postDetailBack').click(function(e) {
   //   console.log(" postDetail back click ");

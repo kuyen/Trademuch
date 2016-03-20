@@ -10,9 +10,10 @@
           form#formSearch.searchbar
            // Search bar
            .searchbar-input
-             input.i18n(type='search', data-i18n='[placeholder]global.search')
-             a.searchbar-clear(href='#') clear
-             a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
+            -var keyword = keyword || "";
+            input.i18n(type='search', data-i18n='[placeholder]global.search', value=keyword)
+            a.searchbar-clear(href='#') clear
+            a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
              
            // Search bar overlay
            .searchbar-overlay
@@ -29,23 +30,24 @@
               .list-block.media-list
                 .list-group
                   ul#search-result
-                    -if(allPosts)
-                      each post in allPosts
-                        li.swipeout(data-id=post.id)
+                  
+                    -if(items)
+                      each item in items
+                        li.swipeout(data-id=item.id)
                           .swipeout-content
                             .item-content.prodList
                               .item-media
-                                //- img(src=post.gallery[0], width='80')
-                                .img-square.lazy(data-background= post.gallery[0])
+                                //- img(src=item.gallery[0], width='80')
+                                .img-square.lazy(data-background= item.gallery[0])
                                 //img.lazy.lazy-fadeIn(data-src=, width='80', style="overflow: hidden;")
-                                //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
+                                //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{item.id % 9}', width='80')
                               .item-inner
                                 .item-title-row
                                   .item-title
-                                    //- a.link(href='/post/#{post.id}') #{post.title}
-                                    a.item.link(href='#', data-id='#{post.id}') #{post.title}
-                                //- .item-subtitle NT$#{post.price}
+                                    //- a.link(href='/item/#{item.id}') #{item.title}
+                                    a.item.link(href='#', data-id='#{item.id}') #{item.title}
+                                //- .item-subtitle NT$#{item.price}
                           .swipeout-actions-right
-                            a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
+                            a.bg-blue.like.notif-message(href='#', data-id='#{item.id}', data-img=item.gallery[0]) 
                               img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
                  

@@ -29,24 +29,6 @@
 
   //
   function pageInit(pageData) {
-    // $$("#search-btn").click(function(e) {
-    //   e.preventDefault();
-    //   // window.myApp.showIndicator();
-    //   var keyword = $(".searchbar-input > input").val();
-    //   if (keyword) {
-    //     goSearch(keyword);
-    //   } else {
-    //     // window.myApp.alert("Don't forget to type something!")
-    //   }
-    // }); // end click
-
-    // $$(document).on('click',"a.backTop", function(e) {
-    //   $$("div.page-content").scrollTop(0)
-    // }); // end click
-
-    // $(document).ready(function(e) {
-    //
-    // }); // end ready
 
     // $$("select[name='category']").focus(function() {
     //   $$(this).css("background-color", "#ecf5ff");
@@ -54,6 +36,17 @@
     // $$("select[name='category']").blur(function() {
     //   $$(this).css("background-color", "#ffffff");
     // });
+
+    $$("#search-btn").click(function(e) {
+      e.preventDefault();
+      // window.myApp.showIndicator();
+      var keyword = $(".searchbar-input > input").val();
+      if (keyword) {
+        goSearch(keyword);
+      } else {
+        // window.myApp.alert("Don't forget to type something!")
+      }
+    }); // end click
 
     $$(".categories .button").click(function() {
       var keyword = $$(this).attr('data-keyword');
@@ -78,8 +71,8 @@
       }
     }); // end submit
 
-
-    $$(document).on('click', '.like.notif-message', function() {
+    $$('.like.notif-message').click(function() {
+      console.log('.like.notif-message clicked');
       var fav = $$(this);
       var id = fav.attr("data-id");
       var img = fav.attr("data-img");
@@ -103,9 +96,8 @@
           window.location.assign("/rest/auth/facebook");
         }
       }); // end ajax
-    });
+    }); // end click
   }
-
 
   function goSearch(keyword) {
     $$.ajax({
