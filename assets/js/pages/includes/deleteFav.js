@@ -6,12 +6,13 @@ function deleteFav(id,success) {
     url: "/rest/favorite/" + id,
     type: "DELETE",
     success: function(data) {
-      var jsonData = JSON.parse(data);
-      if(myApp.params.log) console.log("deleted favorite result=>", jsonData);
-      if (!jsonData.result) {
-        myApp.getCurrentView().loadContent(result);
+      if (myApp.params.log) console.log("deleted favorite result=>", data);
+      
+      if (data.indexOf("<") == 0) {
+        myApp.getCurrentView().loadContent(data);
       } else {
-        success();
+        var jsonData = JSON.parse(data);
+        if (jsonData.result) success();
       }
     },
     error: function(xhr, ajaxOptions, thrownError) {

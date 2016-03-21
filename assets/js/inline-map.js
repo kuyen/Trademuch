@@ -152,21 +152,26 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function(position) {
-        map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+        map.setCenter({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
         setCookie("lat", position.coords.latitude);
         setCookie("lon", position.coords.longitude);
       },
       function() {
         $$.getJSON("http://ip-api.com/json/?callback=?", function(data) {
           console.log("geoip loc=>", data);
-          map.setCenter({lat: data.lat, lng: data.lon});
+          map.setCenter({
+            lat: data.lat,
+            lng: data.lon
+          });
 
           // save location for future usages.
           setCookie("lat", data.lat);
           setCookie("lon", data.lon);
         });
-      },
-      {
+      }, {
         enableHighAccuracy: true,
         timeout: 2500,
         maximumAge: 2500
@@ -183,20 +188,20 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
       map: map
     });
 
-    var content = '<div class="infoContent">'+
-          '<h1>'+ json.data[i].title+'</h1>'+
-          '<div class="bodyContent">'+
-            '<p>'+ json.data[i].price +'</p>'+
-            '<img class="img-square" src="' + json.data[i].gallery[0] + '">' +
-          '</div>'+
-        '</div>';
+    var content = '<div class="infoContent" data-id="' + json.data[i].id + '">' +
+      '<h1>' + json.data[i].title + '</h1>' +
+      '<div class="bodyContent">' +
+      '<p>' + json.data[i].price + '</p>' +
+      '<img class="img-square" src="' + json.data[i].gallery[0] + '">' +
+      '</div>' +
+      '</div>';
 
     var infowindow = new google.maps.InfoWindow();
     inforBoxArray.push(infowindow);
 
     google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
       return function() {
-        for(var i =0 ; i < inforBoxArray.length; i++){
+        for (var i = 0; i < inforBoxArray.length; i++) {
           inforBoxArray[i].close();
         }
         infowindow.setContent(content);
@@ -207,13 +212,13 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
   }
 
   google.maps.event.addListener(map, "click", function(event) {
-    for(var i =0 ; i < inforBoxArray.length; i++){
+    for (var i = 0; i < inforBoxArray.length; i++) {
       inforBoxArray[i].close();
     }
   });
 
   google.maps.event.addListener(map, "drag", function(event) {
-    for(var i =0 ; i < inforBoxArray.length; i++){
+    for (var i = 0; i < inforBoxArray.length; i++) {
       inforBoxArray[i].close();
     }
   });

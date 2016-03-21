@@ -9,11 +9,9 @@ module.exports = {
         postId: req.param('id')
       };
       let item = await FavoriteService.create(data);
-      let result = {
-        result: true,
+      res.ok({
         item,
-      }
-      res.ok(result);
+      });
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);

@@ -53,14 +53,14 @@
                             .swipeout-actions-right
                               -if(!item.isFav)
                                 a.bg-blue.notif-message.addFav(href='#', data-id='#{item.id}', data-img=item.gallery[0]) 
-                                  img(src='/img/addFav.png', alt='addFav', style="height: 30px;")
+                                  img(src='/img/addfav.png', alt='addFav', style="height: 30px;")
                                 a.bg-pink.notif-message.deleteFav.hide(href='#', data-id='#{item.id}', data-img=item.gallery[0])
-                                  img(src='/img/deleteFav.png', alt='deleteFav', style="height: 30px;")
+                                  img(src='/img/deletefav.png', alt='deleteFav', style="height: 30px;")
                               -else
                                 a.bg-blue.notif-message.addFav.hide(href='#', data-id='#{item.id}', data-img=item.gallery[0]) 
-                                  img(src='/img/addFav.png', alt='addFav', style="height: 30px;")
+                                  img(src='/img/addfav.png', alt='addFav', style="height: 30px;")
                                 a.bg-pink.notif-message.deleteFav(href='#', data-id='#{item.id}', data-img=item.gallery[0])
-                                  img(src='/img/deleteFav.png', alt='deleteFav', style="height: 30px;")
+                                  img(src='/img/deletefav.png', alt='deleteFav', style="height: 30px;")
                       -else  
                         .pc-man
                           img(src='/img/pc-man.png', alt='pc-man')

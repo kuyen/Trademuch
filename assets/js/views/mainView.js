@@ -78,6 +78,15 @@
       // removeCookie("splash");
     });
 
+    $$(document).on("click", ".infoContent", function(event) {
+      if (myApp.params.log) console.log("click infoContent");
+      myApp.getCurrentView().router.load({
+        url: '/post/' + $$(this).attr("data-id"),
+        pushState: true,
+        pushStateOnLoad: true,
+      });
+    });
+
   }
 
   //
