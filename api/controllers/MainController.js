@@ -42,47 +42,26 @@ module.exports = {
         }
         // sails.log.info("| MainController.index:[items]", items);
       } // end if
-
       sails.log.info("| MainController.index:[loginState]", loginState);
-
-      // prepare user profile data
-      // let profile = {};
-      // if (loginState) {
-      //   let profilePost = await Post.findAll({
-      //     where: {
-      //       UserId: loginedUser.id
-      //     }
-      //   });
-      //   profile = {
-      //     name: loginedUser.username,
-      //     allUserPost: profilePost,
-      //     postCount: profilePost.length,
-      //     favCount: favorites.length,
-      //     activity: Math.round(profilePost.length * 1.5 + favorites.length),
-      //     fbId,
-      //   }
-      // }
 
       // output!
       res.view('app', {
         loginState,
-        // favorites,
         items: items.data,
-        // profile,
       });
     } catch (e) {
       res.serverError(e);
     }
   },
 
-  search: async(req, res) => {
+  indexBySearchKeyword: async(req, res) => {
     try {
       // find items
       let keyword = req.param('keyword');
       let items = await PostService.getPostByKeyword(keyword);
 
-      sails.log.info("| MainController.search:[keyword]", keyword);
-      sails.log.info("| MainController.search:[items]", items);
+      sails.log.info("| MainController.indexBySearchKeyword:[keyword]", keyword);
+      sails.log.info("| MainController.indexBySearchKeyword:[items]", items);
 
       // check login state
       let loginState = await UserService.getLoginState(req);
@@ -97,45 +76,24 @@ module.exports = {
         favorites = await FavoriteService.get({
           userId: loginedUser.id,
         });
-        sails.log.info("| MainController.index:[loginedUser]", loginedUser);
+        sails.log.info("| MainController.indexBySearchKeyword:[loginedUser]", loginedUser);
 
         for (let i = 0; i < favorites.length; i++) {
           favIds.push(favorites[i].id);
         }
-        sails.log.info("| MainController.index:[favIds]", favIds);
+        sails.log.info("| MainController.indexBySearchKeyword:[favIds]", favIds);
 
         for (let i = 0; i < favIds.length; i++) {
           items.data[favIds[i] - 1].isFav = true;
-          sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
+          sails.log.info("| MainController.indexBySearchKeyword:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
         }
         // sails.log.info("| MainController.index:[items]", items);
       } // end if
-
-      sails.log.info("| MainController.index:[loginState]", loginState);
-
-      // prepare user profile data
-      // let profile = {};
-      // if (loginState) {
-      //   let profilePost = await Post.findAll({
-      //     where: {
-      //       UserId: loginedUser.id
-      //     }
-      //   });
-      //   profile = {
-      //     name: loginedUser.username,
-      //     allUserPost: profilePost,
-      //     postCount: profilePost.length,
-      //     favCount: favorites.length,
-      //     activity: Math.round(profilePost.length * 1.5 + favorites.length),
-      //     fbId,
-      //   }
-      // }
+      sails.log.info("| MainController.indexBySearchKeyword:[loginState]", loginState);
 
       // output!
       res.view('app', {
         loginState,
-        // favorites,
-        // profile,
         items,
         keyword,
       });
