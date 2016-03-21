@@ -10,8 +10,10 @@
           form#formSearch.searchbar.safira-fixed
            // Search bar
            .searchbar-input
-            -var keyword = keyword || "";
-            input.i18n(type='search', data-i18n='[placeholder]global.search', value=keyword)
+            -if(keyword)
+              input.i18n(type='search', data-i18n='[placeholder]global.search', value="#{keyword}")
+            -else
+              input.i18n(type='search', data-i18n='[placeholder]global.search')
             a.searchbar-clear(href='#') clear
             a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
              

@@ -75,14 +75,15 @@
       console.log('.like.notif-message clicked');
       var fav = $$(this);
       var id = fav.attr("data-id");
-      var img = fav.attr("data-img");
       $$.ajax({
         url: "/rest/favorite/" + id,
         type: "POST",
         success: function(result) {
-          if (result != "") {
+          console.log("result=>",result);
+          if (result.length != 0) {
             myApp.getCurrentView().loadContent(result);
-          }else{
+          } else {
+            var img = fav.attr("data-img");
             myApp.addNotification({
               title: 'You like :D',
               message: 'You have Add to Favorite',

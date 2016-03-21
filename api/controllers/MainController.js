@@ -106,7 +106,7 @@ module.exports = {
 
         for (let i = 0; i < favIds.length; i++) {
           items.data[favIds[i] - 1].isFav = true;
-          csails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
+          sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
         }
         // sails.log.info("| MainController.index:[items]", items);
       } // end if
