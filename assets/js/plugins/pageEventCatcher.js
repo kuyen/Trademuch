@@ -17,80 +17,80 @@ Framework7.prototype.plugins.pageEventCatcher = function(app, params) {
       navbarInit: function(navbar, pageData) {
         var msg = "[navbarInit] " + pageData.name;
         pluginLog(tag, msg, {
-          navbar,
-          pageData
+          navbar:navbar,
+          pageData:pageData
         });
       },
       pageInit: function(pageData) {
         var msg = "[pageInit] " + pageData.name;
         pluginLog(tag, msg, {
-          pageData
+          pageData:pageData
         });
       },
       pageBeforeInit: function(pageData) {
         var msg = "[pageBeforeInit] " + pageData.name;
         pluginLog(tag, msg, {
-          pageData
+          pageData:pageData
         });
       },
       pageBeforeAnimation: function(pageData) {
         var msg = "[pageBeforeAnimation] " + pageData.name;
         pluginLog(tag, msg, {
-          pageData
+          pageData:pageData
         });
       },
       pageAfterAnimation: function(pageData) {
         var msg = "[pageAfterAnimation] " + pageData.name;
         pluginLog(tag, msg, {
-          pageData
+          pageData:pageData
         });
       },
       pageBeforeRemove: function(pageData) {
         var msg = "[pageBeforeRemove] " + pageData.name;
         pluginLog(tag, msg, {
-          pageData
+          pageData:pageData
         });
       },
       addView: function(view) {
         var msg = "[addView] ";
         pluginLog(tag, msg, {
-          view
+          view:view
         });
       },
       loadPage: function(view, url, content) {
         var msg = "[loadPage] url:" + url;
         pluginLog(tag, msg, {
-          view,
-          url,
-          content
+          view:view,
+          url:url,
+          content:content
         });
       },
       goBack: function(view, url, preloadOnly) {
         var msg = "[goBack] url:" + url;
         pluginLog(tag, msg, {
-          view,
-          url,
-          preloadOnly
+          view:view,
+          url:url,
+          preloadOnly:preloadOnly
         });
       },
       swipePanelSetTransform: function(views, panel, percentage) {
         var msg = "[swipePanelSetTransform] ";
         pluginLog(tag, msg, {
-          views,
-          panel,
-          percentage
+          views:views,
+          panel:panel,
+          percentage:percentage
         });
       },
       ajaxStart: function(xhr) {
         var msg = "[ajaxStart] ";
         pluginLog(tag, msg, {
-          xhr
+          xhr:xhr
         });
       },
       ajaxComplete: function(xhr) {
         var msg = "[ajaxComplete] ";
         pluginLog(tag, msg, {
-          xhr
+          xhr:xhr
         });
       },
     } // end hooks

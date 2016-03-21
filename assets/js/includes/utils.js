@@ -29,7 +29,7 @@ function removeCookie(name) {
 }
 
 // console print debug messages
-function pluginLog(tag, msg, objs) {
+function pluginLog(tag, msg, obj) {
   if (myApp.params.log) {
     var name = tag.name;
     var color = tag.color;
@@ -62,7 +62,7 @@ function pluginLog(tag, msg, objs) {
         color = 'background:#323131; color: #fbfbfb';
     }
     if (objs)
-      console.log(" | %c`%s`%c: %s.", color, name, 'color: #000000', msg, objs);
+      console.log(" | %c`%s`%c: %s.", color, name, 'color: #000000', msg, obj);
     else
       console.log(" | %c`%s`%c: %s.", color, name, 'color: #000000', msg);
   }
