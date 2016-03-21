@@ -61,7 +61,7 @@ function pluginLog(tag, msg, obj) {
       default:
         color = 'background:#323131; color: #fbfbfb';
     }
-    if (objs)
+    if (obj)
       console.log(" | %c`%s`%c: %s.", color, name, 'color: #000000', msg, obj);
     else
       console.log(" | %c`%s`%c: %s.", color, name, 'color: #000000', msg);

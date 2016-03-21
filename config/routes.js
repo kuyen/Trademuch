@@ -70,7 +70,7 @@
    'get /search': {
      view: 'app'
    },
-   'get /search/:keyword': 'MainController.search',
+   'get /search/:keyword': 'MainController.indexBySearchKeyword',
 
    'get /user/hobby': 'FrontUserController.hobby',
    'get /user/favorites': 'FrontUserController.favorites',
