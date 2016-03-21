@@ -64,3 +64,10 @@ web:
     - mysql
 
   restart: always
+
+elasticsearch:
+  container_name: elasticsearch
+  image:  elasticsearch:2.2.0
+  ports:
+    - "9200:9200"
+    - "9300:9300"
