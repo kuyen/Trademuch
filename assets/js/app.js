@@ -35,7 +35,7 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   hideTabbarOnPageScroll: true,
   // hideNavbarOnPageScroll: true,
-  // showBarsOnPageScrollEnd: false,
+  showBarsOnPageScrollEnd: false,
 
   // ajax reactions
   onAjaxStart: function(xhr) {
@@ -94,7 +94,7 @@ var searchView = myApp.addView('.view-search', {
 // Add favorite view
 var favoriteView = myApp.addView('.view-favorite', {
   dynamicNavbar: true,
-  domCache: false,
+  domCache: true,
   linksView: favoriteView,
   // url: "/app#favorite",
 });
@@ -102,7 +102,7 @@ var favoriteView = myApp.addView('.view-favorite', {
 // Add profile view
 var profileView = myApp.addView('.view-profile', {
   dynamicNavbar: true,
-  domCache: false,
+  domCache: true,
   linksView: profileView,
   // url: "/app#profile",
 });
