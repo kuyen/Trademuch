@@ -30,13 +30,6 @@
   //
   function pageInit(pageData) {
 
-    // $$("select[name='category']").focus(function() {
-    //   $$(this).css("background-color", "#ecf5ff");
-    // });
-    // $$("select[name='category']").blur(function() {
-    //   $$(this).css("background-color", "#ffffff");
-    // });
-
     $$("#search-btn").click(function(e) {
       e.preventDefault();
       // window.myApp.showIndicator();
@@ -59,7 +52,7 @@
       // give the one be clicked new state.
       $$(this).addClass('suggestClicked');
       goSearch(keyword);
-    });
+    }); // end click
 
     $$("#formSearch").on('submit', function(e) {
       e.preventDefault();
@@ -70,37 +63,6 @@
         window.myApp.alert("Don't forget to type something!");
       }
     }); // end submit
-
-    $$('.like.notif-message').click(function() {
-      console.log('.like.notif-message clicked');
-      var fav = $$(this);
-      var id = fav.attr("data-id");
-      $$.ajax({
-        url: "/rest/favorite/" + id,
-        type: "POST",
-        success: function(result) {
-          console.log("result=>",result);
-          if (result.length != 0) {
-            myApp.getCurrentView().loadContent(result);
-          } else {
-            var img = fav.attr("data-img");
-            myApp.addNotification({
-              title: 'You like :D',
-              message: 'You have Add to Favorite',
-              media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
-            });
-            setTimeout(function() {
-              myApp.closeNotification('.notification-item');
-            }, 2000);
-          }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-          console.log("xhr.status,thrownError=>", xhr.status, thrownError);
-          alert("if you like this item, login please :)");
-          window.location.assign("/rest/auth/facebook");
-        }
-      }); // end ajax
-    }); // end click
   }
 
   function goSearch(keyword) {

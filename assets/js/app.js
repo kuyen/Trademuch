@@ -35,7 +35,7 @@ var myApp = new Framework7({
   hideToolbarOnPageScroll: true,
   hideTabbarOnPageScroll: true,
   // hideNavbarOnPageScroll: true,
-  showBarsOnPageScrollEnd: false,
+  // showBarsOnPageScrollEnd: false,
 
   // ajax reactions
   onAjaxStart: function(xhr) {

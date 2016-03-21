@@ -1,4 +1,4 @@
-// $$("#search-result").on('click', '.swipeout', function(event) {
+// card click
 $$(document).on('click', '.swipeout', function(event) {
   var f7open = $$(this).hasClass('swipeout-opened');
   var closeOpen = $$(this).hasClass('close-open');
@@ -33,3 +33,35 @@ $$(document).on('click', '.swipeout', function(event) {
 }).on('pageAfterAnimation', function() {
   $$('.swipeout').css('background-color', 'white');
 });
+
+// swiping
+$$('.like.notif-message').click(function() {
+  console.log('.like.notif-message clicked');
+  var fav = $$(this);
+  var id = fav.attr("data-id");
+  $$.ajax({
+    url: "/rest/favorite/" + id,
+    type: "POST",
+    success: function(result) {
+      console.log("result=>",result);
+      if (result.length != 0) {
+        myApp.getCurrentView().loadContent(result);
+      } else {
+        var img = fav.attr("data-img");
+        myApp.addNotification({
+          title: 'You like :D',
+          message: 'You have Add to Favorite',
+          media: '<img width="44" height="44" style="border-radius:100%" src="' + img + '">'
+        });
+        setTimeout(function() {
+          myApp.closeNotification('.notification-item');
+        }, 2000);
+      }
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      console.log("xhr.status,thrownError=>", xhr.status, thrownError);
+      alert("if you like this item, login please :)");
+      window.location.assign("/rest/auth/facebook");
+    }
+  }); // end ajax
+}); // end click
