@@ -25,8 +25,8 @@
                             a.item.link(href='#', data-id='#{favorite.id}') #{favorite.title}
                         //- .item-subtitle #{favorite.Item.itemname}
                   .swipeout-actions-right
-                    a.bg-pink.deletelike.notif-message.swipeout-delete(href='#', data-id='#{favorite.id}', data-img=favorite.coverImage)
-                      img(src='/img/deletelike.png', alt='deletelike', style="height: 30px;")
+                    a.bg-pink.deleteFav.notif-message.swipeout-delete(href='#', data-id='#{favorite.id}', data-img=favorite.coverImage)
+                      img(src='/img/deleteFav.png', alt='deleteFav', style="height: 30px;")
     -else  
       -if(loginState)
        .card
@@ -63,5 +63,5 @@
                           //- .item-subtitle NT$#{allPosts[random].price}
                     .swipeout-actions-right
                       a.bg-blue.like.notif-message(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
-                        img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
+                        img(src='/img/addFav.png', alt='addFav', style="height: 30px;")
               -allPosts.splice(random, 1)

@@ -34,36 +34,27 @@ var jsFilesToInject = [
   // Load sails.io before everything else
   // Dependencies like jQuery, or Angular are brought in here
   // 'js/dependencies/**/*.js',
+  // Use the "exclude" operator to ignore files
+  // '!js/ignore/these/files/*.js'
   'bower/**/*.js',
   'js/dependencies/*.js',
   'js/includes/utils.js',
+  'js/includes/*.js',
   'js/plugins/*.js',
+  'js/views/includes/*.js',
   'js/views/*.js',
   'js/*.js',
+  'js/pages/includes/*.js',
   'js/pages/*.js',
-  'js/includes/*.js',
   '!/bower/jquery/jquery.js',
   "!/bower/bootstrap-sass/bootstrap.js",
   "!/bower/bootstrap/bootstrap.js",
   '!bower/framework7/js/*.js',
-  // '!bower/framework7/js/*.js',
   '!bower/framework7/js/my-app.js',
   '!/bower/sails.io.js',
   '!/bower/sails.io.js/sails.io.js',
-  '!/bower/platform.js',
-  '!/bower/platform/*.js',
-  '!/bower/platform.js/*.js',
-  '!/bower/scream/*.js',
-  '!/bower/scream/dist/*.js',
-  '!/bower/scream/src/*.js',
-  '!/bower/brim/*.js',
-  '!/bower/brim/src/*.js',
-  '!/bower/brim/dist/*.js',
-  '!/bower/brim/tests/*.js',
   '!js/map/*.js',
   '!js/landing/*.js'
-  // Use the "exclude" operator to ignore files
-  // '!js/ignore/these/files/*.js'
 ];
 
 var mapCssFilesToInject = [

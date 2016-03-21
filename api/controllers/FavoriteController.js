@@ -8,7 +8,11 @@ module.exports = {
         userId: user.id,
         postId: req.param('id')
       };
-      let result = await FavoriteService.create(data);
+      let item = await FavoriteService.create(data);
+      let result = {
+        result: true,
+        item,
+      }
       res.ok(result);
     } catch (e) {
       sails.log.error(e);
@@ -24,8 +28,12 @@ module.exports = {
         userId: user.id,
         postId: req.param('id')
       };
-      let result = await FavoriteService.delete(data);
-      res.ok('ok');
+      let item = await FavoriteService.delete(data);
+      let result = {
+        result: true,
+        item,
+      }
+      res.ok(result);
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);

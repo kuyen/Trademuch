@@ -23,3 +23,7 @@
 .text-left{
   text-align: left;
 }
+.hide{
+  display: none !important;
+  opacity: 0;
+}

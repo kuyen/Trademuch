@@ -63,7 +63,42 @@
         window.myApp.alert("Don't forget to type something!");
       }
     }); // end submit
-  }
+
+    // swiping out right acition -> add selsect item to favorite.
+    $$(document).on('click', '.addFav', function(event) {
+      var t = $$(this);
+      var id = t.attr("data-id");
+      var img = t.attr("data-img");
+      var itemTitle = $$(".item-title").children('.item.link').text();
+
+      var title = 'Item Added :)';
+      var msg = 'You just added `' + itemTitle + '` to your favorite list';
+
+      addFav(id, function() {
+        NotiForFav(title, msg, img);
+        $$('.deleteFav').removeClass('hide');
+        $$('.addFav').addClass('hide');
+      });
+    }); // end click
+
+    // delete favorite item.
+    $$(document).on('click', '.deleteFav', function() {
+      var t = $$(this);
+      var id = t.attr("data-id");
+      var img = t.attr("data-img");
+      var itemTitle = $$(".item-title").children('.item.link').text();
+
+      var title = 'Item deleted :(';
+      var msg = 'You just removed `' + itemTitle + '` from favorite list';
+
+      deleteFav(id, function() {
+        NotiForFav(title, msg, img);
+        $$('.deleteFav').addClass('hide');
+        $$('.addFav').removeClass('hide');
+      });
+    }); // end click
+
+  } // end pagaInit
 
   function goSearch(keyword) {
     $$.ajax({

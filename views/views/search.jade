@@ -36,7 +36,7 @@
                     -if(items)
                       -if(items.length>0)
                         each item in items
-                          li.swipeout(data-id=item.id)
+                          li.swipeout(data-id=item.id, data-isFav="#{item.isFav}")
                             .swipeout-content
                               .item-content.prodList
                                 .item-media
@@ -51,8 +51,16 @@
                                       a.item.link(href='#', data-id='#{item.id}') #{item.title}
                                   //- .item-subtitle NT$#{item.price}
                             .swipeout-actions-right
-                              a.bg-blue.like.notif-message(href='#', data-id='#{item.id}', data-img=item.gallery[0]) 
-                                img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
+                              -if(!item.isFav)
+                                a.bg-blue.notif-message.addFav(href='#', data-id='#{item.id}', data-img=item.gallery[0]) 
+                                  img(src='/img/addFav.png', alt='addFav', style="height: 30px;")
+                                a.bg-pink.notif-message.deleteFav.hide(href='#', data-id='#{item.id}', data-img=item.gallery[0])
+                                  img(src='/img/deleteFav.png', alt='deleteFav', style="height: 30px;")
+                              -else
+                                a.bg-blue.notif-message.addFav.hide(href='#', data-id='#{item.id}', data-img=item.gallery[0]) 
+                                  img(src='/img/addFav.png', alt='addFav', style="height: 30px;")
+                                a.bg-pink.notif-message.deleteFav(href='#', data-id='#{item.id}', data-img=item.gallery[0])
+                                  img(src='/img/deleteFav.png', alt='deleteFav', style="height: 30px;")
                       -else  
                         .pc-man
                           img(src='/img/pc-man.png', alt='pc-man')

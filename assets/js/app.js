@@ -63,6 +63,7 @@ var myApp = new Framework7({
   // --------------------------------------- //
   //              view switchs               //
   // --------------------------------------- //
+  toolbar: true,
   mainView: true,
   searchView: true,
   favoriteView: true,

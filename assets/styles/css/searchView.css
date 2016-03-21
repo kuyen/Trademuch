@@ -81,3 +81,11 @@ ul#search-result {
 .searchResult-wrapper {
   padding-top: 118px;
 }
+.addFav{
+  width: 100%;
+  height: 100%;
+}
+.deleteFav{
+  width: 100%;
+  height: 100%;
+}
