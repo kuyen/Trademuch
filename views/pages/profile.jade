@@ -1,14 +1,14 @@
 .page.no-navbar-by-scroll.no-tabbar-by-scroll(data-page='profile')          
   .page-content.hide-bars-on-scroll
-        
+    -console.log("!!!!!!!!!!!!!!profile",profile);
     .card
       .card-content
         .list-block.media-list
           ul
             li.item-content.profile-card
               .item-media.profile-picture
-                -if(profile.fbId)
-                  img(src='//graph.facebook.com/' + post.userFBId + '/picture?type=large', alt='avatar' height="100px")
+                -if(profile.fbId!=0)
+                  img(src='//graph.facebook.com/' + profile.fbId + '/picture?type=large', alt='avatar' height="100px")
                 -else
                   img(src='/img/human.png', alt='avatar' width="100")
               .item-inner

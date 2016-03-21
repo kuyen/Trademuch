@@ -32,10 +32,10 @@ var myApp = new Framework7({
   animateNavBackIcon: true,
 
   // page scrolling
-  // hideToolbarOnPageScroll: true,
-  // hideTabbarOnPageScroll: true,
+  hideToolbarOnPageScroll: true,
+  hideTabbarOnPageScroll: true,
   // hideNavbarOnPageScroll: true,
-  showBarsOnPageScrollEnd: false,
+  // showBarsOnPageScrollEnd: false,
 
   // ajax reactions
   onAjaxStart: function(xhr) {

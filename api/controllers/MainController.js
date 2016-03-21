@@ -46,29 +46,29 @@ module.exports = {
       sails.log.info("| MainController.index:[loginState]", loginState);
 
       // prepare user profile data
-      let profile = {};
-      if (loginState) {
-        let profilePost = await Post.findAll({
-          where: {
-            UserId: loginedUser.id
-          }
-        });
-        profile = {
-          name: loginedUser.username,
-          allUserPost: profilePost,
-          postCount: profilePost.length,
-          favCount: favorites.length,
-          activity: Math.round(profilePost.length * 1.5 + favorites.length),
-          fbId: fbId,
-        }
-      }
+      // let profile = {};
+      // if (loginState) {
+      //   let profilePost = await Post.findAll({
+      //     where: {
+      //       UserId: loginedUser.id
+      //     }
+      //   });
+      //   profile = {
+      //     name: loginedUser.username,
+      //     allUserPost: profilePost,
+      //     postCount: profilePost.length,
+      //     favCount: favorites.length,
+      //     activity: Math.round(profilePost.length * 1.5 + favorites.length),
+      //     fbId,
+      //   }
+      // }
 
       // output!
       res.view('app', {
         loginState,
-        favorites,
+        // favorites,
         items: items.data,
-        profile,
+        // profile,
       });
     } catch (e) {
       res.serverError(e);
@@ -88,7 +88,7 @@ module.exports = {
       let loginState = await UserService.getLoginState(req);
       let loginedUser = {},
         favorites = {},
-        isFav = false,
+        favIds = [],
         fbId = 0;
 
       if (loginState) {
@@ -114,28 +114,28 @@ module.exports = {
       sails.log.info("| MainController.index:[loginState]", loginState);
 
       // prepare user profile data
-      let profile = {};
-      if (loginState) {
-        let profilePost = await Post.findAll({
-          where: {
-            UserId: loginedUser.id
-          }
-        });
-        profile = {
-          name: loginedUser.username,
-          allUserPost: profilePost,
-          postCount: profilePost.length,
-          favCount: favorites.length,
-          activity: Math.round(profilePost.length * 1.5 + favorites.length),
-          fbId: fbId,
-        }
-      }
+      // let profile = {};
+      // if (loginState) {
+      //   let profilePost = await Post.findAll({
+      //     where: {
+      //       UserId: loginedUser.id
+      //     }
+      //   });
+      //   profile = {
+      //     name: loginedUser.username,
+      //     allUserPost: profilePost,
+      //     postCount: profilePost.length,
+      //     favCount: favorites.length,
+      //     activity: Math.round(profilePost.length * 1.5 + favorites.length),
+      //     fbId,
+      //   }
+      // }
 
       // output!
       res.view('app', {
         loginState,
-        favorites,
-        profile,
+        // favorites,
+        // profile,
         items,
         keyword,
       });

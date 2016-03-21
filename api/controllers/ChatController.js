@@ -40,9 +40,9 @@ module.exports = {
 
   // get chat history
   history: async(req, res) => {
-    if (!req.isSocket) {
-      return res.badRequest('This endpoints only supports socket requests.');
-    }
+    // if (!req.isSocket) {
+    //   return res.badRequest('This endpoints only supports socket requests.');
+    // }
     let socketId = sails.sockets.id(req);
     let postId = req.param('postId');
     let roomId = req.param('roomId') || -1;
@@ -54,7 +54,6 @@ module.exports = {
         socketId,
         postId,
         roomId,
-        userId: 1
       });
       sails.log.info('ChatController.history:history =>', JSON.stringify(history));
 

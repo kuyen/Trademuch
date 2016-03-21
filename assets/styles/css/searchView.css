@@ -64,6 +64,7 @@ ul#search-result {
 
 #searchView .categories {
   background-color: #fff;
+  padding: 6px;
 }
 .suggestClicked {
   background-color: #007aff;
@@ -78,5 +79,5 @@ ul#search-result {
   font-weight: 900;
 }
 .searchResult-wrapper {
-  margin-top: 110px;
+  padding-top: 118px;
 }
