@@ -41,7 +41,8 @@ module.exports.policies = {
   'PostController': {
     'getAll': [],
     'create': [],
-    'search': [],
+    'sqlSearch': [],
+    'elasticSearch': [],
     'delete': [],
   },
   'FrontPostController': {

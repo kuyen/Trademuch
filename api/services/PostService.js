@@ -221,7 +221,6 @@ module.exports = {
     }
   }, // end search
 
-
   delete: async(userId, postId) => {
     try {
       let post = await Post.findById(postId);
