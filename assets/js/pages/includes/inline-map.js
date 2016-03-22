@@ -128,7 +128,7 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
   var mapCenter = new google.maps.LatLng(_latitude, _longitude);
   var mapOptions = {
-    zoom: 14,
+    zoom: 16,
     minZoom: 8,
     center: mapCenter,
     disableDefaultUI: true,

@@ -7,6 +7,7 @@ module.exports = {
     instanceMethods: {},
     hooks: {},
     tableName: 'post_place',
-    underscored: true
+    underscored: true,
+    paranoid: true,
   }
 };

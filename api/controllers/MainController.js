@@ -37,7 +37,7 @@ module.exports = {
         sails.log.info("| MainController.index:[favIds]", favIds);
 
         for (let i = 0; i < favIds.length; i++) {
-          items.data[favIds[i] - 1].isFav = true;
+          if (items.data[favIds[i] - 1].id == favIds[i]) items.data[favIds[i] - 1].isFav = true;
           sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
         }
         // sails.log.info("| MainController.index:[items]", items);

@@ -13,7 +13,17 @@
       hooks: {
         appInit: function() {
 
+
+          $$(".tab-link.mainView").click(function() {
+            mainView.main = true;
+          });
+
+          $$(".tab-link.searchView").click(function() {
+            searchView.main = true;
+          });
+
           $$(".tab-link.favoriteView").click(function() {
+            favoriteView.main = true;
             if (myApp.params.log) console.log("click favoriteView");
             if (loginState == true) {
               myApp.closeNotification('.notification-item');
@@ -23,6 +33,7 @@
           });
 
           $$(".tab-link.profileView").click(function() {
+            profileView.main = true;
             if (myApp.params.log) console.log("click profileView");
             if (loginState == true) {
               myApp.closeNotification('.notification-item');
@@ -46,7 +57,7 @@
                 $$(this).removeClass('link');
                 $$(this).addClass('tab-link');
               }
-              $$(this).click()
+              $$(this).click();
             }
           });
 
@@ -54,12 +65,12 @@
         pageInit: function() {
 
           // set current view is main view to make borwser link transforms.
-          $$(".tab-link").click(function(event) {
-            myApp.getCurrentView().main = true;
-            if (myApp.params.log) {
-              console.log("set main to view" + myApp.getCurrentView().selector);
-            }
-          });
+          // $$(".tab-link").click(function(event) {
+          //   myApp.getCurrentView().main = true;
+          //   if (myApp.params.log) {
+          //     console.log("set main to view" + myApp.getCurrentView().selector);
+          //   }
+          // });
 
         },
       } // end hooks
