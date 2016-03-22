@@ -30,17 +30,6 @@
   //
   function pageInit(pageData) {
 
-    $$("#search-btn").click(function(e) {
-      e.preventDefault();
-      // window.myApp.showIndicator();
-      var keyword = $(".searchbar-input > input").val();
-      if (keyword) {
-        goSearch(keyword);
-      } else {
-        // window.myApp.alert("Don't forget to type something!")
-      }
-    }); // end click
-
     $$(".categories .button").click(function() {
       var keyword = $$(this).attr('data-keyword');
       $$(".searchbar-input > input").val(keyword);
@@ -65,7 +54,7 @@
     }); // end submit
 
     // swiping out right acition -> add selsect item to favorite.
-    $$(document).on('click', '.addFav', function(event) {
+    $$(searchView.selector).on('click', '.addFav', function(event) {
       var t = $$(this);
       var id = t.attr("data-id");
       var img = t.attr("data-img");
@@ -74,15 +63,17 @@
       var title = 'Item Added :)';
       var msg = 'You just added `' + itemTitle + '` to your favorite list';
 
-      addFav(id, function() {
-        NotiForFav(title, msg, img);
-        $$('.deleteFav').removeClass('hide');
-        $$('.addFav').addClass('hide');
-      });
+      addFav(id,
+        function() {
+          NotiForFav(title, msg, img);
+          t.parent().children('.deleteFav').removeClass('hide');
+          t.addClass('hide');
+          t.attr('data-isFav', true);
+        });
     }); // end click
 
     // delete favorite item.
-    $$(document).on('click', '.deleteFav', function() {
+    $$(searchView.selector).on('click', '.deleteFav', function() {
       var t = $$(this);
       var id = t.attr("data-id");
       var img = t.attr("data-img");
@@ -91,11 +82,13 @@
       var title = 'Item deleted :(';
       var msg = 'You just removed `' + itemTitle + '` from favorite list';
 
-      deleteFav(id, function() {
-        NotiForFav(title, msg, img);
-        $$('.deleteFav').addClass('hide');
-        $$('.addFav').removeClass('hide');
-      });
+      deleteFav(id,
+        function() {
+          NotiForFav(title, msg, img);
+          t.addClass('hide');
+          t.parent().children('.addFav').removeClass('hide');
+          t.attr('data-isFav', false);
+        });
     }); // end click
 
   } // end pagaInit
@@ -104,7 +97,7 @@
     $$.ajax({
       url: "/rest/post/search/" + keyword,
       type: "GET",
-      success: function(result) {
+      function(result) {
         var data = JSON.parse(result);
         console.log("goSearch(keyword:%s)=>%o", keyword, data);
         showSearchResult(data);

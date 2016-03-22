@@ -10,6 +10,7 @@ module.exports = {
       };
       let item = await FavoriteService.create(data);
       res.ok({
+        result: true,
         item,
       });
     } catch (e) {

@@ -1,4 +1,4 @@
-function deleteFav(id,success) {
+function deleteFav(id, success, failed) {
   myApp.showIndicator();
 
   // delete item from favorite list.
@@ -7,7 +7,7 @@ function deleteFav(id,success) {
     type: "DELETE",
     success: function(data) {
       if (myApp.params.log) console.log("deleted favorite result=>", data);
-      
+
       if (data.indexOf("<") == 0) {
         myApp.getCurrentView().loadContent(data);
       } else {
@@ -16,8 +16,9 @@ function deleteFav(id,success) {
       }
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      $$(".favboxa").children().css("color", favErrColor);
-      if(myApp.params.log) console.log("deleteFav: thrownError=>", xhr.status, thrownError);
+      if (typeof failed != "undenfined")
+        if (typeof failed == "function") failed();
+      if (myApp.params.log) console.log("deleteFav: thrownError=>", xhr.status, thrownError);
       myApp.alert(" Error occurred when try to add favorite.", xhr.status);
     },
     complete: function() {

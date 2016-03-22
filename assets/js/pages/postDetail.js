@@ -26,28 +26,36 @@ myApp.onPageAfterAnimation('postDetail', function(page) {
 
     fav.attr('disabled', true);
 
-    if (isFav == "true") {
+    if (isFav == "true" || isFav == true) {
       title = 'Item deleted :(';
       msg = 'You just removed `' + itemTitle + '` from favorite list';
 
-      deleteFav(id, function() {
-        NotiForFav(title, msg, img);
-        var fav = $$(".favboxa");
-        fav.children().css("color", favFalseColor);
-        fav.attr("data-isFav", false);
-        fav.removeAttr('disabled');
-      });
+      deleteFav(id,
+        function() {
+          NotiForFav(title, msg, img);
+          var fav = $$(".favboxa");
+          fav.children().css("color", favFalseColor);
+          fav.attr("data-isFav", false);
+          fav.removeAttr('disabled');
+        },
+        function() {
+          $$(".favboxa").children().css("color", favErrColor);
+        });
     } else {
       title = 'Item Added :)';
       msg = 'You just added `' + itemTitle + '` to your favorite list';
 
-      addFav(id, function() {
-        NotiForFav(title, msg, img);
-        var fav = $$(".favboxa");
-        fav.children().css("color", favTrueColor);
-        fav.attr("data-isFav", true);
-        fav.removeAttr('disabled');
-      });
+      addFav(id,
+        function() {
+          NotiForFav(title, msg, img);
+          var fav = $$(".favboxa");
+          fav.children().css("color", favTrueColor);
+          fav.attr("data-isFav", true);
+          fav.removeAttr('disabled');
+        },
+        function() {
+          $$(".favboxa").children().css("color", favErrColor);
+        });
     }
   }); // end click
 

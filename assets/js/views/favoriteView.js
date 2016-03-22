@@ -54,6 +54,44 @@
   // runs when a f7 page be inserted to view.
   function pageInit(pageData) {
 
+    // swiping out right acition -> add selsect item to favorite.
+    $$(favoriteView.selector).on('click', '.addFav', function(event) {
+      var t = $$(this);
+      var id = t.attr("data-id");
+      var img = t.attr("data-img");
+      var itemTitle = $$(".item-title").children('.item.link').text();
+
+      var title = 'Item Added :)';
+      var msg = 'You just added `' + itemTitle + '` to your favorite list';
+
+      addFav(id,
+        function() {
+          NotiForFav(title, msg, img);
+          t.parent().children('.deleteFav').removeClass('hide');
+          t.addClass('hide');
+          t.attr('data-isFav', true);
+        });
+    }); // end click
+
+    // delete favorite item.
+    $$(favoriteView.selector).on('click', '.deleteFav', function() {
+      var t = $$(this);
+      var id = t.attr("data-id");
+      var img = t.attr("data-img");
+      var itemTitle = $$(".item-title").children('.item.link').text();
+
+      var title = 'Item deleted :(';
+      var msg = 'You just removed `' + itemTitle + '` from favorite list';
+
+      deleteFav(id,
+        function() {
+          NotiForFav(title, msg, img);
+          t.addClass('hide');
+          t.parent().children('.addFav').removeClass('hide');
+          t.attr('data-isFav', false);
+        });
+    }); // end click
+
   } // end pageInit
 
   // runs when f7 page be removed from view.

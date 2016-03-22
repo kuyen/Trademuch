@@ -1,4 +1,4 @@
-function addFav(id, success) {
+function addFav(id, success,failed) {
   myApp.showIndicator();
 
   // add item to favorite list.
@@ -16,7 +16,8 @@ function addFav(id, success) {
       }
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      $$(".favboxa").children().css("color", favErrColor);
+      if (typeof failed != "undenfined")
+        if (typeof failed == "function") failed();
       if (myApp.params.log) console.log("`addFav thrownError=>", xhr.status, thrownError);
       myApp.alert(" Error occurred when try to add favorite.", xhr.status);
     },
