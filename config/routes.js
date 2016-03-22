@@ -86,12 +86,10 @@
    //  'get  /rest/auth/register': 'AuthController.register',
    //  'get  /rest/auth/status': 'AuthController.status',
    'post /rest/auth/local': 'AuthController.callback',
-
    'post /rest/auth/local/:action': 'AuthController.callback',
    'get  /rest/auth/:provider': 'AuthController.provider',
    'get  /rest/auth/:provider/callback': 'AuthController.callback',
    'get  /rest/auth/:provider/:action': 'AuthController.callback',
-   'post /rest/auth/token': 'AuthController.token',
 
    'put  /rest/user': 'UserController.update',
    // 待捕齊
@@ -115,7 +113,8 @@
 
    //===================================================================
    // chatroom view
-   'get /chat/:postId/page': 'ChatController.chatView',
+  //  'get /chat/:postId': 'ChatController.chatView',
+   'get /post/:postId/chat': 'ChatController.chatView',
    // chatroom - RoomController
    'get /rest/room/:postId/users': 'RoomController.list',
    'post /rest/room/:postId/users': 'RoomController.join',

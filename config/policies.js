@@ -59,8 +59,7 @@ module.exports.policies = {
   'ChatController': {
     'public': ['sessionAuth'],
     'private': ['sessionAuth'],
-    // todo - 在能用網址列+token方式登入之前先讓 history 能直接取用以利測試
-    'history': [],
+    'chatView': ['sessionAuth'],
   },
   'RoomController': {
     'join': ['sessionAuth'],

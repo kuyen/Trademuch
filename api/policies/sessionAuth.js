@@ -14,10 +14,12 @@ module.exports = function(req, res, next) {
   console.log('==== session ====');
   console.log(req.body);
 
-  if(req.body.body){
-    let user = JSON.parse(req.body.body);
-    console.log('session user', user);
-    if(user){
+  if(typeof req.body != "undefined"){
+    if(req.body.user) {
+      let {user} = req.body;
+      console.log('session user', user);
+    }
+    if(typeof user != "undefined"){
       UserService.userToSession(user, req);
     }
   }

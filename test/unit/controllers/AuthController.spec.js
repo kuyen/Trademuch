@@ -80,7 +80,7 @@ describe.only('about Auth Controller operation.', function() {
       //
       let result = await request(sails.hooks.http.app)
       .post(`/chat/1/public`)
-      .send({body: JSON.stringify(user)});
+      .send({user});
 
 
       done();
