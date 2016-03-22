@@ -81,7 +81,7 @@ let self = module.exports = {
         "longitude": longitude,
       })
       let createPost = await Post.create({
-        "title": "AAAA",
+        "title": "AAA",
         "startDate": "2015-12-01",
         "user_id": testUser2.id
       });
