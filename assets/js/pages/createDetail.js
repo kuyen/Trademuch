@@ -190,6 +190,7 @@ myApp.onPageInit(page, function(page) {
     // {"mode":"give","hobby":"1","detail":{"title":"123","radioItem":"2","item":""},
     // "location":{"latitude":24.148657699999998,"longitude":120.67413979999999,"accuracy":30}}
     e.preventDefault();
+    e.stopImmediatePropagation();
     $$(this).attr('disabled', true);
     myApp.showIndicator();
 

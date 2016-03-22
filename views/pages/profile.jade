@@ -51,7 +51,7 @@
                         | #{post.lastChat}
                     //-  .item-subtitle NT$#{post.price}
                 .swipeout-actions-right
-                  a.bg-pink.deletePost(href='#', data-id='#{post.id}')
+                  a.bg-pink.deletePost(href='#', data-id='#{post.id}', data-img="#{post.coverImage}")
                     img(src='/img/deletefav.png', alt='deleteFav', style="height: 30px;")
       -else
         .noPostItem     

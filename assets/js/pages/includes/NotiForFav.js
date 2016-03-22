@@ -3,7 +3,7 @@ function notiForFav(title, msg, img) {
   myApp.addNotification({
     title: title,
     message: msg,
-    media: '<img width="77" height="77" style="border-radius:80%" src="' + img + '">'
+    media: '<img width="48" height="48" style="border-radius:80%" src="' + img + '">'
   });
   setTimeout(function() {
     myApp.closeNotification('.notification-item');

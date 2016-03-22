@@ -8,7 +8,7 @@
       .detailFavbox
         -if(post)
           .favbox
-            a.right.favboxa(data-id="#{post.id}",data-isFav="#{isFav}")
+            a.right.favboxa(data-id="#{post.id}",data-isFav="#{isFav}",data-img="#{post.gallery}")
              |                  
              -if(isFav==true)
                i.fa.fa-lg.fa-heart(style="color:#ff5757")

@@ -63,7 +63,7 @@
       var li = $$(this).parents('li');
 
       myApp.confirm('Are you sure?', function() {
-        var img = $$(".swipeout[data-id='" + id + "'] .img-square").css("background-image").slice(5, -1);
+        var img = delPost.attr("data-img");
         var itemTitle = $$(".item-title").children('.item.link').text();
         var title = 'Item deleted :(';
         var msg = 'You just removed `' + itemTitle + '` from your post list';
