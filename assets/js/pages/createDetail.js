@@ -341,6 +341,7 @@ myApp.onPageInit(page, function(page) {
           myApp.formDeleteData('createCategoryChoose');
           myApp.formDeleteData('createDetailChoose');
           myApp.hideIndicator();
+          myApp.reloadProfile();
           myApp.getCurrentView().router.load({
             url: '/post/' + result.id,
             reload: true,

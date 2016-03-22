@@ -55,7 +55,8 @@
   function pageInit(pageData) {
 
     // swiping out right acition -> add selsect item to favorite.
-    $$(favoriteView.selector).on('click', '.addFav', function(event) {
+    $$(favoriteView.selector).on('click', '.addFav', function(e) {
+      e.stopImmediatePropagation();
       var t = $$(this);
       var id = t.attr("data-id");
       var img = t.attr("data-img");
@@ -67,15 +68,13 @@
       myApp.addFav(id,
         function() {
           myApp.notiForFav(title, msg, img);
-          // t.parent().children('.deleteFav').removeClass('hide');
-          // t.addClass('hide');
-          // t.attr('data-isFav', true);
           myApp.reloadFavorite();
         });
     }); // end click
 
     // delete favorite item.
-    $$(favoriteView.selector).on('click', '.deleteFav', function() {
+    $$(favoriteView.selector).on('click', '.deleteFav', function(e) {
+      e.stopImmediatePropagation();
       var t = $$(this);
       var id = t.attr("data-id");
       var img = t.attr("data-img");
@@ -87,9 +86,7 @@
       myApp.deleteFav(id,
         function() {
           myApp.notiForFav(title, msg, img);
-          t.addClass('hide');
-          t.parent().children('.addFav').removeClass('hide');
-          t.attr('data-isFav', false);
+          myApp.reloadFavorite();
         });
     }); // end click
 

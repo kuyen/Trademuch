@@ -31,18 +31,16 @@
   function pageInit(pageData) {
 
     var mySearchbar = myApp.searchbar('.searchbar', {
-        searchList: '.list-block-search',
-        searchIn: '.item-title'
+      searchList: '.list-block-search',
+      searchIn: '.item-title'
     });
 
     // remove suggest button color after click cancel button.
-    $$(".searchbar-cancel").click(function(){
+    $$(".searchbar-cancel").click(function() {
       $$(".button-round").removeClass("suggestClicked");
     });
 
     $$(".categories .button").click(function() {
-      var keyword = $$(this).attr('data-keyword');
-      $$(".searchbar-input > input").val(keyword);
       // reset click state
       var length = $$(".categories > .button").length;
       for (var i = 0; i <= length; i++) {
@@ -50,8 +48,16 @@
       }
       // give the one be clicked new state.
       $$(this).addClass('suggestClicked');
-      // goSearch(keyword);
-      mySearchbar.search(keyword);
+
+      var keyword = $$(this).attr('data-keyword');
+      if (keyword != "all") {
+        $$(".searchbar-input > input").val(keyword);
+        // goSearch(keyword);
+        mySearchbar.search(keyword);
+      } else {
+        console.log("empty");
+        mySearchbar.disable();
+      }
     }); // end click
 
     $$("#formSearch").on('submit', function(e) {
