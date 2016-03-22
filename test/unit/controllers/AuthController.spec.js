@@ -1,4 +1,4 @@
-describe('about Auth Controller operation.', function() {
+describe.only('about Auth Controller operation.', function() {
   it('register user should success.', async (done) => {
 
     try {
@@ -44,6 +44,27 @@ describe('about Auth Controller operation.', function() {
 
       result.status.should.be.equal(302);
       result.headers.location.should.be.equal('/user/hobby?hasMail=true');
+
+      done();
+    } catch (e) {
+      done(e);
+    }
+  });
+
+  it('get user token', async (done) => {
+
+    try {
+      let loginInfo = {
+        email: 'newUser@gmail.com',
+        password: 'newUser'
+      }
+      //
+      let result = await request(sails.hooks.http.app)
+      .post('/rest/auth/token')
+      .send({bady: JSON.stringify(loginInfo)});
+
+      result.status.should.be.equal(200);
+      console.log('result.body', result.body);
 
       done();
     } catch (e) {

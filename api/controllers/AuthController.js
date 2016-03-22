@@ -25,6 +25,21 @@ module.exports = {
       console.log(e);
     }
   },
+  token: async (req, res) => {
+    try {
+      let data = req.body.bady;
+
+      let {email, password} = JSON.parse(data);
+
+      let user = await User.findOne({where:{email}});
+
+      res.ok({user});
+
+    } catch (e) {
+      console.error(e.stack);
+    }
+  },
+
   register: async (req, res) => {
     try {
       let defaultUser = {
