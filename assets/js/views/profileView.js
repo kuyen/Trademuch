@@ -66,7 +66,7 @@
         var img = $$(".swipeout[data-id='" + id + "'] .img-square").css("background-image").slice(5, -1);
         var itemTitle = $$(".item-title").children('.item.link').text();
         var title = 'Item deleted :(';
-        var msg = 'You just removed `' + itemTitle + '` from favorite list';
+        var msg = 'You just removed `' + itemTitle + '` from your post list';
 
         myApp.deletePost(id,
           function() {

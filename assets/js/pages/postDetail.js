@@ -24,7 +24,7 @@ myApp.onPageInit('postDetail', function(page) {
     var id = fav.attr("data-id");
     var isFav = fav.attr("data-isFav");
     var title, msg, itemTitle = $$(".post-title").text();
-    var img = $$('.img-cover').css("background-image").slice(5, -2);
+    var img = $$('.card-header').css("background-image").slice(5, -2);
 
     fav.attr('disabled', true);
 
