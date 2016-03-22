@@ -74,7 +74,7 @@ describe('about Elasticsearch Service .', function() {
     });
   });
 
-  describe.only('test search place', () => {
+  describe('test search place', () => {
 
     // let testUser,place;
     before(async (done) => {
