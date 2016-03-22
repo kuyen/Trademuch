@@ -32,86 +32,45 @@
     *                                                                          *
     ***************************************************************************/
    '/public': {
-     view: 'landing'
-   },
-
-   '/2': {
-     view: 'index2'
+     view: 'landing/index'
    },
 
    '/map': {
      view: 'map'
    },
 
-   '/storyDetail': {
-     view: 'storyDetail'
+   '/termService': {
+     view: 'landing/termService'
    },
 
-   '/TermService': {
-     view: 'TermService'
+   '/privacyPolicy': {
+     view: 'landing/privacyPolicy'
    },
 
-   '/PrivacyPolicy': {
-     view: 'PrivacyPolicy'
-   },
-
-   '/Specification': {
-     view: 'Specification'
+   '/specification': {
+     view: 'landing/specification'
    },
 
    '/learnMore': {
-     view: 'learnMore'
+     view: 'landing/learnMore'
    },
-
-   //  'get /login': 'AuthController.login',
-   //  'get /logout': 'AuthController.logout',
-   //  'get /register': 'AuthController.register',
-   //
-   //  'get /auth/status': 'AuthController.status',
-
-   //  'post /auth/local': 'AuthController.callback',
-   //  'post /auth/local/:action': 'AuthController.callback',
-
-   //  'get /auth/:provider': 'AuthController.provider',
-   //  'get /auth/:provider/callback': 'AuthController.callback',
-   //  'get /auth/:provider/:action': 'AuthController.callback',
-
-   //  /rest/{controllers}/{action}
-   //  'post /updateHobbyAndMail': 'UserController.update',
-   //  'get /hobby': 'FrontUserController.hobby',
-   //  'get /main': 'MainController.index',
-   //  'get /story': 'PostController.create',
-   //  'get /storyCategory': 'FrontPostController.createCategory',
-   //  'get /storyDetail/:categoryId': 'FrontPostController.createByCategoryId',
-   //  'post /getAllPost': 'PostController.getAll',
-   // /rest/post/list
-   //  'post /postStory': 'PostController.create',
-   //  'get /postDetail/:id': 'FrontPostController.show',
-   //  'get /postDetailf7/:id': 'FrontPostController.showF7',
-   //  'post /addUserFavorite/:id': 'FavoriteController.create',
-   //  'post /delUserFavorite/:id': 'FavoriteController.delete',
-   //  'get /getUserFavorites': 'FavoriteController.get',
-   //  'get /favorites': 'FrontUserController.favorites',
-   //  'get /profile': 'FrontUserController.profile',
-
-
 
    // image
    'get /testUpload': 'ImageController.index',
    'post /api/uploadImage': 'ImageController.upload',
    'post /api/uploadImageBase64': 'ImageController.upload',
 
-   // search
-   'get /search': {
-     view: 'search'
-   },
-   //  'get /search/:keyword': 'PostController.search',
 
-
-   // view
+   // default app view
    'get /': 'MainController.pcOrMobile',
    'get /app': 'MainController.index',
    'get /app/*': 'MainController.index',
+
+   // search view
+   'get /search': {
+     view: 'app'
+   },
+   'get /search/:keyword': 'MainController.indexBySearchKeyword',
 
    'get /user/hobby': 'FrontUserController.hobby',
    'get /user/favorites': 'FrontUserController.favorites',
@@ -120,7 +79,6 @@
    'get /post/create/Category': 'FrontPostController.createCategory',
    'get /post/create': 'FrontPostController.createByCategoryId',
    'get /post/:id': 'FrontPostController.show',
-   'get /post/f7/:id': 'FrontPostController.showF7',
 
    //  api
    //  'get  /rest/auth/login': 'AuthController.login',
@@ -145,7 +103,10 @@
 
    'post /rest/post/create': 'PostController.create',
    'get  /rest/post': 'PostController.getAll',
-   'get  /rest/post/search/:keyword': 'PostController.elasticSearch',
+   'get  /rest/post/:id': 'PostController.getPostById',
+  //  'get  /rest/post/search/sql/:keyword': 'PostController.sqlSearch',
+  //  'get  /rest/post/search/:keyword': 'PostController.elasticSearch',
+    'get  /rest/post/search/:keyword': 'PostController.sqlSearch',
    'delete  /rest/post/:postId': 'PostController.delete',
    // 待捕齊
    // get /rest/post/:id': 'PostController.find',
@@ -154,20 +115,20 @@
 
    //===================================================================
    // chatroom view
-   'get /chat/:id/page': 'ChatController.chatView',
+   'get /chat/:postId/page': 'ChatController.chatView',
    // chatroom - RoomController
-   'get /room/:roomName/users': 'RoomController.list',
-   'post /room/:roomName/users': 'RoomController.join',
-   'put /room/:roomName/limit': 'RoomController.setLimit',
-   'get /room/:roomName/limit': 'RoomController.getLimit',
-   'delete /room/:roomName/users': 'RoomController.leave',
+   'get /rest/room/:postId/users': 'RoomController.list',
+   'post /rest/room/:postId/users': 'RoomController.join',
+   'put /rest/room/:postId/limit': 'RoomController.setLimit',
+   'get /rest/room/:postId/limit': 'RoomController.getLimit',
+   'delete /rest/room/:postId/users': 'RoomController.leave',
    // chatroom - ChatController
-   'get /chat/me': 'ChatController.getId',
-   'post /chat/:roomName/public': 'ChatController.public',
-   'post /chat/:userId/private': 'ChatController.private',
-   'post /chat/:roomName/announce': 'ChatController.announce',
-   'get /chat/:roomName/history': 'ChatController.history',
-   'post /chat/announce': 'ChatController.announce'
+   'get /rest/chat/me': 'ChatController.getId',
+   'post /rest/chat/:postId/public': 'ChatController.public',
+   'post /rest/chat/:userId/private': 'ChatController.private',
+   'post /rest/chat/:postId/announce': 'ChatController.announce',
+   'get /rest/chat/:postId/history': 'ChatController.history',
+   'post /rest/chat/announce': 'ChatController.announce'
      //==================================================================
 
 

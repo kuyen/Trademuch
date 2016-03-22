@@ -47,6 +47,7 @@ module.exports = {
     classMethods: {},
     instanceMethods: {},
     hooks: {},
-    tableName: 'post'
+    tableName: 'post',
+    paranoid: true,
   }
 };
