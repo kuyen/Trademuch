@@ -37,7 +37,10 @@ module.exports = {
         sails.log.info("| MainController.index:[favIds]", favIds);
 
         for (let i = 0; i < favIds.length; i++) {
-          if (items.data[favIds[i] - 1].id == favIds[i]) items.data[favIds[i] - 1].isFav = true;
+          for (let j = 0; j < items.length; j++) {
+            if(items.data[j].id==favIds[i].id) items.data[j].isFav = true;
+          }
+          // if (items.data[favIds[i] - 1].id == favIds[i]) items.data[favIds[i] - 1].isFav = true;
           sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
         }
         // sails.log.info("| MainController.index:[items]", items);
@@ -84,7 +87,10 @@ module.exports = {
         sails.log.info("| MainController.indexBySearchKeyword:[favIds]", favIds);
 
         for (let i = 0; i < favIds.length; i++) {
-          items.data[favIds[i] - 1].isFav = true;
+          for (let j = 0; j < items.length; j++) {
+            if(items.data[j].id==favIds[i].id) items.data[j].isFav = true;
+          }
+          // if (items.data[favIds[i] - 1].id == favIds[i]) items.data[favIds[i] - 1].isFav = true;
           sails.log.info("| MainController.indexBySearchKeyword:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
         }
         // sails.log.info("| MainController.index:[items]", items);
