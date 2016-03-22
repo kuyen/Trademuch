@@ -29,7 +29,7 @@ module.exports = {
         favorites = await FavoriteService.get({
           userId: loginedUser.id,
         });
-        sails.log.info("| MainController.index:[loginedUser]", loginedUser);
+        sails.log.info("| MainController.index=>[loginedUser]", loginedUser);
 
         for (let i = 0; i < favorites.length; i++) {
           favIds.push(favorites[i].id);
@@ -37,13 +37,15 @@ module.exports = {
         sails.log.info("| MainController.index:[favIds]", favIds);
 
         for (let i = 0; i < favIds.length; i++) {
-          // for (let j = 0; j < items.length; j++) {
-          //   if(items.data[j].id==favIds[i].id) items.data[j].isFav = true;
-          //   sails.log.info("items.data[j]=>",items.data[j]);
-          // }
-          console.log("!!!!!!!!!!!!!!!!!,",items.data[favIds[i] - 1].id ,favIds[i].id);
-          items.data[favIds[i] - 1].isFav = true;
-          sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
+          for (let j = 0; j < items.data.length; j++) {
+            if (items.data[j].id == favIds[i]) {
+              items.data[j].isFav = true;
+              sails.log.info("| MainController.index=>items.data index(%d), id(%d)", j, items.data[j].id);
+            }
+          }
+          // console.log("!!!!!!!!!!!!!!!!!,",items.data[favIds[i] - 1].id ,favIds[i].id);
+          // items.data[favIds[i]].isFav = true;
+          // sails.log.info("| MainController.index:[favId]%s,[itemsId]%s", favIds[i], items.data[favIds[i] - 1].id);
         }
         // sails.log.info("| MainController.index:[items]", items);
       } // end if

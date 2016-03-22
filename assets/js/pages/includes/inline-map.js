@@ -158,6 +158,8 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
         });
         setCookie("lat", position.coords.latitude);
         setCookie("lon", position.coords.longitude);
+
+        setUserLoactionMaker(position.coords.latitude, position.coords.longitude);
       },
       function() {
         $$.getJSON("http://ip-api.com/json/?callback=?", function(data) {
@@ -166,6 +168,8 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
             lat: data.lat,
             lng: data.lon
           });
+
+          setUserLoactionMaker(data.lat, data.lon);
 
           // save location for future usages.
           setCookie("lat", data.lat);
@@ -179,13 +183,49 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
     );
   }
 
+  function setUserLoactionMaker(lat, lon) {
+    console.log("map center=>", lat, lon);
+    var hereInfowindow = new google.maps.InfoWindow({
+      content: "You are here"
+    });
+    var hereImg = "./img/map_marker_user_current_location.png";
+    var hereMarker = new google.maps.Marker({
+      // position: new google.maps.LatLng(parseFloat(lat) - 0.0035, lon),
+      position: new google.maps.LatLng(lat, lon),
+      map: map,
+      icon: hereImg,
+      animation: google.maps.Animation.DROP,
+    });
+    hereMarker.addListener('click', function() {
+      hereInfowindow.open(map, hereMarker);
+    });
+
+    var hereCircle = new google.maps.Circle({
+      strokeColor: '#3889dd',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#3889dd',
+      fillOpacity: 0.35,
+      map: map,
+      center: {
+        lat: lat,
+        lng: lon
+      },
+      radius: 370
+    });
+  }
+
   var inforBoxArray = [];
 
   for (var i = 0; i < json.data.length; i++) {
     // console.log(json.data[i]);
+    var img = "/img/map_marker_red.png";
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(json.data[i].latitude, json.data[i].longitude),
-      map: map
+      map: map,
+      icon: img,
+      title: json.data[i].title,
+      animation: google.maps.Animation.DROP,
     });
 
     var content = '<div class="infoContent" data-id="' + json.data[i].id + '">' +
@@ -201,6 +241,17 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
     google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
       return function() {
+        // animation on
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+        // animation off
+        setTimeout(function() {
+          marker.setAnimation(null);
+        }, 2000);
+
         for (var i = 0; i < inforBoxArray.length; i++) {
           inforBoxArray[i].close();
         }
