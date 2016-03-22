@@ -61,7 +61,7 @@ describe.only('about Auth Controller operation.', function() {
       //
       let result = await request(sails.hooks.http.app)
       .post('/rest/auth/token')
-      .send({bady: JSON.stringify(loginInfo)});
+      .send({body: JSON.stringify(loginInfo)});
 
       result.status.should.be.equal(200);
       console.log('result.body', result.body);
@@ -71,5 +71,23 @@ describe.only('about Auth Controller operation.', function() {
       done(e);
     }
   });
+
+  it('user data login', async (done) => {
+
+    try {
+      let email = 'newUser@gmail.com';
+      let user = await User.findOne({where: {email}})
+      //
+      let result = await request(sails.hooks.http.app)
+      .post(`/chat/1/public`)
+      .send({body: JSON.stringify(user)});
+
+
+      done();
+    } catch (e) {
+      done(e);
+    }
+  });
+
 
 });

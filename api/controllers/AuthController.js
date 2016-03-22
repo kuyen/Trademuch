@@ -27,7 +27,7 @@ module.exports = {
   },
   token: async (req, res) => {
     try {
-      let data = req.body.bady;
+      let data = req.body.body;
 
       let {email, password} = JSON.parse(data);
 
