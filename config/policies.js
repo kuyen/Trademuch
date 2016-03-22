@@ -20,7 +20,8 @@
 module.exports.policies = {
   '*': ['passport', 'sessionAuth'],
   'AuthController': {
-    '*': ['passport']
+    '*': ['passport'],
+    'token': []
   },
   'MainController': {
     'index': [],
