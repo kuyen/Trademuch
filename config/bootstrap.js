@@ -16,6 +16,7 @@ module.exports.bootstrap = async(cb) => {
   try {
     sails.moment = moment;
     sails.services.passport.loadStrategies();
+    await ElasticsearchService.init();
     await init.basicData();
     cb();
   } catch (e) {

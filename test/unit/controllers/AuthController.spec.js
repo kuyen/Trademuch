@@ -1,4 +1,4 @@
-describe.skip('about Auth Controller operation.', function() {
+describe('about Auth Controller operation.', function() {
   it('register user should success.', async (done) => {
 
     try {
@@ -22,7 +22,7 @@ describe.skip('about Auth Controller operation.', function() {
       checkUser.email.should.be.equal(newUser.email);
       checkUser.Passports[0].password.should.be.equal(newUser.password);
       result.status.should.be.equal(302);
-      result.headers.location.should.be.equal('/');
+      result.headers.location.should.be.equal('/user/hobby?hasMail=true');
 
       done();
     } catch (e) {
@@ -43,7 +43,7 @@ describe.skip('about Auth Controller operation.', function() {
       .send(loginInfo);
 
       result.status.should.be.equal(302);
-      result.headers.location.should.be.equal('/');
+      result.headers.location.should.be.equal('/user/hobby?hasMail=true');
 
       done();
     } catch (e) {

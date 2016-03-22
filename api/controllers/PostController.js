@@ -12,12 +12,38 @@ module.exports = {
     }
   },
   // search
-  search: async(req, res) => {
+  sqlSearch: async(req, res) => {
     try {
       var keyword = req.param('keyword');
       console.log("==== getPostByKeyword ===", keyword);
       let items = await PostService.getPostByKeyword(keyword);
       console.log("=== item[0] ===\n", items[0]);
+      res.ok({
+        items
+      });
+    } catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
+  },
+
+  elasticSearch: async(req, res) => {
+    try {
+      let keyword = req.param('keyword');
+      let distance = req.param('distance');
+      let lat = req.param('lat');
+      let lon = req.param('lon');
+      let location;
+      if(lat){
+        location.lat = lat;
+        location.lon = lon;
+      }
+      console.log("==== elasticSearch ===", keyword);
+      let items = await ElasticsearchService.postPlace({
+        keyword: keyword,
+        distance: distance,
+        location: location,
+      });
       res.ok({
         items
       });
