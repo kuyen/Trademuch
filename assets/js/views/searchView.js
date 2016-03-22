@@ -103,7 +103,7 @@
     $$.ajax({
       url: "/rest/post/search/" + keyword,
       type: "GET",
-      function(result) {
+      success: function(result) {
         var data = JSON.parse(result);
         console.log("goSearch(keyword:%s)=>%o", keyword, data);
         showSearchResult(data);

@@ -1,4 +1,4 @@
-function addFav(id, success,failed) {
+function addFav(id, success, failed) {
   myApp.showIndicator();
 
   // add item to favorite list.
@@ -12,12 +12,12 @@ function addFav(id, success,failed) {
         myApp.getCurrentView().loadContent(data);
       } else {
         var jsonData = JSON.parse(data);
-        if (jsonData.result) success();
+        if (jsonData.result)
+          if (typeof failed != "undenfined" && typeof failed == "function") success();
       }
     },
     error: function(xhr, ajaxOptions, thrownError) {
-      if (typeof failed != "undenfined")
-        if (typeof failed == "function") failed();
+      if (typeof failed != "undenfined" && typeof failed == "function") failed();
       if (myApp.params.log) console.log("`addFav thrownError=>", xhr.status, thrownError);
       myApp.alert(" Error occurred when try to add favorite.", xhr.status);
     },

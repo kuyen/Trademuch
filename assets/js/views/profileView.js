@@ -58,20 +58,14 @@
       var delPost = $$(this);
       var id = delPost.attr("data-id");
       var li = $$(this).parents('li');
+
       myApp.confirm('Are you sure?', function() {
-        $$.ajax({
-          url: "/rest/post/" + id,
-          type: "DELETE",
-          success: function(result) {
-            console.log(result);
-            myApp.swipeoutDelete(li)
-          },
-          error: function(xhr, ajaxOptions, thrownError) {
-            console.log("xhr.status,thrownError=>", xhr.status, thrownError);
-            alert("if you delete  post, login please :)");
-            window.location.assign("/auth/facebook");
-          }
-        }); // end ajax
+        var img = $$(".img-square").css("background-image").slice(5, -1);
+        var itemTitle = $$(".item-title").children('.item.link').text();
+        var title = 'Item deleted :(';
+        var msg = 'You just removed `' + itemTitle + '` from favorite list';
+
+        deleteFav(id);
       });
     });
 
