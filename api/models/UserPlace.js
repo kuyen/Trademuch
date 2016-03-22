@@ -8,6 +8,5 @@ module.exports = {
     hooks: {},
     tableName: 'user_place',
     underscored: true,
-    paranoid: true,
   }
 };

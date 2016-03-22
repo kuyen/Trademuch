@@ -11,9 +11,8 @@ function deleteFav(id, success, failed) {
       if (data.indexOf("<") == 0) {
         myApp.getCurrentView().loadContent(data);
       } else {
-        var jsonData = JSON.parse(data);
-        if (jsonData.result)
-          if (typeof failed != "undenfined" && typeof failed == "function") success();
+        if (JSON.parse(data).result)
+          if (typeof success != "undenfined" && typeof success == "function") success();
       }
     },
     error: function(xhr, ajaxOptions, thrownError) {

@@ -64,12 +64,13 @@
       var title = 'Item Added :)';
       var msg = 'You just added `' + itemTitle + '` to your favorite list';
 
-      addFav(id,
+      myApp.addFav(id,
         function() {
           myApp.notiForFav(title, msg, img);
-          t.parent().children('.deleteFav').removeClass('hide');
-          t.addClass('hide');
-          t.attr('data-isFav', true);
+          // t.parent().children('.deleteFav').removeClass('hide');
+          // t.addClass('hide');
+          // t.attr('data-isFav', true);
+          myApp.reloadFavorite();
         });
     }); // end click
 
@@ -83,7 +84,7 @@
       var title = 'Item deleted :(';
       var msg = 'You just removed `' + itemTitle + '` from favorite list';
 
-      deleteFav(id,
+      myApp.deleteFav(id,
         function() {
           myApp.notiForFav(title, msg, img);
           t.addClass('hide');

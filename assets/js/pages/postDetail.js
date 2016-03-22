@@ -8,8 +8,10 @@ var favErrColor = "rgb(0, 0, 0)";
 // /////////////////////////////////////////////////
 // event -> onPageAfterAnimation
 // /////////////////////////////////////////////////
-myApp.onPageAfterAnimation('postDetail', function(page) {
-  console.log("postDetail onPageAfterAnimation");
+// myApp.onPageAfterAnimation('postDetail', function(page) {
+myApp.onPageInit('postDetail', function(page) {
+  // console.log("postDetail onPageAfterAnimation");
+  if (myApp.params.log) console.log("postDetail onPageInit");
 
   // for fb comment board plugin
   $$(function() {
@@ -30,7 +32,7 @@ myApp.onPageAfterAnimation('postDetail', function(page) {
       title = 'Item deleted :(';
       msg = 'You just removed `' + itemTitle + '` from favorite list';
 
-      deleteFav(id,
+      myApp.deleteFav(id,
         function() {
           myApp.notiForFav(title, msg, img);
           var fav = $$(".favboxa");
@@ -45,7 +47,7 @@ myApp.onPageAfterAnimation('postDetail', function(page) {
       title = 'Item Added :)';
       msg = 'You just added `' + itemTitle + '` to your favorite list';
 
-      addFav(id,
+      myApp.addFav(id,
         function() {
           myApp.notiForFav(title, msg, img);
           var fav = $$(".favboxa");

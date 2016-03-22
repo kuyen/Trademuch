@@ -9,6 +9,5 @@ module.exports = {
     hooks: {},
     tableName: 'user_favorite',
     underscored: true,
-    paranoid: true,
   }
 };

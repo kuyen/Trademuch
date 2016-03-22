@@ -5,7 +5,8 @@ module.exports = {
       sails.log.info("| FavoriteService:[userId]%s,[postId]%s", userId,postId);
       let user = await User.findById(userId);
       let checkRepeat = await user.hasPosts(postId);
-      let favorites;
+      console.log("!!!!!checkRepeat",checkRepeat);
+      let favorites = {};
       if(!checkRepeat) favorites =  await user.addPost(postId);
       return favorites;
     } catch (e) {
