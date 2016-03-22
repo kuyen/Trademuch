@@ -54,7 +54,7 @@
   // runs when a f7 page be inserted to view.
   function pageInit(pageData) {
 
-    $$(document).on('click', '.deletePost', function() {
+    $$(profileView.selector).on('click', '.deletePost', function() {
       var delPost = $$(this);
       var id = delPost.attr("data-id");
       var li = $$(this).parents('li');

@@ -35,6 +35,11 @@
         searchIn: '.item-title'
     });
 
+    // remove suggest button color after click cancel button.
+    $$(".searchbar-cancel").click(function(){
+      $$(".button-round").removeClass("suggestClicked");
+    });
+
     $$(".categories .button").click(function() {
       var keyword = $$(this).attr('data-keyword');
       $$(".searchbar-input > input").val(keyword);

@@ -26,7 +26,7 @@
                         //- .item-subtitle #{favorite.Item.itemname}
                   .swipeout-actions-right
                     a.bg-pink.deleteFav.notif-message.swipeout-delete(href='#', data-id='#{favorite.id}', data-img=favorite.coverImage)
-                      img(src='/img/deletefav.png', alt='deleteFav', style="height: 30px;")
+                      img(src='/img/deletefav.png', alt='deletefav', style="height: 30px;")
     -else  
       -if(loginState)
        .card
@@ -63,5 +63,5 @@
                           //- .item-subtitle NT$#{allPosts[random].price}
                     .swipeout-actions-right
                       a.bg-blue.notif-message.addFav(href='#', data-id='#{allPosts[random].id}', data-img=allPosts[random].gallery[0])
-                        img(src='/img/addFav.png', alt='addFav', style="height: 30px;")
+                        img(src='/img/addfav.png', alt='addFav', style="height: 30px;")
               -allPosts.splice(random, 1)

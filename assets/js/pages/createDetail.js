@@ -344,8 +344,8 @@ myApp.onPageInit(page, function(page) {
           myApp.getCurrentView().router.load({
             url: '/post/' + result.id,
             reload: true,
-            pushState: false,
-            pushStateOnLoad: false,
+            pushState: true,
+            pushStateOnLoad: true,
           });
         },
         error: function(xhr, ajaxOptions, thrownError) {
