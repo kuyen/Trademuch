@@ -30,6 +30,11 @@
   //
   function pageInit(pageData) {
 
+    var mySearchbar = myApp.searchbar('.searchbar', {
+        searchList: '.list-block-search',
+        searchIn: '.item-title'
+    });
+
     $$(".categories .button").click(function() {
       var keyword = $$(this).attr('data-keyword');
       $$(".searchbar-input > input").val(keyword);
@@ -40,7 +45,8 @@
       }
       // give the one be clicked new state.
       $$(this).addClass('suggestClicked');
-      goSearch(keyword);
+      // goSearch(keyword);
+      mySearchbar.search(keyword);
     }); // end click
 
     $$("#formSearch").on('submit', function(e) {
