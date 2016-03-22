@@ -13,14 +13,6 @@
       hooks: {
         appInit: function() {
 
-          // set current view is main view to make borwser link transforms.
-          $$(".tab-link").click(function(event) {
-            myApp.getCurrentView().main = true;
-            if (myApp.params.log) {
-              console.log("set main to view" + myApp.getCurrentView().selector);
-            }
-          });
-
           $$(".tab-link.favoriteView").click(function() {
             if (myApp.params.log) console.log("click favoriteView");
             if (loginState == true) {
@@ -55,6 +47,17 @@
                 $$(this).addClass('tab-link');
               }
               $$(this).click()
+            }
+          });
+
+        },
+        pageInit: function() {
+
+          // set current view is main view to make borwser link transforms.
+          $$(".tab-link").click(function(event) {
+            myApp.getCurrentView().main = true;
+            if (myApp.params.log) {
+              console.log("set main to view" + myApp.getCurrentView().selector);
             }
           });
 

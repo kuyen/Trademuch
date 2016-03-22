@@ -1,4 +1,4 @@
-function NotiForFav(title, msg, img) {
+function notiForFav(title, msg, img) {
   // show notification
   myApp.addNotification({
     title: title,
@@ -9,3 +9,5 @@ function NotiForFav(title, msg, img) {
     myApp.closeNotification('.notification-item');
   }, 2500);
 } // end showNoti
+
+myApp.notiForFav = notiForFav;

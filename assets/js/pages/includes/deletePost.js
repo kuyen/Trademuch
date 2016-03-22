@@ -1,30 +1,26 @@
-function deleteFav(id, success, failed) {
+function deletePost(id, success, failed) {
   myApp.showIndicator();
 
-  // delete item from favorite list.
   $$.ajax({
-    url: "/rest/favorite/" + id,
+    url: "/rest/post/" + id,
     type: "DELETE",
     success: function(data) {
-      if (myApp.params.log) console.log("deleted favorite result=>", data);
+      if (myApp.params.log) console.log("deleted post result=>", data);
 
       if (data.indexOf("<") == 0) {
         myApp.getCurrentView().loadContent(data);
       } else {
-        var jsonData = JSON.parse(data);
-        if (jsonData.result)
-          if (typeof failed != "undenfined" && typeof failed == "function") success();
+        if (typeof success != "undenfined" && typeof success == "function") success();
       }
     },
     error: function(xhr, ajaxOptions, thrownError) {
       if (typeof failed != "undenfined" && typeof failed == "function") failed();
       if (myApp.params.log) console.log("deleteFav: thrownError=>", xhr.status, thrownError);
-      myApp.alert(" Error occurred when try to add favorite.", xhr.status);
+      myApp.alert(" Error occurred when try to delete a item.", xhr.status);
     },
     complete: function() {
       myApp.hideIndicator();
     }
   }); // end ajax
 } // end deleteFav
-
-myApp.deleteFav = this.deleteFav;
+myApp.deletePost = this.deletePost;

@@ -54,7 +54,10 @@
   // runs when a f7 page be inserted to view.
   function pageInit(pageData) {
 
-    $$(profileView.selector).on('click', '.deletePost', function() {
+    $$(profileView.selector).on('click', '.deletePost', function(e) {
+      // e.preventDefault();
+      e.stopImmediatePropagation();
+
       var delPost = $$(this);
       var id = delPost.attr("data-id");
       var li = $$(this).parents('li');
@@ -65,7 +68,15 @@
         var title = 'Item deleted :(';
         var msg = 'You just removed `' + itemTitle + '` from favorite list';
 
-        deleteFav(id);
+        myApp.deletePost(id,
+          function() {
+            myApp.notiForFav(title, msg, img);
+            // myApp.reloadProfile();
+            myApp.swipeoutDelete(li)
+          },
+          function() {
+
+          });
       });
     });
 

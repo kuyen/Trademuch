@@ -26,3 +26,5 @@ function addFav(id, success, failed) {
     }
   }); // end ajax
 } // end addFav
+
+myApp.addFav = this.addFav;

@@ -32,7 +32,7 @@ myApp.onPageAfterAnimation('postDetail', function(page) {
 
       deleteFav(id,
         function() {
-          NotiForFav(title, msg, img);
+          myApp.notiForFav(title, msg, img);
           var fav = $$(".favboxa");
           fav.children().css("color", favFalseColor);
           fav.attr("data-isFav", false);
@@ -47,7 +47,7 @@ myApp.onPageAfterAnimation('postDetail', function(page) {
 
       addFav(id,
         function() {
-          NotiForFav(title, msg, img);
+          myApp.notiForFav(title, msg, img);
           var fav = $$(".favboxa");
           fav.children().css("color", favTrueColor);
           fav.attr("data-isFav", true);

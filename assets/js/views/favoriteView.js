@@ -66,7 +66,7 @@
 
       addFav(id,
         function() {
-          NotiForFav(title, msg, img);
+          myApp.notiForFav(title, msg, img);
           t.parent().children('.deleteFav').removeClass('hide');
           t.addClass('hide');
           t.attr('data-isFav', true);
@@ -85,7 +85,7 @@
 
       deleteFav(id,
         function() {
-          NotiForFav(title, msg, img);
+          myApp.notiForFav(title, msg, img);
           t.addClass('hide');
           t.parent().children('.addFav').removeClass('hide');
           t.attr('data-isFav', false);
