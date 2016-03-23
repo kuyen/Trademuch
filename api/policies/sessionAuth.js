@@ -19,6 +19,7 @@ module.exports = function(req, res, next) {
     console.log('session user', user);
     if(user){
       UserService.userToSession(user, req);
+      return next();
     }
   }
 

@@ -70,7 +70,7 @@ module.exports = {
           telephone: tUser.telephone,
           age: tUser.age
         }
-        tUser_fb.fbId = await UserService.getFBId(tUser.id);
+        // tUser_fb.fbId = await UserService.getFBId(tUser.id);
 
         tResult = {
           id: chat.id,

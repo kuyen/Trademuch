@@ -58,14 +58,16 @@ module.exports.policies = {
   },
   'ChatController': {
     'public': ['sessionAuth'],
-    'private': ['sessionAuth']
+    'private': ['sessionAuth'],
+    'history': [],
   },
   'RoomController': {
     'join': ['sessionAuth'],
     'setLimit': ['sessionAuth'],
     'getLimit': ['sessionAuth'],
     'leave': ['sessionAuth'],
-    'show': ['sessionAuth']
+    'show': ['sessionAuth'],
+    'list': ['sessionAuth'],
   }
   /***************************************************************************
    *                                                                          *

@@ -163,8 +163,9 @@ module.exports = {
         sails.log.info('RoomService.public:content=>', content);
 
         let user = await UserService.getLoginUser(req);
-        let userFBId = await UserService.getFBId(user.id);
-        user.fbId = userFBId;
+        console.log('=== user ==', user);
+        // let userFBId = await UserService.getFBId(user.id);
+        // user.fbId = userFBId;
         let room = await Room.findOne({
           where: {
             uuid: roomName
@@ -173,7 +174,7 @@ module.exports = {
         let chat = await Chat.create({
           'room_id': room.id,
           'user_id': user.id,
-          'content': content,
+          'content': 'content',
           'type': 'public'
         });
 
@@ -184,13 +185,11 @@ module.exports = {
           'content': content
         }, req);
 
-        return res.ok({
-          chat,
-          user,
-          message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
-        });
+
+
+        return res.ok({});
       } catch (e) {
-        res.serverError(e.toString());
+        return res.serverError(e.toString());
       }
     } // end public
 
