@@ -71,8 +71,15 @@ describe('about Post Service operation.', function() {
     let post, item;
     before(async(done) => {
       try {
+        await Post.destroy({
+          where: {
+            id: {
+              $gte: 1
+            }
+          }
+        });
         let testUser2 = await User.create({
-    			"username": "testuser2",
+          "username": "testuser2",
         });
 
         let place = await Place.create({
@@ -172,6 +179,131 @@ describe('about Post Service operation.', function() {
         done(e);
       }
     });
+
+  });
+
+  describe('delete post', (done) => {
+    let user1, user2;
+    before(async(done) => {
+      try {
+        user1 = await User.create({
+          "username": "testDelPost",
+          "email": "testDelPost1@gmail.com",
+          "age": 18
+        });
+
+        user2 = await User.create({
+          "username": "testDelPost",
+          "email": "testDelPost2@gmail.com",
+          "age": 18
+        });
+
+        done();
+      } catch (e) {
+        console.log(e);
+        done(e)
+      }
+    });
+
+    describe('delete owen post', (done) => {
+      let post;
+      before(async(done) => {
+        try {
+
+          sinon.stub(UserService, 'getLoginState', (req) => {
+            return true;
+          });
+
+          sinon.stub(UserService, 'getLoginUser', (req) => {
+            return user1;
+          });
+
+          post = await Post.create({
+            uuid: 'sdfsdfs123',
+            title: 'test',
+            startDate: '2014-12-1',
+            endDate: '2014-12-10',
+            user_id: user1.id,
+            coverImage: ''
+          });
+          done()
+        } catch (e) {
+          done(e)
+        }
+      });
+
+      after(async(done) => {
+        UserService.getLoginState.restore();
+        UserService.getLoginUser.restore();
+        done();
+      });
+
+
+      it('user delete owen post', async(done) => {
+        try {
+          let before = await Post.findAll();
+          console.log(before.length);
+          await PostService.delete(user1.id, post.id);
+          let after = await Post.findAll();
+          before.length.should.be.above(after.length);
+          done()
+        } catch (e) {
+          console.log(e);
+          done(e)
+        }
+      })
+    });
+
+    describe('delete not user post', (done) => {
+      let post;
+      before(async(done) => {
+        try {
+
+          sinon.stub(UserService, 'getLoginState', (req) => {
+            return true;
+          });
+
+          sinon.stub(UserService, 'getLoginUser', (req) => {
+            return user2;
+          });
+
+          post = await Post.create({
+            uuid: '123123123',
+            title: 'test',
+            startDate: '2014-12-1',
+            endDate: '2014-12-10',
+            user_id: user1.id,
+            coverImage: ''
+          });
+          done()
+        } catch (e) {
+          done(e)
+        }
+      });
+
+      after(async(done) => {
+        UserService.getLoginState.restore();
+        UserService.getLoginUser.restore();
+        done();
+      });
+
+
+      it('user delete owen post', async(done) => {
+        try {
+          let before = await Post.findAll();
+          console.log(before.length);
+          await PostService.delete(user2.id, post.id);
+          let after = await Post.findAll();
+          before.length.should.be.equal(after.length);
+          should.fail('no error was thrown when it should have been')
+        } catch (e) {
+          console.log(e);
+          done()
+        }
+      });
+
+    });
+
 
   });
 

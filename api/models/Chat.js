@@ -19,6 +19,11 @@ module.exports = {
     content: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    speakRead: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+      field: 'speak_read'
     }
 
   },

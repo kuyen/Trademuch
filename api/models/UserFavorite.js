@@ -1,6 +1,6 @@
 module.exports = {
   attributes: {
-    
+
   },
 
   options: {
@@ -8,6 +8,6 @@ module.exports = {
     instanceMethods: {},
     hooks: {},
     tableName: 'user_favorite',
-    underscored: true
+    underscored: true,
   }
 };

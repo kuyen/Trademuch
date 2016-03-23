@@ -1,146 +1,22 @@
 extends ./layout
 
 block body
-  //- #page-top.map-fullscreen.page-homepage.navigation-off-canvas()
-  #splash
-    img(src='/img/splashLogo.png', alt='splashLogo')
-    
-  p.animated#back-top(style="display:none;")
-    a(href='#top')
-     span
-     | Top       
-  .views
-
-    .view.view-main
-        .navbar
-          .navbar-inner
-            .wrapper
-              a.left.external.logo(href='/app')
-                img(src='/img/logo.png', alt='logo', style="height: 45px;") 
-            .wrapper
-              -console.log("loginState=>",loginState);
-              -if(!loginState)
-                a.right.top.external( target="_top" href='/rest/auth/facebook')
-                  img.action(src='/img/facebook.png', alt='facebook', style="height: 20px;")
-        .pages
-          .page.toolbar-fixed(data-page='home')
-            .toolbar.tabbar.mainToolbar
-              .toolbar-inner
-                a.mapView.tab-link.active(href='#mapView')
-                  img(src='/img/map.png', alt='map')
-                  //- .activeShow
-                a.searchView.tab-link(href='#searchView')
-                  img(src='/img/search.png', alt='search')
-                a.storyView.link(href='/post/create/Category')
-                  img(src='/img/add.png', alt='add')
-                -if(!loginState)
-                  a.link(href='/user/favorites')
-                    img(src='/img/favorite.png', alt='favorite')
-                -else
-                  a.favoriteView.tab-link(href='#favoriteView', data-login="#{loginState}")
-                    img(src='/img/favorite.png', alt='favorite')
-                //- a.listView.tab-link(href='#listView')
-                //-   img(src='/img/login.png', alt='list')
-                -if(!loginState)
-                  a.link(href='/user/favorites')
-                    img(src='/img/login.png', alt='favorite')
-                -else
-                  a.profileView.tab-link(href='#profileView')
-                    img(src='/img/login.png', alt='profile')
-            |         
-            .page-content(style="padding-bottom:70px")
-              .content-block(style="height: 100%; padding: 0px; margin: 70px 0 -70px 0;")
-                #mainTab.tabs(style="height: calc(100% - 64px);")
-                  #mapView.tab.active(style="height: 100%;")
-                    iframe#mapFrame(src='/map', style="height: 100%; width: 100%; border: 0; overflow:hidden; ", scrolling="no")
-                  |               
-                  #favoriteView.tab
-                    .page-content
-                  #searchView.tab
-                    form#formSearch.searchbar
-                     // Search bar
-                     .searchbar-input
-                       input.i18n(type='search', data-i18n='[placeholder]global.search')
-                       a.searchbar-clear(href='#') clear
-                       a.searchbar-cancel.i18n(href='#', data-i18n='global.cancel') cancel
-                    // Search bar overlay
-                    .searchbar-overlay
-                    .row.categories
-                      a.button.button-round(href='#nike', data-keyword='nike') nike
-                      a.button.button-round(href='#iphone', data-keyword='iphone') IPhone
-                      a.button.button-round(href='#test', data-keyword='外套') 外套
-                      a.button.button-round(href='#test', data-keyword='全新') 全新
-                    .page-content
-                      .card
-                        .card-content
-                          .list-block.media-list
-                            .list-group
-                              ul#search-result
-                                each post in allPosts
-                                  li.swipeout(data-id=post.id)
-                                      .swipeout-content
-                                        .item-content.prodList
-                                          .item-media
-                                            //- img(src=post.gallery[0], width='80')
-                                            img.lazy.lazy-fadeIn(data-src=post.gallery[0], width='80', style="overflow: hidden;")
-                                            //- img.lazy.lazy-fadeIn(data-src='http://lorempixel.com/80/60/technics/#{post.id % 9}', width='80')
-                                          .item-inner
-                                            .item-title-row
-                                              .item-title
-                                                a.link(data-ignore-cache="true", href='/post/f7/#{post.id}') #{post.title}
-                                            //- .item-subtitle NT$#{post.price}
-                                      .swipeout-actions-right
-                                        a.bg-blue.like.notif-message(href='#', data-id='#{post.id}', data-img=post.gallery[0]) 
-                                          img(src='/img/addlike.png', alt='addlike', style="height: 30px;")
-                  |  
-                  -if(loginState)
-                    #profileView.tab
-                      .page-content
-                      
-block scripts
-  //f7 search-result callback
-  script(type='text/template7', id="searchResult").
-    {{#if this.items.length>0}}
-      {{#each this.items}}
-        <li class="swipeout" data-id={{id}}>
-          <div class="swipeout-content">
-            <div class="item-content prodList">
-              <div class="item-media">
-                <img data-src={{gallery[0]}} width="80" class="lazy lazy-fadeIn" style="overflow: hidden;"/>
-              </div>
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">
-                    <a class="link" data-ignore-cache="true" href='/post/f7/{{id}}'>{{title}}</a>
-                  </div>
-                </div>
-                <div class="item-subtitle">NT${{price}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="swipeout-actions-right">
-            <a href="#" data-img="{{gallery[0]}}" data-id="{{id}}" class="action1 bg-blue like notif-message">
-              <img src="/img/addlike.png" alt="addlike" style="height: 30px;">
-            </a>
-          </div>
-        </li>
-      {{/each}}
-    {{else}} 
-      <div class="pc-man">
-        <img src="/img/pc-man.png" alt="pc-man">
-        <p> there is nothing... </p>
-        <div class="no-post">
-         <a href="/post/create/Category" class="button button-square suggestClicked">asking someone for this item!</a>
-        </div> 
-      </div>
-    {{/if}}
-  // Result List
-  script.
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '915539495181624',
-        xfbml      : true,
-        version    : 'v2.5'
-      });
-    };
-    
+  
+  //- screen elements
+  include ./includes/statusbar.jade
+  include ./includes/panel.jade
+  
+  //- app elements 
+  include ./includes/splash.jade
+  include ./includes/backTop.jade
+  
+  .views.toolbar-through.tabs
+  
+    include ./views/main.jade 
+    include ./views/search.jade
+    include ./views/favorite.jade
+    include ./views/profile.jade
+    include ./views/addPost.jade
+      
+    include ./includes/toolbar.jade
+  

@@ -22,6 +22,21 @@ module.exports = {
     }
   },
 
+  userToSession: function(user, req) {
+    req.session.authenticated = true;
+    req.session.passport = {
+      user: user
+    }
+
+    let loginStatus = UserService.getLoginState(req);
+    let sessionUser = UserService.getLoginUser(req);
+
+    console.info('loginStatus ', loginStatus, 'sessionUser', sessionUser);
+
+
+  },
+
+
   getFBId: async(userId) => {
     try {
       let UserFaceBook = await Passport.findOne({
@@ -36,7 +51,7 @@ module.exports = {
       throw e
     }
   },
-  
+
   updateUserMail: async({userId,userMail,userLocation}) => {
     try {
       sails.log.info("updateUserMail(userId,userMail)=>",userId,userMail);

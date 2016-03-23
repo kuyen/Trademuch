@@ -28,37 +28,7 @@ module.exports = {
           if(fav.id==itemId) isFav = true;
         }); // end forEach
       }
-      res.view('postDetail', {
-        post,
-        isFav,
-        fbId
-      });
-    } catch (e) {
-      sails.log.error(e);
-      res.serverError(e);
-    }
-  },
-
-  showF7: async(req, res) => {
-    try {
-      console.log("==== getF7ViewPostById ===", req.param('id'));
-      let post = await PostService.getPostById(req.param('id'));
-      let fbId=0;
-
-      let login = await UserService.getLoginState(req);
-      let isFav = false;
-      if(login){
-        let user = await UserService.getLoginUser(req);
-        let UserFavorites = await FavoriteService.get({userId: user.id});
-        console.log("===UserFavorites[0]=>",UserFavorites[0]);
-        let itemId = req.param('id');
-        fbId = await UserService.getFBId(user.id);
-        console.log("fbId=>",fbId);
-        UserFavorites.forEach(function(fav) {
-          if(fav.id==itemId) isFav = true;
-        }); // end forEach
-      }
-      res.view('postDetailF7', {
+      res.view('pages/postDetail', {
         post,
         isFav,
         fbId
@@ -73,7 +43,7 @@ module.exports = {
     try {
 
       let categorys = await PostService.getAllCategory();
-      res.view('storyCategory', {
+      res.view('pages/createCategory', {
         categorys
       });
     } catch (e) {
@@ -84,7 +54,7 @@ module.exports = {
 
   createByCategoryId: async(req, res) => {
     try {
-      res.view('storyDetail');
+      res.view('pages/createDetail');
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);

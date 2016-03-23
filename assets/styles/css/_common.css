@@ -14,9 +14,16 @@
 .right {
   right: 0px;
 }
+.left {
+  left: 0px;
+}
 .gone{
   display: none;
 }
 .text-left{
   text-align: left;
+}
+.hide{
+  display: none !important;
+  opacity: 0;
 }

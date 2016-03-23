@@ -25,6 +25,21 @@ module.exports = {
       console.log(e);
     }
   },
+  token: async (req, res) => {
+    try {
+      let data = req.body.body;
+
+      let {email, password} = JSON.parse(data);
+
+      let user = await User.findOne({where:{email}});
+
+      res.ok({user});
+
+    } catch (e) {
+      console.error(e.stack);
+    }
+  },
+
   register: async (req, res) => {
     try {
       let defaultUser = {
@@ -94,9 +109,9 @@ module.exports = {
 
         if(user.isFirstLogin){
           if( user.dataValues.hasOwnProperty('email') ){
-            return res.redirect('/user/hobby?hasMail=true');
+            return res.redirect('/app/user/hobby?hasMail=true');
           }else{
-            return res.redirect('/user/hobby?hasMail=false');
+            return res.redirect('/app/user/hobby?hasMail=false');
           }
         }
 
