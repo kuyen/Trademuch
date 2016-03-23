@@ -202,10 +202,10 @@ function createHomepageGoogleMap(_latitude, _longitude, json) {
 
     var hereCircle = new google.maps.Circle({
       strokeColor: '#3889dd',
-      strokeOpacity: 0.8,
+      strokeOpacity: 0.5,
       strokeWeight: 2,
       fillColor: '#3889dd',
-      fillOpacity: 0.35,
+      fillOpacity: 0.1,
       map: map,
       center: {
         lat: lat,
