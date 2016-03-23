@@ -90,6 +90,7 @@
    'get  /rest/auth/:provider': 'AuthController.provider',
    'get  /rest/auth/:provider/callback': 'AuthController.callback',
    'get  /rest/auth/:provider/:action': 'AuthController.callback',
+   'post /rest/auth/token': 'AuthController.token',
 
    'put  /rest/user': 'UserController.update',
    // 待捕齊
