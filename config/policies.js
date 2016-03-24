@@ -42,7 +42,7 @@ module.exports.policies = {
   },
   'PostController': {
     'getAll': [],
-    'create': [],
+    'create': ['sessionAuth'],
     'sqlSearch': [],
     'elasticSearch': [],
     'delete': [],
