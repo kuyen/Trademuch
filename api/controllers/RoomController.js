@@ -1,15 +1,15 @@
 module.exports = {
 
-  // List a chat room member and online count -- this is bound to 'get /room/:roomName/list'
+  // List a chat room member and online count -- this is bound to 'get /rest/room/:postId/list'
   'list': async(req, res) => {
-    if (_.isUndefined(req.param('roomName'))) {
-      return res.badRequest('`roomName` is required.');
+    if (_.isUndefined(req.param('postId'))) {
+      return res.badRequest('`postId` is required.');
     }
     if (!req.isSocket) {
       return res.badRequest('This endpoints only supports socket requests.');
     }
     let socketId = sails.sockets.id(req);
-    let roomName = req.param('roomName');
+    let postId = req.param('postId');
 
     try {
       let login = await UserService.getLoginState(req);
@@ -17,7 +17,7 @@ module.exports = {
         return res.serverError('please log in.');
       }
 
-      let room = await RoomService.list(roomName);
+      let room = await RoomService.list(postId);
       sails.log.info('ListRoom', room);
 
       return res.ok(
@@ -30,17 +30,17 @@ module.exports = {
   }, // end list
 
 
-  // Join a chat room -- this is bound to 'post /room/:roomName/users'
+  // Join a chat room -- this is bound to 'post /rest/room/:postId/users'
   // if exists userId means is a private chat.
   'join': async(req, res) => {
-    if (_.isUndefined(req.param('roomName'))) {
-      return res.badRequest('`roomName` is required.');
+    if (_.isUndefined(req.param('postId'))) {
+      return res.badRequest('`postId` is required.');
     }
     if (!req.isSocket) {
       return res.badRequest('This endpoints only supports socket requests.');
     }
     let socketId = sails.sockets.id(req);
-    let roomName = req.param('roomName');
+    let postId = req.param('postId');
     let limit = req.param('limit') | 0;
     let userId = req.param('userId');
     let type = userId != undefined ? 'private' : 'public';
@@ -54,7 +54,7 @@ module.exports = {
       let user = await UserService.getLoginUser(req);
       let room = await RoomService.join({
         socketId,
-        roomName,
+        postId,
         user,
         limit,
         type
@@ -62,14 +62,14 @@ module.exports = {
       sails.log.info('joinRoom', room);
 
       if (!room) {
-        throw Error('join room `' + roomName + '` failed.');
+        throw Error('join room `' + postId + '` failed.');
       }
 
-      sails.sockets.join(req, roomName, function(err) {
+      sails.sockets.join(req, postId, function(err) {
         if (err) {
           throw Error(err);
         }
-        sails.sockets.broadcast(roomName, "join", {
+        sails.sockets.broadcast(postId, "join", {
           room,
           'message': user.username + " join"
         });
@@ -77,7 +77,7 @@ module.exports = {
 
       return res.ok({
         room,
-        message: 'Subscribed to a fun room id ' + room.id + '!'
+        message: 'Subscribed to a fun room id ' + room.id + '! (room uuid ' + room.uuid + ')'
       });
 
     } catch (e) {
@@ -87,16 +87,16 @@ module.exports = {
   }, // end join
 
 
-  // Leave a chat room -- this is bound to 'delete /room/:roomName/users'
+  // Leave a chat room -- this is bound to 'delete /rest/room/:postId/users'
   'leave': async(req, res, next) => {
-    if (_.isUndefined(req.param('roomName'))) {
-      return res.badRequest('`roomName` is required.');
+    if (_.isUndefined(req.param('postId'))) {
+      return res.badRequest('`postId` is required.');
     }
     if (!req.isSocket) {
       return res.badRequest('This endpoints only supports socket requests.');
     }
     let socketId = sails.sockets.id(req);
-    let roomName = req.param('roomName');
+    let postId = req.param('postId');
 
     try {
       let login = await UserService.getLoginState(req);
@@ -107,20 +107,20 @@ module.exports = {
       let user = await UserService.getLoginUser(req);
       let room = await RoomService.leave({
         socketId,
-        roomName,
+        postId,
         user
       });
       sails.log.info('leaveRoom', room);
 
       if (!room) {
-        throw Error('leave room `' + roomName + '` failed.');
+        throw Error('leave room `' + postId + '` failed.');
       }
 
-      sails.sockets.leave(req, roomName, function(err) {
+      sails.sockets.leave(req, postId, function(err) {
         if (err) {
           throw Error(err);
         }
-        sails.sockets.broadcast(roomName, "leave", {
+        sails.sockets.broadcast(postId, "leave", {
           room,
           'message': room.user.username + " leaved."
         });
@@ -138,16 +138,16 @@ module.exports = {
   }, // end leave
 
 
-  // Limit a chat room's total member -- this is bound to 'put /room/:roomName/limit'
+  // Limit a chat room's total member -- this is bound to 'put /rest/room/:postId/limit'
   'SetLimit': async(req, res, next) => {
-    if (_.isUndefined(req.param('roomName'))) {
-      return res.badRequest('`roomName` is required.');
+    if (_.isUndefined(req.param('postId'))) {
+      return res.badRequest('`postId` is required.');
     }
     if (!req.isSocket) {
       return res.badRequest('This endpoints only supports socket requests.');
     }
     let socketId = sails.sockets.id(req);
-    let roomName = req.param('roomName');
+    let postId = req.param('postId');
     let limit = req.param('limit');
 
     try {
@@ -158,14 +158,14 @@ module.exports = {
 
       let room = await RoomService.setLimit({
         socketId,
-        roomName,
+        postId,
         limit
       });
       sails.log.info('limitedRoom', room);
 
       return res.ok({
         room,
-        message: 'limit room `' + req.param('roomName') + '` member to `' + req.param('limit') + '`.'
+        message: 'limit room `' + req.param('postId') + '` member to `' + req.param('limit') + '`.'
       });
 
     } catch (e) {
@@ -175,10 +175,10 @@ module.exports = {
   }, // end SetLimit
 
 
-  // Limit a chat room's total member -- this is bound to 'set /room/:roomName/limit'
+  // Limit a chat room's total member -- this is bound to 'set /rest/room/:postId/limit'
   'getLimit': async(req, res) => {
-      if (_.isUndefined(req.param('roomName'))) {
-        return res.badRequest('`roomName` is required.');
+      if (_.isUndefined(req.param('postId'))) {
+        return res.badRequest('`postId` is required.');
       }
       if (!req.isSocket) {
         return res.badRequest('This endpoints only supports socket requests.');
@@ -195,7 +195,7 @@ module.exports = {
 
         return res.ok({
           roomLimit,
-          'message': "the limit of room `" + req.param('roomName') + "` is `" + roomLimit + "`."
+          'message': "the limit of room `" + req.param('postId') + "` is `" + roomLimit + "`."
         });
 
       } catch (e) {

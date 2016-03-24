@@ -1,16 +1,16 @@
 module.exports = {
 
-  list: async(roomName) => {
+  list: async(postId) => {
     try {
       // check room exist or cteate a room.
       let findRoom = await Room.findOne({
         where: {
-          'uuid': roomName
+          'uuid': postId
         }
       });
 
       if (!findRoom) {
-        throw Error('room `' + roomName + '` doesn`t exist!');
+        throw Error('room uuid `' + postId + '` doesn`t exist!');
       }
 
       // get online list and count it again.
@@ -57,12 +57,12 @@ module.exports = {
       // check room exist or cteate a room.
       let findRoom = await Room.findOne({
         where: {
-          'uuid': data.roomName
+          'uuid': data.postId
         }
       });
       if (!findRoom) {
         findRoom = await Room.create({
-          'uuid': data.roomName,
+          'uuid': data.postId,
           'type': data.type,
           'limit': data.limit
         });
@@ -135,7 +135,7 @@ module.exports = {
       };
 
       sails.log.info('RoomService.join:user=>', data.user.username);
-      sails.log.info('RoomService.join:request room id=>', data.roomName);
+      sails.log.info('RoomService.join:request room id=>', data.postId);
       sails.log.info('RoomService.join:socketId=>', data.socketId);
       sails.log.info('RoomService.join:room =>', room);
 
@@ -153,11 +153,11 @@ module.exports = {
       // find target room.
       let room = await Room.findOne({
         where: {
-          uuid: data.roomName
+          uuid: data.postId
         }
       });
       if (!room) {
-        throw Error('room `' + data.roomName + '` doesn`t exist!');
+        throw Error('room uuid `' + data.postId + '` doesn`t exist!');
       }
 
       // change state flag.
@@ -168,7 +168,7 @@ module.exports = {
         }
       });
       if (roomUser.online === false) {
-        throw Error('user id `' + data.user.id + '` has already leaved room id `' + data.roomName + '`!');
+        throw Error('user id `' + data.user.id + '` has already leaved room id `' + data.postId + '`!');
       }
 
       roomUser.online = false;
@@ -198,7 +198,7 @@ module.exports = {
       };
 
       sails.log.info('RoomService.leave:user=>', data.user.username);
-      sails.log.info('RoomService.leave:room uuid=>', data.roomName);
+      sails.log.info('RoomService.leave:room uuid=>', data.postId);
       sails.log.info('RoomService.leave:socketId=>', data.socketId);
       sails.log.info('RoomService.leave:room index =>', room.id);
 
@@ -214,17 +214,17 @@ module.exports = {
     try {
       let room = await Room.findOne({
         where: {
-          uuid: data.roomName
+          uuid: data.postId
         }
       });
       if (!room) {
-        throw Error('room `' + data.roomName + '` doesn`t exist!');
+        throw Error('room uuid `' + data.postId + '` doesn`t exist!');
       }
       room.limit = data.limit;
       room = await room.save();
 
       sails.log.info('RoomService.setLimit:room new limit =>', data.limit);
-      sails.log.info('RoomService.setLimit:room uuid=>', data.roomName);
+      sails.log.info('RoomService.setLimit:room uuid=>', data.postId);
       sails.log.info('RoomService.setLimit:socketId=>', data.socketId);
       sails.log.info('RoomService.setLimit:room id =>', data.room.id);
 
@@ -240,15 +240,15 @@ module.exports = {
     try {
       let room = await Room.findOne({
         where: {
-          uuid: data.roomName
+          uuid: data.postId
         }
       });
       if (!room) {
-        throw Error('room `' + roomName + '` doesn`t exist!');
+        throw Error('room uuid `' + postId + '` doesn`t exist!');
       }
 
       sails.log.info('RoomService.getLimit:room new limit =>', data.limit);
-      sails.log.info('RoomService.getLimit:room uuid=>', data.roomName);
+      sails.log.info('RoomService.getLimit:room uuid=>', data.postId);
       sails.log.info('RoomService.getLimit:socketId=>', data.socketId);
       sails.log.info('RoomService.getLimit:room id =>', data.room.id);
 

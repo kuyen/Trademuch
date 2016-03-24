@@ -10,11 +10,11 @@ module.exports = {
       if (!data.roomId || data.roomId != 0) {
         let room = await Room.findOne({
           where: {
-            uuid: data.roomName
+            uuid: data.postId
           }
         });
         if (!room) {
-          sails.log.info('room `' + data.roomName + '` doesn`t exist.');
+          sails.log.info('room name(post id) `' + data.postId + '` doesn`t exist.');
           return history;
         }
         data.roomId = room.id;
@@ -27,7 +27,7 @@ module.exports = {
         }
       });
       if (!chats || chats.length == 0) {
-        sails.log.warn('room `' + data.roomName + '` has no history.');
+        sails.log.warn('room uuid `' + data.postId + '` has no history.');
         return history;
       }
 

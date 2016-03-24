@@ -14,10 +14,12 @@ module.exports = function(req, res, next) {
   console.log('==== session ====');
   console.log(req.body);
 
-  if(req.body.user){
-    let {user} = req.body;
-    console.log('session user', user);
-    if(user){
+  if(typeof req.body != "undefined"){
+    if(req.body.user) {
+      let {user} = req.body;
+      console.log('session user', user);
+    }
+    if(typeof user != "undefined"){
       UserService.userToSession(user, req);
       return next();
     }
@@ -33,6 +35,6 @@ module.exports = function(req, res, next) {
 
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
-  return res.view('403f7');
+  return res.view('pages/403');
   // return res.redirect('/rest/auth/facebook')
 };

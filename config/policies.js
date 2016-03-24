@@ -26,6 +26,7 @@ module.exports.policies = {
   'MainController': {
     'index': [],
     'pcOrMobile': [],
+    'search': [],
   },
   'UserController': {
     'find': [],
@@ -51,7 +52,6 @@ module.exports.policies = {
     'getPostById': [],
     'getPostByKeyword': [],
     'show': [],
-    'showF7': []
   },
   'ImageController': {
     'upload': []
@@ -59,6 +59,8 @@ module.exports.policies = {
   'ChatController': {
     'public': ['sessionAuth'],
     'private': ['sessionAuth'],
+    'chatView': ['sessionAuth'],
+    // todo - 在能用網址列+token方式登入之前先讓 history 能直接取用以利測試
     'history': [],
   },
   'RoomController': {
