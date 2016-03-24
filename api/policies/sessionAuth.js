@@ -18,10 +18,10 @@ module.exports = function(req, res, next) {
     if(req.body.user) {
       let {user} = req.body;
       console.log('session user', user);
-    }
-    if(typeof user != "undefined"){
-      UserService.userToSession(user, req);
-      return next();
+      if(typeof user != "undefined"){
+        UserService.userToSession(user, req);
+        return next();
+      }
     }
   }
 

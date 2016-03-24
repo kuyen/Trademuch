@@ -27,7 +27,6 @@ module.exports = {
   },
   token: async (req, res) => {
     try {
-
       let {email, password} = req.body;//JSON.parse(data);
       let user = await User.findOne({where:{email}});
       res.ok({user});
