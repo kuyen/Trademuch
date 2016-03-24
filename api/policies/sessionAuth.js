@@ -21,6 +21,7 @@ module.exports = function(req, res, next) {
     }
     if(typeof user != "undefined"){
       UserService.userToSession(user, req);
+      return next();
     }
   }
 
