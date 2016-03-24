@@ -158,12 +158,16 @@ module.exports = {
           return res.badRequest('please log in.');
         }
 
+        if (!content) {
+          return res.badRequest('please send message.');
+        }
+
+
         sails.log.info('RoomService.public:room uuid=>', roomName);
         sails.log.info('RoomService.public:socketId=>', socketId);
         sails.log.info('RoomService.public:content=>', content);
 
         let user = await UserService.getLoginUser(req);
-        console.log('=== user ==', user);
         // let userFBId = await UserService.getFBId(user.id);
         // user.fbId = userFBId;
         let room = await Room.findOne({
@@ -174,7 +178,7 @@ module.exports = {
         let chat = await Chat.create({
           'room_id': room.id,
           'user_id': user.id,
-          'content': 'content',
+          'content': content,
           'type': 'public'
         });
 
@@ -187,7 +191,11 @@ module.exports = {
 
 
 
-        return res.ok({});
+        return res.ok({
+          chat,
+          user,
+          message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
+        });
       } catch (e) {
         return res.serverError(e.toString());
       }
