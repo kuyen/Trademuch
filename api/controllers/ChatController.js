@@ -159,13 +159,17 @@ module.exports = {
           return res.badRequest('please log in.');
         }
 
+        if (!content) {
+          return res.badRequest('please send message.');
+        }
+
         sails.log.info('ChatController.public:room uuid=>', postId);
         sails.log.info('ChatController.public:socketId=>', socketId);
         sails.log.info('ChatController.public:content=>', content);
 
         let user = await UserService.getLoginUser(req);
-        let userFBId = await UserService.getFBId(user.id);
-        user.fbId = userFBId;
+        // let userFBId = await UserService.getFBId(user.id);
+        // user.fbId = userFBId;
         let room = await Room.findOne({
           where: {
             uuid: postId

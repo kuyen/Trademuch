@@ -27,16 +27,14 @@ module.exports = {
   },
   token: async (req, res) => {
     try {
-      let data = req.body.body;
 
-      let {email, password} = JSON.parse(data);
-
+      let {email, password} = req.body;//JSON.parse(data);
       let user = await User.findOne({where:{email}});
-
       res.ok({user});
 
     } catch (e) {
       console.error(e.stack);
+      res.serverError(e.toString());
     }
   },
 

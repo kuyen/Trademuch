@@ -68,7 +68,8 @@ module.exports.policies = {
     'setLimit': ['sessionAuth'],
     'getLimit': ['sessionAuth'],
     'leave': ['sessionAuth'],
-    'show': ['sessionAuth']
+    'show': ['sessionAuth'],
+    'list': ['sessionAuth'],
   }
   /***************************************************************************
    *                                                                          *
