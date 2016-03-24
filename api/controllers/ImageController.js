@@ -90,7 +90,7 @@ var self = module.exports = {
       response.data = new Buffer(matches[2], 'base64');
       return response;
     } catch (e) {
-      res.serverError(e);
+      throw e
     }
   }
 }
