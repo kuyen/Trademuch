@@ -174,7 +174,7 @@ module.exports = {
         let chat = await Chat.create({
           'room_id': room.id,
           'user_id': user.id,
-          'content': 'content',
+          'content': content,
           'type': 'public'
         });
 
