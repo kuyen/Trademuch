@@ -27,17 +27,13 @@ module.exports = {
   },
   token: async (req, res) => {
     try {
-      console.log('====', req.body);
-      // let data = req.body.body;
-
       let {email, password} = req.body;//JSON.parse(data);
-
       let user = await User.findOne({where:{email}});
-
       res.ok({user});
 
     } catch (e) {
       console.error(e.stack);
+      res.serverError(e.toString());
     }
   },
 
@@ -110,9 +106,9 @@ module.exports = {
 
         if(user.isFirstLogin){
           if( user.dataValues.hasOwnProperty('email') ){
-            return res.redirect('/user/hobby?hasMail=true');
+            return res.redirect('/app/user/hobby?hasMail=true');
           }else{
-            return res.redirect('/user/hobby?hasMail=false');
+            return res.redirect('/app/user/hobby?hasMail=false');
           }
         }
 

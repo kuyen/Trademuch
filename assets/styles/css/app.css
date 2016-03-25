@@ -21,15 +21,16 @@
   height: 30vh;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-size: 100%;
 }
 
 /* toolbar and tab */
 
-.mainToolbar {
+.toolbar-style {
   height: 64px;
   background-color: #212121 !important;
 }
-.toolbar-inner {
+.toolbar-style > .toolbar-inner {
   padding: 0 0px;
 }
 .toolbar-inner > a > img {
@@ -43,10 +44,10 @@ a.tab-link.active {
   background-color: #424242;
 }
 a.tab-link {}
-.toolbar .storyView {
+.toolbar-style .addPostView {
   background-color: #01579B;
 }
-.toolbar .storyView img {
+.toolbar-style .addPostView img {
   /*margin-top: px;*/
   height: 32px;
 }
@@ -61,10 +62,6 @@ a.tab-link {}
   height: 100%;
   padding: 0px;
   margin: 44px 0px -70px 0px;
-}
-.nologin {
-  margin: 20px 0px -20px 0px;
-  position: fixed;
 }
 #mapView {
   height: 100%;

@@ -7,7 +7,7 @@ module.exports = {
         res.redirect('/')
 
       let categorys = await PostService.getAllCategory();
-      res.view('hobby', {
+      res.view('pages/registerHobby', {
         isHasMail,
         categorys
       });
@@ -40,7 +40,7 @@ module.exports = {
         allPosts.data.splice(deleteItem[i], 1);
       }
 
-      res.view('favorite', {
+      res.view('pages/favorite', {
         favorites: userFavorites,
         loginState: loginState,
         loginedUser: loginedUser,
@@ -56,7 +56,7 @@ module.exports = {
       try {
         console.log("==== getProfileView ===");
         let loginedUser = await UserService.getLoginUser(req);
-        let userFBId = await UserService.getFBId(loginedUser.id);
+        let fbId = await UserService.getFBId(loginedUser.id);
 
         let favorites = await FavoriteService.get({
           userId: loginedUser.id
@@ -85,13 +85,13 @@ module.exports = {
           allUserPost: postLastChat,
           postCount: profilePost.length,
           favCount: favorites.length,
-          activity: Math.round(profilePost.length * 1.5 + favorites.length)
+          activity: Math.round(profilePost.length * 1.5 + favorites.length),
+          fbId,
         }
 
 
-        res.view('profile', {
+        res.view('pages/profile', {
           profile,
-          userFBId
         });
       } catch (e) {
         sails.log.error(e);

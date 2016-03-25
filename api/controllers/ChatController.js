@@ -3,8 +3,10 @@ module.exports = {
   // send chat view
   chatView: async(req, res) => {
     let socketId = sails.sockets.id(req);
-    let roomName = req.param('id');
-    sails.log.info('ChatController.chatView:roomName =>', roomName);
+    let postId = req.param('postId');
+    let roomId = req.param('roomId') || -1;
+    sails.log.info('ChatController.chatView:postId =>', postId);
+    sails.log.info('ChatController.history:roomId =>', roomId);
 
     try {
       let loginState = await UserService.getLoginState(req);
@@ -20,13 +22,13 @@ module.exports = {
 
         history = await ChatService.history({
           socketId,
-          roomName,
-          userId: user.id
+          postId,
+          userId: user.id,
         });
         sails.log.info('ChatController.chatView:history =>', JSON.stringify(history));
       } // end if
 
-      res.view('chat', {
+      res.view('pages/chat', {
         user,
         history
       });
@@ -38,21 +40,20 @@ module.exports = {
 
   // get chat history
   history: async(req, res) => {
-    if (!req.isSocket) {
-      return res.badRequest('This endpoints only supports socket requests.');
-    }
+    // if (!req.isSocket) {
+    //   return res.badRequest('This endpoints only supports socket requests.');
+    // }
     let socketId = sails.sockets.id(req);
-    let roomName = req.param('roomName');
-    let roomId = req.param('roomId') || 0;
-    sails.log.info('ChatController.history:roomName =>', roomName);
+    let postId = req.param('postId');
+    let roomId = req.param('roomId') || -1;
+    sails.log.info('ChatController.history:postId =>', postId);
     sails.log.info('ChatController.history:roomId =>', roomId);
 
     try {
       let history = await ChatService.history({
         socketId,
-        roomName,
+        postId,
         roomId,
-        userId: 1
       });
       sails.log.info('ChatController.history:history =>', JSON.stringify(history));
 
@@ -90,7 +91,7 @@ module.exports = {
     try {
       let socketId = sails.sockets.id(req);
       let content = req.param('content');
-      let roomName = req.param('roomName');
+      let postId = req.param('postId');
       let login = await UserService.getLoginState(req);
 
       if (!login) {
@@ -99,15 +100,15 @@ module.exports = {
 
       let user = await UserService.getLoginUser(req);
       let chat = await Chat.create({
-        'room_id': roomName,
+        'room_id': postId,
         'user_id': user.id,
         'content': content,
         'type': 'announce'
       });
 
-      if (roomName) {
-        sails.log.info("=== broadcast to roomName ==>", roomName);
-        sails.sockets.broadcast(roomName, "announce", {
+      if (postId) {
+        sails.log.info("=== broadcast to postId ==>", postId);
+        sails.sockets.broadcast(postId, "announce", {
           'user': user,
           'content': content
         }, req);
@@ -120,7 +121,7 @@ module.exports = {
       }
 
       return res.ok({
-        message: 'user\'' + user.username + '\' says ' + content + ' to room ' + roomName
+        message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId
       });
     } catch (e) {
       res.serverError(e.toString());
@@ -138,7 +139,7 @@ module.exports = {
 
   // Post a message in a public chat room
   public: async(req, res) => {
-      let params = ['content', 'roomName'];
+      let params = ['content', 'postId'];
       params.forEach(function(param, index) {
         if (_.isUndefined(req.param(param))) {
           return res.badRequest(param + ' is required.');
@@ -151,24 +152,27 @@ module.exports = {
       try {
         let socketId = sails.sockets.id(req);
         let content = req.param('content');
-        let roomName = req.param('roomName');
+        let postId = req.param('postId');
         let login = await UserService.getLoginState(req);
 
         if (!login) {
           return res.badRequest('please log in.');
         }
 
-        sails.log.info('RoomService.public:room uuid=>', roomName);
-        sails.log.info('RoomService.public:socketId=>', socketId);
-        sails.log.info('RoomService.public:content=>', content);
+        if (!content) {
+          return res.badRequest('please send message.');
+        }
+
+        sails.log.info('ChatController.public:room uuid=>', postId);
+        sails.log.info('ChatController.public:socketId=>', socketId);
+        sails.log.info('ChatController.public:content=>', content);
 
         let user = await UserService.getLoginUser(req);
-        console.log('=== user ==', user);
         // let userFBId = await UserService.getFBId(user.id);
         // user.fbId = userFBId;
         let room = await Room.findOne({
           where: {
-            uuid: roomName
+            uuid: postId
           }
         });
         let chat = await Chat.create({
@@ -180,16 +184,18 @@ module.exports = {
 
         sails.log.info('RoomService.public:user=>', user.username);
 
-        sails.sockets.broadcast(roomName, "public", {
+        sails.sockets.broadcast(postId, "public", {
           'user': user,
           'content': content
         }, req);
 
-
-
-        return res.ok({});
+        return res.ok({
+          chat,
+          user,
+          message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId
+        });
       } catch (e) {
-        return res.serverError(e.toString());
+        res.serverError(e.stack.toString());
       }
     } // end public
 

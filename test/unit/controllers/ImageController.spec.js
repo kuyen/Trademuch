@@ -41,6 +41,7 @@ describe('upload', function() {
        })
        .end(function(err, res) {
           //  console.log(res.body[0]);
+            console.log(res.body);
            res.status.should.be.equal(200) // 'success' status
            done()
        });
