@@ -9,6 +9,7 @@
     "connectsdk": "^1.0.4",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.10.1",
     "grunt-contrib-concat": "~0.3.0",
@@ -43,6 +44,8 @@
     "validator": "^4.3.0"
   },
   "scripts": {
+    "build": "npm i && node_modules/grunt-cli/bin/grunt build",
+    "build-docker-node": "docker build -t trunk/node dockers/node",
     "debug": "node debug app.js",
     "start": "node app.js",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test",
