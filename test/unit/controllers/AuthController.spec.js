@@ -91,7 +91,7 @@ describe('about Auth Controller operation.', function() {
     }
   });
 
-  describe.only('about app login.', function() {
+  describe('about app login.', function() {
     it('user app login', async (done) => {
 
       try {
