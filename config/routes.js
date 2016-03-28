@@ -91,7 +91,7 @@
    'get  /rest/auth/:provider/callback': 'AuthController.callback',
    'get  /rest/auth/:provider/:action': 'AuthController.callback',
    'post /rest/auth/token': 'AuthController.token',
-   'post /rest/auth/appLogin': 'AuthController.appLogin',
+   'post /rest/auth/app/register': 'AuthController.appRegister',
 
    'put  /rest/user': 'UserController.update',
    // 待捕齊

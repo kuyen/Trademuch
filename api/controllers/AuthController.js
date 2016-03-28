@@ -59,10 +59,10 @@ module.exports = {
     res.ok({status});
 
   },
-  appLogin: async(req, res) => {
+  appRegister: async(req, res) => {
     try {
       const data = req.body;
-      let login = await AuthService.appLogin(data);
+      let login = await AuthService.appRegister(data);
       res.ok(login);
     } catch (e) {
       console.error(e);
