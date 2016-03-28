@@ -27,8 +27,8 @@
 
 build:
   container_name: trademuch-build
-  image: miiixr/picklete_env
-  command: "/bin/bash -l -c 'npm i | grunt build'"
+  image: trunk/node
+  command: "npm run build"
   working_dir: /app
   volumes:
     - ./:/app
@@ -53,15 +53,13 @@ test:
 
 web:
   container_name: trademuch
-  image: miiixr/picklete_env
-  command: "/bin/bash -l -c 'npm start'"
+  image: mhart/alpine-node:4
+  command: "npm start"
   ports:
     - "1333:1337"
   working_dir: /app
   volumes:
     - ./:/app
-  external_links:
-    - mysql
 
   restart: always
 
