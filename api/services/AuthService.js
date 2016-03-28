@@ -25,7 +25,6 @@ module.exports = {
           protocol: 'app',
           provider: 'facebook',
           identifier: data.FBUserID,
-          accessToken: data.FBToken,
         }
       });
       let user;
@@ -44,6 +43,8 @@ module.exports = {
         passport.UserId = user.id;
         passport = await passport.save();
       }else{
+        passport.accessToken = data.FBToken;
+        passport = await passport.save();
         user = await User.findById(passport.UserId);
       }
       const token = jwt.sign({
