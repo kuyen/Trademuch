@@ -3,7 +3,10 @@ module.exports = {
 
     protocol: Sequelize.STRING,
     password: Sequelize.STRING,
-    accessToken: Sequelize.STRING,
+    accessToken: {
+      type: Sequelize.TEXT,
+      field: 'access_token',
+    },
     provider: Sequelize.STRING,
     identifier: Sequelize.STRING,
     tokens: {

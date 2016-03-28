@@ -59,6 +59,16 @@ module.exports = {
     res.ok({status});
 
   },
+  appRegister: async(req, res) => {
+    try {
+      const data = req.body;
+      let login = await AuthService.appRegister(data);
+      res.ok(login);
+    } catch (e) {
+      console.error(e);
+      res.serverError(e);
+    }
+  },
   callback: async function(req, res) {
     var tryAgain = function(err) {
       var action, flashError;

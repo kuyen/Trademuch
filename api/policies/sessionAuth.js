@@ -7,14 +7,20 @@
  * @docs        :: http://sailsjs.org/#!/documentation/concepts/Policies
  *
  */
-module.exports = function(req, res, next) {
+module.exports = async function(req, res, next) {
 
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
   console.log('==== session ====');
   console.log(req.body);
-
   if(typeof req.body != "undefined"){
+    if(req.body.token){
+      let user = await AuthService.jwtDecode(req.body.token);
+      if(typeof user != "undefined"){
+        UserService.userToSession(user, req);
+        return next();
+      }
+    }
     if(req.body.user) {
       let {user} = req.body;
       console.log('session user', user);
