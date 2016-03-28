@@ -94,7 +94,7 @@ describe('about Auth Controller operation.', function() {
     try {
       let loginData = {
         appID:"1011584502234754",
-        tokenString: "CAAOYB97qfoIBABHQXkMULtKrOtKNULyKxK9Ev8VgtaGvaUnuE7X3VDi3aG0LBOxpikh6UGQpoM2T6yFRQjVdMvoy4cIZBFsyLh4xD2xfvOVUKgvWJjmaFnLjb5CRVY72dwlK2XAIGPofdAf835ZBQZCQLsM3YCIJpZAjJ1L1lnquDMUZBKyE43AKb4iMUf1DhHGGiyvIOZAforbu7yNmchuQwySlC8eeZB5DhvWc1Ehmvoe1MrsyVg8",
+        tokenString: "CAAOYB97qfoIBABH",
         userID: "1313795961971051",
       }
       let result = await request(sails.hooks.http.app)
