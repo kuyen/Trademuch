@@ -9,13 +9,17 @@
  */
 module.exports = async function(req, res, next) {
 
+  if (UserService.getLoginState(req)) {
+    return next();
+  }
+
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
   console.log('==== session ====');
-  console.log(req.body);
-  if(typeof req.body != "undefined"){
-    if(req.body.token){
-      let user = await AuthService.jwtDecode(req.body.token);
+  console.log(req.headers);
+  if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
+    if(req.headers.jwt){
+      let user = await AuthService.jwtDecode(req.headers.jwt);
       if(typeof user != "undefined"){
         UserService.userToSession(user, req);
         return next();
@@ -34,10 +38,6 @@ module.exports = async function(req, res, next) {
 
 
 
-
-  if (UserService.getLoginState(req)) {
-    return next();
-  }
 
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
