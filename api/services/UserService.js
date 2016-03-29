@@ -55,7 +55,7 @@ module.exports = {
   updateUserMail: async({userId,userMail,userLocation}) => {
     try {
       sails.log.info("updateUserMail(userId,userMail)=>",userId,userMail);
-      let user = await User.findById(userId);
+      let user = await User.findById(parseInt(userId,10));
       user.email = userMail;
       user.isFirstLogin = false;
       user = await user.save();
