@@ -39,6 +39,7 @@ module.exports = {
         user = await User.create({
           username: userData.data.name,
           email: userData.data.email,
+          avatar: `http://graph.facebook.com/${data.FBUserID}/picture?type=large`
         });
         passport.UserId = user.id;
         passport = await passport.save();
@@ -55,6 +56,7 @@ module.exports = {
         userId: user.id,
         userName: user.username,
         email: user.email,
+        avatar: user.avatar,
         jwt: token,
       };
     } catch (e) {

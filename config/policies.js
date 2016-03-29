@@ -30,7 +30,7 @@ module.exports.policies = {
   },
   'UserController': {
     'find': [],
-    'update': [],
+    'update': ['sessionAuth'],
   },
   'FrontUserController': {
     'hobby': ['sessionAuth'],

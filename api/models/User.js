@@ -3,7 +3,9 @@ module.exports = {
     uuid: {
       type: Sequelize.UUID
     },
-
+    avatar: {
+      type: Sequelize.TEXT,
+    },
     username: {
       type: Sequelize.STRING,
       allowNull: false
