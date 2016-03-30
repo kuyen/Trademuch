@@ -69,7 +69,7 @@ describe('about User Service operation.', function() {
 
     it('readed policy', async (done) => {
       try {
-        let result = await UserService.agreePolicy(testUser.id);
+        let result = await UserService.agreePolicies(testUser.id);
         result.agreePolicies.should.be.true;
         done();
       } catch (e) {

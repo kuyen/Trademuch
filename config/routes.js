@@ -94,7 +94,7 @@
    'post /rest/auth/app/register': 'AuthController.appRegister',
 
    'put  /rest/user': 'UserController.update',
-   'post  /rest/user/agree/policy': 'UserController.agreePolicy',
+   'post  /rest/user/agree/policies': 'UserController.agreePolicies',
    // 待捕齊
    // get /rest/user/:id': 'UserController.find',
 

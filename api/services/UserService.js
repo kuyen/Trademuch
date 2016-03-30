@@ -65,7 +65,7 @@ module.exports = {
     }
   },
 
-  agreePolicy: async(userId) => {
+  agreePolicies: async(userId) => {
     try {
       let user = await User.findById(userId);
       user.isAgreePolicy = true;

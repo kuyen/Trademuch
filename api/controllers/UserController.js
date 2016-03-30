@@ -35,10 +35,10 @@ module.exports = {
     }
   },
 
-  agreePolicy: async(req, res) => {
+  agreePolicies: async(req, res) => {
     try {
       const user = UserService.getLoginUser(req);
-      const agree = await UserService.agreePolicy(user.id);
+      const agree = await UserService.agreePolicies(user.id);
       res.ok(agree)
     } catch (e) {
       sails.log.error(e);
