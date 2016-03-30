@@ -66,6 +66,18 @@ describe('about User Service operation.', function() {
         done(e);
       }
     });
+
+    it('readed policy', async (done) => {
+      try {
+        let result = await UserService.agreePolicies(testUser.id);
+        result.isAgreePolicies.should.be.true;
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
   });
 
 

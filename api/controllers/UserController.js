@@ -33,5 +33,16 @@ module.exports = {
       sails.log.error(e);
       res.serverError(e);
     }
+  },
+
+  agreePolicies: async(req, res) => {
+    try {
+      const user = UserService.getLoginUser(req);
+      const agree = await UserService.agreePolicies(user.id);
+      res.ok(agree)
+    } catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
   }
 }

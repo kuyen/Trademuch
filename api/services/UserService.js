@@ -64,4 +64,18 @@ module.exports = {
       throw e;
     }
   },
+
+  agreePolicies: async(userId) => {
+    try {
+      let user = await User.findById(userId);
+      user.isAgreePolicies = true;
+      user.agreePolicyTime = sails.moment();
+      user = await user.save();
+      return {
+        isAgreePolicies:  true,
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
 }
