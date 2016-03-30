@@ -45,6 +45,15 @@ module.exports = {
       defaultValue: true,
       field: 'is_first_login'
     },
+    isAgreePolicy:{
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+      field: 'is_read_policy',
+    },
+    agreePolicyTime: {
+      type: Sequelize.DATE,
+      field: 'agree_policy_time',
+    },
 
     createdAt: {
       type: Sequelize.DATE,

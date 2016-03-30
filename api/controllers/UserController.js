@@ -1,5 +1,5 @@
 module.exports = {
-  
+
   find: async(req, res) => {
     try {
       let users = await UserService.findAll();
@@ -29,6 +29,17 @@ module.exports = {
       });
 
       res.ok('ok');
+    } catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
+  },
+
+  agreePolicy: async(req, res) => {
+    try {
+      const user = UserService.getLoginUser(req);
+      const agree = await UserService.agreePolicy(user.id);
+      res.ok(agree)
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);
