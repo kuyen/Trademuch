@@ -45,7 +45,7 @@ module.exports = {
       defaultValue: true,
       field: 'is_first_login'
     },
-    isAgreePolicy:{
+    isAgreePolicies:{
       type: Sequelize.BOOLEAN,
       defaultValue: false,
       field: 'is_read_policy',

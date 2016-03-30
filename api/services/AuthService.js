@@ -58,7 +58,7 @@ module.exports = {
         email: user.email,
         avatar: user.avatar,
         isFirstLogin: user.isFirstLogin,
-        isAgreePolicy: user.isAgreePolicy,
+        isAgreePolicies: user.isAgreePolicy,
         jwt: token,
       };
     } catch (e) {

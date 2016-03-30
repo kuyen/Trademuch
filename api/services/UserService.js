@@ -68,11 +68,11 @@ module.exports = {
   agreePolicies: async(userId) => {
     try {
       let user = await User.findById(userId);
-      user.isAgreePolicy = true;
+      user.isAgreePolicies = true;
       user.agreePolicyTime = sails.moment();
       user = await user.save();
       return {
-        agreePolicies:  true,
+        isAgreePolicies:  true,
       }
     } catch (e) {
       throw e;

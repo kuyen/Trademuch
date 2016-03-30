@@ -70,7 +70,7 @@ describe('about User Service operation.', function() {
     it('readed policy', async (done) => {
       try {
         let result = await UserService.agreePolicies(testUser.id);
-        result.agreePolicies.should.be.true;
+        result.isAgreePolicies.should.be.true;
         done();
       } catch (e) {
         sails.log.error(e);
