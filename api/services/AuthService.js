@@ -57,6 +57,7 @@ module.exports = {
         userName: user.username,
         email: user.email,
         avatar: user.avatar,
+        isFirstLogin: user.isFirstLogin,
         jwt: token,
       };
     } catch (e) {
