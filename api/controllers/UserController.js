@@ -1,5 +1,5 @@
 module.exports = {
-  
+
   find: async(req, res) => {
     try {
       let users = await UserService.findAll();
@@ -28,7 +28,7 @@ module.exports = {
         placeInfo: data.location
       });
 
-      res.ok('ok');
+      res.ok({success: true});
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);
