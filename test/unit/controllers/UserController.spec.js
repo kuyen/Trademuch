@@ -65,7 +65,7 @@ describe('about User Controller operation.', function() { //skip
     it('readed policy', async (done) => {
       try {
         let result = await request(sails.hooks.http.app)
-        .post('/rest/user/agree/policies');
+        .post('/rest/user/agree-policies');
         result.body.isAgreePolicies.should.be.true;
         done();
       } catch (e) {
