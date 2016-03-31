@@ -12,6 +12,7 @@ module.exports = {
       let post = await Post.create({
         uuid: '',
         title: data.detail.title,
+        description: data.detail.description,
         startDate: data.detail.startDate,
         endDate: data.detail.endDate,
         user_id: user.id,
