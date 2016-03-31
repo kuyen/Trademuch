@@ -290,7 +290,6 @@ describe('about Elasticsearch Service .', function() {
         let result = await ElasticsearchService.postPlace({
           keyword: "iphone"
         });
-        console.log(JSON.stringify(result, null, 2));
         result.length.should.be.equal(1);
         done();
       } catch (e) {
