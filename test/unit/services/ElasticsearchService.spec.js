@@ -288,8 +288,40 @@ describe('about Elasticsearch Service .', function() {
         let result = await ElasticsearchService.postPlace({
           keyword: "iphone"
         });
-        console.log(result);
+        console.log(JSON.stringify(result, null, 2));
         result.length.should.be.equal(1);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    it.only('test add search keyword ', (done) => {
+      try {
+        let result = ElasticsearchService.formate([
+          {
+            "_index": "trademuch",
+            "_type": "post",
+            "_id": "AVPL1NPEHPDH2Yg4DKmQ",
+            "_score": 1.049306,
+            "_source": {
+              "id": 4,
+              "title": "二手iphone",
+              "location": {
+                "lat": 80.1,
+                "lon": 100
+              }
+            }
+          }
+        ]);
+        console.log(JSON.stringify(result, null, 2));
+        result.length.should.be.equal(1);
+        result[0].score.should.be.Integer;
+        result[0].id.should.be.Integer;
+        result[0].title.should.be.String;
+        result[0].location.lat.should.be.Integer;
+        result[0].location.lon.should.be.Integer;
         done();
       } catch (e) {
         sails.log.error(e);

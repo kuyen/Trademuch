@@ -118,7 +118,7 @@ module.exports = {
       });
       sails.log.info("query data",JSON.stringify(data, null, 2));
       sails.log.info("return data",JSON.stringify(result.data, null, 2));
-      return result.data.hits.hits
+      return ElasticsearchService.formate(result.data.hits.hits);
     } catch (e) {
       sails.log.error(e);
     }
@@ -126,7 +126,14 @@ module.exports = {
 
   formate: (data) => {
     try {
-
+      let postList;
+      postList = data.map((post) => {
+        return {
+          score: post._score,
+          ...post._source,
+        }
+      });
+      return postList;
     } catch (e) {
       sails.log.error(e);
     }
