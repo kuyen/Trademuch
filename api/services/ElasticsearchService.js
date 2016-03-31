@@ -12,17 +12,20 @@ module.exports = {
             post: {
               properties: {
                 id: {
-                  type: "string"
+                  type: "string",
                 },
                 title: {
-                  type: "string"
+                  type: "string",
+                },
+                description: {
+                  type: "string",
                 },
                 location: {
-                  type: "geo_point"
+                  type: "geo_point",
                 },
                 pic:{
-                  type: "string"
-                }
+                  type: "string",
+                },
               }
             }
           }
@@ -36,11 +39,13 @@ module.exports = {
     }
   },
 
-  addPost: async({id, title, location, pic}) => {
+  addPost: async({id, title, description, img, location, pic}) => {
     try {
       let result = await axios.post(`http://${sails.config.elasticsearch.host}/trademuch/post`,{
         id: id,
         title: title,
+        description: description,
+        img: img,
         location: {
           lat: location.lat,
           lon: location.lon
@@ -54,7 +59,7 @@ module.exports = {
     }
   },
 
-  postPlace: async({distance, location, keyword}) => {
+  postPlace: async({distance, location, keyword, size , from }) => {
     try {
       let geoFilter;
       let filterQuery = {
@@ -113,7 +118,7 @@ module.exports = {
 
       let result = await axios({
         method: 'get',
-        url: `http://${sails.config.elasticsearch.host}/trademuch/post/_search`,
+        url: `http://${sails.config.elasticsearch.host}/trademuch/post/_search?size=${size || 20 }&from=${from || 0}`,
         data: data
       });
       sails.log.info("query data",JSON.stringify(data, null, 2));

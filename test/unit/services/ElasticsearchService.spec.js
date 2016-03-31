@@ -155,6 +155,8 @@ describe('about Elasticsearch Service .', function() {
         await ElasticsearchService.addPost({
           id: 4,
           title: '二手iphone',
+          description: '描述',
+          pic: '/url/test',
           location:{
             lat: 80.1,
             lon: 100
@@ -297,7 +299,7 @@ describe('about Elasticsearch Service .', function() {
       }
     });
 
-    it.only('test add search keyword ', (done) => {
+    it('test add search keyword ', (done) => {
       try {
         let result = ElasticsearchService.formate([
           {
@@ -328,6 +330,23 @@ describe('about Elasticsearch Service .', function() {
         done(e);
       }
     });
+
+
+    it('test size ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "termTest",
+          size: 2
+        });
+        console.log(result);
+        result.length.should.be.equal(2);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
   });
 
 });
