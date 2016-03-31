@@ -155,6 +155,8 @@ describe('about Elasticsearch Service .', function() {
         await ElasticsearchService.addPost({
           id: 4,
           title: '二手iphone',
+          description: '描述',
+          pic: '/url/test',
           location:{
             lat: 80.1,
             lon: 100
@@ -176,7 +178,7 @@ describe('about Elasticsearch Service .', function() {
       }
     });
 
-    it('test add search 20km ', async (done) => {
+    it.only('test add search 20km ', async (done) => {
       try {
         let result = await ElasticsearchService.postPlace({
           distance: '20km',
@@ -288,7 +290,6 @@ describe('about Elasticsearch Service .', function() {
         let result = await ElasticsearchService.postPlace({
           keyword: "iphone"
         });
-        console.log(result);
         result.length.should.be.equal(1);
         done();
       } catch (e) {
@@ -296,6 +297,55 @@ describe('about Elasticsearch Service .', function() {
         done(e);
       }
     });
+
+    it('test add search keyword ', (done) => {
+      try {
+        let result = ElasticsearchService.formate([
+          {
+            "_index": "trademuch",
+            "_type": "post",
+            "_id": "AVPL1NPEHPDH2Yg4DKmQ",
+            "_score": 1.049306,
+            "_source": {
+              "id": 4,
+              "title": "二手iphone",
+              "location": {
+                "lat": 80.1,
+                "lon": 100
+              }
+            }
+          }
+        ]);
+        console.log(JSON.stringify(result, null, 2));
+        result.length.should.be.equal(1);
+        result[0].score.should.be.Integer;
+        result[0].id.should.be.Integer;
+        result[0].title.should.be.String;
+        result[0].location.lat.should.be.Integer;
+        result[0].location.lon.should.be.Integer;
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+
+    it('test size ', async (done) => {
+      try {
+        let result = await ElasticsearchService.postPlace({
+          keyword: "termTest",
+          size: 2
+        });
+        console.log(result);
+        result.length.should.be.equal(2);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
   });
 
 });

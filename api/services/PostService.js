@@ -19,6 +19,18 @@ module.exports = {
         coverImage: data.images
       });
       await post.addPlace(place.id);
+      if (sails.config.elasticsearch.open || false) {
+        await ElasticsearchService.addPost({
+          id: post.id,
+          title: post.title,
+          description: post.description,
+          pic: post.coverImage,
+          location:{
+            lat: place.latitude,
+            lon: place.longitude,
+          }
+        })
+      }
       return post;
     } catch (e) {
       throw e;

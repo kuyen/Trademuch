@@ -12,17 +12,20 @@ module.exports = {
             post: {
               properties: {
                 id: {
-                  type: "string"
+                  type: "string",
                 },
                 title: {
-                  type: "string"
+                  type: "string",
+                },
+                description: {
+                  type: "string",
                 },
                 location: {
-                  type: "geo_point"
+                  type: "geo_point",
                 },
                 pic:{
-                  type: "string"
-                }
+                  type: "string",
+                },
               }
             }
           }
@@ -36,16 +39,17 @@ module.exports = {
     }
   },
 
-  addPost: async({id, title, location, pic}) => {
+  addPost: async({id, title, description, pic, location}) => {
     try {
       let result = await axios.post(`http://${sails.config.elasticsearch.host}/trademuch/post`,{
         id: id,
         title: title,
+        description: description,
+        pic: pic,
         location: {
           lat: location.lat,
           lon: location.lon
         },
-        pic: pic
       });
       sails.log.info(result.data);
       return result.data
@@ -54,8 +58,10 @@ module.exports = {
     }
   },
 
-  postPlace: async({distance, location, keyword}) => {
+  postPlace: async({distance, location, keyword, size , from }) => {
     try {
+      size = size || 20;
+      from = from || 0;
       let geoFilter;
       let filterQuery = {
         match_all: {}
@@ -113,22 +119,31 @@ module.exports = {
 
       let result = await axios({
         method: 'get',
-        url: `http://${sails.config.elasticsearch.host}/trademuch/post/_search`,
+        url: `http://${sails.config.elasticsearch.host}/trademuch/post/_search?size=${size}&from=${from}`,
         data: data
       });
       sails.log.info("query data",JSON.stringify(data, null, 2));
       sails.log.info("return data",JSON.stringify(result.data, null, 2));
-      return result.data.hits.hits
+      return ElasticsearchService.formate(result.data.hits.hits);
     } catch (e) {
       sails.log.error(e);
+      throw e;
     }
   },
 
   formate: (data) => {
     try {
-
+      let postList;
+      postList = data.map((post) => {
+        return {
+          score: post._score,
+          ...post._source,
+        }
+      });
+      return postList;
     } catch (e) {
       sails.log.error(e);
+      throw e;
     }
   }
 }
