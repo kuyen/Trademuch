@@ -39,18 +39,17 @@ module.exports = {
     }
   },
 
-  addPost: async({id, title, description, img, location, pic}) => {
+  addPost: async({id, title, description, pic, location}) => {
     try {
       let result = await axios.post(`http://${sails.config.elasticsearch.host}/trademuch/post`,{
         id: id,
         title: title,
         description: description,
-        img: img,
+        pic: pic,
         location: {
           lat: location.lat,
           lon: location.lon
         },
-        pic: pic
       });
       sails.log.info(result.data);
       return result.data
