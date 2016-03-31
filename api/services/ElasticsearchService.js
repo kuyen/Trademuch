@@ -60,6 +60,8 @@ module.exports = {
 
   postPlace: async({distance, location, keyword, size , from }) => {
     try {
+      size = size || 20;
+      from = from || 0;
       let geoFilter;
       let filterQuery = {
         match_all: {}
@@ -117,7 +119,7 @@ module.exports = {
 
       let result = await axios({
         method: 'get',
-        url: `http://${sails.config.elasticsearch.host}/trademuch/post/_search?size=${size || 20 }&from=${from || 0}`,
+        url: `http://${sails.config.elasticsearch.host}/trademuch/post/_search?size=${size}&from=${from}`,
         data: data
       });
       sails.log.info("query data",JSON.stringify(data, null, 2));
@@ -125,6 +127,7 @@ module.exports = {
       return ElasticsearchService.formate(result.data.hits.hits);
     } catch (e) {
       sails.log.error(e);
+      throw e;
     }
   },
 
@@ -140,6 +143,7 @@ module.exports = {
       return postList;
     } catch (e) {
       sails.log.error(e);
+      throw e;
     }
   }
 }

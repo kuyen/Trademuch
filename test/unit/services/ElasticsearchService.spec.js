@@ -178,7 +178,7 @@ describe('about Elasticsearch Service .', function() {
       }
     });
 
-    it('test add search 20km ', async (done) => {
+    it.only('test add search 20km ', async (done) => {
       try {
         let result = await ElasticsearchService.postPlace({
           distance: '20km',
