@@ -52,13 +52,14 @@ module.exports = {
         userId: passport.UserId,
         FBUserID: passport.identifier,
       },sails.config.jwt.secret)
+      console.log('==user==', user.isAgreePolicy);
       return {
         userId: user.id,
         userName: user.username,
         email: user.email,
         avatar: user.avatar,
         isFirstLogin: user.isFirstLogin,
-        isAgreePolicies: user.isAgreePolicy,
+        isAgreePolicies: user.isAgreePolicies,
         jwt: token,
       };
     } catch (e) {
