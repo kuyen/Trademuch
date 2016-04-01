@@ -183,8 +183,8 @@ describe('about Elasticsearch Service .', function() {
         let result = await ElasticsearchService.postPlace({
           distance: '20km',
           location: {
-            lat: 24.1,
-            lon: 120.1
+            lat: 24,
+            lon: 120
           }
         });
         console.log(result);
@@ -210,7 +210,7 @@ describe('about Elasticsearch Service .', function() {
       }
     });
 
-    it.only('test add search keyword & geo', async (done) => {
+    it('test add search keyword & geo', async (done) => {
       try {
         let result = await ElasticsearchService.postPlace({
           distance: '20km',
