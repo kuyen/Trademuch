@@ -74,7 +74,7 @@ let self = module.exports = {
       })
     }
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 30; i++) {
       let latitude = 37.785834 + Math.random() / 100;
       let longitude = -122.406417 + Math.random() / 100;
       let place = await Place.create({
