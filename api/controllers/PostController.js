@@ -33,16 +33,20 @@ module.exports = {
       let distance = req.param('distance');
       let lat = req.param('lat');
       let lon = req.param('lon');
+      let from = req.param('from');
       let location;
       if(lat){
-        location.lat = lat;
-        location.lon = lon;
+        location = {
+          lat,
+          lon,
+        };
       }
       console.log("==== elasticSearch ===", keyword);
       let items = await ElasticsearchService.postPlace({
         keyword: keyword,
         distance: distance,
         location: location,
+        from: from,
       });
       res.ok({
         items

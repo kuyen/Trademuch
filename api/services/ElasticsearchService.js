@@ -138,7 +138,7 @@ module.exports = {
         return {
           score: post._score,
           ...post._source,
-          distance: post.sort ? post.sort[0] : -1,
+          distance: post.sort ? post.sort[0].toFixed(2) : -1,
         }
       });
       return postList;

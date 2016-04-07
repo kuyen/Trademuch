@@ -74,15 +74,15 @@ let self = module.exports = {
       })
     }
 
-    for (let i = 0; i < 10; i++) {
-      let latitude = 24.148179 + Math.random() / 100;
-      let longitude = 120.673187 + Math.random() / 100;
+    for (let i = 0; i < 100; i++) {
+      let latitude = 37.785834 + Math.random() / 100;
+      let longitude = -122.406417 + Math.random() / 100;
       let place = await Place.create({
         "latitude": latitude,
         "longitude": longitude,
       })
       let createPost = await Post.create({
-        "title": "AAA",
+        "title": "AAA " + i,
         "startDate": "2015-12-01",
         "user_id": testUser2.id
       });
