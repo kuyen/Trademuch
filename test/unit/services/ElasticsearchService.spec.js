@@ -178,7 +178,7 @@ describe('about Elasticsearch Service .', function() {
       }
     });
 
-    it.only('test add search 20km ', async (done) => {
+    it('test add search 20km ', async (done) => {
       try {
         let result = await ElasticsearchService.postPlace({
           distance: '20km',
@@ -323,6 +323,7 @@ describe('about Elasticsearch Service .', function() {
         result[0].title.should.be.String;
         result[0].location.lat.should.be.Integer;
         result[0].location.lon.should.be.Integer;
+        result[0].distance.should.be.Integer;
         done();
       } catch (e) {
         sails.log.error(e);

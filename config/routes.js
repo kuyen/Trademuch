@@ -104,10 +104,10 @@
 
    'post /rest/post/create': 'PostController.create',
    'get  /rest/post': 'PostController.getAll',
+   'get  /rest/post/search': 'PostController.elasticSearch',
+   // 'get  /rest/post/search/:keyword': 'PostController.sqlSearch',
+   //  'get  /rest/post/search/sql/:keyword': 'PostController.sqlSearch',
    'get  /rest/post/:id': 'PostController.getPostById',
-  //  'get  /rest/post/search/sql/:keyword': 'PostController.sqlSearch',
-   'get  /rest/post/search/:keyword': 'PostController.elasticSearch',
-    // 'get  /rest/post/search/:keyword': 'PostController.sqlSearch',
    'delete  /rest/post/:postId': 'PostController.delete',
    // 待捕齊
    // get /rest/post/:id': 'PostController.find',
