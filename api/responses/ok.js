@@ -22,10 +22,12 @@ module.exports = function sendOK (data, options) {
 
   // Set status code
   res.status(200);
-
+  if (data.dataValues) {
+    data = data.dataValues;
+  }
   // If appropriate, serve data as JSON(P)
   if (req.wantsJSON) {
-    return res.jsonx({...data, status: 200});
+    return res.jsonx({...data, requestStatus: 200});
   }
 
   // If second argument is a string, we take that to mean it refers to a view.
@@ -41,7 +43,7 @@ module.exports = function sendOK (data, options) {
   // If no second argument provided, try to serve the implied view,
   // but fall back to sending JSON(P) if no view can be inferred.
   else return res.guessView({ data: data }, function couldNotGuessView () {
-    return res.jsonx({...data, status: 200});
+    return res.jsonx({...data, requestStatus: 200});
   });
 
 };
