@@ -48,8 +48,7 @@ module.exports = {
         location: location,
         from: from,
       });
-      console.log("!!!!!!!!!!!!!!",req.headers.jwt);
-      if (req.headers.jwt) {
+      if (req.headers.jwt != 'null') {
         const user = await AuthService.jwtDecode(req.headers.jwt);
         if(typeof user != "undefined"){
           UserService.userToSession(user, req);
@@ -57,18 +56,15 @@ module.exports = {
           throw Error('User forbidden');
         }
         let loginedUser = await UserService.getLoginUser(req);
-        console.log("!!!!!!!!!!!!!!",loginedUser.id);
         let favorites = await FavoriteService.get({
           userId: loginedUser.id
         });
         items.forEach(function(post, index) {
           favorites.forEach(function(fav) {
-            // if (post.id === fav.id) items.isFav = true;
-            items.isFav = true;
+            if (post.id === fav.id) post.isFav = true;
           });
         });
       }
-      console.log("!!!!!!!!!!!!!!!!", items);
       res.ok({
         items
       });
