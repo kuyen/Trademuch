@@ -21,18 +21,14 @@ module.exports = async function(req, res, next) {
     if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
       if(req.headers.jwt){
         let user = await AuthService.jwtDecode(req.headers.jwt);
-        if(Object.keys(user).length !== 0){
-          await UserService.userToSession(user, req);
-          return next();
-        }
+        await UserService.userToSession(user, req);
+        return next();
       }
       if(req.body.user) {
         let {user} = req.body;
         console.log('session user', user);
-        if(Object.keys(user).length !== 0){
-          await UserService.userToSession(user, req);
-          return next();
-        }
+        await UserService.userToSession(user, req);
+        return next();
       }
     }
   } catch (e) {
