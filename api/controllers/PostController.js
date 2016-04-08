@@ -50,20 +50,18 @@ module.exports = {
       });
       if (req.headers.jwt != 'null') {
         const user = await AuthService.jwtDecode(req.headers.jwt);
-        if(typeof user != "undefined"){
+        if(Object.keys(user).length !== 0){
           UserService.userToSession(user, req);
-        } else {
-          throw Error('User forbidden');
-        }
-        let loginedUser = await UserService.getLoginUser(req);
-        let favorites = await FavoriteService.get({
-          userId: loginedUser.id
-        });
-        items.forEach(function(post, index) {
-          favorites.forEach(function(fav) {
-            if (post.id === fav.id) post.isFav = true;
+          let loginedUser = await UserService.getLoginUser(req);
+          let favorites = await FavoriteService.get({
+            userId: loginedUser.id
           });
-        });
+          items.forEach(function(post, index) {
+            favorites.forEach(function(fav) {
+              if (post.id === fav.id) post.isFav = true;
+            });
+          });
+        }
       }
       res.ok({
         items

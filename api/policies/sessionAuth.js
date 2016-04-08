@@ -36,7 +36,6 @@ module.exports = async function(req, res, next) {
       }
     }
   } catch (e) {
-    console.log("forbidden!!!!!!!!!");
     return res.forbidden();
   }
 
