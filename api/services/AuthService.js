@@ -77,7 +77,7 @@ module.exports = {
           UserId: decoded.userId,
         }
       })
-      let user = {}
+      let user = {};
       if(findUser){
         user = await User.findById(decoded.userId);
       }

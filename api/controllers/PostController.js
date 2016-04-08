@@ -48,6 +48,21 @@ module.exports = {
         location: location,
         from: from,
       });
+      if (req.headers.jwt != 'null') {
+        const user = await AuthService.jwtDecode(req.headers.jwt);
+        if(Object.keys(user).length !== 0){
+          UserService.userToSession(user, req);
+          let loginedUser = await UserService.getLoginUser(req);
+          let favorites = await FavoriteService.get({
+            userId: loginedUser.id
+          });
+          items.forEach(function(post, index) {
+            favorites.forEach(function(fav) {
+              if (post.id === fav.id) post.isFav = true;
+            });
+          });
+        }
+      }
       res.ok({
         items
       });

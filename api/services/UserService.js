@@ -22,20 +22,22 @@ module.exports = {
     }
   },
 
-  userToSession: function(user, req) {
-    req.session.authenticated = true;
-    req.session.passport = {
-      user: user
+  userToSession: async(user, req) => {
+    try {
+      req.session.authenticated = true;
+      req.session.passport = {
+        user: user
+      }
+      let find = await User.findById(user.id);
+      if (!find) {
+        req.session.authenticated = false;
+        delete req.session.passport.user
+        throw Error('User forbidden');
+      }
+    } catch (e) {
+      throw e;
     }
-
-    let loginStatus = UserService.getLoginState(req);
-    let sessionUser = UserService.getLoginUser(req);
-
-    console.info('loginStatus ', loginStatus, 'sessionUser', sessionUser);
-
-
   },
-
 
   getFBId: async(userId) => {
     try {

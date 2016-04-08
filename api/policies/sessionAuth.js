@@ -17,22 +17,26 @@ module.exports = async function(req, res, next) {
   // or if this is the last policy, the controller
   console.log('==== session ====');
   console.log(req.headers);
-  if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
-    if(req.headers.jwt){
-      let user = await AuthService.jwtDecode(req.headers.jwt);
-      if(typeof user != "undefined"){
-        UserService.userToSession(user, req);
-        return next();
+  try {
+    if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
+      if(req.headers.jwt){
+        let user = await AuthService.jwtDecode(req.headers.jwt);
+        if(Object.keys(user).length !== 0){
+          await UserService.userToSession(user, req);
+          return next();
+        }
+      }
+      if(req.body.user) {
+        let {user} = req.body;
+        console.log('session user', user);
+        if(Object.keys(user).length !== 0){
+          await UserService.userToSession(user, req);
+          return next();
+        }
       }
     }
-    if(req.body.user) {
-      let {user} = req.body;
-      console.log('session user', user);
-      if(typeof user != "undefined"){
-        UserService.userToSession(user, req);
-        return next();
-      }
-    }
+  } catch (e) {
+    return res.forbidden();
   }
 
 
