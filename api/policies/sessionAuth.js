@@ -8,18 +8,17 @@
  *
  */
 module.exports = async function(req, res, next) {
-
-  if (UserService.getLoginState(req)) {
-    return next();
-  }
-
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
   console.log('==== session ====');
   console.log(req.headers);
   try {
     if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
-      if(req.headers.jwt){
+      if(req.headers.jwt && req.headers.jwt != 'null'){
+        console.log("have jwt");
+        if (UserService.getLoginState(req)) {
+          return next();
+        }
         let user = await AuthService.jwtDecode(req.headers.jwt);
         await UserService.userToSession(user, req);
         return next();
@@ -31,6 +30,7 @@ module.exports = async function(req, res, next) {
         return next();
       }
     }
+    return res.forbidden();
   } catch (e) {
     return res.forbidden();
   }
