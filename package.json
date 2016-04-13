@@ -56,7 +56,7 @@
     "prod_deploy": "grunt prod & rsync -az --exclude=.git --progress ./ deploy@trademuch.trunksys.com:~/trademuch-prod",
     "prod_remote-start": "ssh deploy@trademuch.trunksys.com 'export NVM_DIR=\"/home/deploy/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"; cd trademuch-prod && pm2 start app.js -i 0 --name \"trademuch-prod\"'",
     "prod_remote-restart": "ssh deploy@trademuch.trunksys.com 'export NVM_DIR=\"/home/deploy/.nvm\";[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\";cp ~/trademuch_prod_local.js ~/trademuch-prod/config/local.js;cd trademuch-prod;  pm2 restart trademuch-prod'",
-    "elasticsearch": "docker-machine start default; eval $(docker-machine env default); docker-compose up -d elasticsearch; npm start;",
+    "startWithElasticsearch": "docker-machine start default; eval $(docker-machine env default); docker-compose up -d elasticsearch; npm start",
   },
   "main": "app.js",
   "repository": {
