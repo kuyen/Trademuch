@@ -15,7 +15,6 @@ module.exports = async function(req, res, next) {
   try {
     if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
       if(req.headers.jwt && req.headers.jwt != 'null'){
-        console.log("have jwt");
         if (UserService.getLoginState(req)) {
           return next();
         }
