@@ -13,19 +13,14 @@ module.exports = async function(req, res, next) {
   console.log('==== session ====');
   console.log(req.headers);
   try {
-    if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
+    const hasHeader = typeof req.headers != "undefined";
+    if (hasHeader) {
       const hasJwt = req.headers.jwt && req.headers.jwt != 'null';
-      if(hasJwt){
+      if (hasJwt) {
         if (UserService.getLoginState(req)) {
           return next();
         }
         let user = await AuthService.jwtDecode(req.headers.jwt);
-        await UserService.userToSession(user, req);
-        return next();
-      }
-      if(req.body.user) {
-        let {user} = req.body;
-        console.log('session user', user);
         await UserService.userToSession(user, req);
         return next();
       }
