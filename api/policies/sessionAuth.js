@@ -8,33 +8,24 @@
  *
  */
 module.exports = async function(req, res, next) {
-
-  if (UserService.getLoginState(req)) {
-    return next();
-  }
-
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
   console.log('==== session ====');
   console.log(req.headers);
   try {
-    if(typeof req.body != "undefined" || typeof req.headers != "undefined") {
-      if(req.headers.jwt){
+    const hasHeader = typeof req.headers != "undefined";
+    if (hasHeader) {
+      const hasJwt = req.headers.jwt && req.headers.jwt != 'null';
+      if (hasJwt) {
+        if (UserService.getLoginState(req)) {
+          return next();
+        }
         let user = await AuthService.jwtDecode(req.headers.jwt);
-        if(Object.keys(user).length !== 0){
-          await UserService.userToSession(user, req);
-          return next();
-        }
-      }
-      if(req.body.user) {
-        let {user} = req.body;
-        console.log('session user', user);
-        if(Object.keys(user).length !== 0){
-          await UserService.userToSession(user, req);
-          return next();
-        }
+        await UserService.userToSession(user, req);
+        return next();
       }
     }
+    return res.forbidden();
   } catch (e) {
     return res.forbidden();
   }
