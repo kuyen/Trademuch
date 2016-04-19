@@ -40,3 +40,7 @@ run elasticsearch, api endpoint will be http://<docker-IP>:9200/
 ```
 docker-compose up -d elasticsearch
 ```
+
+清除 elasticsearch 資料
+`curl -XDELETE http://192.168.99.100:9200/trademuch`
+重開 elasticsearch
