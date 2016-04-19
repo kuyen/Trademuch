@@ -406,7 +406,7 @@ describe('about Post Service operation.', function() {
       done();
     });
 
-    it.only('should success.', async(done) => {
+    it('should success.', async(done) => {
       try {
         let posts = await PostService.getPostByUserId(user.id);
         console.log("getPostByUserId",posts);

@@ -141,4 +141,16 @@ module.exports = {
     }
   },
 
+  getUserAllPost: async(req, res) => {
+    try {
+      let user = await UserService.getLoginUser(req);
+      let posts = await PostService.getPostByUserId(user.id);
+      res.ok({
+        data: posts
+      });
+    } catch (e) {
+      console.log(e);
+      res.serverError({success: 'fail', message: e.message});
+    }
+  }
 }

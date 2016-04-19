@@ -224,4 +224,122 @@ describe('about Post Controller operation.', function() {
 
     });
   });
+
+  describe('get post by user id', () => {
+    let post, user;
+    before(async(done) => {
+      try {
+        user = await User.create({
+          "username": "testPost",
+          "email": "testGetPostByUserIdController@gmail.com",
+          "age": 18
+        });
+
+        sinon.stub(UserService, 'getLoginState', (req) => {
+          return true;
+        });
+
+        sinon.stub(UserService, 'getLoginUser', (req) => {
+          return user;
+        });
+
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 1,
+          "longitude": 2,
+        })
+
+        post = await Post.create({
+          "title": "searchPostA",
+          "startDate": "2015-12-01",
+          "user_id": user.id,
+          description: '12312123',
+        });
+
+        await post.addPlace(place.id)
+
+        let place2 = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 81,
+          "longitude": 80,
+        })
+
+        let post2 = await Post.create({
+          "title": "searchPostA",
+          "startDate": "2015-12-01",
+          "user_id": user.id,
+          description: '12312123',
+        });
+
+        await post2.addPlace(place2.id)
+
+        let chatUser = await User.create({
+    			"username": "testuser2",
+    			"email": "xcvxcvcsdfsdfvljlkasasd123@gmail.com",
+    			"age": 0,
+    			"is_first_login": 1,
+        });
+
+        let room = await Room.create({
+          "uuid": post2.id,
+          "type": "public",
+          "limit": 0
+        });
+
+        let chats = [{
+          "uuid": '123e5345123',
+          "type": "public",
+          "content": "2016-03-10 17:07:59",
+          "created_at": "2016-03-10 17:07:59",
+          "room_id": room.id,
+          "user_id": user.id
+        },{
+          "uuid": '123e534512312312',
+          "type": "public",
+          "content": "2016-03-10 17:08:59",
+          "created_at": "2016-03-10 17:08:59",
+          "room_id": room.id,
+          "user_id": chatUser.id
+        },
+        {
+          "uuid": '123e5345123',
+          "type": "public",
+          "content": "2016-03-10 17:10:59",
+          "created_at": "2016-03-10 17:10:59",
+          "room_id": room.id,
+          "user_id": user.id
+        }]
+        let chat = await Chat.bulkCreate(chats);
+
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    after(async(done) => {
+      UserService.getLoginState.restore();
+      UserService.getLoginUser.restore();
+      done();
+    });
+
+    it('should success.', async(done) => {
+      try {
+        let posts = await request(sails.hooks.http.app).get(`/rest/post/user`);
+        console.log("getPostByUserId",posts.body);
+        posts.status.should.be.equal(200);
+        posts.body.data.length.should.be.equal(2);
+        posts.body.data[1].should.have.property('lastMessage');
+        posts.body.data[1].should.have.property('unReadCount');
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+  });
+
 });
