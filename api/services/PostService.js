@@ -266,6 +266,61 @@ module.exports = {
       console.log(e);
       throw e
     }
-  }
+  },
+
+  getPostByUserId: async(userId) => {
+    try {
+      const posts = await Post.findAll({
+        where: {
+          UserId: userId,
+        },
+        include: {
+          model: Place,
+        },
+        order: 'createdAt DESC',
+      });
+      return PostService.postListFormat(posts, userId);
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  },
+
+  postListFormat: async(postlist, userId) => {
+    try {
+      let formattedPostList = [];
+      for (let post of postlist) {
+        let chatInfo;
+        if (userId) {
+          chatInfo = await ChatService.lastOnehistory(post.id, userId);
+        }
+        const originData = post.dataValues;
+        let data = {
+          id: originData.id,
+          title: originData.title,
+          status: originData.status,
+          pic: originData.coverImage,
+        };
+        if (originData.description){
+          data.description = originData.description;
+        }
+        if (originData.Places.length > 0){
+          data.location = {
+            lat: originData.Places[0].dataValues.latitude,
+            lon: originData.Places[0].dataValues.longitude,
+          }
+        }
+        if (chatInfo) {
+          data.lastMessage = chatInfo.content;
+          data.unReadCount = chatInfo.count;
+        }
+        formattedPostList.push(data);
+      };
+      return formattedPostList
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  },
 
 }

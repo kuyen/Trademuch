@@ -101,9 +101,9 @@ module.exports = {
           uuid: uuid
         }
       });
-      let last;
+      let last, data;
       if(room){
-        last = await Chat.find({
+        last = await Chat.findAndCountAll({
           where:{
             room_id: room.id,
             user_id:{
@@ -114,8 +114,12 @@ module.exports = {
           limit: 1,
           order: 'created_at DESC'
         });
+        if (last.count > 0){
+          data = {...last.rows[0].dataValues};
+          data.count = last.count;
+        }
       }
-      return last;
+      return data;
     } catch (e) {
       throw e
     }
