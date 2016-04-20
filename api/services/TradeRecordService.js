@@ -4,7 +4,7 @@ module.exports = {
     try {
       sails.log.info("=== TradeRecordService@create==>[%o]", data);
       let record = await TradeRecord.create({
-        state: data.state,
+        status: data.status,
         user_id: data.user_id,
         post_id: data.post_id
       });
@@ -27,7 +27,7 @@ module.exports = {
         sails.log.info("=== TradeRecordService@update: find no any record id =>", data.id);
         throw Error('no this id');
       }
-      record.state = data.state;
+      record.status = data.status;
       if(data.post_id) record.post_id = data.post_id;
       if(data.user_id) record.user_id = data.user_id;
       record.save();

@@ -138,11 +138,11 @@
    // TradeRecord
    //==================================================================
    'get /rest/trade/list': 'TradeRecordController.list',
-   'get /rest/trade/:postId/record': 'TradeRecordController.getPostRecord',
-   'post /rest/trade/request/:postId': 'TradeRecordController.request',
-   'put /rest/trade/accepted/:postId': 'TradeRecordController.accepted',
-   'put /rest/trade/refused/:postId': 'TradeRecordController.refused',
-   'put /rest/trade/pedding/:postId': 'TradeRecordController.pedding',
+   'get /rest/trade/status/:postId': 'TradeRecordController.getRecordStatusById',
+   'post /rest/trade/request/:postId': 'TradeRecordController.sendRequestById',
+   'put /rest/trade/accepted/:postId': 'TradeRecordController.requestAccepted',
+   'put /rest/trade/refused/:postId': 'TradeRecordController.requestRefused',
+   'put /rest/trade/pedding/:postId': 'TradeRecordController.requestPedding',
    //==================================================================
 
 

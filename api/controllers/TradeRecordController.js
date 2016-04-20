@@ -1,6 +1,6 @@
 module.exports = {
 
-  request: async(req, res) => {
+  sendRequestById: async(req, res) => {
     let postId = req.param('postId');
 
     try {
@@ -11,7 +11,7 @@ module.exports = {
       let user = await UserService.getLoginUser(req);
 
       let record = await TradeRecordService.create({
-        state: "pedding",
+        status: "pedding",
         user_id: user.id,
         post_id: postId
       });
@@ -46,8 +46,11 @@ module.exports = {
     }
   }, // end list
 
-  getPostRecord:async(req, res) => {
+  getRecordStatusById:async(req, res) => {
     let postId = req.param('postId');
+    let result = {
+      result: false,
+    };
 
     try {
       let login = await UserService.getLoginState(req);
@@ -63,9 +66,14 @@ module.exports = {
       if(!record) {
         return res.serverError('find no record.');
       }
+      console.log("record=>",record);
+
+      result = {
+        result: record.status
+      };
 
       return res.ok(
-        record
+        result
       );
 
     } catch (e) {
@@ -73,7 +81,7 @@ module.exports = {
     }
   }, // end getPostRecord
 
-  accepted: async(req, res) => {
+  requestAccepted: async(req, res) => {
     let postId = req.param('postId');
 
     try {
@@ -91,7 +99,7 @@ module.exports = {
         return res.serverError('find no record.');
       }
 
-      record.state = "accepted";
+      record.status = "accepted";
       record.save();
 
       return res.ok(
@@ -103,7 +111,7 @@ module.exports = {
     }
   }, // end accepted
 
-  pedding: async(req, res) => {
+  requestPedding: async(req, res) => {
     let postId = req.param('postId');
 
     try {
@@ -121,7 +129,7 @@ module.exports = {
         return res.serverError('find no record.');
       }
 
-      record.state = "pedding";
+      record.status = "pedding";
       record.save();
 
       return res.ok(
@@ -132,7 +140,7 @@ module.exports = {
     }
   }, // end pedding
 
-  refused: async(req, res) => {
+  requestRefused: async(req, res) => {
     let postId = req.param('postId');
 
     try {
@@ -150,7 +158,7 @@ module.exports = {
         return res.serverError('find no record.');
       }
 
-      record.state = "refused";
+      record.status = "refused";
       record.save();
 
       return res.ok(

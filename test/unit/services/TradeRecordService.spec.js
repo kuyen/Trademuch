@@ -1,4 +1,4 @@
-describe.only('about TradeRecord Service operation.', function() {
+describe('about TradeRecord Service operation.', function() {
 
   describe('add and update a TradeRecord', () => {
 
