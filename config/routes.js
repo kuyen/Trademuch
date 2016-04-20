@@ -114,9 +114,9 @@
 
    'post /rest/image/upload': 'ImageController.upload',
 
+
+   // ChatRoom
    //===================================================================
-   // chatroom view
-  //  'get /chat/:postId': 'ChatController.chatView',
    'get /post/:postId/chat': 'ChatController.chatView',
    // chatroom - RoomController
    'get /rest/room/:postId/users': 'RoomController.list',
@@ -130,9 +130,18 @@
    'post /rest/chat/:userId/private': 'ChatController.private',
    'post /rest/chat/:postId/announce': 'ChatController.announce',
    'get /rest/chat/:postId/history': 'ChatController.history',
-   'post /rest/chat/announce': 'ChatController.announce'
-     //==================================================================
+   'post /rest/chat/announce': 'ChatController.announce',
+   //==================================================================
 
+   // TradeRecord
+   //==================================================================
+   'get /rest/trade/list': 'TradeRecordController.list',
+   'get /rest/trade/:postId/record': 'TradeRecordController.getPostRecord',
+   'post /rest/trade/request/:postId': 'TradeRecordController.request',
+   'put /rest/trade/accepted/:postId': 'TradeRecordController.accepted',
+   'put /rest/trade/refused/:postId': 'TradeRecordController.refused',
+   'put /rest/trade/pedding/:postId': 'TradeRecordController.pedding',
+   //==================================================================
 
 
    /***************************************************************************

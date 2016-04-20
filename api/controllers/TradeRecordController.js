@@ -1,6 +1,6 @@
 module.exports = {
 
-  requestItem: async(req, res) => {
+  request: async(req, res) => {
     let postId = req.param('postId');
 
     try {
@@ -45,6 +45,33 @@ module.exports = {
       res.serverError(e.toString());
     }
   }, // end list
+
+  getPostRecord:async(req, res) => {
+    let postId = req.param('postId');
+
+    try {
+      let login = await UserService.getLoginState(req);
+      if (!login) {
+        return res.serverError('please log in.');
+      }
+      let user = await UserService.getLoginUser(req);
+
+      let record = await TradeRecordService.findSpecificPostRecord({
+        user_id: user.id,
+        post_id: postId
+      });
+      if(!record) {
+        return res.serverError('find no record.');
+      }
+
+      return res.ok(
+        record
+      );
+
+    } catch (e) {
+      res.serverError(e.toString());
+    }
+  }, // end getPostRecord
 
   accepted: async(req, res) => {
     let postId = req.param('postId');
