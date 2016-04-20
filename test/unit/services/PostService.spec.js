@@ -427,7 +427,7 @@ describe('about Post Service operation.', function() {
       try {
         user = await User.create({
           "username": "testPostStatus",
-          "email": "testGetPostByUserId@gmail.com",
+          "email": "testUpdatePostStatusByUserId@gmail.com",
           "age": 18
         });
 
