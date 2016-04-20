@@ -23,6 +23,10 @@ module.exports = async function(req, res, next) {
         let user = await AuthService.jwtDecode(req.headers.jwt);
         await UserService.userToSession(user, req);
         return next();
+      } else {
+        if (UserService.getLoginState(req)) {
+          return next();
+        }
       }
     }
     return res.forbidden();

@@ -20,7 +20,10 @@ module.exports = {
       type: Sequelize.DATE,
       field: 'end_date'
     },
-
+    status: {
+      type: Sequelize.ENUM('on', 'off', 'sold'),
+      defaultValue: 'on'
+    },
     coverImage:{
       type:Sequelize.STRING,
       allowNull: true,

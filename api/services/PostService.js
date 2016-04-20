@@ -82,7 +82,7 @@ module.exports = {
 
   getPostById: async(id) => {
     try {
-      let post = await await Post.findOne({
+      let post = await Post.findOne({
         where: {
           id: id
         },
@@ -265,6 +265,79 @@ module.exports = {
     } catch (e) {
       console.log(e);
       throw e
+    }
+  },
+
+  getPostByUserId: async(userId) => {
+    try {
+      const posts = await Post.findAll({
+        where: {
+          UserId: userId,
+        },
+        include: {
+          model: Place,
+        },
+        order: 'createdAt DESC',
+      });
+      return PostService.postListFormat(posts, userId, true);
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  },
+
+  postListFormat: async(postlist, userId, hasChat) => {
+    try {
+      let formattedPostList = [];
+      for (let post of postlist) {
+        let chatInfo;
+        if (hasChat && userId) {
+          chatInfo = await ChatService.lastOnehistory(post.id, userId);
+        }
+        const originData = post.dataValues;
+        let data = {
+          id: originData.id,
+          title: originData.title,
+          status: originData.status,
+          pic: originData.coverImage,
+          location: {
+            lat: null,
+            lon: null,
+          },
+          lastMessage: null,
+          unReadCount: null
+        };
+        if (originData.description){
+          data.description = originData.description;
+        }
+        if (originData.Places.length > 0){
+          data.location = {
+            lat: originData.Places[0].dataValues.latitude,
+            lon: originData.Places[0].dataValues.longitude,
+          }
+        }
+        if (chatInfo) {
+          data.lastMessage = chatInfo.content;
+          data.unReadCount = chatInfo.count;
+        }
+        formattedPostList.push(data);
+      };
+      return formattedPostList
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  },
+
+  setPostStatus: async(postId, status) => {
+    try {
+      let post = await Post.findById(postId);
+      post.status = status;
+      await post.save();
+      return true;
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
     }
   }
 

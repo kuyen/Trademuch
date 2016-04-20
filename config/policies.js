@@ -46,6 +46,7 @@ module.exports.policies = {
     'sqlSearch': [],
     'elasticSearch': [],
     'delete': [],
+    'getUserAllPost': ['sessionAuth'],
   },
   'FrontPostController': {
     'story': ['sessionAuth'],
