@@ -83,6 +83,9 @@ module.exports = {
 
   requestAccepted: async(req, res) => {
     let postId = req.param('postId');
+    let result = {
+      result: false,
+    }
 
     try {
       let login = await UserService.getLoginState(req);
@@ -102,9 +105,14 @@ module.exports = {
       record.status = "accepted";
       record.save();
 
-      return res.ok(
+      PostService.setPostStatus(postId, "sold");
+
+      result = {
+        result: true,
         record
-      );
+      }
+
+      return res.ok(result);
 
     } catch (e) {
       res.serverError(e.toString());
@@ -132,9 +140,12 @@ module.exports = {
       record.status = "pedding";
       record.save();
 
-      return res.ok(
+      result = {
+        result: true,
         record
-      );
+      }
+
+      return res.ok(result);
     } catch (e) {
       res.serverError(e.toString());
     }
@@ -161,10 +172,12 @@ module.exports = {
       record.status = "refused";
       record.save();
 
-      return res.ok(
+      result = {
+        result: true,
         record
-      );
+      }
 
+      return res.ok(result);
     } catch (e) {
       res.serverError(e.toString());
     }

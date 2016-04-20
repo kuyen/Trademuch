@@ -15,7 +15,7 @@ describe('about TradeRecord Service operation.', function() {
           "user_id": testUser.id
         });
         testRecord = await TradeRecord.create({
-          state: "pedding",
+          status: "pedding",
           user_id: testUser.id,
           post_id: testPost.id
         });
@@ -34,7 +34,7 @@ describe('about TradeRecord Service operation.', function() {
       try {
 
         let record = await TradeRecordService.create({
-          state: "pedding",
+          status: "pedding",
           user_id: testUser.id,
           post_id: testPost.id
         });
@@ -51,18 +51,18 @@ describe('about TradeRecord Service operation.', function() {
       }
     });
 
-    it('update a exist TradeRecord state should success.', async(done) => {
+    it('update a exist TradeRecord status should success.', async(done) => {
       try {
 
         let record = await TradeRecordService.update({
           id: testRecord.id,
-          state: "accepted"
+          status: "accepted"
         });
 
         console.log("record=>", record);
 
         record.id.should.be.equal(testRecord.id);
-        record.state.should.be.equal("accepted");
+        record.status.should.be.equal("accepted");
 
         done();
       } catch (e) {
@@ -75,7 +75,7 @@ describe('about TradeRecord Service operation.', function() {
       try {
 
         let thisTestRecord = await TradeRecord.create({
-          state: "pedding",
+          status: "pedding",
           user_id: testUser.id,
           post_id: testPost.id
         });
