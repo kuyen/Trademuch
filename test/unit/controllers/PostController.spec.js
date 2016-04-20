@@ -329,7 +329,7 @@ describe('about Post Controller operation.', function() {
     it('should success.', async(done) => {
       try {
         let posts = await request(sails.hooks.http.app).get(`/rest/post/user`);
-        console.log("getPostByUserId",posts.body);
+        console.log("getPostByUserId",JSON.stringify(posts.body, null, 2));
         posts.status.should.be.equal(200);
         posts.body.data.length.should.be.equal(2);
         posts.body.data[1].should.have.property('lastMessage');

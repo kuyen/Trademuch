@@ -279,19 +279,19 @@ module.exports = {
         },
         order: 'createdAt DESC',
       });
-      return PostService.postListFormat(posts, userId);
+      return PostService.postListFormat(posts, userId, true);
     } catch (e) {
       sails.log.error(e);
       throw e;
     }
   },
 
-  postListFormat: async(postlist, userId) => {
+  postListFormat: async(postlist, userId, hasChat) => {
     try {
       let formattedPostList = [];
       for (let post of postlist) {
         let chatInfo;
-        if (userId) {
+        if (hasChat && userId) {
           chatInfo = await ChatService.lastOnehistory(post.id, userId);
         }
         const originData = post.dataValues;
@@ -300,6 +300,12 @@ module.exports = {
           title: originData.title,
           status: originData.status,
           pic: originData.coverImage,
+          location: {
+            lat: null,
+            lon: null,
+          },
+          lastMessage: null,
+          unReadCount: null
         };
         if (originData.description){
           data.description = originData.description;
