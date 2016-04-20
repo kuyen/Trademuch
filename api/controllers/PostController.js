@@ -152,5 +152,16 @@ module.exports = {
       console.log(e);
       res.serverError({success: 'fail', message: e.message});
     }
+  },
+
+  setPostStatus: async(req, res) => {
+    try{
+      let result = await PostService.setPostStatus(req.param('postId'), req.param('status'));
+      res.ok({success: true});
+    } catch (e) {
+      console.log(e);
+      res.serverError({success: false, message: e.message});
+    }
   }
+
 }
