@@ -102,7 +102,7 @@
    'post /rest/favorite/:id': 'FavoriteController.create',
    'delete /rest/favorite/:id': 'FavoriteController.delete',
 
-   'get  /rest/post/user': 'PostController.getUserAllPost',
+   'get  /rest/post/mypost': 'PostController.getUserAllPost',
    'post /rest/post/create': 'PostController.create',
    'get  /rest/post': 'PostController.getAll',
    'get  /rest/post/search': 'PostController.elasticSearch',
