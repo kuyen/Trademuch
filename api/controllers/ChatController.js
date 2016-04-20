@@ -55,7 +55,7 @@ module.exports = {
       const user = await UserService.getLoginUser(req);
       userId = user.id;
     }
-    console.log("!!!!!!!!!!",loginState, userId);
+    
     try {
       let history = await ChatService.history({
         socketId,
