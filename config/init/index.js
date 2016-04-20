@@ -62,6 +62,25 @@ let self = module.exports = {
       "user_id": testUser2.id
     });
 
+    let post2 = await Post.create({
+      "uuid": '12311231231',
+      "title": "searchPost2",
+      "startDate": "2015-12-01",
+      "user_id": testUser2.id
+    });
+
+    let record = await TradeRecord.create({
+      user_id: testUser2.id,
+      post_id: post.id,
+      state: "accepted"
+    });
+
+    let record2 = await TradeRecord.create({
+      user_id: testUser2.id,
+      post_id: post2.id,
+      state: "refused"
+    });
+
     await post.addPlace(place.id)
     if(sails.config.elasticsearch.open || false){
       await ElasticsearchService.addPost({
@@ -87,6 +106,11 @@ let self = module.exports = {
         "user_id": testUser2.id
       });
       await createPost.addPlace(place.id)
+
+      // await TradeRecord.create({
+      //   user_id: testUser2.id,
+      //   post_id: createPost.id,
+      // });
 
       if(sails.config.elasticsearch.open || false){
         await ElasticsearchService.addPost({

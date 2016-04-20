@@ -1,19 +1,80 @@
 module.exports = {
 
-  create: async(date) => {
+  create: async(data) => {
     try {
-
-      let record = TradeRecord.create({
-        type: data.type,
+      sails.log.info("=== TradeRecordService@create==>[%o]", data);
+      let record = await TradeRecord.create({
+        state: data.state,
         user_id: data.user_id,
-        post_id: data.post
-
+        post_id: data.post_id
       });
 
       return record;
     } catch (e) {
       throw e
     }
-  },
+  }, // end create
+
+  update: async(data) => {
+    try {
+      sails.log.info("=== TradeRecordService@update==>[%o]", data);
+      let record = await TradeRecord.findOne({
+        where: {
+          id: data.id,
+        }
+      });
+      if(!record) {
+        sails.log.info("=== TradeRecordService@update: find no any record id =>", data.id);
+        throw Error('no this id');
+      }
+      record.state = data.state;
+      if(data.post_id) record.post_id = data.post_id;
+      if(data.user_id) record.user_id = data.user_id;
+      record.save();
+
+      return record;
+    } catch (e) {
+      throw e
+    }
+  }, // end update
+
+  findUserRecords: async(userId) => {
+    try {
+      sails.log.info("=== TradeRecordService@findUserRecords id==>", userId);
+      let records = await TradeRecord.findAll({
+        where:{
+          user_id: userId,
+        }
+      });
+      if(!records) {
+        sails.log.info("=== TradeRecordService@findUserRecords: find no user id =>", data.id);
+        throw Error('no this id');
+      }
+
+      return records;
+    } catch (e) {
+      throw e
+    }
+  }, // end findUserRecords
+
+  findSpecificPostRecord: async(data) => {
+    try {
+      sails.log.info("=== TradeRecordService@getPostRecord data==>", data);
+      let record = await TradeRecord.findOne({
+        where:{
+          post_id: data.post_id,
+          user_id: data.user_id
+        }
+      });
+      if(!record) {
+        sails.log.info("=== TradeRecordService@getPostRecord: find no post/user id =>", data);
+        throw Error('no data meets given post/user id.');
+      }
+
+      return record;
+    } catch (e) {
+      throw e
+    }
+  }, // end findSpecificPostRecord
 
 };

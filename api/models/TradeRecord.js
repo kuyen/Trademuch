@@ -1,7 +1,7 @@
 module.exports = {
   attributes: {
 
-    type: {
+    state: {
       type: Sequelize.ENUM('pedding', 'accepted', 'refused'),
       defaultValue: 'pedding'
     },
