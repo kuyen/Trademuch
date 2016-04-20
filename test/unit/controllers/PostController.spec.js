@@ -347,7 +347,7 @@ describe('about Post Controller operation.', function() {
     try {
       user = await User.create({
         "username": "testPost",
-        "email": "testGetPostByUserIdController@gmail.com",
+        "email": "testGetPoststatusByUserIdController@gmail.com",
         "age": 18
       });
 
