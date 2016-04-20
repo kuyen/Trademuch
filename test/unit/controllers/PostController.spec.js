@@ -388,7 +388,7 @@ describe('about Post Controller operation.', function() {
     done();
   });
 
-  it.only('should success.', async(done) => {
+  it('should success.', async(done) => {
     try {
       const data = {
         postId: post.id,
