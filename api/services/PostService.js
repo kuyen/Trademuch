@@ -82,7 +82,7 @@ module.exports = {
 
   getPostById: async(id) => {
     try {
-      let post = await await Post.findOne({
+      let post = await Post.findOne({
         where: {
           id: id
         },
@@ -328,5 +328,17 @@ module.exports = {
       throw e;
     }
   },
+
+  setPostStatus: async(postId, status) => {
+    try {
+      let post = await Post.findById(postId);
+      post.status = status;
+      await post.save();
+      return true;
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  }
 
 }
