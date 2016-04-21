@@ -75,6 +75,8 @@ module.exports.policies = {
   'TradeRecordController': {
     'list': ['sessionAuth'],
     'sendRequestById': ['sessionAuth'],
+    'getRecordStatusById': ['sessionAuth'],
+    'action': ['sessionAuth'],
   },
   /***************************************************************************
    *                                                                          *
