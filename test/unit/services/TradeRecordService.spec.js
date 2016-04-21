@@ -1,4 +1,4 @@
-describe.only('about TradeRecord Service operation.', function() {
+describe('about TradeRecord Service operation.', function() {
   let testUser, testUser2;
   let testPost;
 
