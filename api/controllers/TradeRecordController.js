@@ -2,6 +2,10 @@ module.exports = {
 
   sendRequestById: async(req, res) => {
     let postId = req.param('postId');
+    let result = {
+      result: false,
+      msg: '',
+    };
 
     try {
       let login = await UserService.getLoginState(req);
@@ -17,10 +21,11 @@ module.exports = {
       });
       sails.log.info('user %d get records %o', user.id, record);
 
-      return res.ok(
+      result = {
+        result: true,
         record
-      );
-
+      }
+      return res.ok(result);
     } catch (e) {
       res.serverError(e.toString());
     }
@@ -41,99 +46,84 @@ module.exports = {
     }
   }, // end list
 
-  getRecordStatusById:async(req, res) => {
+  getRecordStatusById: async(req, res) => {
     let postId = req.param('postId');
     let result = {
       result: false,
+      msg: '',
     };
 
     try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        return res.serverError('please log in.');
-      }
       let user = await UserService.getLoginUser(req);
 
       let record = await TradeRecordService.findSpecificPostRecord({
         user_id: user.id,
         post_id: postId
       });
-      if(!record) {
-        return res.serverError('find no record.');
+      if (!record) {
+        result.msg = 'find no record.';
+        return res.serverError(result);
       }
-      console.log("record=>",record);
 
       result = {
         result: record.status
       };
 
-      return res.ok(
-        result
-      );
-
+      return res.ok(result);
     } catch (e) {
       res.serverError(e.toString());
     }
   }, // end getPostRecord
 
-  requestAccepted: async(req, res) => {
+  action: async(req, res) => {
     let postId = req.param('postId');
+    let userId = req.param('userId');
+    let action = req.param('action');
     let result = {
       result: false,
+      msg: '',
     }
 
-    try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        return res.serverError('please log in.');
-      }
-      let user = await UserService.getLoginUser(req);
-
-      let record = await TradeRecordService.findSpecificPostRecord({
-        user_id: user.id,
-        post_id: postId
-      });
-      if(!record) {
-        return res.serverError('find no record.');
-      }
-
-      record.status = "accepted";
-      record.save();
-
-      PostService.setPostStatus(postId, "sold");
-
-      result = {
-        result: true,
-        record
-      }
-
-      return res.ok(result);
-
-    } catch (e) {
-      res.serverError(e.toString());
+    if (!action) {
+      result.msg = 'action field is needed.';
+      return res.serverError(result);
     }
-  }, // end accepted
+    if (!userId) {
+      result.msg = 'you need to target a user to accept his request.';
+      return res.serverError(result);
+    }
 
-  requestPedding: async(req, res) => {
-    let postId = req.param('postId');
+    sails.log.info('postId==>', postId);
+    sails.log.info('userId==>', userId);
+    sails.log.info('action==>', action);
 
     try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        return res.serverError('please log in.');
-      }
-      let user = await UserService.getLoginUser(req);
+      let loginedUser = await UserService.getLoginUser(req);
 
-      let record = await TradeRecordService.findSpecificPostRecord({
-        user_id: user.id,
-        post_id: postId
-      });
-      if(!record) {
-        return res.serverError('find no record.');
+      // find target post's all records by given id.
+      let record = await TradeRecordService.findRecordsByPostId(postId);
+      if (!record) {
+        result.msg = 'find no record.';
+        return res.serverError(result);
       }
+      sails.log.info('record.length==>', record.length);
 
-      record.status = "pedding";
-      record.save();
+      // take out accept/refuse user and set status.
+      for (let i = 0; i < record.length; i++) {
+        sails.log.info('find record id=>%d, userId=>%d', record[i].id, record[i].user_id);
+        if (action == "accepted") {
+          if (record[i].user_id == userId) {
+            record[i].status = "accepted";
+          } else {
+            record[i].status = "refused";
+          }
+        } else if (action == "refused") {
+          record[i].status = "refused";
+        }
+        record[i].save();
+      } // end for
+
+      if (action == "accepted") PostService.setPostStatus(postId, "sold");
 
       result = {
         result: true,
@@ -144,38 +134,6 @@ module.exports = {
     } catch (e) {
       res.serverError(e.toString());
     }
-  }, // end pedding
-
-  requestRefused: async(req, res) => {
-    let postId = req.param('postId');
-
-    try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        return res.serverError('please log in.');
-      }
-      let user = await UserService.getLoginUser(req);
-
-      let record = await TradeRecordService.findSpecificPostRecord({
-        user_id: user.id,
-        post_id: postId
-      });
-      if(!record) {
-        return res.serverError('find no record.');
-      }
-
-      record.status = "refused";
-      record.save();
-
-      result = {
-        result: true,
-        record
-      }
-
-      return res.ok(result);
-    } catch (e) {
-      res.serverError(e.toString());
-    }
-  }, // end refused
+  }, // end action
 
 };

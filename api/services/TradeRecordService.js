@@ -106,4 +106,23 @@ module.exports = {
     }
   }, // end findSpecificPostRecord
 
+  findRecordsByPostId: async(post_id) => {
+    try {
+      sails.log.info("=== TradeRecordService@findRecordsByPostId data==>", post_id);
+      let records = await TradeRecord.findAll({
+        where:{
+          post_id: post_id
+        },
+      });
+      if(!records) {
+        sails.log.info("=== TradeRecordService@findRecordsByPostId: find no post/user id =>", post_id);
+        throw Error('no data meets given post/user id.');
+      }
+
+      return records;
+    } catch (e) {
+      throw e
+    }
+  }, // end findSpecificPostRecord
+
 };

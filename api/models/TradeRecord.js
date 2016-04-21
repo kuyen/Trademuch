@@ -13,7 +13,7 @@ module.exports = {
     instanceMethods: {},
     hooks: {},
     underscored: true,
-    tableName: 'trade_record',
+    tableName: 'post_traderecord',
     paranoid: true,
   },
   associations: function() {

@@ -41,10 +41,15 @@ describe('about TradeRecord Controller operation.', function() { //skip
           "uuid": '4564564uioi',
           "title": "requestedPost",
           "startDate": "2015-12-01",
-          "user_id": testUser.id
+          "user_id": testUser2.id
         });
         await TradeRecord.create({
           user_id: testUser.id,
+          post_id: requestedPost.id,
+          status: "pedding"
+        });
+        await TradeRecord.create({
+          user_id: testUser2.id,
           post_id: requestedPost.id,
           status: "pedding"
         });
@@ -67,11 +72,10 @@ describe('about TradeRecord Controller operation.', function() { //skip
 
     it('post a request to add a TradeRecord should success.', async(done) => {
       try {
-
         let before = await testUser.getTradeRecords();
 
         let result = await request(sails.hooks.http.app)
-          .post('/rest/trade/request/' + createPost.id);
+          .post('/rest/trade/' + createPost.id);
         result.status.should.be.equal(200);
 
         let after = await testUser.getTradeRecords();
@@ -87,21 +91,25 @@ describe('about TradeRecord Controller operation.', function() { //skip
 
     it('get TradeRecord status and accepted a trade request should success.', async(done) => {
       try {
-
         let before = await request(sails.hooks.http.app)
-          .get('/rest/trade/status/' + requestedPost.id);
+          .get('/rest/trade/' + requestedPost.id);
 
         let result = await request(sails.hooks.http.app)
-          .put('/rest/trade/accepted/' + requestedPost.id);
+          .put('/rest/trade/' + requestedPost.id)
+          .send({
+            userId: testUser.id,
+            action: 'accepted'
+          });
 
         let after = await request(sails.hooks.http.app)
-          .get('/rest/trade/status/' + requestedPost.id);
+          .get('/rest/trade/' + requestedPost.id);
 
         sails.log.info("before.body=>", before.body);
+        sails.log.info("after.body=>", after.body);
 
         before.body.result.should.be.equal("pedding");
         result.status.should.be.equal(200);
-        result.should.be.an.Array;
+        result.should.be.an.object;
         after.body.result.should.be.equal("accepted");
 
         done();
@@ -113,9 +121,9 @@ describe('about TradeRecord Controller operation.', function() { //skip
 
     it('get a post`s TradeRecord status should success.', async(done) => {
       try {
-
         let result = await request(sails.hooks.http.app)
-          .get('/rest/trade/status/' + requestedPost.id);
+          .get('/rest/trade/' + requestedPost.id);
+
         sails.log.info("!!!", result.body);
         result.status.should.be.equal(200);
 
@@ -128,7 +136,6 @@ describe('about TradeRecord Controller operation.', function() { //skip
 
     it('get a user`s TradeRecord list should success.', async(done) => {
       try {
-
         let result = await request(sails.hooks.http.app)
           .get('/rest/trade/list');
         sails.log.info("!!!", result.body);
