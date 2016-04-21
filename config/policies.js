@@ -71,7 +71,10 @@ module.exports.policies = {
     'leave': ['sessionAuth'],
     'show': ['sessionAuth'],
     'list': ['sessionAuth'],
-  }
+  },
+  'TradeRecordController': {
+    'list': ['sessionAuth'],
+  },
   /***************************************************************************
    *                                                                          *
    * Default policy for all controllers and actions (`true` allows public     *

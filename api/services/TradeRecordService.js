@@ -44,18 +44,47 @@ module.exports = {
       let records = await TradeRecord.findAll({
         where:{
           user_id: userId,
-        }
+        },
+        include: {
+          model: Post,
+          include: {
+            model: Place,
+          }
+        },
       });
       if(!records) {
         sails.log.info("=== TradeRecordService@findUserRecords: find no user id =>", data.id);
         throw Error('no this id');
       }
-
-      return records;
+      return TradeRecordService.tradeRecordFormat(records);
     } catch (e) {
       throw e
     }
   }, // end findUserRecords
+
+  tradeRecordFormat: (tradeRecordList) => {
+    let formattedData = tradeRecordList.map((tradeRecord) => {
+      let post = tradeRecord.Post;
+      let data = {
+        id: post.id,
+        title: post.title,
+        status: tradeRecord.status,
+        pic: post.coverImage,
+        location: {
+          lat: null,
+          lon: null,
+        },
+      };
+      if (post.Places.length > 0){
+        data.location = {
+          lat: post.Places[0].dataValues.latitude,
+          lon: post.Places[0].dataValues.longitude,
+        }
+      }
+      return data;
+    });
+    return formattedData;
+  },
 
   findSpecificPostRecord: async(data) => {
     try {
