@@ -156,7 +156,7 @@ module.exports = {
 
   setPostStatus: async(req, res) => {
     try{
-      let result = await PostService.setPostStatus(req.param('postId'), req.param('status'));
+      let result = await PostService.setPostStatus(req.body.postId, req.body.status);
       res.ok({success: true});
     } catch (e) {
       console.log(e);
