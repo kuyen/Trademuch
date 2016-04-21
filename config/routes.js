@@ -105,7 +105,7 @@
    'get  /rest/post/mypost': 'PostController.getUserAllPost',
    'post /rest/post/create': 'PostController.create',
    'get  /rest/post': 'PostController.getAll',
-   'post  /rest/post/status': 'PostController.setPostStatus',
+   'put  /rest/post/status': 'PostController.setPostStatus',
    'get  /rest/post/search': 'PostController.elasticSearch',
    // 'get  /rest/post/search/:keyword': 'PostController.sqlSearch',
    //  'get  /rest/post/search/sql/:keyword': 'PostController.sqlSearch',
