@@ -62,6 +62,12 @@ let self = module.exports = {
       "user_id": testUser2.id
     });
 
+    let record = await TradeRecord.create({
+      user_id: testUser2.id,
+      post_id: post.id,
+      state: "accepted"
+    });
+
     await post.addPlace(place.id)
     if(sails.config.elasticsearch.open || false){
       await ElasticsearchService.addPost({

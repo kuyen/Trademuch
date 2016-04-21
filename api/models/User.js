@@ -67,6 +67,7 @@ module.exports = {
   },
   associations: function() {
     User.hasMany(Post, {foreignKey: 'user_id'});
+    User.hasMany(TradeRecord, {foreignKey: 'user_id'});
     User.hasMany(Passport, {foreignKey: 'user_id'});
     User.belongsToMany(Place, {foreignKey: 'user_id', through: UserPlace});
     User.belongsToMany(Post, {foreignKey: 'user_id', through: UserFavorite});
