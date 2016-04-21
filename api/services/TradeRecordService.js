@@ -66,7 +66,8 @@ module.exports = {
     let formattedData = tradeRecordList.map((tradeRecord) => {
       let post = tradeRecord.Post;
       let data = {
-        id: post.id,
+        id: tradeRecord.id,
+        post_id: post.id,
         title: post.title,
         status: tradeRecord.status,
         pic: post.coverImage,

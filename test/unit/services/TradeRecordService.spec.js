@@ -1,34 +1,48 @@
-describe('about TradeRecord Service operation.', function() {
+describe.only('about TradeRecord Service operation.', function() {
+  let testUser, testUser2;
+  let testPost;
 
+  before(async(done) => {
+    try {
+      testUser = await User.create({
+        "username": "TradeRecord testuser",
+      });
+      console.log("testUser.id=>", testUser.id);
+
+      testUser2 = await User.create({
+        "username": "TradeRecord testuser2",
+      });
+      console.log("testUser2.id=>", testUser2.id);
+
+      let place = await Place.create({
+        "name": 'Test',
+        "address": 'address',
+        "latitude": 0,
+        "longitude": 0,
+      })
+
+      testPost = await Post.create({
+        "uuid": '12311231231',
+        "title": "TradeRecord",
+        "startDate": "2015-12-01",
+        "user_id": testUser.id
+      });
+      await testPost.addPlace(place.id);
+      console.log("testPost.id=>", testPost.id);
+
+      done();
+    } catch (e) {
+      console.log(e);
+      done(e);
+    }
+  });
+
+  // this part using testUser1
   describe('add and update a TradeRecord', () => {
-
-    let testUser, testUser2;
-    let testPost;
     let testRecord, testRecord2;
+
     before(async(done) => {
       try {
-        testUser = await User.create({
-          "username": "TradeRecord testuser",
-        });
-        let place = await Place.create({
-          "name": 'Test',
-          "address": 'address',
-          "latitude": 0,
-          "longitude": 0,
-        })
-        testUser2 = await User.create({
-          "username": "TradeRecord testuser2",
-        });
-
-        testPost = await Post.create({
-          "uuid": '12311231231',
-          "title": "TradeRecord",
-          "startDate": "2015-12-01",
-          "user_id": testUser.id
-        });
-        
-        await testPost.addPlace(place.id);
-
         testRecord = await TradeRecord.create({
           status: "pedding",
           user_id: testUser.id,
@@ -36,17 +50,13 @@ describe('about TradeRecord Service operation.', function() {
         });
         testRecord2 = await TradeRecord.create({
           status: "pedding",
-          user_id: testUser2.id,
+          user_id: testUser.id,
           post_id: testPost.id
         });
 
-        console.log("testUser.id=>", testUser.id);
-        console.log("testUser2.id=>", testUser2.id);
-
-        console.log("testPost.id=>", testPost.id);
-
         console.log("testRecord.id=>", testRecord.id);
         console.log("testRecord2.id=>", testRecord2.id);
+
         done();
       } catch (e) {
         console.log(e);
@@ -61,7 +71,6 @@ describe('about TradeRecord Service operation.', function() {
           user_id: testUser.id,
           post_id: testPost.id
         });
-
         console.log("record=>", record);
 
         record.id.should.be.number;
@@ -80,7 +89,6 @@ describe('about TradeRecord Service operation.', function() {
           id: testRecord.id,
           status: "accepted"
         });
-
         console.log("record=>", record);
 
         record.id.should.be.equal(testRecord.id);
@@ -97,10 +105,10 @@ describe('about TradeRecord Service operation.', function() {
       try {
         let records = await TradeRecordService.findUserRecords(testUser.id);
 
-        console.log("records=>", JSON.stringify(records,null,2));
+        console.log("records=>", JSON.stringify(records, null, 2));
 
         records.should.be.object;
-        records[0].status.should.be.equal(testRecord.status);
+        records[1].status.should.be.equal(testRecord.status);
 
         done();
       } catch (e) {
@@ -137,6 +145,52 @@ describe('about TradeRecord Service operation.', function() {
 
         recordList.should.be.object;
         recordList.length.should.be.above(1);
+
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+  }); // end describe
+
+  // this part using testUser2
+  describe('find user record list', () => {
+    let testRecord, testRecord2;
+
+    before(async(done) => {
+      try {
+        testRecord = await TradeRecord.create({
+          status: "pedding",
+          user_id: testUser2.id,
+          post_id: testPost.id
+        });
+        testRecord2 = await TradeRecord.create({
+          status: "pedding",
+          user_id: testUser2.id,
+          post_id: testPost.id
+        });
+
+        console.log("testRecord.id=>", testRecord.id);
+        console.log("testRecord2.id=>", testRecord2.id);
+
+        done();
+      } catch (e) {
+        console.log(e);
+        done(e);
+      }
+    });
+
+    it('find a user`s TradeRecords should success.', async(done) => {
+      try {
+        let records = await TradeRecordService.findUserRecords(testUser2.id);
+
+        console.log("records=>", JSON.stringify(records, null, 2));
+
+        records.should.be.object;
+        records[0].status.should.be.equal(testRecord.status);
+        records[1].status.should.be.equal(testRecord2.status);
 
         done();
       } catch (e) {
