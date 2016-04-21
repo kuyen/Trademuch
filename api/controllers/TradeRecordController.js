@@ -8,10 +8,6 @@ module.exports = {
     };
 
     try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        return res.serverError('please log in.');
-      }
       let user = await UserService.getLoginUser(req);
 
       let record = await TradeRecordService.create({
@@ -120,7 +116,7 @@ module.exports = {
         } else if (action == "refused") {
           record[i].status = "refused";
         }
-        record[i].save();
+        await record[i].save();
       } // end for
 
       if (action == "accepted") PostService.setPostStatus(postId, "sold");

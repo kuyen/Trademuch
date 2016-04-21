@@ -66,8 +66,8 @@ module.exports = {
     let formattedData = tradeRecordList.map((tradeRecord) => {
       let post = tradeRecord.Post;
       let data = {
-        id: tradeRecord.id,
-        post_id: post.id,
+        id: post.id,
+        record_id: tradeRecord.id,
         title: post.title,
         status: tradeRecord.status,
         pic: post.coverImage,
@@ -112,7 +112,8 @@ module.exports = {
       sails.log.info("=== TradeRecordService@findRecordsByPostId data==>", post_id);
       let records = await TradeRecord.findAll({
         where:{
-          post_id: post_id
+          post_id: post_id,
+          status: 'pedding'
         },
       });
       if(!records) {
