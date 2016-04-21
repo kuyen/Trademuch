@@ -421,4 +421,65 @@ describe('about Post Service operation.', function() {
     });
   });
 
+  describe('set post status', () => {
+    let post, user;
+    before(async(done) => {
+      try {
+        user = await User.create({
+          "username": "testPostStatus",
+          "email": "testUpdatePostStatusByUserId@gmail.com",
+          "age": 18
+        });
+
+        sinon.stub(UserService, 'getLoginState', (req) => {
+          return true;
+        });
+
+        sinon.stub(UserService, 'getLoginUser', (req) => {
+          return user;
+        });
+
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 1,
+          "longitude": 2,
+        })
+
+        post = await Post.create({
+          "title": "searchPostA",
+          "startDate": "2015-12-01",
+          "user_id": user.id,
+          description: '12312123',
+        });
+
+        await post.addPlace(place.id)
+
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+
+    after(async(done) => {
+      UserService.getLoginState.restore();
+      UserService.getLoginUser.restore();
+      done();
+    });
+
+    it('set staus on should success.', async(done) => {
+      try {
+        let result = await PostService.setPostStatus(post.id, 'off');
+        result.should.be.equal(true);
+        let updatedPost = await Post.findById(post.id);
+        updatedPost.status.should.be.equal('off');
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+  });
+
 });
