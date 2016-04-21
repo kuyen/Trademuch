@@ -33,12 +33,7 @@ module.exports = {
 
   list: async(req, res) => {
     try {
-      let login = await UserService.getLoginState(req);
-      if (!login) {
-        return res.serverError('please log in.');
-      }
       let user = await UserService.getLoginUser(req);
-
       let records = await TradeRecordService.findUserRecords(user.id);
       sails.log.info('user %d get records %o', user.id, records);
 

@@ -10,6 +10,12 @@ describe('about TradeRecord Service operation.', function() {
         testUser = await User.create({
           "username": "TradeRecord testuser",
         });
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 0,
+          "longitude": 0,
+        })
         testUser2 = await User.create({
           "username": "TradeRecord testuser2",
         });
@@ -20,6 +26,8 @@ describe('about TradeRecord Service operation.', function() {
           "startDate": "2015-12-01",
           "user_id": testUser.id
         });
+        
+        await testPost.addPlace(place.id);
 
         testRecord = await TradeRecord.create({
           status: "pedding",
@@ -89,10 +97,10 @@ describe('about TradeRecord Service operation.', function() {
       try {
         let records = await TradeRecordService.findUserRecords(testUser.id);
 
-        console.log("records=>", JSON.stringify(records));
+        console.log("records=>", JSON.stringify(records,null,2));
 
         records.should.be.object;
-        records[0].id.should.be.equal(testRecord.id);
+        records[0].status.should.be.equal(testRecord.status);
 
         done();
       } catch (e) {
