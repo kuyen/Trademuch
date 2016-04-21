@@ -141,9 +141,6 @@
    'get /rest/trade/:postId': 'TradeRecordController.getRecordStatusById',
    'post /rest/trade/:postId': 'TradeRecordController.sendRequestById',
    'put /rest/trade/:postId': 'TradeRecordController.action',
-  //  'put /rest/trade/accepted/:postId': 'TradeRecordController.requestAccepted',
-  //  'put /rest/trade/refused/:postId': 'TradeRecordController.requestRefused',
-  //  'put /rest/trade/pedding/:postId': 'TradeRecordController.requestPedding',
    //==================================================================
 
 
