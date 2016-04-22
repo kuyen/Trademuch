@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-describe.only('about TradeRecord Controller operation.', function() { //skip
+describe('about TradeRecord Controller operation.', function() { //skip
   describe('TradeRecordController.', () => {
 
     let testUser, testUser2, post, createPost, requestedPost;
