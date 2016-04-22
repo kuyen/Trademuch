@@ -49,11 +49,19 @@ module.exports = {
     sails.log.info('ChatController.history:postId =>', postId);
     sails.log.info('ChatController.history:roomId =>', roomId);
 
+    const loginState = await UserService.getLoginState(req);
+    let userId = null;
+    if (loginState) {
+      const user = await UserService.getLoginUser(req);
+      userId = user.id;
+    }
+    
     try {
       let history = await ChatService.history({
         socketId,
         postId,
         roomId,
+        userId,
       });
       sails.log.info('ChatController.history:history =>', JSON.stringify(history));
 

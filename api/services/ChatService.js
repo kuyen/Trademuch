@@ -31,6 +31,7 @@ module.exports = {
         return history;
       }
 
+      let post = await Post.findById(data.postId);
       history.empty = false;
       let tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
       // let now = new Date(),
@@ -38,8 +39,9 @@ module.exports = {
       let nDate = sails.moment().format("YYYY-MM-DD");
 
       for (let chat of chats) {
-
-        if(chat.userId != data.userId){
+        const loginUser = data.userId;
+        const postOwner = post.UserId;
+        if(chat.userId != loginUser && postOwner == loginUser){
           chat.speakRead = true;
           await chat.save();
         }
