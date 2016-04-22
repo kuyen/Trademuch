@@ -131,9 +131,6 @@ module.exports = {
           post_id: post_id,
           status: 'pedding'
         },
-        attributes: {
-          exclude: ['user_id']
-        },
         include:{
           model: User,
           attributes: [

@@ -136,10 +136,10 @@ describe('about TradeRecord Service operation.', function() {
       }
     });
 
-    it.only('find a list of TradeRecords by given post id, should success.', async(done) => {
+    it('find a list of TradeRecords by given post id, should success.', async(done) => {
       try {
         let recordList = await TradeRecordService.findRecordsByPostId(testPost.id);
-        
+
         console.log("recordList.length=>", recordList.length);
         console.log("recordList=>", JSON.stringify(recordList, null, 2));
 

@@ -10,7 +10,7 @@ module.exports = {
     try {
       let user = await UserService.getLoginUser(req);
 
-      let checkRecord = await TradeRecord.findOne({
+      let checkRecord = await TradeRecord .findOne({
         where:{
           post_id: postId,
           user_id: user.id
@@ -109,33 +109,34 @@ module.exports = {
       let loginedUser = await UserService.getLoginUser(req);
 
       // find target post's all records by given id.
-      let record = await TradeRecordService.findRecordsByPostId(postId);
-      if (!record) {
-        result.msg = 'find no record.';
+      let records = await TradeRecordService.findRecordsByPostId(postId);
+      if (!records) {
+        result.msg = 'find no any record.';
         return res.serverError(result);
       }
-      sails.log.info('record.length==>', record.length);
+      sails.log.info('records.length==>', records.length);
 
       // take out accept/refuse user and set status.
-      for (let i = 0; i < record.length; i++) {
-        sails.log.info('find record id=>%d, userId=>%d', record[i].id, record[i].user_id);
+      // for (let i = 0; i < record.length; i++) {
+      for(let record of records){
+        sails.log.info('find record id=>%d, userId=>', record.id, record.user_id);
         if (action == "accepted") {
-          if (record[i].user_id == userId) {
-            record[i].status = "accepted";
+          if (record.user_id == userId) {
+            record.status = "accepted";
           } else {
-            record[i].status = "refused";
+            record.status = "refused";
           }
         } else if (action == "refused") {
-          record[i].status = "refused";
+          record.status = "refused";
         }
-        await record[i].save();
+        await record.save();
       } // end for
 
       if (action == "accepted") PostService.setPostStatus(postId, "sold");
 
       result = {
         result: true,
-        record
+        records
       }
 
       return res.ok(result);
