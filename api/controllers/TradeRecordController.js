@@ -33,9 +33,9 @@ module.exports = {
       let records = await TradeRecordService.findUserRecords(user.id);
       sails.log.info('user %d get records %o', user.id, records);
 
-      return res.ok(
-        records
-      );
+      return res.ok({
+        data: records
+      });
 
     } catch (e) {
       res.serverError(e.toString());
