@@ -103,7 +103,7 @@ describe('about TradeRecord Service operation.', function() {
 
     it('find a user`s TradeRecords should success.', async(done) => {
       try {
-        let records = await TradeRecordService.findUserRecords(testUser.id);
+        let records = await TradeRecordService.findRecordsByUserId(testUser.id);
 
         console.log("records=>", JSON.stringify(records, null, 2));
 
@@ -136,12 +136,12 @@ describe('about TradeRecord Service operation.', function() {
       }
     });
 
-    it('find a list of TradeRecords by given post id, should success.', async(done) => {
+    it.only('find a list of TradeRecords by given post id, should success.', async(done) => {
       try {
         let recordList = await TradeRecordService.findRecordsByPostId(testPost.id);
-
+        
         console.log("recordList.length=>", recordList.length);
-        console.log("recordList=>", JSON.stringify(recordList));
+        console.log("recordList=>", JSON.stringify(recordList, null, 2));
 
         recordList.should.be.object;
         recordList.length.should.be.above(1);
@@ -184,7 +184,7 @@ describe('about TradeRecord Service operation.', function() {
 
     it('find a user`s TradeRecords should success.', async(done) => {
       try {
-        let records = await TradeRecordService.findUserRecords(testUser2.id);
+        let records = await TradeRecordService.findRecordsByUserId(testUser2.id);
 
         console.log("records=>", JSON.stringify(records, null, 2));
 

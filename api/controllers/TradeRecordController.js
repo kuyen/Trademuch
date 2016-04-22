@@ -10,12 +10,24 @@ module.exports = {
     try {
       let user = await UserService.getLoginUser(req);
 
+      let checkRecord = await TradeRecord.findOne({
+        where:{
+          post_id: postId,
+          user_id: user.id
+        }
+      });
+
+      if(checkRecord){
+        result.msg = 'you have already requested this item!';
+        return res.serverError(result);
+      }
+
       let record = await TradeRecordService.create({
         status: "pedding",
         user_id: user.id,
         post_id: postId
       });
-      sails.log.info('user %d get records %o', user.id, record);
+      sails.log.info('user %d get records=>', user.id, record);
 
       result = {
         result: true,
@@ -30,8 +42,8 @@ module.exports = {
   list: async(req, res) => {
     try {
       let user = await UserService.getLoginUser(req);
-      let records = await TradeRecordService.findUserRecords(user.id);
-      sails.log.info('user %d get records %o', user.id, records);
+      let records = await TradeRecordService.findRecordsByUserId(user.id);
+      sails.log.info('user %d get records=>', user.id, records);
 
       return res.ok({
         data: records
