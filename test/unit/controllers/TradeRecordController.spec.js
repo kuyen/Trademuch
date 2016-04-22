@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-describe('about TradeRecord Controller operation.', function() { //skip
+describe.only('about TradeRecord Controller operation.', function() { //skip
   describe('TradeRecordController.', () => {
 
     let testUser, testUser2, post, createPost, requestedPost;
@@ -106,11 +106,12 @@ describe('about TradeRecord Controller operation.', function() { //skip
 
         sails.log.info("before.body=>", before.body);
         sails.log.info("after.body=>", after.body);
+        sails.log.info("result.body=>", result.body);
 
-        before.body.result.should.be.equal("pedding");
+        before.body.status.should.be.equal("pedding");
         result.status.should.be.equal(200);
         result.should.be.an.object;
-        after.body.result.should.be.equal("accepted");
+        after.body.status.should.be.equal("accepted");
 
         done();
       } catch (e) {

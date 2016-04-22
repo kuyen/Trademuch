@@ -3,7 +3,7 @@ module.exports = {
   sendRequestById: async(req, res) => {
     let postId = req.param('postId');
     let result = {
-      result: false,
+      success: false,
       msg: '',
     };
 
@@ -30,7 +30,7 @@ module.exports = {
       sails.log.info('user %d get records=>', user.id, record);
 
       result = {
-        result: true,
+        success: true,
         record
       }
       return res.ok(result);
@@ -57,7 +57,7 @@ module.exports = {
   getRecordStatusById: async(req, res) => {
     let postId = req.param('postId');
     let result = {
-      result: false,
+      success: false,
       msg: '',
     };
 
@@ -74,7 +74,7 @@ module.exports = {
       }
 
       result = {
-        result: record.status
+        status: record.status
       };
 
       return res.ok(result);
@@ -88,7 +88,7 @@ module.exports = {
     let userId = req.param('userId');
     let action = req.param('action');
     let result = {
-      result: false,
+      success: false,
       msg: '',
     }
 
@@ -117,7 +117,6 @@ module.exports = {
       sails.log.info('records.length==>', records.length);
 
       // take out accept/refuse user and set status.
-      // for (let i = 0; i < record.length; i++) {
       for(let record of records){
         sails.log.info('find record id=>%d, userId=>', record.id, record.user_id);
         if (action == "accepted") {
@@ -135,9 +134,11 @@ module.exports = {
       if (action == "accepted") PostService.setPostStatus(postId, "sold");
 
       result = {
-        result: true,
+        success: true,
         records
       }
+
+      console.log("result=>",result);
 
       return res.ok(result);
     } catch (e) {

@@ -332,9 +332,11 @@ module.exports = {
   setPostStatus: async(postId, status) => {
     try {
       let post = await Post.findById(postId);
-      post.status = status;
-      await post.save();
-      return true;
+      if(post) {
+        post.status = status;
+        await post.save();
+        return true;
+      } else return false;
     } catch (e) {
       sails.log.error(e);
       throw e;
