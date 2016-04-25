@@ -3,22 +3,34 @@ module.exports = {
   sendRequestById: async(req, res) => {
     let postId = req.param('postId');
     let result = {
-      result: false,
+      success: false,
       msg: '',
     };
 
     try {
       let user = await UserService.getLoginUser(req);
 
+      let checkRecord = await TradeRecord .findOne({
+        where:{
+          post_id: postId,
+          user_id: user.id
+        }
+      });
+
+      if(checkRecord){
+        result.msg = 'you have already requested this item!';
+        return res.serverError(result);
+      }
+
       let record = await TradeRecordService.create({
         status: "pedding",
         user_id: user.id,
         post_id: postId
       });
-      sails.log.info('user %d get records %o', user.id, record);
+      sails.log.info('user %d get records=>', user.id, record);
 
       result = {
-        result: true,
+        success: true,
         record
       }
       return res.ok(result);
@@ -30,8 +42,8 @@ module.exports = {
   list: async(req, res) => {
     try {
       let user = await UserService.getLoginUser(req);
-      let records = await TradeRecordService.findUserRecords(user.id);
-      sails.log.info('user %d get records %o', user.id, records);
+      let records = await TradeRecordService.findRecordsByUserId(user.id);
+      sails.log.info('user %d get records=>', user.id, records);
 
       return res.ok({
         data: records
@@ -45,7 +57,7 @@ module.exports = {
   getRecordStatusById: async(req, res) => {
     let postId = req.param('postId');
     let result = {
-      result: false,
+      success: false,
       msg: '',
     };
 
@@ -62,7 +74,7 @@ module.exports = {
       }
 
       result = {
-        result: record.status
+        status: record.status
       };
 
       return res.ok(result);
@@ -76,7 +88,7 @@ module.exports = {
     let userId = req.param('userId');
     let action = req.param('action');
     let result = {
-      result: false,
+      success: false,
       msg: '',
     }
 
@@ -97,34 +109,36 @@ module.exports = {
       let loginedUser = await UserService.getLoginUser(req);
 
       // find target post's all records by given id.
-      let record = await TradeRecordService.findRecordsByPostId(postId);
-      if (!record) {
-        result.msg = 'find no record.';
+      let records = await TradeRecordService.findRecordsByPostId(postId);
+      if (!records) {
+        result.msg = 'find no any record.';
         return res.serverError(result);
       }
-      sails.log.info('record.length==>', record.length);
+      sails.log.info('records.length==>', records.length);
 
       // take out accept/refuse user and set status.
-      for (let i = 0; i < record.length; i++) {
-        sails.log.info('find record id=>%d, userId=>%d', record[i].id, record[i].user_id);
+      for(let record of records){
+        sails.log.info('find record id=>%d, userId=>', record.id, record.user_id);
         if (action == "accepted") {
-          if (record[i].user_id == userId) {
-            record[i].status = "accepted";
+          if (record.user_id == userId) {
+            record.status = "accepted";
           } else {
-            record[i].status = "refused";
+            record.status = "refused";
           }
         } else if (action == "refused") {
-          record[i].status = "refused";
+          record.status = "refused";
         }
-        await record[i].save();
+        await record.save();
       } // end for
 
       if (action == "accepted") PostService.setPostStatus(postId, "sold");
 
       result = {
-        result: true,
-        record
+        success: true,
+        records
       }
+
+      console.log("result=>",result);
 
       return res.ok(result);
     } catch (e) {

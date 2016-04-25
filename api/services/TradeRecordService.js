@@ -38,9 +38,9 @@ module.exports = {
     }
   }, // end update
 
-  findUserRecords: async(userId) => {
+  findRecordsByUserId: async(userId) => {
     try {
-      sails.log.info("=== TradeRecordService@findUserRecords id==>", userId);
+      sails.log.info("=== TradeRecordService@findRecordsByUserId id==>", userId);
       let records = await TradeRecord.findAll({
         where:{
           user_id: userId,
@@ -53,14 +53,14 @@ module.exports = {
         },
       });
       if(!records) {
-        sails.log.info("=== TradeRecordService@findUserRecords: find no user id =>", data.id);
+        sails.log.info("=== TradeRecordService@findRecordsByUserId: find no user id =>", data.id);
         throw Error('no this id');
       }
       return TradeRecordService.tradeRecordFormat(records);
     } catch (e) {
       throw e
     }
-  }, // end findUserRecords
+  }, // end findRecordsByUserId
 
   tradeRecordFormat: (tradeRecordList) => {
     let formattedData = tradeRecordList.map((tradeRecord) => {
@@ -94,6 +94,22 @@ module.exports = {
         where:{
           post_id: data.post_id,
           user_id: data.user_id
+        },
+        attributes: {
+          exclude: ['user_id']
+        },
+        include:{
+          model: User,
+          attributes: [
+            'id',
+            'uuid',
+            'avatar',
+            'username',
+            'fullName',
+            'firstName',
+            'lastName',
+            'email',
+          ]
         }
       });
       if(!record) {
@@ -115,6 +131,19 @@ module.exports = {
           post_id: post_id,
           status: 'pedding'
         },
+        include:{
+          model: User,
+          attributes: [
+            'id',
+            'uuid',
+            'avatar',
+            'username',
+            'fullName',
+            'firstName',
+            'lastName',
+            'email',
+          ]
+        }
       });
       if(!records) {
         sails.log.info("=== TradeRecordService@findRecordsByPostId: find no post/user id =>", post_id);
