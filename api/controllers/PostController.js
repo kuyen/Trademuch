@@ -105,6 +105,8 @@ module.exports = {
       let post = await PostService.getPostById(req.param('id'));
       let fbId = 0;
 
+      post.pic = post.gallery;
+
       let login = await UserService.getLoginState(req);
       let isFav = false;
       if (login) {
