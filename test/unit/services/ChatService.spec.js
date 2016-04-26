@@ -82,4 +82,86 @@ describe('about Chat Service .', function() {
     });
   });
 
+
+  describe.only('get message count by item id', () => {
+
+    let room, itemOwner, chatUser, chat, post, chats;
+    before(async (done) => {
+      try {
+
+        itemOwner = await User.create({
+    			"username": "testuser_getMsgCountByItemId_A",
+    			"email": "xcvljl123k123123@gmail.com",
+    			"age": 100,
+    			"is_first_login": 1,
+        });
+
+        chatUser = await User.create({
+    			"username": "testuser_getMsgCountByItemId_B",
+    			"email": "xcvljlkasaqwdeqwassd123@gmail.com",
+    			"age": 0,
+    			"is_first_login": 1,
+        });
+
+        post = await Post.create({
+    			"uuid": "sdfglsdfglkj",
+    			"title": "searchPost",
+    			"startDate": "2015-12-01 08:00:00",
+    			"created_at": "2016-03-10 17:07:59",
+    			"updated_at": "2016-03-10 17:07:59",
+    			"user_id": itemOwner.id
+        })
+
+        room = await Room.create({
+          "uuid": post.uuid,
+          "type": "public",
+          "limit": 0
+        });
+
+        chats = [{
+          "uuid": '123e5345123',
+          "type": "public",
+          "content": "1231213",
+          "created_at": "2016-03-10 17:07:59",
+          "room_id": room.id,
+          "user_id": chatUser.id
+        },{
+          "uuid": '123e534512312312',
+          "type": "public",
+          "content": "1231213",
+          "created_at": "2016-03-10 17:08:59",
+          "room_id": room.id,
+          "user_id": chatUser.id
+        },
+        {
+          "uuid": '123e5345123',
+          "type": "public",
+          "content": "1231213",
+          "created_at": "2016-03-10 17:10:59",
+          "room_id": room.id,
+          "user_id": itemOwner.id
+        }]
+        chat = await Chat.bulkCreate(chats);
+
+        done();
+      } catch (e) {
+        console.log(e);
+        done(e);
+      }
+    });
+
+    it('should success.', async (done) => {
+      try {
+
+        let result = await ChatService.getPostChatCountById(post.uuid, itemOwner.id);
+        console.log(result);
+        result.should.be.equal(2);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
+  });
+
 });
