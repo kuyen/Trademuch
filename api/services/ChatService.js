@@ -127,4 +127,29 @@ module.exports = {
     }
   },
 
+  getPostChatCountById: async(uuid, userId) => {
+    try {
+      let room = await Room.find({
+        where:{
+          uuid: uuid
+        }
+      });
+      let count = 0, data;
+      if(room){
+        data = await Chat.count({
+          where:{
+            room_id: room.id,
+            user_id:{
+              $ne: userId
+            },
+          },
+        });
+        if (data > 0) count = data;
+      }
+      return count;
+    } catch (e) {
+      throw e
+    }
+  },
+
 };
