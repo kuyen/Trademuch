@@ -290,13 +290,11 @@ module.exports = {
     try {
       let formattedPostList = [];
       for (let post of postlist) {
-        let chatInfo, hasChat;
+        let chatInfo, hasChat = false;
         if (outputWithChat && userId) {
           chatInfo = await ChatService.lastOnehistory(post.id, userId);
           hasChat = await ChatService.getPostChatCountById(post.id, userId);
-
-          if (hasChat === 0) hasChat = false;
-          else hasChat = true;
+          if (hasChat !== 0) hasChat = true;
         }
         const originData = post.dataValues;
         let data = {
