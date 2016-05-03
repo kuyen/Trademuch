@@ -91,8 +91,8 @@ describe('about Favorite Service operation.', function() {
         let send = {
           userId: testUser.id,
         }
-
         let result = await FavoriteService.get(send);
+        console.log('result', JSON.stringify(result, null, 4));
         result.should.be.an.Array;
         done();
 

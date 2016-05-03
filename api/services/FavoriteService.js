@@ -33,20 +33,21 @@ module.exports = {
       sails.log.info("getUserFavorites:userId=>",userId);
       let user = await User.findById(userId);
       let favorites = await user.getPosts({
-        order: 'createdAt DESC'
+        order: 'createdAt DESC',
       });
-      console.log("favorites.length=>",favorites.length);
-      if(favorites.length>0){
-        favorites.forEach(function(fav){
+      for (let i=0; i < favorites.length; i++) {
+        let item = favorites[i];
+        let postId = item.id;
+        let post = await Post.findById(postId);
+        let place = await post.getPlaces();
+        favorites[i].dataValues.place = place[0];
+      }
+      if(favorites.length>0) {
+        favorites.forEach(function(fav) {
           if(fav.coverImage==null){
             fav.coverImage = '/img/items/1.jpg';
           }
         });
-        // console.log("favorites=>",favorites)
-        console.log("favorites[0]=>",favorites[0]);
-        // console.log("favorites[0].UserFavorite=>",favorites[0].UserFavorite)
-        // console.log("favorites[0].User=>",favorites[0].User)
-        // console.log("favorites[0].Item=>",favorites[0].Item)
       }
       return favorites;
     } catch (e) {
