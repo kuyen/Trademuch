@@ -89,7 +89,7 @@ describe('about Elasticsearch Service .', function() {
         }
         await ElasticsearchService.init();
         await ElasticsearchService.addPost({
-          id: 1,
+          id: 9991,
           title: 'test Elastic Title 2',
           location:{
             lat: 24,
@@ -97,7 +97,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 2,
+          id: 9992,
           title: 'test Elastic Title 2',
           location:{
             lat: 24.1,
@@ -105,7 +105,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 9994,
           title: 'test Elastic Title 4',
           location:{
             lat: 30,
@@ -113,7 +113,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 3,
+          id: 9993,
           title: 'test Elastic termTest 1',
           location:{
             lat: 24.08,
@@ -121,7 +121,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 9995,
           title: 'test Elastic termTest 2',
           location:{
             lat: 80,
@@ -129,7 +129,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 9996,
           title: 'test Elastic termTest 2',
           location:{
             lat: 80.1,
@@ -137,7 +137,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 9997,
           title: 'AAA',
           location:{
             lat: 80.1,
@@ -145,7 +145,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 9998,
           title: '測試測試',
           location:{
             lat: 80.1,
@@ -153,7 +153,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 9999,
           title: '二手iphone',
           description: '描述',
           pic: '/url/test',
@@ -163,7 +163,7 @@ describe('about Elasticsearch Service .', function() {
           }
         })
         await ElasticsearchService.addPost({
-          id: 4,
+          id: 10000,
           title: '二手 Mac',
           location:{
             lat: 80.1,
@@ -347,6 +347,46 @@ describe('about Elasticsearch Service .', function() {
       }
     });
 
+  });
+
+  describe('test delete place', () => {
+
+    // let testUser,place;
+    before(async (done) => {
+      try {
+        let findeIndex = await axios.get(`http://${sails.config.elasticsearch.host}/_aliases`);
+        if( findeIndex.data.trademuch ){
+          let result = await axios({
+            method: 'delete',
+            url: `http://${sails.config.elasticsearch.host}/trademuch`
+          });
+          console.log("create => ",result);
+        }
+        await ElasticsearchService.init();
+        let result = await ElasticsearchService.addPost({
+            id: 8493,
+            title: 'testElasticTitle',
+            location:{
+              lat: 24,
+              lon: 120
+            }
+          });
+        done();
+      } catch (e) {
+        console.log(e);
+        done(e);
+      }
+    });
+
+    it('test delete', async (done) => {
+      try {
+        let result = await ElasticsearchService.deletePost(8493);
+        done();
+      } catch (e) {
+        sails.log.error(e);
+        done(e);
+      }
+    });
   });
 
 });

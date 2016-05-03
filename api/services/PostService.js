@@ -331,7 +331,26 @@ module.exports = {
 
   setPostStatus: async(postId, status) => {
     try {
-      let post = await Post.findById(postId);
+      let post = await Post.findOne({
+        where: {
+          id: postId
+        },
+        include: Place,
+      });
+      if (status === 'off' || status === 'sold') {
+        await ElasticsearchService.deletePost(postId);
+      }else {
+        await ElasticsearchService.addPost({
+          id: post.id,
+          title: post.title,
+          description: post.description,
+          pic: post.coverImage,
+          location:{
+            lat: post.Places[0].latitude,
+            lon: post.Places[0].longitude,
+          }
+        });
+      }
       if(post) {
         post.status = status;
         await post.save();
