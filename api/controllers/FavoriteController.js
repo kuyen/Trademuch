@@ -46,7 +46,7 @@ module.exports = {
       let userFavorites = await FavoriteService.get({
         userId: user.id
       });
-      res.ok(userFavorites);
+      res.ok({result: userFavorites});
     } catch (e) {
       sails.log.error(e);
       res.serverError(e);

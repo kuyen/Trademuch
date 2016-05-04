@@ -41,7 +41,7 @@ module.exports = {
 
   addPost: async({id, title, description, pic, location}) => {
     try {
-      let result = await axios.post(`http://${sails.config.elasticsearch.host}/trademuch/post`,{
+      let result = await axios.post(`http://${sails.config.elasticsearch.host}/trademuch/post/${id}/_create`,{
         id: id,
         title: title,
         description: description,
@@ -51,6 +51,16 @@ module.exports = {
           lon: location.lon
         },
       });
+      sails.log.info(result.data);
+      return result.data
+    } catch (e) {
+      sails.log.error(e);
+    }
+  },
+
+  deletePost: async(id) => {
+    try {
+      let result = await axios.delete(`http://${sails.config.elasticsearch.host}/trademuch/post/${id}`);
       sails.log.info(result.data);
       return result.data
     } catch (e) {
