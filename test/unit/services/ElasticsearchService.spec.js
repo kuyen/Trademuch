@@ -354,8 +354,9 @@ describe('about Elasticsearch Service .', function() {
     // let testUser,place;
     before(async (done) => {
       try {
-        let findeIndex = await axios.get(`http://${sails.config.elasticsearch.host}/_aliases`);
-        if( findeIndex.data.trademuch ){
+        let findIndex = await axios.get(`http://${sails.config.elasticsearch.host}/_aliases`);
+        const hasTrademuch = findIndex.data.trademuch;
+        if (hasTrademuch){
           let result = await axios({
             method: 'delete',
             url: `http://${sails.config.elasticsearch.host}/trademuch`
