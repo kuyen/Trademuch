@@ -5,36 +5,24 @@ let like;
 let self = module.exports = {
 
   basicData: async () => {
-    // like = [
-    //   {title: '時尚', pic: '/img/hobby/fashion-woman.png'},
-    //   {title: '美妝保養', pic: '/img/hobby/beauty.png'},
-    //   {title: '設計工藝', pic: '/img/hobby/Design-Process.png'},
-    //   {title: '生活3C', pic: '/img/hobby/TechnologyProducts.png'},
-    //   {title: '運動用品', pic: '/img/hobby/sport-foot.png'},
-    //   {title: '攝影拍照', pic: '/img/hobby/camera.png'},
-    //   {title: '名牌精品', pic: '/img/hobby/famousbrand.png'},
-    //   {title: '復古風情', pic: '/img/hobby/Retro.png'},
-    //   {title: '遊戲玩物', pic: '/img/hobby/game.png'},
-    //   {title: '傢具傢居', pic: '/img/hobby/Furniture.png'},
-    //   {title: '課本買賣', pic: '/img/hobby/books.png'},
-    //   {title: '書籍雜誌', pic: '/img/hobby/magazines.png'},
-    //   {title: '樂器樂譜', pic: '/img/hobby/ukulele.png'},
-    //   {title: '廚房家電', pic: '/img/hobby/kitchen.png'},
-    //   {title: '寶寶時尚', pic: '/img/hobby/baby.png'},
-    //   {title: '寵物用品', pic: '/img/hobby/dog.png'},
-    //   {title: '票卷交換', pic: '/img/hobby/tickets.png'},
-    //   {title: '哩哩扣扣', pic: '/img/hobby/other.png'},
-    //   {title: '預售代購', pic: '/img/hobby/sale.png'}
-    // ];
+    let categorys = [
+      { name: 'All 都想要'},
+      { name: '保養品' },
+      { name: '3C產品' },
+      { name: '居家用品' },
+      { name: '生活家電' },
+      { name: '運動用品' },
+      { name: '課本講義' },
+    ];
     // // await Like.bulkCreate(like);
-    // for(let i of like){
-    //   await Like.findOrCreate({
-    //     where:{
-    //       title: i.title
-    //     },
-    //     defaults: i
-    //   });
-    // }
+    for(let category of categorys){
+      await Category.findOrCreate({
+        where:{
+          name: category.name
+        },
+        defaults: category
+      });
+    }
     if (sails.config.environment === 'development' || sails.config.environment === 'test') {
       let user = await User.create({username: 'testuser', email: 'test@gmail.com'});
       let passport = await Passport.create({provider: 'local', password: 'testuser'});
@@ -68,7 +56,8 @@ let self = module.exports = {
       state: "accepted"
     });
 
-    await post.addPlace(place.id)
+    await post.addPlace(place.id);
+    await post.addCategory(1);
     if(sails.config.elasticsearch.open || false){
       await ElasticsearchService.addPost({
         id: post.id,
@@ -92,7 +81,8 @@ let self = module.exports = {
         "startDate": "2015-12-01",
         "user_id": testUser2.id
       });
-      await createPost.addPlace(place.id)
+      await createPost.addPlace(place.id);
+      await createPost.addCategory(1);
 
       if(sails.config.elasticsearch.open || false){
         await ElasticsearchService.addPost({
