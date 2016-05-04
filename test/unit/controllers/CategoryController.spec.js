@@ -75,7 +75,14 @@ describe('about Category Controller operation.', function() {
           "startDate": "2015-12-01 08:00:00",
           "user_id": testUser.id,
         });
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 0,
+          "longitude": 0,
+        })
         await post.addCategory(7);
+        await post.addPlace(place.id);
         done();
       } catch (e) {
         console.log(e);
@@ -83,10 +90,11 @@ describe('about Category Controller operation.', function() {
       }
     });
 
-    it('filter', async (done) => {
+    it.only('filter', async (done) => {
       try {
         let result = await request(sails.hooks.http.app)
         .get('/rest/category/7');
+        console.log(result.body);
         result.body.success.should.be.true;
         result.body.result.length.should.equal(1);
         done();

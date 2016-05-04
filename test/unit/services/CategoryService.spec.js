@@ -74,7 +74,14 @@ describe('about Category Service .', function() {
           "startDate": "2015-12-01 08:00:00",
           "user_id": testUser.id,
         });
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 0,
+          "longitude": 0,
+        })
         await post.addCategory(7);
+        await post.addPlace(place.id);
         done();
       } catch (e) {
         console.log(e);

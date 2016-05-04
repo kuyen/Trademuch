@@ -21,12 +21,17 @@ module.exports = {
 
   searchById: async(id) => {
     try {
-      let post = await Category.findAll({
-        where: {
-          id: id,
-        },
-        include: Post
+      let post = await Post.findAll({
+        include: [{
+          model: Category,
+          where: {
+            id: id,
+          },
+        },{
+          model: Place,
+        }],
       });
+      post = await PostService.postListFormat(post);
       return post;
     } catch (e) {
       throw e;
