@@ -5,6 +5,10 @@ module.exports = {
       type: Sequelize.ENUM('pedding', 'accepted', 'refused'),
       defaultValue: 'pedding'
     },
+    isConfirmed: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    }
 
   },
 

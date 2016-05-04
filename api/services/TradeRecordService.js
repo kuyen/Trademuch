@@ -73,6 +73,7 @@ module.exports = {
         status: tradeRecord.status,
         pic: post.coverImage,
         updated_at: tradeRecord.updated_at,
+        isConfirmed: tradeRecord.isConfirmed,
         location: {
           lat: null,
           lon: null,
@@ -125,13 +126,13 @@ module.exports = {
     }
   }, // end findSpecificPostRecord
 
-  findRecordsByPostId: async(post_id) => {
+  findRecordsByPostId: async(post_id, status) => {
     try {
-      sails.log.info("=== TradeRecordService@findRecordsByPostId data==>", post_id);
+      if (!status) status = 'pedding';
+      sails.log.info("=== TradeRecordService@findRecordsByPostId post_id==>", post_id);
       let records = await TradeRecord.findAll({
         where:{
           post_id: post_id,
-          status: 'pedding'
         },
         include:{
           model: User,
