@@ -64,7 +64,7 @@ module.exports = {
 
   tradeRecordFormat: (tradeRecordList) => {
     let formattedData = tradeRecordList.map((tradeRecord) => {
-      console.log('tradeRecord=>',tradeRecord);
+      sails.log.info('tradeRecord=>',tradeRecord);
       let post = tradeRecord.Post;
       let data = {
         id: post.id,
