@@ -83,7 +83,7 @@ describe('about Chat Service .', function() {
   });
 
 
-  describe.only('get message count by item id', () => {
+  describe('get message count by item id', () => {
 
     let room, itemOwner, chatUser, chat, post, chats;
     before(async (done) => {
