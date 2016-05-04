@@ -126,9 +126,8 @@ module.exports = {
     }
   }, // end findSpecificPostRecord
 
-  findRecordsByPostId: async(post_id, status) => {
+  findRecordsByPostId: async(post_id) => {
     try {
-      if (!status) status = 'pedding';
       sails.log.info("=== TradeRecordService@findRecordsByPostId post_id==>", post_id);
       let records = await TradeRecord.findAll({
         where:{
