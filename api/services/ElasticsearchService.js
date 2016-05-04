@@ -125,7 +125,7 @@ module.exports = {
         sort: sort
       };
 
-      console.log(JSON.stringify(data));
+      sails.log.info(JSON.stringify(data));
 
       let result = await axios({
         method: 'get',

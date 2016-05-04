@@ -19,7 +19,7 @@ module.exports = {
 
       if(checkRecord){
         result.msg = 'you have already requested this item!';
-        return res.serverError(result);
+        return res.ok(result);
       }
 
       let record = await TradeRecordService.create({
