@@ -1,4 +1,4 @@
-describe.only('about Category Service .', function() {
+describe('about Category Service .', function() {
 
   describe('get Category list', () => {
 

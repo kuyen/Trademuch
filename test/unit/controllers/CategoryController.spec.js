@@ -1,6 +1,6 @@
-describe.skip('about User Controller operation.', function() {
+describe.only('about Category Controller operation.', function() {
 
-  describe('update user mail & location', () => {
+  describe('Category ', () => {
 
     let testUser,post;
     before(async (done) => {
@@ -8,7 +8,7 @@ describe.skip('about User Controller operation.', function() {
 
         testUser = await User.create({
           "username": "testuser",
-          "email": '1231kjgdlfjgl@gmail.com',
+          "email": '1ss231kjgdlfjgl@gmail.com',
         });
 
 	      post = await Post.create({
@@ -19,6 +19,7 @@ describe.skip('about User Controller operation.', function() {
         });
         const all = 1;
         await post.addCategory(all);
+
         done();
       } catch (e) {
         console.log(e);
@@ -26,11 +27,11 @@ describe.skip('about User Controller operation.', function() {
       }
     });
 
-    it('readed policy', async (done) => {
+    it('list', async (done) => {
       try {
         let result = await request(sails.hooks.http.app)
-        .post('/rest/user/agree-policies');
-        result.body.isAgreePolicies.should.be.true;
+        .get('/rest/category');
+        result.body.result.should.be.an.Array;
         done();
       } catch (e) {
         sails.log.error(e);
