@@ -19,7 +19,7 @@ module.exports = {
 
       if(checkRecord){
         result.msg = 'you have already requested this item!';
-        return res.serverError(result);
+        return res.ok(result);
       }
 
       let record = await TradeRecordService.create({
@@ -116,17 +116,35 @@ module.exports = {
       }
       sails.log.info('records.length==>', records.length);
 
+      let accepted = 'accepted';
+      let refused = 'refused';
+      let pedding = 'pedding';
+      let confirm = 'confirm';
+      let cancelConfirm = 'cancelConfirm';
+
       // take out accept/refuse user and set status.
       for(let record of records){
         sails.log.info('find record id=>%d, userId=>', record.id, record.user_id);
-        if (action == "accepted") {
-          if (record.user_id == userId) {
-            record.status = "accepted";
-          } else {
-            record.status = "refused";
-          }
-        } else if (action == "refused") {
-          record.status = "refused";
+        switch (action) {
+          case accepted:
+            if (record.status === pedding) {
+              if (record.user_id == userId) {
+                record.status = accepted;
+              } else {
+                record.status = refused;
+              }
+            }
+            break;
+          case refused:
+            if (record.status === pedding) record.status = refused;
+            break;
+          case confirm:
+            if (record.status !== pedding) record.isConfirmed = true;
+            break;
+          case cancelConfirm:
+            if (record.status !== pedding) record.isConfirmed = false;
+          break;
+          default:
         }
         await record.save();
       } // end for

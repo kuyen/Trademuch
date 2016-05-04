@@ -48,6 +48,7 @@ module.exports = {
     Post.belongsTo(User, {through: 'user_id'});
     Post.belongsToMany(Place, {foreignKey: 'post_id', through: PostPlace});
     Post.belongsToMany(User, {foreignKey: 'post_id', through: UserFavorite});
+    Post.belongsToMany(Category, {foreignKey: 'post_id', through: PostCategory});
     Post.hasMany(TradeRecord, {foreignKey: 'post_id'});
   },
   options: {
