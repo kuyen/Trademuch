@@ -90,7 +90,7 @@ describe('about Category Controller operation.', function() {
       }
     });
 
-    it.only('filter', async (done) => {
+    it('filter', async (done) => {
       try {
         let result = await request(sails.hooks.http.app)
         .get('/rest/category/7');
