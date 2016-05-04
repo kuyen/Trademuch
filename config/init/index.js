@@ -57,7 +57,8 @@ let self = module.exports = {
     });
 
     await post.addPlace(place.id);
-    await post.addCategory(1);
+    const all = 1;
+    await post.addCategory(all);
     if(sails.config.elasticsearch.open || false){
       await ElasticsearchService.addPost({
         id: post.id,
@@ -82,7 +83,8 @@ let self = module.exports = {
         "user_id": testUser2.id
       });
       await createPost.addPlace(place.id);
-      await createPost.addCategory(1);
+      const all = 1;
+      await createPost.addCategory(all);
 
       if(sails.config.elasticsearch.open || false){
         await ElasticsearchService.addPost({
