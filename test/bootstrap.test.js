@@ -1,3 +1,6 @@
+require("babel-core/register");
+require("babel-polyfill");
+
 var Sails = require('sails');
 var rc = require("rc");
 
@@ -12,8 +15,6 @@ var options = {
   only: null,
   extensions: null
 };
-
-require("sails-hook-babel/node_modules/babel/register")(options);
 
 before(function(done) {
   var config = rc('sails');
