@@ -286,13 +286,15 @@ module.exports = {
     }
   },
 
-  postListFormat: async(postlist, userId, hasChat) => {
+  postListFormat: async(postlist, userId, outputWithChat) => {
     try {
       let formattedPostList = [];
       for (let post of postlist) {
-        let chatInfo;
-        if (hasChat && userId) {
+        let chatInfo, hasChat = false;
+        if (outputWithChat && userId) {
           chatInfo = await ChatService.lastOnehistory(post.id, userId);
+          hasChat = await ChatService.getPostChatCountById(post.id, userId);
+          if (hasChat !== 0) hasChat = true;
         }
         const originData = post.dataValues;
         let data = {
@@ -305,7 +307,8 @@ module.exports = {
             lon: null,
           },
           lastMessage: null,
-          unReadCount: null
+          unReadCount: null,
+          hasChat,
         };
         if (originData.description){
           data.description = originData.description;
