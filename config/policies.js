@@ -78,6 +78,11 @@ module.exports.policies = {
     'getRecordStatusById': ['sessionAuth'],
     'action': ['sessionAuth'],
   },
+  'CategoryController': {
+    'list': [],
+    'add': [],
+    'filter': [],
+  },
   /***************************************************************************
    *                                                                          *
    * Default policy for all controllers and actions (`true` allows public     *

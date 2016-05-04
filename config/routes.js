@@ -146,6 +146,8 @@
    // Category
    //==================================================================
    'get /rest/category': 'CategoryController.list',
+   'get /rest/category/:id': 'CategoryController.filter',
+   'put /rest/category': 'CategoryController.add',
    //==================================================================
 
 
