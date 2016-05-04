@@ -34,7 +34,7 @@ module.exports = {
     			"images": $(this).find("img").attr("src"),
         });
       });
-      await* itemsArray.map(async (elem, i) => {
+      Promise.all(itemsArray.map(async (elem, i) => {
         let item = await Item.create(elem);
         let user = await User.findOrCreate({
           where:{
@@ -46,7 +46,7 @@ module.exports = {
         postsArray[i].ItemId = item.id;
         postsArray[i].UserId = user[0].id;
         let post = await Post.create(postsArray[i]);
-      });
+      }));
     } catch (e) {
       console.log(e);
       throw e;

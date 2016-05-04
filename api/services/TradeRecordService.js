@@ -64,6 +64,7 @@ module.exports = {
 
   tradeRecordFormat: (tradeRecordList) => {
     let formattedData = tradeRecordList.map((tradeRecord) => {
+      sails.log.info('tradeRecord=>',tradeRecord);
       let post = tradeRecord.Post;
       let data = {
         id: post.id,
@@ -71,6 +72,8 @@ module.exports = {
         title: post.title,
         status: tradeRecord.status,
         pic: post.coverImage,
+        updated_at: tradeRecord.updated_at,
+        isConfirmed: tradeRecord.isConfirmed,
         location: {
           lat: null,
           lon: null,
@@ -125,11 +128,10 @@ module.exports = {
 
   findRecordsByPostId: async(post_id) => {
     try {
-      sails.log.info("=== TradeRecordService@findRecordsByPostId data==>", post_id);
+      sails.log.info("=== TradeRecordService@findRecordsByPostId post_id==>", post_id);
       let records = await TradeRecord.findAll({
         where:{
           post_id: post_id,
-          status: 'pedding'
         },
         include:{
           model: User,
