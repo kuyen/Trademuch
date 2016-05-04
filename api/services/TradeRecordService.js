@@ -64,6 +64,7 @@ module.exports = {
 
   tradeRecordFormat: (tradeRecordList) => {
     let formattedData = tradeRecordList.map((tradeRecord) => {
+      console.log('tradeRecord=>',tradeRecord);
       let post = tradeRecord.Post;
       let data = {
         id: post.id,
@@ -71,6 +72,7 @@ module.exports = {
         title: post.title,
         status: tradeRecord.status,
         pic: post.coverImage,
+        updated_at: tradeRecord.updated_at,
         location: {
           lat: null,
           lon: null,
