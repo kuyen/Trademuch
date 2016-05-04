@@ -3,7 +3,7 @@ describe('about Chat Service .', function() {
   describe('get last chat', () => {
 
     let test_room_1, test_user_1, test_chatUser_1;
-    let test_chat_1, test_post_1, chats;
+    let test_chat_1, test_post_1, test_chats_1;
     before(async (done) => {
       try {
 
@@ -36,7 +36,7 @@ describe('about Chat Service .', function() {
           "limit": 0
         });
 
-        chats = [{
+        test_chats_1 = [{
           "uuid": '123e5345123',
           "type": "public",
           "content": "1231213",
@@ -59,7 +59,7 @@ describe('about Chat Service .', function() {
           "room_id": test_room_1.id,
           "user_id": test_user_1.id
         }]
-        test_chat_1 = await Chat.bulkCreate(chats);
+        test_chat_1 = await Chat.bulkCreate(test_chats_1);
 
         done();
       } catch (e) {
@@ -72,7 +72,7 @@ describe('about Chat Service .', function() {
       try {
         let result = await ChatService.lastOnehistory(test_post_1.uuid, test_user_1.id);
         console.log(result);
-        result.content.should.be.equal(chats[1].content);
+        result.content.should.be.equal(test_chats_1[1].content);
         done();
       } catch (e) {
         sails.log.error(e);
@@ -103,7 +103,7 @@ describe('about Chat Service .', function() {
         });
 
         post = await Post.create({
-    			"uuid": "sdfglsdfglkj",
+    			"uuid": "sdfglsdfad1312sdfglkj",
     			"title": "searchPost",
     			"startDate": "2015-12-01 08:00:00",
     			"created_at": "2016-03-10 17:07:59",
@@ -151,10 +151,9 @@ describe('about Chat Service .', function() {
 
     it('should success.', async (done) => {
       try {
-
         let result = await ChatService.getPostChatCountById(post.uuid, itemOwner.id);
         console.log(result);
-        result.should.be.equal(3);
+        result.should.be.equal(2);
         done();
       } catch (e) {
         sails.log.error(e);
