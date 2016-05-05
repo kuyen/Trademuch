@@ -24,7 +24,8 @@ module.exports = async function(req, res, next) {
         await UserService.userToSession(user, req);
         return next();
       } else {
-        if (UserService.getLoginState(req)) {
+        const isAppLogout = req.headers.jwt == 'null';
+        if (!isAppLogout && UserService.getLoginState(req)) {
           return next();
         }
       }
