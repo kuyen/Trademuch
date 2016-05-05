@@ -19,13 +19,13 @@ module.exports = {
     }
   },
 
-  searchById: async(id) => {
+  searchById: async(array) => {
     try {
       let post = await Post.findAll({
         include: [{
           model: Category,
           where: {
-            id: id,
+            id: array,
           },
         },{
           model: Place,

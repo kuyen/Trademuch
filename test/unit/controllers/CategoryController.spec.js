@@ -83,6 +83,15 @@ describe('about Category Controller operation.', function() {
         })
         await post.addCategory(7);
         await post.addPlace(place.id);
+
+        post = await Post.create({
+          "title": "BBB",
+          "description": '1231',
+          "startDate": "2015-12-01 08:00:00",
+          "user_id": testUser.id,
+        });
+        await post.addCategory(6);
+        await post.addPlace(place.id);
         done();
       } catch (e) {
         console.log(e);
@@ -93,10 +102,10 @@ describe('about Category Controller operation.', function() {
     it('filter', async (done) => {
       try {
         let result = await request(sails.hooks.http.app)
-        .get('/rest/category/7');
+        .get('/rest/category/filter?categoryIds=6,7');
         console.log(result.body);
         result.body.success.should.be.true;
-        result.body.result.length.should.equal(1);
+        result.body.result.length.should.equal(2);
         done();
       } catch (e) {
         sails.log.error(e);

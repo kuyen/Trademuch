@@ -82,6 +82,15 @@ describe('about Category Service .', function() {
         })
         await post.addCategory(7);
         await post.addPlace(place.id);
+
+        post = await Post.create({
+          "title": "BBB",
+          "description": '1231',
+          "startDate": "2015-12-01 08:00:00",
+          "user_id": testUser.id,
+        });
+        await post.addCategory(6);
+        await post.addPlace(place.id);
         done();
       } catch (e) {
         console.log(e);
@@ -91,8 +100,8 @@ describe('about Category Service .', function() {
 
     it('set post category', async (done) => {
       try {
-        let post = await CategoryService.searchById(7);
-        post.length.should.be.equal(1);
+        let post = await CategoryService.searchById([6, 7]);
+        post.length.should.be.equal(2);
         console.log(post);
         done();
       } catch (e) {

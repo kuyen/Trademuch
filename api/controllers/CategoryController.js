@@ -34,8 +34,9 @@ module.exports = {
 
   filter: async(req, res) => {
     try {
-      let id = req.param('id');
-      let posts = await CategoryService.searchById(id);
+      let ids = req.param('categoryIds');
+      ids = ids.split(',');
+      let posts = await CategoryService.searchById(ids);
       res.ok({
         success: true,
         result: posts,
