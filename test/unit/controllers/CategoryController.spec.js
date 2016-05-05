@@ -8,7 +8,7 @@ describe('about Category Controller operation.', function() {
 
         testUser = await User.create({
           "username": "testuser",
-          "email": '1ss231kjgdlfjgl@gmail.com',
+          "email": '1ss231kjgdglfjgl@gmail.com',
         });
 
 	      post = await Post.create({
@@ -17,6 +17,13 @@ describe('about Category Controller operation.', function() {
           "startDate": "2015-12-01 08:00:00",
           "user_id": testUser.id,
         });
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 0,
+          "longitude": 0,
+        })
+        await post.addPlace(place.id);
         const all = 1;
         await post.addCategory(all);
 
@@ -60,15 +67,23 @@ describe('about Category Controller operation.', function() {
 
   describe('Category search', () => {
 
-    let testUser,post;
+    let testUser, post, category, category2;
     before(async (done) => {
       try {
 
         testUser = await User.create({
           "username": "testuser",
-          "email": '1231kjgdlfjgl@gmail.com',
+          "email": '1231kjgdlfdfjgl@gmail.com',
         });
 
+        category = await Category.create({
+          id: 999,
+          name: 'test',
+        });
+        category2 = await Category.create({
+          id: 9999,
+          name: 'test',
+        });
 	      post = await Post.create({
           "title": "BBB",
           "description": '1231',
@@ -81,7 +96,7 @@ describe('about Category Controller operation.', function() {
           "latitude": 0,
           "longitude": 0,
         })
-        await post.addCategory(7);
+        await post.addCategory(category.id);
         await post.addPlace(place.id);
 
         post = await Post.create({
@@ -90,7 +105,7 @@ describe('about Category Controller operation.', function() {
           "startDate": "2015-12-01 08:00:00",
           "user_id": testUser.id,
         });
-        await post.addCategory(6);
+        await post.addCategory(category2.id);
         await post.addPlace(place.id);
         done();
       } catch (e) {
@@ -102,7 +117,7 @@ describe('about Category Controller operation.', function() {
     it('filter', async (done) => {
       try {
         let result = await request(sails.hooks.http.app)
-        .get('/rest/category/filter?categoryIds=6,7');
+        .get(`/rest/category/filter?categoryIds=${category.id},${category2.id}`);
         console.log(result.body);
         result.body.success.should.be.true;
         result.body.result.length.should.equal(2);

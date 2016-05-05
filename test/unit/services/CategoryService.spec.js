@@ -8,7 +8,7 @@ describe('about Category Service .', function() {
 
         testUser = await User.create({
           "username": "testuser",
-          "email": '1231kjgdlfjgl@gmail.com',
+          "email": '123cc1kjgdlfjgl@gmail.com',
         });
 
 	      post = await Post.create({
@@ -17,6 +17,13 @@ describe('about Category Service .', function() {
           "startDate": "2015-12-01 08:00:00",
           "user_id": testUser.id,
         });
+        let place = await Place.create({
+          "name": 'Test',
+          "address": 'address',
+          "latitude": 0,
+          "longitude": 0,
+        })
+        await post.addPlace(place.id);
         const all = 1;
         await post.addCategory(all);
         done();
@@ -59,13 +66,22 @@ describe('about Category Service .', function() {
 
   describe('Category search', () => {
 
-    let testUser,post;
+    let testUser, post, category, category2;
     before(async (done) => {
       try {
 
         testUser = await User.create({
           "username": "testuser",
-          "email": '1231kjgdlfjgl@gmail.com',
+          "email": '1231kjgdlfjffgl@gmail.com',
+        });
+
+        category = await Category.create({
+          id: 998,
+          name: 'test',
+        });
+        category2 = await Category.create({
+          id: 9998,
+          name: 'test',
         });
 
 	      post = await Post.create({
@@ -80,7 +96,7 @@ describe('about Category Service .', function() {
           "latitude": 0,
           "longitude": 0,
         })
-        await post.addCategory(7);
+        await post.addCategory(category.id);
         await post.addPlace(place.id);
 
         post = await Post.create({
@@ -89,7 +105,7 @@ describe('about Category Service .', function() {
           "startDate": "2015-12-01 08:00:00",
           "user_id": testUser.id,
         });
-        await post.addCategory(6);
+        await post.addCategory(category2.id);
         await post.addPlace(place.id);
         done();
       } catch (e) {
@@ -100,7 +116,7 @@ describe('about Category Service .', function() {
 
     it('set post category', async (done) => {
       try {
-        let post = await CategoryService.searchById([6, 7]);
+        let post = await CategoryService.searchById([category.id, category2.id]);
         post.length.should.be.equal(2);
         console.log(post);
         done();

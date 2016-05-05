@@ -30,6 +30,7 @@ module.exports = {
         },{
           model: Place,
         }],
+        order: 'createdAt DESC',
       });
       post = await PostService.postListFormat(post);
       return post;
