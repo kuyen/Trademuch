@@ -4,10 +4,14 @@ module.exports = {
     try {
       let list = await CategoryService.list();
       res.ok({
+        success: true,
         result: list,
       });
     } catch (e) {
-      res.serverError(e);
+      res.serverError({
+        success: false,
+        msg: e
+      });
     }
   },
 
@@ -21,7 +25,10 @@ module.exports = {
         success: true,
       });
     } catch (e) {
-      res.serverError(e);
+      res.serverError({
+        success: false,
+        msg: e
+      });
     }
   },
 
@@ -34,7 +41,10 @@ module.exports = {
         result: posts,
       })
     } catch (e) {
-      res.serverError(e);
+      res.serverError({
+        success: false,
+        msg: e
+      });
     }
   },
 }
