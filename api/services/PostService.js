@@ -49,7 +49,7 @@ module.exports = {
         }],
         order: 'createdAt DESC'
       });
-      sails.log.error("getPost[0]=>", JSON.stringify(getPost,null,2));
+      // sails.log.info("getPost[0]=>", JSON.stringify(getPost[0],null,2));
 
       let postArray = getPost.map((post) => {
         let pic = post.coverImage;
