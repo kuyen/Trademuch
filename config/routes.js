@@ -143,6 +143,13 @@
    'put /rest/trade/:postId': 'TradeRecordController.action',
    //==================================================================
 
+   // Category
+   //==================================================================
+   'get /rest/category': 'CategoryController.list',
+   'get /rest/category/filter': 'CategoryController.filter',
+   'put /rest/category': 'CategoryController.add',
+   //==================================================================
+
 
    /***************************************************************************
     *                                                                          *

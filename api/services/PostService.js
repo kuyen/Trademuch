@@ -19,6 +19,8 @@ module.exports = {
         coverImage: data.images
       });
       await post.addPlace(place.id);
+      const all = 1;
+      await post.addCategory(all);
       if (sails.config.elasticsearch.open || false) {
         await ElasticsearchService.addPost({
           id: post.id,
