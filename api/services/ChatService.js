@@ -33,10 +33,10 @@ module.exports = {
 
       let post = await Post.findById(data.postId);
       history.empty = false;
-      let tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
+      let fbId, tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
       // let now = new Date(),
       //   nDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-      let nDate = sails.moment().format("YYYY-MM-DD");
+      // let nDate = sails.moment().format("YYYY-MM-DD");
 
       for (let chat of chats) {
         const loginUser = data.userId;
@@ -52,27 +52,24 @@ module.exports = {
         tDate = sails.moment(tCal).format("YYYY-MM-DD");
         tTime = sails.moment(tCal).format("HH:mm");
 
-        if (nDate == tDate) tDate = "Today";
-        if (nDate.toString().split("-")[2] - tDate.toString().split("-")[2] == 1) tDate = "Yesterday";
-
         // find user
         tUser = await User.findOne({
           where: {
             id: chat.user_id
           }
         });
+        fbId = await UserService.getFBId(tUser.id);
 
         // reassemble user info with fbId
         tUser_fb = {
           id: tUser.id,
           email: tUser.email,
           fullName: tUser.fullName,
-          gender: tUser.gender,
           username: tUser.username,
-          telephone: tUser.telephone,
-          age: tUser.age
+          gender: tUser.gender,
+          fbId,
+          avatar: tUser.avatar || '//graph.facebook.com/' + fbId + '/picture?type=large',
         }
-        // tUser_fb.fbId = await UserService.getFBId(tUser.id);
 
         tResult = {
           id: chat.id,
@@ -80,9 +77,10 @@ module.exports = {
           type: chat.type,
           content: chat.content,
           room_id: chat.room_id,
-          user: tUser_fb,
+          dateTime: chat.created_at,
           date: tDate,
-          time: tTime
+          time: tTime,
+          user: tUser_fb,
         }
         result.push(tResult);
 

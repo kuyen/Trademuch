@@ -55,7 +55,7 @@ module.exports = {
       const user = await UserService.getLoginUser(req);
       userId = user.id;
     }
-    
+
     try {
       let history = await ChatService.history({
         socketId,
@@ -190,18 +190,45 @@ module.exports = {
           'type': 'public'
         });
 
-        sails.log.info('RoomService.public:user=>', user.username);
+        sails.log.info('ChatController.public:user=>', user);
 
-        sails.sockets.broadcast(postId, "public", {
+        await sails.sockets.broadcast(postId, "public", {
           'user': user,
           'content': content
         }, req);
 
-        return res.ok({
-          chat,
-          user,
-          message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId
-        });
+        let tCal = sails.moment(chat.created_at.toString());
+        let tDate = sails.moment(tCal).format("YYYY-MM-DD");
+        let tTime = sails.moment(tCal).format("HH:mm");
+
+        let outputChat = {
+          id: chat.id,
+          uuid: chat.uuid,
+          type: chat.type,
+          content: chat.content,
+          room_id: chat.room_id,
+          date: tDate,
+          time: tTime,
+          dateTime: chat.created_at,
+          user: {
+            id: user.id,
+            email: user.email,
+            fullName: user.fullName,
+            gender: user.gender,
+            username: user.username,
+            avatar: user.avatar || '//graph.facebook.com/' + user.fbId + '/picture?type=large',
+          },
+          message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId,
+        }
+
+        return res.ok(outputChat);
+
+        // return res.ok({
+        //   outputChat,
+        //   chat,
+        //   user,
+        //   message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId
+        // });
       } catch (e) {
         res.serverError(e.stack.toString());
       }

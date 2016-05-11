@@ -131,9 +131,9 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
 
     // received
     chat.on('public', function(data) {
-      console.log('public =>', data)
-      console.log('public =>', data.content)
-      console.log('public =>', data.user.fbId)
+      console.log('public data=>', data)
+      console.log('public data.content=>', data.content)
+      console.log('public data.user=>', data.user)
 
       // Add message
       window.myMessages.addMessage({
@@ -142,7 +142,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
         // Random message type
         type: "received",
         // Avatar and name:
-        avatar: '//graph.facebook.com/' + data.user.fbId + '/picture?type=large',
+        avatar: data.user.avatar,
         name: data.user.fullName,
         // Day
         day: !conversationStarted ? 'Today' : false,
@@ -271,7 +271,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
             // type: "received",
             type: "sent",
             // Avatar and name:
-            avatar: 'http://graph.facebook.com/' + body.user.fbId + '/picture?type=large',
+            avatar: body.user.avatar,
             name: body.user.fullName,
             // Day
             day: !conversationStarted ? 'Today' : false,
