@@ -23,7 +23,6 @@
             -var tDate="";
             each chat,index in history.result 
               -console.log("!!!!!!!!!!!! chat.jade load index=>",index);
-              -console.log("!!!!!!!!!!!! chat.jade chat.user=>",chat.user);
               
               -if( index>0 ) tDate = history.result[index-1].date
                 -if( tDate!=chat.date ) second=true;
@@ -36,7 +35,7 @@
                     span #{chat.time}
                 .message.message-sent
                   .message-text(data-date="#{chat.date}",data-time="#{chat.time}") #{chat.content}
-                  .message-avatar(style='background-image:url("#{chat.user.avatar}")')
+                  .message-avatar(style='background-image:url(#{chat.user.avatar})')
               -else   
                 -if( index==0 || second )
                   .messages-date
@@ -45,7 +44,7 @@
                 .message.message-received
                   .message-name #{chat.user.username}
                   .message-text(data-date="#{chat.date}",data-time="#{chat.time}") #{chat.content}
-                  .message-avatar(style='background-image:url("#{chat.user.avatar}")')
+                  .message-avatar(style='background-image:url(#{chat.user.avatar})')
 
     .info 
       -if(user.fbId)

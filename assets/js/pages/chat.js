@@ -74,8 +74,8 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
   }
 
   // listen event join
-  chat.on('connect', function(data) {
-    console.log('connect =>', data);
+  chat.on('connect', function() {
+    console.log('connect sucessed.');
 
     // reassemble post id
     // var postId = window.location.pathname.split("/")[3];
@@ -204,16 +204,6 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
       // Empty messagebar
       myMessagebar.clear()
 
-      // Random message type
-      // var messageType = (['sent', 'received'])[Math.round(Math.random())];
-
-      // Avatar and name for received message
-      // var avatar, name;
-      // if (messageType === 'received') {
-      //   avatar = 'http://lorempixel.com/output/people-q-c-100-100-9.jpg';
-      //   name = 'Kate';
-      // }
-
       // var postId = window.location.pathname.split("/")[3];
       var postId = myApp.getCurrentView().url.split("/")[2];
 
@@ -252,7 +242,6 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
           })
         });
         return false;
-        ㄉ
       }
 
       //public
@@ -260,6 +249,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
           'content': messageText
         },
         function(body, sailsResponseObject) {
+          console.log('body.user.avatar: ', body.user.avatar);
           console.log('Sails responded with: ', body);
           console.log('and with status code: ', sailsResponseObject.statusCode);
 
@@ -268,7 +258,6 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
             // Message text
             text: messageText,
             // Random message type
-            // type: "received",
             type: "sent",
             // Avatar and name:
             avatar: body.user.avatar,
@@ -280,12 +269,7 @@ var initPage = myApp.onPageAfterAnimation('chat', function(page) {
 
           // Update conversation flag
           conversationStarted = true;
-
         });
-
     }); // end click
-
   }
-
-
 });

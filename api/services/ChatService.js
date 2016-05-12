@@ -34,9 +34,6 @@ module.exports = {
       let post = await Post.findById(data.postId);
       history.empty = false;
       let fbId, tUser, tUser_fb, tCal, tDate, tTime, tResult, result = [];
-      // let now = new Date(),
-      //   nDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-      // let nDate = sails.moment().format("YYYY-MM-DD");
 
       for (let chat of chats) {
         const loginUser = data.userId;
@@ -46,9 +43,7 @@ module.exports = {
           await chat.save();
         }
 
-        tCal = sails.moment(chat.created_at.toString());
-        // tDate = tCal.getFullYear() + "-" + (tCal.getMonth() + 1) + "-" + tCal.getDate();
-        // tTime = tCal.getHours() + ":" + tCal.getMinutes();
+        tCal = sails.moment(new Date(chat.created_at.toString()));
         tDate = sails.moment(tCal).format("YYYY-MM-DD");
         tTime = sails.moment(tCal).format("HH:mm");
 
@@ -58,7 +53,7 @@ module.exports = {
             id: chat.user_id
           }
         });
-        fbId = await UserService.getFBId(tUser.id);
+        fbId = await UserService.getFBId(chat.user_id);
 
         // reassemble user info with fbId
         tUser_fb = {
@@ -67,8 +62,8 @@ module.exports = {
           fullName: tUser.fullName,
           username: tUser.username,
           gender: tUser.gender,
-          fbId,
-          avatar: tUser.avatar || '//graph.facebook.com/' + fbId + '/picture?type=large',
+          fbId: fbId,
+          avatar: tUser.avatar || 'http://graph.facebook.com/' + fbId + '/picture?type=large',
         }
 
         tResult = {
@@ -84,7 +79,7 @@ module.exports = {
         }
         result.push(tResult);
 
-        sails.log.error('result =>' + JSON.stringify(tResult));
+        sails.log.info(chat.id + 'result =>' + JSON.stringify(tResult));
       }
       history.result = result;
 
@@ -123,7 +118,7 @@ module.exports = {
     } catch (e) {
       throw e
     }
-  },
+  }, // lastOnehistory
 
   getPostChatCountById: async(uuid, userId) => {
     try {
@@ -148,6 +143,6 @@ module.exports = {
     } catch (e) {
       throw e
     }
-  },
+  }, // getPostChatCountById
 
 };

@@ -110,27 +110,27 @@ module.exports = {
         postId,
         user
       });
-      sails.log.info('leaveRoom', room);
 
       if (!room) {
-        throw Error('leave room `' + postId + '` failed.');
-      }
+        throw Error('room `' + postId + '` is not exists! leave failed.');
+      } else {
+        sails.log.info('leaveRoom =>', room);
 
-      sails.sockets.leave(req, postId, function(err) {
-        if (err) {
-          throw Error(err);
-        }
-        sails.sockets.broadcast(postId, "leave", {
-          room,
-          'message': room.user.username + " leaved."
+        sails.sockets.leave(req, postId, function(err) {
+          if (err) {
+            throw Error(err);
+          }
+          sails.sockets.broadcast(postId, "leave", {
+            room,
+            'message': room.user.username + " leaved."
+          });
         });
-      });
+      }
 
       return res.ok({
         room,
-        message: 'leaved room ' + room.id + '!'
+        message: room.user.username + ' leaved room ' + room.id + '!'
       });
-
     } catch (e) {
       res.serverError(e.toString());
     }

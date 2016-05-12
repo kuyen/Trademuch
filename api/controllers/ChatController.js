@@ -20,6 +20,8 @@ module.exports = {
         user.fbId = userFBId;
         sails.log.info("==== logined User is ===>", user);
 
+        if (!user.avatar) user.avatar = 'http://graph.facebook.com/' + user.fbId + '/picture?type=large';
+
         history = await ChatService.history({
           socketId,
           postId,
@@ -176,9 +178,8 @@ module.exports = {
         sails.log.info('ChatController.public:content=>', content);
 
         let user = await UserService.getLoginUser(req);
-        // let userFBId = await UserService.getFBId(user.id);
-        // user.fbId = userFBId;
-        let room = await Room.findOne({
+        let fbId = await UserService.getFBId(user.id);
+        const room = await Room.findOne({
           where: {
             uuid: postId
           }
@@ -197,12 +198,13 @@ module.exports = {
           'content': content
         }, req);
 
-        let tCal = sails.moment(chat.created_at.toString());
-        let tDate = sails.moment(tCal).format("YYYY-MM-DD");
-        let tTime = sails.moment(tCal).format("HH:mm");
+        tCal = sails.moment(new Date(chat.created_at.toString()));
+        tDate = sails.moment(tCal).format("YYYY-MM-DD");
+        tTime = sails.moment(tCal).format("HH:mm");
 
         let outputChat = {
           id: chat.id,
+          fbId: fbId,
           uuid: chat.uuid,
           type: chat.type,
           content: chat.content,
@@ -216,19 +218,12 @@ module.exports = {
             fullName: user.fullName,
             gender: user.gender,
             username: user.username,
-            avatar: user.avatar || '//graph.facebook.com/' + user.fbId + '/picture?type=large',
+            avatar: user.avatar || 'http://graph.facebook.com/' + fbId + '/picture?type=large',
           },
           message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId,
         }
 
         return res.ok(outputChat);
-
-        // return res.ok({
-        //   outputChat,
-        //   chat,
-        //   user,
-        //   message: 'user\'' + user.username + '\' says ' + content + ' to room uuid ' + postId
-        // });
       } catch (e) {
         res.serverError(e.stack.toString());
       }

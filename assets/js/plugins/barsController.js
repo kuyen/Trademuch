@@ -8,9 +8,6 @@
     };
     pluginLog(tag, 'loaded');
 
-    // expose method
-    // initBarsController();
-
     return {
       hooks: {
         appInit: function() {
