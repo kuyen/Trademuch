@@ -40,6 +40,7 @@ html
     // ------------------------ og tags
     -var desc = "WELCOME TO TRADEMUCH! SHARE EVERYTHING AROUND YOUR NEARBY LOCATIONS! :)";
     -var title = "TradeMuch";
+    -var href = window.location.href;
     // for Google
     meta(name='description', content=desc)
     meta(name='keywords', content=title)
@@ -50,17 +51,17 @@ html
     meta(property='og:title', content=title)
     meta(property='og:type', content='website')
     meta(property='og:description', content='test')
-    meta(property='og:image', content='http://qa.trademuch.co.uk/app/img/splash-fb-1120x584.png')
+    meta(property='og:image', content='http://qa.trademuch.co.uk/img/splash-fb-1120x584.png')
     meta(property='og:image:type', content='image/png')
     meta(property='og:image:width', content='1120')
     meta(property='og:image:height', content='584')
-    meta(property='og:url', content='http://qa.trademuch.co.uk/app')
+    meta(property='og:url', content=href)
     meta(property='fb:app_id', content='915539495181624')
     // for Twitter
     meta(name='twitter:card', content='summary')
     meta(name='twitter:title', content=title)
     meta(name='twitter:description', content=desc)
-    meta(name='twitter:image', content='/img/splash-fb-1120x584.png')
+    meta(name='twitter:image', content='http://qa.trademuch.co.uk/img/splash-fb-1120x584.png')
       
     
     <!--[if lt IE 9]>

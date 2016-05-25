@@ -6,9 +6,9 @@ head
   -var title = post.title;
   -var desc = post.content;
   -var image = 'http://qa.trademuch.co.uk/' + post.gallery;
-  -var webSiteLink = 'http://qa.trademuch.co.uk/app';
+  -var webSiteLink = window.location.href;
   -var itemLink = 'http://qa.trademuch.co.uk/app/post/' + post.id;
-  -var snsLink = 'http://qa.trademuch.co.uk/sns/post/' + post.id;
+  -var snsLink =  window.location.href + post.id;
   
   // for Google
   meta(name='description', content=desc)
@@ -23,8 +23,8 @@ head
   meta(property='og:type', content='article')
   meta(property='article:section', content='物品')
   meta(property='article:publisher', content=webSiteLink)
-  meta(property='article:published_time', content=now)
-  meta(property='article:modified_time', content=now)
+  //- meta(property='article:published_time', content=now)
+  //- meta(property='article:modified_time', content=now)
   meta(property='og:site_name', content='TradeMuch - 分享你的生活')
   meta(property='og:url', content=snsLink)
   meta(property='og:title', content=title)
