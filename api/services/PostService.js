@@ -111,6 +111,7 @@ module.exports = {
         type_icon: "../icons/give.png",
         gallery: pic,
         content: post.content || '',
+        description: post.description || '',
         itemname: post.title || '',
         username: post.User.username || post.User.fullName || post.User.fullName,
         email: post.User.email || '',

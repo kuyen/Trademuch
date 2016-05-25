@@ -4,9 +4,9 @@ head
   
   -var now = new Date();
   -var title = post.title;
-  -var desc = post.content;
+  -var desc = post.description || post.content;
   -var image = 'http://qa.trademuch.co.uk/' + post.gallery;
-  -var webSiteLink = 'http://qa.trademuch.co.uk/app/';
+  -var webSiteLink = 'http://qa.trademuch.co.uk/';
   -var itemLink = 'http://qa.trademuch.co.uk/app/post/' + post.id;
   -var snsLink =  'http://qa.trademuch.co.uk/sns/post/' + post.id;
   
@@ -19,7 +19,6 @@ head
   // for Facebook
   //- meta(property='og:updated_time', content=now)
   meta(property='og:locale', content='zh_TW')
-  meta(property='og:title', content=title)
   meta(property='og:type', content='article')
   meta(property='article:section', content='物品')
   meta(property='article:publisher', content=webSiteLink)
@@ -27,7 +26,7 @@ head
   //- meta(property='article:modified_time', content=now)
   meta(property='og:site_name', content='TradeMuch - 分享你的生活')
   meta(property='og:url', content=snsLink)
-  meta(property='og:title', content='TradeMuch')
+  meta(property='og:title', content=title)
   meta(property='og:description', content=desc)
   meta(property='og:image', content=image)
   meta(property='og:image:type', content='image/png')
