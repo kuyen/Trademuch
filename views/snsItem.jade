@@ -5,8 +5,10 @@ head
   -var now = new Date();
   -var title = post.title;
   -var desc = post.content;
-  -var image = post.gallery;
-  -var link = 'http://qa.trademuch.co.uk/app/post/post.id';
+  -var image = 'http://qa.trademuch.co.uk/' + post.gallery;
+  -var webSiteLink = 'http://qa.trademuch.co.uk/app';
+  -var itemLink = 'http://qa.trademuch.co.uk/app/post/' + post.id;
+  -var snsLink = 'http://qa.trademuch.co.uk/sns/post/' + post.id;
   
   // for Google
   meta(name='description', content=desc)
@@ -20,11 +22,11 @@ head
   meta(property='og:title', content=title)
   meta(property='og:type', content='article')
   meta(property='article:section', content='物品')
-  meta(property='article:publisher', content=link)
+  meta(property='article:publisher', content=webSiteLink)
   meta(property='article:published_time', content=now)
   meta(property='article:modified_time', content=now)
   meta(property='og:site_name', content='TradeMuch - 分享你的生活')
-  meta(property='og:url', content=link)
+  meta(property='og:url', content=snsLink)
   meta(property='og:title', content=title)
   meta(property='og:description', content=desc)
   meta(property='og:image', content=image)
