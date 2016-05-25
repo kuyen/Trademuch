@@ -17,6 +17,17 @@ head
   link(rel='stylesheet', href='styles/landing/scrollyeah.min.css', type='text/css')
   link(rel='stylesheet', href='styles/landing/custom.css', type='text/css')
   body(data-spy='scroll', data-target='.navbar-collapse', data-offset='76')
+    // Google Tag Manager
+    noscript
+      iframe(src='//www.googletagmanager.com/ns.html?id=GTM-NL6C98', height='0', width='0', style='display:none;visibility:hidden')
+    script.
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-NL6C98');
+    // End Google Tag Manager
+    
     section#header
       nav.navbar.navbar-barnaul
         .container
@@ -183,3 +194,4 @@ head
     script(src='styles/landing/css/fitvids/jquery.fitvids.js', type='text/javascript')
     script(src='styles/landing/css/jquery-validation/dist/jquery.validate.min.js', type='text/javascript')
     script(src='styles/landing/css/jquery-loadTemplate/jquery.loadTemplate-1.5.0.min.js', type='text/javascript')
+    script(src="/js/ga.js")

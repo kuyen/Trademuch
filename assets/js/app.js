@@ -55,6 +55,7 @@ var myApp = new Framework7({
   disableSocketAutoConnection: true,
   backTopBtn: false,
   fbSupport: true,
+  googleAnalytics: true,
   barsController: true,
   upscroller: {
     text: 'Go to Top'

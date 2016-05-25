@@ -55,6 +55,9 @@
      view: 'landing/learnMore'
    },
 
+  // for sns sharing
+  'get /sns/post/:id': 'FrontPostController.showSns',
+
    // image
    'get /testUpload': 'ImageController.index',
    'post /api/uploadImage': 'ImageController.upload',

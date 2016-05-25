@@ -53,6 +53,7 @@ module.exports.policies = {
     'getPostById': [],
     'getPostByKeyword': [],
     'show': [],
+    'showSns' : [],
   },
   'ImageController': {
     'upload': []

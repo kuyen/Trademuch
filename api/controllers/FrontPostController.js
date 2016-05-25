@@ -9,6 +9,19 @@ module.exports = {
     }
   },
 
+  showSns: async(req, res) => {
+    try {
+      console.log("==== getPostById ===", req.param('id'));
+      let post = await PostService.getPostById(req.param('id'));
+      res.view('snsItem', {
+        post,
+      });
+    } catch (e) {
+      sails.log.error(e);
+      res.serverError(e);
+    }
+  },
+
   show: async(req, res) => {
     try {
       console.log("==== getPostById ===", req.param('id'));
